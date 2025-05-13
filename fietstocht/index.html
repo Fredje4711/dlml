@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+ <head>
+ 
+ 
+  <title>Gezellige fietstocht</title>                                                <!--             titel website                 -->
+
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <META NAME="Keywords" CONTENT="diabetesligamiddenlimburg, diabetesligamiddenlimburg.be , Diabetes,  Diabetes Liga, Middden-Limburg, locale afdeling,">
+  <META NAME="Description" CONTENT="Diabetes Liga afdeling Midden-Limburg obesitaschirurgie">
+  <META NAME="Robots" CONTENT="index, follow, all"> 
+  <META NAME="Author" CONTENT="diabetes liga locale afdeling Midden-limburg">
+  <META NAME="Reply-to" CONTENT="info@dlml.be">
+  <META NAME="Identifier-URL" CONTENT="www.dlml.be/Diabetes & fietstocht">   <!--             titel website                 -->
+  
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+   
+ <style>
+  
+    html, body {
+      background-color:#ffffff; color:#333;
+	  font-family: 'Roboto', sans-serif;
+      font-size:17px; font-weight: 500; line-height:19px;
+	  text-align: center;
+      white-space:nowrap; }
+	
+	#content {
+      display:block;
+      width: 650px; height:auto;  margin: 10px 10px;
+      background-color:#afeeee; color:#333;  }
+     
+     #top { 
+	  display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width:650px; height:auto;
+      background-color: #663ab7; color:#ffffff;
+	  }
+	
+	#top div:nth-child(1) { width:100%; padding: 10px 0px 3px 0px; font-size:32px; line-height:34px;  }
+    #top div:nth-child(2) { width:100%; padding: 2px 0px 5px 0px; font-size:26px; line-height:28px;  }
+    #top div:nth-child(3) { width:100%; height:10px;  }
+    #top div:nth-child(n + 4) { padding: 1px 10px 1px 10px; font-size:18px; line-height:18px;   }
+    #top div:nth-child(6) { width:100%; height:1px;  }
+    #top div:nth-child(9) { width:100%;  font-size:22px; line-height:22px;  }
+    
+  
+	#myForm { 
+	  display:block; position:relative;
+	  width:520px; height:auto;
+	  padding: 20px 20px 20px 25px;
+	  left:45px; top:-16px;background-color:#ffffff; 
+	  font-size:17px; font-weight: 400; line-height: 18px;  
+	  border-top:6px #b388ff solid;
+	  border-right:1px #B388FF solid;
+	  border-left:1px #B388FF solid;
+	  border-bottom:1px #b388ff solid; 
+	  text-align:left;}
+  
+	#myForm > *   { display:block; margin: 3px 0px 3px 0px;  }
+	#myForm .inln { margin: 3px 0px 3px 0px; }	
+	#myForm .lnfd { margin: 3px 0px 22px 0px;}	
+
+	label { position: relative; }
+    label span { 
+	  visibility:hidden; 
+	  position:relative; left: 8px; top:9px;
+	  font-size:15px; font-weight:600; 
+	  color:#ff0000; background-color:#ffffff; }	    
+	
+	input[type=text], input[type=text], textarea {
+      font-size:17px; line-height:19px; font-weight:500;
+	  border: 1px #a0a0c0 solid;
+      outline:0px #ffffff solid;  }       
+  	
+	input::placeholder { 
+      font-size: 13px; font-weight: bold;
+	  opacity: 0.8; color: gray;  }
+
+	#btnSubmit {
+      display:none;
+      text-align:center;
+      font-size:22px; font-weight:500; line-height: 28px;
+      padding: 2px 18px 2px 18px; 
+      background-color:#ffffff; color:#333; 
+      border: 2px #333 solid;
+      border-radius: 5px; } 
+  
+    #fakeBtnSubmit {
+      display:block;
+      text-align:center;
+      font-size:22px; line-height: 28px; font-weight:400;
+      padding: 2px 18px 2px 18px; 
+      background-color:#f2f2f2; color:#d8d8d8; 
+      border: 2px #d8d8d8 solid;
+      border-radius: 5px;} 
+    
+    #txtFakeBtnSubmit {
+      display:block; visibility:visible;
+	  font-size:14px; line-height: 18px; font-weight:400;
+      padding: 1px 0 3px 0px; color:#ff0000 } 
+	  
+    #txtVerplicht {
+	  display:block;   
+	  font-size:14px; font-weight: 400; line-height: 16px; }
+	
+	
+    #logoDL {
+	  display:block;position : absolute ; 
+	  top:10px; right:30px;  
+	  width: 180px; height:60px; }   
+
+    #containerBevestiging {
+	  display:grid; position: absolute;
+	  visibility: hidden; z-index:99;
+	  left:0px; top:0px; right:0px; bottom:0px;
+	  grid-template-columns: minmax( 480px, auto);
+	  grid-template-rows: auto 135px;
+	  justify-content: center; align-content: end;
+	  background-color: rgba( 135, 206, 250, 0.2 ) ; }
+	   
+    #bevestiging {
+	  background-color: #ffffff; color: #000000; 
+	  background-image: linear-gradient(to bottom, #7b68ee , #7b68ee );
+      background-size: 100% 42px;
+      background-position: top left;
+	  background-repeat:no-repeat;
+      border: 2px solid #333;
+	  border-radius: 7px;  }
+
+    #bevestiging:hover, #btnOK:hover { cursor: pointer; }	
+	
+	#bevestigingTitel {
+	  justify-self: center; padding: 11px 25px;
+	  font-size: 20px;  line-height:22px; font-weight: 400;
+      background-color:transparent; color:#ffffff; 
+	  text-align:center; }
+	
+	#bevestigingMsg {
+	  justify-self: start;
+	  padding: 24px 25px 12px 15px; text-align:left;
+	  font-size: 18px;  line-height:22px; font-weight: 500;
+      }
+  	
+	#bevestiging #btnOK {
+	  justify-self: end;
+	  display:block; float: right;
+	  font-size: 18px;  line-height:22px; font-weight: 500;
+      background-color:#e4e4e4; color:#333;
+	  border:1px #333 solid;
+	  border-radius: 3px;
+	  padding: 3px 25px;
+	  margin: 2px 15px 12px 0px;  }	                                                              
+ 
+  </style>
+   
+
+ </head>
+  <body>
+  
+  <div id="content">
+    
+    <div id="top">
+	  <div>Inschrijving</div>                          <!--                          -->
+      <div>GEZELLIG FIETSEN DOOR MIDDEN-LIMBURG</div>             <!--                          -->
+	  <div>&nbsp;</div> 
+	  <div>Zaterdag 20 september 2025</div>                       <!--    strDatum              -->
+      <div>parking Kinderboerderij Kiewit</div>                   <!--    strPlaats             -->
+      <div>&nbsp;</div>
+	  <div>14.00 u - 17.00 u</div>                                <!--    strUur                -->
+      <div>Putvennestraat 110, 3500 Hasselt</div>                 <!--    strAdres              -->
+      <div>&nbsp;</div>
+    </div>
+		
+	<div id="filenaam" style="display:none;">lijst4fietstocht</div>                <!--         -->
+	<div id="checkafzender" style="display:none;">checkAfzender20092025</div>   <!--         -->
+	
+	
+    <!--  ****************     validation link    !!!!!!    php adres  ***  -->  <!--         -->
+    <form id="myForm" action="https://www.dlml.be/fietstocht/php4fietstocht.php" accept-charset="utf-8" >          <!--         -->
+	
+	  <label class="lnfd" for="naam" >
+	    Naam (*)
+	  	<span>&nbsp;gelieve uw naam in te vullen!&nbsp;</span><br>
+	    <input type="text" id="naam" size="30" placeholder="naam">
+      </label>
+
+	  <label class="lnfd" for="voornaam">
+	    Voornaam<br>
+	    <input type="text" id="voornaam" size="25"  >
+      </label>
+            
+      <label class="lnfd" for="email">
+	    e-mail <br>
+	    <input type="text" id="email" size="40" >
+      </label>
+            
+      <label class="lnfd" for="tel">
+	    Tel/GSM<br>
+	    <input type="text" id="tel" size="25" >
+      </label>
+   	  
+      <label class="lnfd">
+	    Aantal fietsers (*)
+		<span style="left:10px; top:0px;">&nbsp;gelieve het aantal deelnemers te vermelden!&nbsp;</span><br>
+	    <input type="text"  id="aantal" style="display:inline-block; margin:2px 0px;" size="8" value="" >
+	    &nbsp; gratis<br>
+	  </label>
+	  
+	  <label class="lnfd">
+	    Etentje achteraf Koe-Vert<br>
+	    <input type="text"  id="aantalEten" style="display:inline-block;" size="8" value="" >
+		facultatief, ter plaatse te betalen
+      </label>
+		
+	 <label class="lnfd" for="opmerkingen">
+	  opmerkingen<br>
+      <textarea id="opmerkingen" cols="35" rows="6" style="resize: none; "></textarea>
+      </label>                             
+		    
+      <button id="btnSubmit" type="submit" >Inschrijven</button>  
+      <button id="fakeBtnSubmit" type="button" >Inschrijven</button>
+      
+	  <div id="txtFakeBtnSubmit">Gelieve alle verplichte velden in te vullen</div>  
+    
+      <div id="txtVerplicht">
+	    &nbsp;(*) velden zijn verplicht<br>
+      </div>
+	  
+	  <div style="width:100%; height:40px;">&nbsp;</div>
+     	  
+      <img id="logoDL" alt="" src="../site/image/DLML_ZBT.png">
+           
+      
+	  
+	  <div id="containerBevestiging">
+        <div id="bevestiging">
+	      <div id="bevestigingTitel">&nbsp;</div>
+	      <div id="bevestigingMsg">Inschrijving</div>
+	      <div id="btnOK">Ok</div>  
+        </div>
+	  </div>
+     
+    </form>
+	 
+  	<div style="width:100%; height:25px;">&nbsp;</div>
+  
+  </div> 
+   
+   <!-- *************** script files  ********************************* -->
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+  <script src="https://code.jquery.com/jquery.min.js"> </script>
+ 
+  <script src="http://code.jquery.com/jquery-latest.js"></script>  
+  <script src="https://www.dlml.be/fietstocht/jquery.selection.js"></script>
+  
+  <script> 
+    
+    var charAantal = '0123456789'; 
+    var charTel = '0123456789 ,.:/+' ;
+
+    $(document).ready(function(e){
+	
+    var prvNaam = '' ;
+	var newNaam = '' ;
+	
+	var prvVoornaam = '' ;
+	var newVoornaam = '' ;
+	
+	// naam check asc code   
+    $('#naam').on('keypress' , function (e) {
+	  prvNaam = $(this).val() ;
+	  var regex = new RegExp("^[a-zA-Z0-9 éèëàùç\'\s]+$");
+	  var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+	  if (regex.test(str)) {
+	    return true;
+		} else {
+        e.preventDefault();
+		return false;
+		}
+	  }); 
+	  
+	// voornaam check asc code   
+    $('#voornaam').on('keypress' , function (e) {
+	  prvVoornaam = $(this).val() ;
+	  var regex = new RegExp("^[a-zA-Z0-9 éèëàùç\'\s]+$");
+	  var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+	  if (regex.test(str)) {
+	    return true;
+		} else {
+        e.preventDefault();
+		return false;
+		}
+	  }); 
+	  
+	// naam hoofdletters   + set Btn submit   
+    $('#naam').on( 'keyup', function(e) {
+	  newNaam = $(this).val();
+	  if ( newNaam.length == 1 ) {  $(this).val( newNaam.toUpperCase() ) ; };
+      if ( prvNaam ==  newNaam.slice(0,-1)  ) {
+		if ( prvNaam.slice(-1) == ' ' ) {
+		  $(this).val( newNaam.slice(0,-1) + newNaam.slice(-1).toUpperCase() ) ;
+		  }
+	    }   
+	  $.fn.setBtnSubmit (); 
+	  });
+	
+	// voornaam hoofdletters   + set Btn submit   
+    $('#voornaam').on( 'keyup', function(e) {
+	  newVoornaam = $(this).val();
+	  if ( newVoornaam.length == 1 ) {  $(this).val( newVoornaam.toUpperCase() ) ; };
+      if ( prvVoornaam ==  newVoornaam.slice(0,-1)  ) {
+		if ( prvVoornaam.slice(-1) == ' ' ) {
+		  $(this).val( newVoornaam.slice(0,-1) + newVoornaam.slice(-1).toUpperCase() ) ;
+		  }
+	    }   
+	  $.fn.setBtnSubmit (); 
+	   });
+	
+	// mailadres characters     
+	$('#email').on('keypress' , function (e) {
+	  var regex = new RegExp("^[a-zA-Z0-9@\.\_]+$");
+	  var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+	  if (regex.test(str)) {
+		return true;
+		} else {
+		e.preventDefault();
+		return false;
+		}
+      });		
+    
+	// tel             
+	$('#tel').on('keypress', function (e)  {
+      var key = String.fromCharCode(e.keyCode);
+      return  charTel.indexOf(key) >= 0 ;
+      });    
+	
+    //aantal  alleen cijfers  
+    $('#aantal').on('keypress', function (e)  {
+      var key = String.fromCharCode(e.keyCode);
+      return  charAantal.indexOf(key) >= 0 ;
+      }); 
+	  
+    //aantal change set Btn submit  
+	$('#aantal').on( 'keyup', function(e) {
+      $.fn.setBtnSubmit();
+      }); 
+	  
+    //aantal  prevent cut copy paste   
+	$('#aantal').on( 'cut copy paste', function(e) {
+	  e.preventDefault();
+	  });
+	
+	// on focus naam email  aantal   
+	$('#naam').on('focus' ,  function () {
+	  $(this).css('border','1px #a0a0c0 solid') ;
+	  $(this).parent().find('span').css('visibility','hidden');
+	  });
+	
+	$('#aantal').on('click' ,  function () {
+	  $('#aantal').css('border','1px #a0a0c0 solid') ;
+	  $('#aantal').parent().find('span').css('visibility','hidden');
+      });
+
+	// submit form           
+    $("#myForm").submit (function (event) {
+      event.preventDefault();
+	   
+	  var url = $(this).attr("action");
+	  
+      var data = {};
+      data['strCheckAfzender']  =  $('#checkafzender').html() ;   
+	   
+	  data['strInschrijving']  = $('#top div:nth-child(1)').html() ;
+	  data['strTitel']         = $('#top div:nth-child(2)').html() ;
+	  data['strDatum']         = $('#top div:nth-child(4)').html() ;
+	  data['strPlaats']        = $('#top div:nth-child(5)').html() ;
+	  data['strUur']           = $('#top div:nth-child(7)').html() ;
+	  data['strAdres']         = $('#top div:nth-child(8)').html() ;
+	  data['strFileNaam']      = $('#filenaam').html();
+	   
+	  data['strNaam']           = $('#naam').val() ;
+      data['strVoornaam']       = $('#voornaam').val() ;
+      data['strMail']           = $('#email').val() ;
+      data['strTel']            = $('#tel').val() ;
+      data['strAantal']         = $('#aantal').val() ;
+	  data['strAantalEten']     = $('#aantalEten').val() ;
+	  data['strBedrag']         = $('#bedrag').html() ;
+	  data['strOpmerkingen']    = $('#opmerkingen').val() ;
+ 
+ 	  $.ajax({  
+        type: 'POST',  
+        url: url , 
+		data: data ,
+        success: function(response) {
+	      $('#bevestigingMsg').html( response ) ;
+		  },
+	    error:function(){
+          var errMsg = 'Inschrijving mislukt!<br>error 505: Sever not accessible<br>probeer later opnieuw' ;
+		  $('#bevestigingMsg').html( errMsg ) ;
+		  },
+		complete: function () {
+		  $('#btnSubmit').css('display','none') ;
+          $('#fakeBtnSubmit').css('display','none') ;
+          $('txtFakeBtnSubmit').css('display','none');
+          $('#txtVerplicht').css('display','none');
+          $('#containerBevestiging').css('visibility','visible') ;
+          }       
+        });   
+	   });
+	         
+	//bevestiging            
+	$('#bevestiging').on('click',  function (e) {
+	  $('#myForm input[type=text]').val('') ;
+      $('#myForm textarea').val('') ;
+      $('#containerBevestiging').css('visibility','hidden') ;
+      $.fn.setBtnSubmit () ;
+      });  
+   	
+	// ************  functies ****************
+  
+    // fakeButton  click        
+	$('#fakeBtnSubmit').on('click', function (e) {
+	  var pos = 0;
+	  if  ( $('#aantal').val().length == 0 ) {
+	    $('#aantal').css('border','3px #ff0000 solid') ;
+		$('#aantal').parent().find('span').css('visibility','visible');
+		pos = $('#aantal').offset().top; pos-= 80; 
+		}
+	  if  ( $('#naam').val().length == 0 ) {
+	    $('#naam').css('border','3px #ff0000 solid') ;
+		$('#naam').parent().find('span').css('visibility','visible');
+		pos = $('#naam').offset().top; pos-= 80; 
+		}
+	  $('html, body').animate({
+        scrollTop: pos
+        }, 500);
+	  });
+	  
+	// function setbtnsubmit 
+    $.fn.setBtnSubmit = function() {
+      var  okSubmit  = true;
+      if ( $('#aantal').val().length == 0 ) { okSubmit = false }
+      if ( $('#naam').val().length == 0 ) { okSubmit = false ; }
+      if (okSubmit) {
+        $('#btnSubmit').css('display','block');
+        $('#fakeBtnSubmit').css('display','none');
+        $('#txtFakeBtnSubmit').css('display','none');
+        } else {
+        $('#btnSubmit').css('display','none');
+        $('#fakeBtnSubmit').css('display','block');
+        $('#txtFakeBtnSubmit').css('display','block');
+        }
+      };        
+    
+	$('#bevestigingTitel').html( $('#top div:nth-child(2)').html()  ) ;  
+    
+	$.fn.setBtnSubmit() ;
+   
+     });
+   
+   </script> 
+  
+ 
+     
+  </body>
+</html>
