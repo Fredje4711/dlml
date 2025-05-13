@@ -33,10 +33,10 @@
     --colorRed: #ff0000;
 	--Mnu1BackColor: #6f32aa;
 	--Mnu1Color: #ffffff;
-	--Mnu1SelColor: #00dd00;
+	--Mnu1SelColor: #ff0000;
 	--Mnu2BackColor: #6f32aa;
 	--Mnu2Color: #ffffff;
-	--Mnu2SelColor: #00dd00;  }
+	--Mnu2SelColor: #ff0000;  }
     
  
   body {  } 
@@ -220,10 +220,10 @@
     --colorRed: #ff0000;
 	--Mnu1BackColor: #6f32aa;
 	--Mnu1Color: #ffffff;
-	--Mnu1SelColor: #00dd00;
+	--Mnu1SelColor: #ff0000;
 	--Mnu2BackColor: #6f32aa;
 	--Mnu2Color: #ffffff;
-	--Mnu2SelColor: #00dd00;  }
+	--Mnu2SelColor: #ff0000;  }
   
   body {     }
    
@@ -365,10 +365,10 @@
     --colorRed: #ff0000;
 	--Mnu1BackColor: #6f32aa;
 	--Mnu1Color: #ffffff;
-	--Mnu1SelColor: #00dd00;
+	--Mnu1SelColor: #ff0000;
 	--Mnu2BackColor: #6f32aa;
 	--Mnu2Color: #ffffff;
-	--Mnu2SelColor: #00dd00; }
+	--Mnu2SelColor: #ff0000; }
 
   body  {  }	     
   
