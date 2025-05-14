@@ -132,6 +132,12 @@
     display: block;  overflow:visible;  
     text-align:right;
     width:80%; height:3vw; margin: 1vw 10% 3vw 10%; }
+	
+	.nieuw-indicator {
+  color: #FFE0A3; /* Dit is een oranje kleur, pas aan naar wens */
+  /* Optioneel: als u het ook vetgedrukt wilt of een andere stijl */
+  /* font-weight: bold; */
+}
 
   .socItm {
       display: inline-block;;
@@ -407,18 +413,22 @@
   	border-width: 0.4vw 0.4vw 0.4vw 1.5vw;
     border-color:transparent; border-style:solid;
 	overflow-x:hidden;overflow-y:auto; }
+
   #MnuLst1 { 
     display: grid; 
     background-color:inherit; color:inherit;
 	width:100%; height:auto;
     grid-template-columns: auto;  
-	grid-template-rows: repeat(9 ,3.2vw); 
+	/* grid-template-rows: repeat(11 ,3.2vw); */ /* Oude regel uitgecommentarieerd */
+    grid-auto-rows: 3.2vw; /* Nieuwe regel toegevoegd */
 	justify-content: start; align-content:start;
 	justify-items:start; align-items:center;
 	row-gap:2px; column-gap:1vw; }   
+
   #MnuLst1 div { 
     display:grid; width:100%;
-    font-size: 1.6vw; line-height: 1.2;
+    font-size: 1.5vw; /* Dit was 1.6vw, u kunt dit desgewenst aanpassen */
+    line-height: 1.2;
 	font-weight: normal;   
 	background-color:inherit; color:var(--Mnu1Color);; 
 	white-space:nowrap; 
@@ -429,19 +439,23 @@
   #Mnu2 {
     display:none; position:absolute; z-index:99;
 	right:2vw; top:9.5vw; 
-    width:38vw; height:8vw; max-height: calc(100vh - 15vw) ;
+    width:38vw; height:8vw; max-height:calc(11 * 7vw + 3vw) ; /* Overweeg of deze max-height nog relevant is als #MnuLst2 dynamisch wordt */
     background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
 	-webkit-transition: height 1200ms ease; 
     -moz-transition: height 1200ms ease; 
     -ms-transition: height 1200ms ease; 
     -o-transition: height 1200ms ease; 
     transition: height 1200ms ease; }
-  #MnuLst2 {
+
+  #MnuLst2 { /* Aangenomen dat dit menu (#Mnu2) ook dynamisch moet zijn qua rijen */
     display: grid;
 	background-color: inherit; color:inherit;
-	width:100%; height:8vw;
+	width:100%; 
+    /* height:calc(11 * 5vw); */ /* Oude regel, overweeg grid-auto-rows hier ook als er meer dan 11 items kunnen zijn */
+    height: auto; /* Of gebruik grid-auto-rows zoals bij #MnuLst1 */
 	grid-template-columns: 31vw;  
-	grid-template-rows: repeat(8, 0) 5vw; 
+	/* grid-template-rows: repeat(11, 7vw); */ /* Oude regel */
+    grid-auto-rows: 7vw; /* Als voorbeeld, pas aan indien nodig voor #Mnu2 items */
 	justify-content: start; align-content:start;
 	justify-items:start; align-items:center;
 	row-gap:0px; column-gap:0px; }
@@ -454,7 +468,7 @@
     border-style: solid;
     outline:1px #ffffff solid;
 	outline-offset: -0.8vw;
-	overflow-x:hidden;overflow-y:hidden; } 
+	overflow-x:hidden;overflow-y:auto; } 
 	
   #MnuLst2 div {
    	display:grid; width: 100%; height: 100%;
