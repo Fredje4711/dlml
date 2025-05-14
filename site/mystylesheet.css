@@ -88,6 +88,7 @@
 	border-width: 1.5vw 1.8vw 1.5vw 2vw ;
     border-color: transparent; 
     border-style: solid;
+	padding-bottom: 5vh;
     outline:1px #ffffff solid;
 	outline-offset: -0.8vw;
 	overflow-x:hidden;overflow-y:auto; } 
