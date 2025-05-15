@@ -1,514 +1,549 @@
-    
-   
-  /* -------------------------------------------------------- */
-  /*  --------------     small scherm     ----------------    */
-  /* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/*  --------------     small scherm     ----------------    */
+/* -------------------------------------------------------- */
 
- 
-   * { box-sizing: border-box; }
-   	  
-  ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track { 
-    width: 0.6vw;  background: rgba(255,255,255,0) ; }
-  ::-webkit-scrollbar-button { display:none; }
-  ::-webkit-scrollbar-track-piece {  display:none; }
-  ::-webkit-scrollbar-corner { display:none; }
-  ::-webkit-resizer { display: none;  }
-  ::-webkit-scrollbar-thumb { 
-    border-radius: 0.3vw;
-	background-color:  #00b1eb; min-height: 50px;}
-  ::-webkit-scrollbar-track {      }  
+* { box-sizing: border-box; }
 
-  a { outline-color: transparent; text-decoration:underline; }
-  a:link { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
-  a:visited { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
-  a:hover { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
-  a:active { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
-   
-  html { 
-    font-family: 'Roboto', sans-serif;
-    font-size: 3.0vw; line-height: 1.2;
- 	font-weight: 500;  color:#ffffff; 
-    --pgBackColor: #ffffff;
-	--pgColor: #333; 
-    --colorRed: #ff0000;
-	--Mnu1BackColor: #6f32aa;
-	--Mnu1Color: #ffffff;
-	--Mnu1SelColor: #ff0000;
-	--Mnu2BackColor: #6f32aa;
-	--Mnu2Color: #ffffff;
-	--Mnu2SelColor: #ff0000;  }
-    
- 
-  body {  } 
+::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
+  width: 0.6vw;  background: rgba(255,255,255,0) ; }
+::-webkit-scrollbar-button { display:none; }
+::-webkit-scrollbar-track-piece {  display:none; }
+::-webkit-scrollbar-corner { display:none; }
+::-webkit-resizer { display: none;  }
+::-webkit-scrollbar-thumb {
+  border-radius: 0.3vw;
+  background-color:  #00b1eb; min-height: 50px;}
+::-webkit-scrollbar-track {      }
 
-  #wrapper { 
-    display:block; position:fixed; 
-    left:.0px; top:0px; 
-    width:100vw; height:100vh;
-    border: 1.2vw #ffffff solid; 
-    overflow-x: hidden; overflow-y: hidden; } 
-    
-  #titelWebsite { display:block; position:relative; width:98vw; height:auto; }
-  #imgLogoV1 { display:block; width:97.6vw; height:18.5vw;   }
-  #imgLogoV2 { display:none; }
-  
-  #btnMnu { 
-    display:block; position:absolute; 
-	right:0px; top:1vw;
-    width: 11vw; height:13.5vw;
-	background-color: transparent; }
- 
-  #actieveMnu {
-    display:block; position:absolute; 
-	right:5vw; bottom: -2.1vw; z-index:55;
-	width: auto;  height:auto; white-space:nowrap;
-    padding: 0.4vw 5vw 0.4vw 5vw;
-	text-align:center;
-	background-color: var(--colorRed); 
-	color: var(--pgBackColor);
-	border-radius: 1.7vw;
-    font-size: 2.6vw; line-height:1; font-weight:bold; }
- 
-  #Mnu1 { display:none; }
-  
-  #Mnu2 {
-    display:none; position:absolute; z-index:99;
-	right:2vw; top:11.5vw; 
-    width:54vw; height:66vw; max-height: calc(100vh - 15vw) ;
-    background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
-	-webkit-transition: height 1200ms ease; 
-    -moz-transition: height 1200ms ease; 
-    -ms-transition: height 1200ms ease; 
-    -o-transition: height 1200ms ease; 
-    transition: height 1200ms ease; }
- 
-  #MnuFrame2 {
-    display:block; 
-	width:54vw; height: 100% ;
-	border-width: 1.5vw 1.8vw 1.5vw 2vw ;
-    border-color: transparent; 
-    border-style: solid;
-	padding-bottom: 5vh;
-    outline:1px #ffffff solid;
-	outline-offset: -0.8vw;
-	overflow-x:hidden;overflow-y:auto; } 
-  
-  #MnuLst2 {
-    display: grid;
-	background-color: inherit; color:inherit;
-	width:100%; height:66vw;
-	grid-template-columns: 31vw;  
-	grid-template-rows: repeat(9, 7vw); 
-	justify-content: start; align-content:start;
-	justify-items:start; align-items:center;
-	row-gap:0px; column-gap:0px; }
-  
-  #MnuLst2 div {
-   	display:grid; width: 100%; height:100%;
-    background-color: inherit; color: var(--Mnu2Color);
-	font-size: 3.8vw; line-height: 1.2; 
-	font-weight: normal;   
-	white-space:nowrap;
-	grid-template-columns: 7.5vw 1fr ;
-	grid-template-rows:1fr;
-	justify-items:start; align-items:center;}
-	
-  #MnuItm2A, #MnuItm2B, #MnuItm2C, #MnuItm2D, #MnuItl2E,
-  #MnuItm2F, #MnuItm2G, #MnuItm2H { display: block; }	
-  
- 
-  
-  #tableSocials {
-    display:grid;
-    grid-template-columns:  50px auto; 
-    grid-template-rows: auto auto auto auto auto;
-    justify-content: start; align-content: start; 
-    justify-items: start; align-items: center ;
-    row-gap: 10px; column-gap: 12px;
-     width: 86%; height:auto;
-	margin: 5vw 11% 15vw 3%;   }
-   
-  #socIcons {  
-    background-color: var(--pgBackColor);
-    display: block;  overflow:visible;  
-    text-align:right;
-    width:80%; height:3vw; margin: 1vw 10% 3vw 10%; }
-	
-	.nieuw-indicator {
-  color: #FFE0A3; /* Dit is een oranje kleur, pas aan naar wens */
-  /* Optioneel: als u het ook vetgedrukt wilt of een andere stijl */
-  /* font-weight: bold; */
+a { outline-color: transparent; text-decoration:underline; }
+a:link { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
+a:visited { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
+a:hover { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
+a:active { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
+
+html {
+  font-family: 'Roboto', sans-serif;
+  font-size: 3.0vw; line-height: 1.2;
+  font-weight: 500;  color:#ffffff;
+  --pgBackColor: #ffffff;
+  --pgColor: #333;
+  --colorRed: #ff0000;
+  --Mnu1BackColor: #6f32aa;
+  --Mnu1Color: #ffffff;
+  --Mnu1SelColor: #ff0000;
+  --Mnu2BackColor: #6f32aa;
+  --Mnu2Color: #ffffff;
+  --Mnu2SelColor: #ff0000; }
+
+body {  }
+
+#wrapper {
+  display:block; position:fixed;
+  left:.0px; top:0px;
+  width:100vw; height:100vh;
+  border: 1.2vw #ffffff solid;
+  overflow-x: hidden; overflow-y: hidden; }
+
+#titelWebsite { display:block; position:relative; width:98vw; height:auto; }
+#imgLogoV1 { display:block; width:97.6vw; height:18.5vw;   }
+#imgLogoV2 { display:none; }
+
+#btnMnu {
+  display:block; position:absolute;
+  right:0px; top:1vw;
+  width: 11vw; height:13.5vw;
+  background-color: transparent; }
+
+#actieveMnu {
+  display:block; position:absolute;
+  right:5vw; bottom: -2.1vw; z-index:55;
+  width: auto;  height:auto; white-space:nowrap;
+  padding: 0.4vw 5vw 0.4vw 5vw;
+  text-align:center;
+  background-color: var(--colorRed);
+  color: var(--pgBackColor);
+  border-radius: 1.7vw;
+  font-size: 2.6vw; line-height:1; font-weight:bold; }
+
+#Mnu1 { display:none; }
+
+#Mnu2 {
+  display:none; position:absolute; z-index:99;
+  right:2vw; top:11.5vw;
+  width:54vw; height:66vw; max-height: calc(100vh - 15vw) ;
+  background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
+  -webkit-transition: height 1200ms ease;
+  -moz-transition: height 1200ms ease;
+  -ms-transition: height 1200ms ease;
+  -o-transition: height 1200ms ease;
+  transition: height 1200ms ease; }
+
+#MnuFrame2 {
+  display:block;
+  width:54vw; height: 100% ;
+  border-width: 1.5vw 1.8vw 1.5vw 2vw ;
+  border-color: transparent;
+  border-style: solid;
+  padding-bottom: 5vh;
+  outline:1px #ffffff solid;
+  outline-offset: -0.8vw;
+  overflow-x:hidden;overflow-y:auto; }
+
+#MnuLst2 {
+  display: grid;
+  background-color: inherit; color:inherit;
+  width:100%; height:66vw;
+  grid-template-columns: 31vw;
+  grid-template-rows: repeat(11, 7vw); /* Aangepast naar 11 voor de nieuwe items, check of dit past */
+  justify-content: start; align-content:start;
+  justify-items:start; align-items:center;
+  row-gap:0px; column-gap:0px; }
+
+#MnuLst2 div {
+  display:grid; width: 100%; height:100%;
+  background-color: inherit; color: var(--Mnu2Color);
+  font-size: 3.8vw; line-height: 1.2;
+  font-weight: normal;
+  white-space:nowrap;
+  grid-template-columns: 7.5vw 1fr ;
+  grid-template-rows:1fr;
+  justify-items:start; align-items:center;}
+
+#MnuItm2A, #MnuItm2B, #MnuItm2C, #MnuItm2D, #MnuItm2K, #MnuItm2L, #MnuItm2M, #MnuItl2E, /* Nieuwe items toegevoegd */
+#MnuItm2F, #MnuItm2G, #MnuItm2H, #MnuItm2I { display: block; } /* #MnuItm2I toegevoegd */
+
+#tableSocials {
+  display:grid;
+  grid-template-columns:  50px auto;
+  grid-template-rows: auto auto auto auto auto;
+  justify-content: start; align-content: start;
+  justify-items: start; align-items: center ;
+  row-gap: 10px; column-gap: 12px;
+  width: 86%; height:auto;
+  margin: 5vw 11% 15vw 3%;   }
+
+#socIcons {
+  background-color: var(--pgBackColor);
+  display: block;  overflow:visible;
+  text-align:right;
+  width:80%; height:3vw; margin: 1vw 10% 3vw 10%; }
+
+.nieuw-indicator {
+  color: #FFE0A3;
 }
 
-  .socItm {
-      display: inline-block;;
-      width:3vw; height:3vw;
-      overflow-x:visible;  overflow-y:visible;  
-      margin: 0px 1vw 0vw 1vw;
-      position: relative;   }
+.socItm {
+  display: inline-block;;
+  width:3vw; height:3vw;
+  overflow-x:visible;  overflow-y:visible;
+  margin: 0px 1vw 0vw 1vw;
+  position: relative;   }
+
+.icon {    width: 3vw;    height: 3vw;    }
+
+.tooltipTxt  {
+  display:none; position: absolute;
+  bottom: 110%;  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background-color: #fffff0;    color: #333;
+  border:1px #333 solid; border-radius: 3px;
+  padding: 2px 12px;
+  font-size: 1.3vw; font-weight: 500;   }
+
+.socItm:hover  .tooltipTxt {  display: flex;    }
+
+#allPages {
+  display:block; float:right;
+  background-color: var(--pgBackColor); color: var(--pgColor) ;
+  width:97.6vw;  height: calc(100% - 14.5vw) ;
+  font-size: 3vw; line-height: 1.2;
+  font-weight: normal;
+  border-width: 1vw 1vw 1vw 2.2vw;
+  border-color:transparent; border-style:solid;
+  outline:1px #a0a0c4 solid; outline-offset:-2px;
+  overflow-x:hidden; overflow-y:hidden;
+  background-image: url("image/LogoDLML.png");
+  background-repeat: no-repeat;
+  background-position: right 1vw top;
+  background-size: 20% ; }
+
+.pgContent {
+  display:none;
+  width:100%; height:100%;
+  overflow-x:hidden; overflow-y:auto; }
+
+img.LogoSize1 {
+  display:inline-block; background-color:transparent;
+  height: 4vw; width: auto; }
+
+img.LogoSize2 {
+  display:inline-block; background-color:transparent;
+  height: 7vw; width: auto; }
 
 
-  .icon {    width: 3vw;    height: 3vw;    }
+/* -------------------------------------------------------- */
+/*  --------------     medium scherm     --------------    */
+/* -------------------------------------------------------- */
+@media only screen and (min-width: 768px) and ( orientation: landscape)   {
 
-  .tooltipTxt  {
-    display:none; position: absolute;
-    bottom: 110%;  left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    background-color: #fffff0;    color: #333;
-    border:1px #333 solid; border-radius: 3px;
-    padding: 2px 12px; 
-    font-size: 1.3vw; font-weight: 500;   }
-
- .socItm:hover  .tooltipTxt {  display: flex;    } 
-     
-  #allPages { 
-    display:block; float:right;  
-	background-color: var(--pgBackColor); color: var(--pgColor) ;
-	width:97.6vw;  height: calc(100% - 14.5vw) ;
-	font-size: 3vw; line-height: 1.2;
-	font-weight: normal;  
-	border-width: 1vw 1vw 1vw 2.2vw;
-    border-color:transparent; border-style:solid;
-	outline:1px #a0a0c4 solid; outline-offset:-2px; 
-    overflow-x:hidden; overflow-y:hidden;
-	background-image: url("image/LogoDLML.png");
-    background-repeat: no-repeat;
-    background-position: right 1vw top;
-    background-size: 20% ; }
-    
-  
-  .pgContent {
-    display:none; 
-	width:100%; height:100%;
-	overflow-x:hidden; overflow-y:auto; }
-  
-  img.LogoSize1 {
-    display:inline-block; background-color:transparent; 
-	height: 4vw; width: auto; } 
-  
-  img.LogoSize2 {
-    display:inline-block; background-color:transparent; 
-	height: 7vw; width: auto; } 
-    
- 
-   
-   
-  /* -------------------------------------------------------- */
-  /*  --------------     medium scherm     --------------    */
-  /* -------------------------------------------------------- */
-   @media only screen and (min-width: 768px) and ( orientation: landscape)   {  
-   
   * { box-sizing: border-box;  }
-	  
-  ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track { 
+
+  ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
     width: 0.5vw;  background: rgba(255,255,255,0) ; }
   ::-webkit-scrollbar-button { display:none; }
   ::-webkit-scrollbar-track-piece {  display:none; }
   ::-webkit-scrollbar-corner { display:none; }
   ::-webkit-resizer { display: none;  }
-  ::-webkit-scrollbar-thumb { 
+  ::-webkit-scrollbar-thumb {
     border-radius: 0.25vw;
-	background-color:  #00b1eb; min-height: 50px;}
-  ::-webkit-scrollbar-track {      }  
+    background-color:  #00b1eb; min-height: 50px;}
+  ::-webkit-scrollbar-track {      }
 
   a { outline-color: transparent; text-decoration:underline; }
   a:link { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
   a:visited { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
   a:hover { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
   a:active { color: var(--linkColor);  text-decoration:underline; background-color:transparent; }
-  
-  html { 
+
+  html {
     font-family: Helvetica, Arial,  sans-serif;
     font-size: 2.4vw; line-height: 1.2;
-	font-weight: normal;  color:#ffffff; 
-	--pgBackColor: #ffffff;
-	--pgColor: #333; 
+    font-weight: normal;  color:#ffffff;
+    --pgBackColor: #ffffff;
+    --pgColor: #333;
     --colorRed: #ff0000;
-	--Mnu1BackColor: #6f32aa;
-	--Mnu1Color: #ffffff;
-	--Mnu1SelColor: #ff0000;
-	--Mnu2BackColor: #6f32aa;
-	--Mnu2Color: #ffffff;
-	--Mnu2SelColor: #ff0000;  }
-  
+    --Mnu1BackColor: #6f32aa;
+    --Mnu1Color: #ffffff;
+    --Mnu1SelColor: #ff0000;
+    --Mnu2BackColor: #6f32aa;
+    --Mnu2Color: #ffffff;
+    --Mnu2SelColor: #ff0000;  }
+
   body {     }
-   
-  #wrapper { 
-    display:block; position:fixed; 
-    left:.0px; top:0px; 
+
+  #wrapper {
+    display:block; position:fixed;
+    left:.0px; top:0px;
     width:100vw; height:100vh;
-    border: 1vw #ffffff solid; 
-    overflow-x: hidden; overflow-y: hidden; } 
-    
+    border: 1vw #ffffff solid;
+    overflow-x: hidden; overflow-y: hidden; }
+
   #titelWebsite { display:block; position:relative; width:98.4vw; height:auto; }
   #imgLogoV1 { display:none; }
   #imgLogoV2 { display:block; width:98.4vw; height:10.6vw; }
-   
-  #btnMnu { 
-    display:block; position:absolute; 
-	right:0px; top:1vw;
+
+  #btnMnu {
+    display:block; position:absolute;
+    right:0px; top:1vw;
     width: 8vw; height:7.6vw;
-	background-color: transparent; }
- 
+    background-color: transparent; }
+
    #actieveMnu {
-    display:block; position:absolute; 
-	right:5vw; bottom: -1.8vw; z-index:55;
-	width: auto; height:auto; white-space:nowrap;
+    display:block; position:absolute;
+    right:5vw; bottom: -1.8vw; z-index:55;
+    width: auto; height:auto; white-space:nowrap;
     padding: 0.4vw 4vw 0.4vw 4vw;
-	text-align:center;
-	background-color: var(--colorRed); 
-	color: var(--pgBackColor);
-	border-radius: 1.7vw;
+    text-align:center;
+    background-color: var(--colorRed);
+    color: var(--pgBackColor);
+    border-radius: 1.7vw;
     font-size: 2.4vw; line-height:1; font-weight:bold; }
-  
-  #Mnu1 { display:none; }
-  
+
+  #Mnu1 { display:none; } /* Blijft none voor medium, wordt block voor large */
+
   #Mnu2 {
     display:none; position:absolute; z-index:99;
-	right:2vw; top:11.5vw; 
-    width:38vw; height:48vw; max-height: calc(100vh - 15vw) ;
+    right:2vw; top:11.5vw;
+    width:38vw; height:auto; /* Aangepast */ max-height: calc(100vh - 15vw) ;
     background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
-	-webkit-transition: height 1200ms ease; 
-    -moz-transition: height 1200ms ease; 
-    -ms-transition: height 1200ms ease; 
-    -o-transition: height 1200ms ease; 
+    -webkit-transition: height 1200ms ease;
+    -moz-transition: height 1200ms ease;
+    -ms-transition: height 1200ms ease;
+    -o-transition: height 1200ms ease;
     transition: height 1200ms ease; }
- 
+
   #MnuFrame2 {
-    display:block; 
-	width:38vw; height: 100% ;
-	border-width: 1.5vw 1.8vw 1.5vw 2vw ;
-    border-color: transparent; 
+    display:block;
+    width:38vw; height: 100% ;
+    border-width: 1.5vw 1.8vw 1.5vw 2vw ;
+    border-color: transparent;
     border-style: solid;
     outline:1px #ffffff solid;
-	outline-offset: -0.8vw;
-	overflow-x:hidden;overflow-y:auto; } 
-  
+    outline-offset: -0.8vw;
+    overflow-x:hidden;overflow-y:auto; }
+
   #MnuLst2 {
     display: grid;
-	background-color: inherit; color:inherit;
-	width:100%; height:48vw;
-	grid-template-columns: 31vw;  
-	grid-template-rows: repeat(9, 5vw); 
-	justify-content: start; align-content:start;
-	justify-items:start; align-items:center;
-	row-gap:0px; column-gap:0px; }
+    background-color: inherit; color:inherit;
+    width:100%; height:auto; /* Aangepast */
+    grid-template-columns: auto; /* Aangepast */
+    grid-auto-rows: 5vw; /* Aangepast voor dynamische hoogte */
+    justify-content: start; align-content:start;
+    justify-items:start; align-items:center;
+    row-gap:0px; column-gap:0px; }
+
   #MnuLst2 div {
-   	display:grid; width: 100%; height:100%;
+    display:grid; width: 100%; height:100%;
     background-color: inherit; color: var(--Mnu2Color);
-	font-size: 2.6vw; line-height: 1.2; 
-	font-weight: normal;   
-	white-space:nowrap;
-	grid-template-columns: 7.5vw 1fr ;
-	grid-template-rows:1fr;
-	justify-items:start; align-items:center;}
-	
-  #MnuItm2A, #MnuItm2B, #MnuItm2C, #MnuItm2D, #MnuItl2E,
-  #MnuItm2F, #MnuItm2G, #MnuItm2H { display: block; }	
-	
-  #allPages { 
+    font-size: 2.6vw; line-height: 1.2;
+    font-weight: normal;
+    white-space:nowrap;
+    grid-template-columns: 7.5vw 1fr ;
+    grid-template-rows:1fr;
+    justify-items:start; align-items:center;}
+
+  #MnuItm2A, #MnuItm2B, #MnuItm2C, #MnuItm2D, #MnuItm2K, #MnuItm2L, #MnuItm2M, #MnuItl2E,
+  #MnuItm2F, #MnuItm2G, #MnuItm2H, #MnuItm2I { display: block; }
+
+  #allPages {
     display:block; float:right;
-	background-color: var(--pgBackColor); color: var(--pgColor) ;
-	width:98vw;  height: calc(100% - 10.6vw) ;
-	font-size: 1.8vw; line-height: 1.2;
-	font-weight: normal;    
-	border-width: 0.8vw 0.8vw 0.8vw 2vw;
+    background-color: var(--pgBackColor); color: var(--pgColor) ;
+    width:98vw;  height: calc(100% - 10.6vw) ;
+    font-size: 1.8vw; line-height: 1.2;
+    font-weight: normal;
+    border-width: 0.8vw 0.8vw 0.8vw 2vw;
     border-color:transparent; border-style:solid;
-	outline:1px #a0a0c4 solid; outline-offset:-2px; 
+    outline:1px #a0a0c4 solid; outline-offset:-2px;
     overflow-x:hidden; overflow-y:hidden;
-	background-image: url("image/LogoDLML.png");
+    background-image: url("image/LogoDLML.png");
     background-repeat: no-repeat;
     background-position: right 1vw top;
     background-size: 20% ; }
- 
-  .pgContent { 
-    display:none; 
-	width:100%; height:100%;
-	overflow-x:hidden; overflow-y:auto; }
-  
-   img.LogoSize1 {
-     display:block; background-color:transparent; 
-	 height: 3.4vw; width: autovw; } 
-  
-   img.LogoSize2 {
-     display:block; background-color:transparent; 
-	 height: 6vw; width: auto; } 
-	
 
+  .pgContent {
+    display:none;
+    width:100%; height:100%;
+    overflow-x:hidden; overflow-y:auto; }
+
+   img.LogoSize1 {
+     display:block; background-color:transparent;
+     height: 3.4vw; width: auto; }
+
+   img.LogoSize2 {
+     display:block; background-color:transparent;
+     height: 6vw; width: auto; }
   }
 
-  /* -------------------------------------------------------- */
-  /*  --------------     large scherm     ----------------    */
-  /* -------------------------------------------------------- */
-  @media only screen and (min-width: 1280px) {  
-     
-  
+/* -------------------------------------------------------- */
+/*  --------------     large scherm     ----------------    */
+/* -------------------------------------------------------- */
+@media only screen and (min-width: 1280px) {
+
   * { box-sizing: border-box; }
-   
-  ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track { 
+
+  ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
     width: 0.4vw;  background: rgba(255,255,255,0) ; }
   ::-webkit-scrollbar-button { display:none; }
   ::-webkit-scrollbar-track-piece {  display:none; }
   ::-webkit-scrollbar-corner { display:none; }
   ::-webkit-resizer { display: none;  }
-  ::-webkit-scrollbar-thumb { 
+  ::-webkit-scrollbar-thumb {
     border-radius: 0.2vw;
-	background-color:  #00b1eb; min-height: 50px;}
-  ::-webkit-scrollbar-track {      }  
-  
- a { outline-color: transparent; text-decoration:underline; }
+    background-color:  #00b1eb; min-height: 50px;}
+  ::-webkit-scrollbar-track {      }
+
+  a { outline-color: transparent; text-decoration:underline; }
   a:link { color: var(--linkColor);  text-decoration:underline; background-color: transparent; }
   a:visited { color: var(--linkColor);  text-decoration:underline; background-color: transparent; }
   a:hover { color: var(--linkColor);  text-decoration:underline; background-color: transparent; }
   a:active { color: var(--linkColor);  text-decoration:underline; background-color: transparent; }
-    
-  html { 
+
+  html {
     font-family: Helvetica, Arial,  sans-serif;
     font-size: 1.25vw; line-height: 1.2;
-	font-weight: normal;  color:#ffffff;  
-	--pgBackColor: #ffffff;
-	--pgColor: #333; 
+    font-weight: normal;  color:#ffffff;
+    --pgBackColor: #ffffff;
+    --pgColor: #333;
     --colorRed: #ff0000;
-	--Mnu1BackColor: #6f32aa;
-	--Mnu1Color: #ffffff;
-	--Mnu1SelColor: #ff0000;
-	--Mnu2BackColor: #6f32aa;
-	--Mnu2Color: #ffffff;
-	--Mnu2SelColor: #ff0000; }
+    --Mnu1BackColor: #6f32aa;
+    --Mnu1Color: #ffffff;
+    --Mnu1SelColor: #ff0000;
+    --Mnu2BackColor: #6f32aa;
+    --Mnu2Color: #ffffff;
+    --Mnu2SelColor: #ff0000; }
 
-  body  {  }	     
-  
-  #wrapper { 
-    display:block; position:fixed; 
-    left:.0px; top:0px; 
+  body  {  }
+
+  #wrapper {
+    display:block; position:fixed;
+    left:.0px; top:0px;
     width:100vw; height:100vh;
-    border: 0.8vw #ffffff solid; 
-    overflow-x: hidden; overflow-y: hidden; } 
-    
+    border: 0.8vw #ffffff solid;
+    overflow-x: hidden; overflow-y: hidden; }
+
   #titelWebsite { display:block; position:relative; width:98.4vw; height:auto; }
   #imgLogoV1 { display:none; }
   #imgLogoV2 { display:block; width:98.4vw; height:10.6vw; }
-    
-  #btnMnu { 
-    display:block; position:absolute; 
-	right:0px; top:1vw;
+
+  #btnMnu {
+    display:block; position:absolute;
+    right:0px; top:1vw;
     width: 8vw; height:7.6vw;
-	background-color: transparent; }
-  
+    background-color: transparent; }
+
   #actieveMnu {
-    display:block; position:absolute; 
-	right:5vw; bottom: -1.7vw; z-index:55;
-	width: auto;  height:auto; white-space:nowrap;
+    display:block; position:absolute;
+    right:5vw; bottom: -1.7vw; z-index:55;
+    width: auto;  height:auto; white-space:nowrap;
     padding: 0.4vw 3vw 0.4vw 3vw;
-	text-align:center;
-	background-color: var(--colorRed); 
-	color: var(--pgBackColor);
-	border-radius: 1.5vw;
+    text-align:center;
+    background-color: var(--colorRed);
+    color: var(--pgBackColor);
+    border-radius: 1.5vw;
     font-size: 2.2vw; line-height:1; font-weight:bold; }
- 
-  #Mnu1 {  
+
+  #Mnu1 {
     display:block; float:left;
     background-color: var(--Mnu1BackColor); color:var(--Mnu1Color) ;
-	width:24vw; height: calc(100% - 10.6vw) ;
-  	border-width: 0.4vw 0.4vw 0.4vw 1.5vw;
+    width:24vw; height: calc(100% - 10.6vw) ;
+    border-width: 0.4vw 0.4vw 0.4vw 1.5vw;
     border-color:transparent; border-style:solid;
-	overflow-x:hidden;overflow-y:auto; }
+    overflow-x:hidden;overflow-y:auto; }
 
-  #MnuLst1 { 
-    display: grid; 
+  #MnuLst1 {
+    display: grid;
     background-color:inherit; color:inherit;
-	width:100%; height:auto;
-    grid-template-columns: auto;  
-	/* grid-template-rows: repeat(11 ,3.2vw); */ /* Oude regel uitgecommentarieerd */
-    grid-auto-rows: 3.2vw; /* Nieuwe regel toegevoegd */
-	justify-content: start; align-content:start;
-	justify-items:start; align-items:center;
-	row-gap:2px; column-gap:1vw; }   
+    width:100%; height:auto;
+    grid-template-columns: auto;
+    grid-auto-rows: 3.2vw; /* Voor dynamisch aantal items */
+    justify-content: start; align-content:start;
+    justify-items:start; align-items:center;
+    row-gap:2px; column-gap:1vw; }
 
-  #MnuLst1 div { 
+  #MnuLst1 div {
     display:grid; width:100%;
-    font-size: 1.5vw; /* Dit was 1.6vw, u kunt dit desgewenst aanpassen */
+    font-size: 1.5vw;
     line-height: 1.2;
-	font-weight: normal;   
-	background-color:inherit; color:var(--Mnu1Color);; 
-	white-space:nowrap; 
-	grid-template-columns: 3vw 1fr ;
-	grid-template-rows:100%;
-	justify-items:start; align-items:center;}
-  
-  #Mnu2 {
+    font-weight: normal;
+    background-color:inherit; color:var(--Mnu1Color);;
+    white-space:nowrap;
+    grid-template-columns: 3vw 1fr ;
+    grid-template-rows:100%;
+    justify-items:start; align-items:center;}
+
+  #Mnu2 { /* Dropdown menu, wordt hier niet gebruikt, maar behoud structuur */
     display:none; position:absolute; z-index:99;
-	right:2vw; top:9.5vw; 
-    width:38vw; height:8vw; max-height:calc(11 * 7vw + 3vw) ; /* Overweeg of deze max-height nog relevant is als #MnuLst2 dynamisch wordt */
+    right:2vw; top:9.5vw;
+    width:38vw; height:auto;
+    max-height:calc(100vh - 12vw) ;
     background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
-	-webkit-transition: height 1200ms ease; 
-    -moz-transition: height 1200ms ease; 
-    -ms-transition: height 1200ms ease; 
-    -o-transition: height 1200ms ease; 
+    -webkit-transition: height 1200ms ease;
+    -moz-transition: height 1200ms ease;
+    -ms-transition: height 1200ms ease;
+    -o-transition: height 1200ms ease;
     transition: height 1200ms ease; }
 
-  #MnuLst2 { /* Aangenomen dat dit menu (#Mnu2) ook dynamisch moet zijn qua rijen */
-    display: grid;
-	background-color: inherit; color:inherit;
-	width:100%; 
-    /* height:calc(11 * 5vw); */ /* Oude regel, overweeg grid-auto-rows hier ook als er meer dan 11 items kunnen zijn */
-    height: auto; /* Of gebruik grid-auto-rows zoals bij #MnuLst1 */
-	grid-template-columns: 31vw;  
-	/* grid-template-rows: repeat(11, 7vw); */ /* Oude regel */
-    grid-auto-rows: 7vw; /* Als voorbeeld, pas aan indien nodig voor #Mnu2 items */
-	justify-content: start; align-content:start;
-	justify-items:start; align-items:center;
-	row-gap:0px; column-gap:0px; }
-  
   #MnuFrame2 {
-    display:block; 
-	width:38vw; height: 100% ;
-	border-width: 1.5vw 1.8vw 1.5vw 2vw ;
-    border-color: transparent; 
+    display:block;
+    width:38vw; height: 100% ;
+    border-width: 1.5vw 1.8vw 1.5vw 2vw ;
+    border-color: transparent;
     border-style: solid;
     outline:1px #ffffff solid;
-	outline-offset: -0.8vw;
-	overflow-x:hidden;overflow-y:auto; } 
-	
+    outline-offset: -0.8vw;
+    overflow-x:hidden;overflow-y:auto; }
+
+  #MnuLst2 {
+    display: grid;
+    background-color: inherit; color:inherit;
+    width:100%;
+    height: auto;
+    grid-template-columns: auto;
+    grid-auto-rows: 4vw; /* Aangepast */
+    justify-content: start; align-content:start;
+    justify-items:start; align-items:center;
+    row-gap:0px; column-gap:0px; }
+
   #MnuLst2 div {
-   	display:grid; width: 100%; height: 100%;
+    display:grid; width: 100%; height: 100%;
     background-color: inherit; color: var(--Mnu2Color);
     overflow-x:hidden; overflow-y:hidden;
-	font-size: 2.5vw; line-height: 1.2; 
-	font-weight: normal;   
-	white-space:nowrap;
-	grid-template-columns: 7.5vw 1fr ;
-	grid-template-rows:1fr;
-	justify-items:start; align-items:center;}
-	    
-  #allPages { 
+    font-size: 2.0vw;
+    line-height: 1.2;
+    font-weight: normal;
+    white-space:nowrap;
+    grid-template-columns: 5vw 1fr ;
+    grid-template-rows:1fr;
+    justify-items:start; align-items:center;}
+
+  #allPages {
     display:block; float:right;
-	background-color: var(--pgBackColor); color: var(--pgColor) ;
-	font-size: 1.25vw; line-height: 1.2;
-	font-weight: normal;   
-	width:73vw;  height: calc(100% - 10.6vw) ;
-	border-width: 0.6vw 0.6vw 0.6vw 1.8vw;
+    background-color: var(--pgBackColor); color: var(--pgColor) ;
+    font-size: 1.25vw; line-height: 1.2;
+    font-weight: normal;
+    width:73vw;  height: calc(100% - 10.6vw) ;
+    border-width: 0.6vw 0.6vw 0.6vw 1.8vw;
     border-color:transparent; border-style:solid;
-	outline:1px #a0a0c4 solid; outline-offset:-5px; 
+    outline:1px #a0a0c4 solid; outline-offset:-5px;
     overflow-x:hidden; overflow-y:hidden;
-	background-image: url("image/LogoDLML.png");
+    background-image: url("image/LogoDLML.png");
     background-repeat: no-repeat;
     background-position: right 1vw top;
     background-size: 20% ; }
-    
-  .pgContent { 
-    display:none; 
-	width:100%; height:100%;
-	overflow-x:hidden; overflow-y:auto; }
-  
+
+  .pgContent {
+    display:none;
+    width:100%; height:100%;
+    overflow-x:hidden; overflow-y:auto; }
+
   .LogoSize1 {
-     display:block; background-color:transparent; 
-  	 height:2.4vw;  width:  auto; } 
-  
+     display:block; background-color:transparent;
+     height:2.4vw;  width:  auto; }
+
   .LogoSize2 {
-     display:block; background-color:transparent; 
-  	 height:5vw;  width: auto; } 
-  
-  
-  }  
+     display:block; background-color:transparent;
+     height:5vw;  width: auto; }
+}
+
+
+/* ============================================= */
+/* CSS VOOR YOUTUBE VIDEO'S IN PAGINA PG_E       */
+/* ============================================= */
+
+/* Basis container voor de video om aspect ratio te behouden */
+.pgContent#pgE .youtube-video-container {
+  position: relative;
+  width: 100%; /* Zal nu de breedte van het flex-item zijn */
+  overflow: hidden;
+  padding-top: 25%; /* 16:9 Aspect Ratio */
+  background-color: #000;
+  /* margin-bottom is niet meer nodig hier, gap op parent regelt ruimte */
+}
+
+.pgContent#pgE .youtube-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Layout voor de video-items binnen fotoGroup.Grp10 */
+.pgContent#pgE .fotoGroup.Grp10 {
+  display: flex;
+  flex-wrap: wrap; /* Items mogen naar de volgende regel */
+  gap: 15px;       /* Ruimte tussen de video-items (zowel horizontaal als verticaal) */
+  padding: 15px 10px 0 10px; /* Padding: boven 15px, links/rechts 10px, onder 0. 
+                             Dit zorgt voor ruimte bovenaan de videogroep. */
+  justify-content: flex-start; /* Zorgt ervoor dat items links beginnen */
+}
+
+/* Standaard (mobiel): 1 kolom, video's nemen volle breedte */
+.pgContent#pgE .fotoGroup.Grp10 .youtube-video-container {
+  flex-basis: 100%;
+  min-width: 0; /* Reset eventuele min-width van grotere schermen */
+}
+
+/* Medium schermen en groter: 2 kolommen */
+@media (min-width: 768px) {
+  .pgContent#pgE .fotoGroup.Grp10 .youtube-video-container {
+    flex-grow: 0; /* Niet laten groeien om de 50% breedte te respecteren */
+    flex-shrink: 1; 
+    flex-basis: calc(45% - 7.5px); /* Probeer 50% breedte minus helft van de gap */
+                                   /* 7.5px = 15px (gap) / 2 */
+    min-width: 260px; /* Voorkom te smalle video's voordat ze wrappen */
+    /* max-width: calc(50% - 7.5px); /* Dit zorgt ervoor dat ze niet breder worden dan 50% */
+  }
+}
