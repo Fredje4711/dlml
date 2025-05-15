@@ -495,20 +495,17 @@ img.LogoSize2 {
      display:block; background-color:transparent;
      height:5vw;  width: auto; }
 }
-
-
 /* ============================================= */
 /* CSS VOOR YOUTUBE VIDEO'S IN PAGINA PG_E       */
 /* ============================================= */
 
-/* Basis container voor de video om aspect ratio te behouden */
+/* Basis container voor de video */
 .pgContent#pgE .youtube-video-container {
   position: relative;
-  width: 100%; /* Zal nu de breedte van het flex-item zijn */
+  width: 100%; /* Zal de breedte van het flex-item zijn */
   overflow: hidden;
-  padding-top: 25%; /* 16:9 Aspect Ratio */
   background-color: #000;
-  /* margin-bottom is niet meer nodig hier, gap op parent regelt ruimte */
+  /* padding-top wordt nu per media query ingesteld */
 }
 
 .pgContent#pgE .youtube-video-container iframe {
@@ -523,27 +520,27 @@ img.LogoSize2 {
 /* Layout voor de video-items binnen fotoGroup.Grp10 */
 .pgContent#pgE .fotoGroup.Grp10 {
   display: flex;
-  flex-wrap: wrap; /* Items mogen naar de volgende regel */
-  gap: 15px;       /* Ruimte tussen de video-items (zowel horizontaal als verticaal) */
-  padding: 15px 10px 0 10px; /* Padding: boven 15px, links/rechts 10px, onder 0. 
-                             Dit zorgt voor ruimte bovenaan de videogroep. */
-  justify-content: flex-start; /* Zorgt ervoor dat items links beginnen */
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px 10px 0 10px;
+  justify-content: flex-start;
 }
 
-/* Standaard (mobiel): 1 kolom, video's nemen volle breedte */
+/* Standaard (mobiel): 1 kolom */
 .pgContent#pgE .fotoGroup.Grp10 .youtube-video-container {
-  flex-basis: 100%;
-  min-width: 0; /* Reset eventuele min-width van grotere schermen */
+  flex-basis: 100%; /* Video neemt volle breedte op mobiel */
+  min-width: 0;
+  padding-top: 56.25%; /* TERUG NAAR 16:9 aspect ratio VOOR MOBIEL */
+                      /* Dit zou het pletten moeten oplossen */
 }
 
-/* Medium schermen en groter: 2 kolommen */
+/* Medium schermen en groter: 2 kolommen met aangepaste aspect ratio */
 @media (min-width: 768px) {
   .pgContent#pgE .fotoGroup.Grp10 .youtube-video-container {
-    flex-grow: 0; /* Niet laten groeien om de 50% breedte te respecteren */
-    flex-shrink: 1; 
-    flex-basis: calc(45% - 7.5px); /* Probeer 50% breedte minus helft van de gap */
-                                   /* 7.5px = 15px (gap) / 2 */
-    min-width: 260px; /* Voorkom te smalle video's voordat ze wrappen */
-    /* max-width: calc(50% - 7.5px); /* Dit zorgt ervoor dat ze niet breder worden dan 50% */
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: calc(45% - 7.5px); /* Jouw gekozen breedte voor desktop */
+    min-width: 260px; /* Of wat je hier had */
+    padding-top: 35%; /* Jouw gekozen (minder hoge) aspect ratio VOOR DESKTOP */
   }
 }
