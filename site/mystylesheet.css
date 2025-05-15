@@ -171,7 +171,8 @@ body {  }
 .pgContent {
   display:none;
   width:100%; height:100%;
-  overflow-x:hidden; overflow-y:auto; }
+  overflow-x:hidden; overflow-y:auto; 
+  padding-bottom: 6vw;}
 
 img.LogoSize1 {
   display:inline-block; background-color:transparent;
