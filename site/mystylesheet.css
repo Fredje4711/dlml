@@ -156,7 +156,7 @@ body {  }
 #allPages {
   display:block; float:right;
   background-color: var(--pgBackColor); color: var(--pgColor) ;
-  width:97.6vw;  height: calc(100% - 14.5vw) ;
+  width:97.6vw;  height: calc(100% - 18.5vw) ;
   font-size: 3vw; line-height: 1.2;
   font-weight: normal;
   border-width: 1vw 1vw 1vw 2.2vw;
