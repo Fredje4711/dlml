@@ -318,7 +318,7 @@ img.LogoSize2 {
 @media only screen and (min-width: 1280px) {
 
   /* Bestaande algemene large screen instellingen die je wilt behouden */
-  * { box-sizing: border-box; } /* Kan hier weg als het globaal al staat */
+  * { box-sizing: border-box; }
 
   ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
     width: 0.4vw;  background: rgba(255,255,255,0) ; }
@@ -338,7 +338,7 @@ img.LogoSize2 {
   a:active { color: var(--linkColor);  text-decoration:underline; background-color: transparent; }
 
   html {
-    font-family: Helvetica, Arial,  sans-serif; /* Behoud of verander indien gewenst */
+    font-family: Helvetica, Arial,  sans-serif;
     font-size: 1.25vw; line-height: 1.2;
     font-weight: normal;  color:#ffffff;
     /* Variabelen worden geërfd */
@@ -351,25 +351,24 @@ img.LogoSize2 {
   }
 
   #titelWebsite {
-    width:98.4vw; /* Stond al impliciet via medium, maar kan hier expliciet */
+    width:98.4vw;
   }
 
-  /* --- TOEGEVOEGDE/AANGEPASTE REGELS VOOR BANNER LOGO'S OP LARGE SCHERM --- */
+  /* --- CORRECTE REGELS VOOR BANNER LOGO'S OP LARGE SCHERM --- */
   #imgLogoV1 {
-    display: none; /* Verberg het kleine scherm logo */
+    display: none;
   }
   #imgLogoV2 {
-    display: block;    /* Toon het grote scherm logo */
+    display: block;
     width: 98.4vw;
-    height: auto;      /* LAAT BROWSER ASPECT RATIO BEPALEN */
-    /* max-height: 110px;  Optioneel, voor later finetunen als het nog te hoog is */
+    height: auto;
+    /* max-height: 110px; */ /* Optioneel, voor later finetunen */
   }
-  /* --- EINDE TOEGEVOEGDE/AANGEPASTE REGELS VOOR BANNER LOGO'S --- */
+  /* --- EINDE CORRECTE REGELS VOOR BANNER LOGO'S --- */
 
 
   #btnMnu {
-    /* Jouw bestaande #btnMnu stijlen voor large, indien verschillend van medium */
-    width: 8vw; height:7.6vw; /* Geërfd van medium als niet specifiek hier */
+    width: 8vw; height:7.6vw;
   }
 
   #actieveMnu {
@@ -382,9 +381,8 @@ img.LogoSize2 {
   #Mnu1 {
     display:block; float:left;
     background-color: var(--Mnu1BackColor); color:var(--Mnu1Color) ;
-    width:24vw;
-    height: calc(100% - 10.6vw) ; /* BELANGRIJK: Deze 10.6vw is waarschijnlijk nu incorrect.
-                                       Aanpassen na meten van #imgLogoV2 hoogte. */
+    width:24vw; /* Behoud deze breedte voor nu */
+    height: calc(100% - 10.6vw) ; /* NOG STEEDS AAN TE PASSEN NA METEN BANNER */
     border-width: 0.4vw 0.4vw 0.4vw 1.5vw;
     border-color:transparent; border-style:solid;
     overflow-x:hidden;overflow-y:auto;
@@ -395,40 +393,78 @@ img.LogoSize2 {
     background-color:inherit; color:inherit;
     width:100%; height:auto;
     grid-template-columns: auto;
-    grid-auto-rows: 2.6vw;
+    grid-auto-rows: 2.6vw; /* Bepaalt rijhoogte, pas aan als menu te hoog/laag wordt */
     justify-content: start; align-content:start;
     justify-items:start; align-items:center;
     row-gap:2px; column-gap:1vw;
   }
 
+/* BINNEN @media only screen and (min-width: 1280px) { ... } */
+
+  /* ... (andere stijlen voor #MnuLst1 blijven, zoals grid-auto-rows etc.) ... */
+
   #MnuLst1 div {
+    display: grid;
+    width: 100%;
     font-size: 1.5vw;
-    grid-template-columns: 3vw 1fr ;
+    line-height: 1.2;
+    font-weight: normal;
+    background-color: inherit;
+    color: var(--Mnu1Color);
+    /* AANGEPAST: Icoonkolom nog smaller, en geen padding-left op het item zelf */
+    grid-template-columns: 1.7vw auto; /* WAS BIJV. 2.8vw, nu kleiner. Experimenteer! */
+    grid-template-rows: 100%;
+    align-items: center;
+    /* padding-left: 0; /* Geen extra padding op het hele item links */
   }
 
-  /* Mnu2 en MnuFrame2 zijn waarschijnlijk niet relevant hier omdat Mnu1 actief is */
-  /* Je kunt de stijlen ervoor hier weglaten of behouden als fallback */
+  #MnuLst1 div > i {
+    justify-self: center; 
+    text-align: center;
+    /* font-size: 1.1vw; /* Eventueel icoon nog iets kleiner als het krap wordt */
+  }
+
+  #MnuLst1 div > label {
+    display: block;
+    text-align: left;
+    /* AANGEPAST: Padding links van label nog kleiner */
+    padding-left: 0.9vw;  /* WAS BIJV. 0.5vw, nu kleiner. Experimenteer! */
+    white-space: nowrap;
+  }
+
+  /* === EINDE AANGEPASTE REGELS VOOR MENU-ITEM UITLIJNING === */
+
+
+  #Mnu2 {
+    display:none;
+  }
+  #MnuFrame2 {
+    /* Stijlen voor MnuFrame2 indien nodig voor large, maar Mnu2 is display:none */
+  }
+  #MnuLst2 {
+    /* Stijlen voor MnuLst2 indien nodig voor large, maar Mnu2 is display:none */
+  }
+  #MnuLst2 div {
+    /* Stijlen voor MnuLst2 div indien nodig voor large, maar Mnu2 is display:none */
+  }
 
 
   #allPages {
-    width:73vw; /* Was specifiek voor large screen */
-    height: calc(100% - 10.6vw) ; /* BELANGRIJK: Ook deze 10.6vw is waarschijnlijk nu incorrect.
-                                       Aanpassen na meten van #imgLogoV2 hoogte. */
-    font-size: 1.25vw; /* Was specifiek voor large screen */
+    width:73vw;
+    height: calc(100% - 10.6vw) ; /* NOG STEEDS AAN TE PASSEN NA METEN BANNER */
+    font-size: 1.25vw;
     border-width: 0.6vw 0.6vw 0.6vw 1.8vw;
     outline-offset:-5px;
-    /* background-image etc. worden geërfd van algemene #allPages stijl */
   }
 
   .pgContent {
-    /* Jouw bestaande .pgContent stijlen voor large, als die er zijn */
+    /* Eventuele large-specifieke .pgContent stijlen */
   }
 
-  /* Kleinere logo's binnen de content pagina's */
-  .LogoSize1 {
+  .LogoSize1 { /* Dit zijn de kleinere logo's in de content */
      height:2.4vw;
   }
-  .LogoSize2 {
+  .LogoSize2 { /* Dit zijn de kleinere logo's in de content */
      height:5vw;
   }
 }
