@@ -45,7 +45,7 @@ body {  }
   overflow-x: hidden; overflow-y: hidden; }
 
 #titelWebsite { display:block; position:relative; width:98vw; height:auto; }
-#imgLogoV1 { display:block; width:97.6vw; height:18.5vw;   }
+#imgLogoV1 { display:block; width:97.6vw; height:auto; }
 #imgLogoV2 { display:none; }
 
 #btnMnu {
@@ -92,9 +92,10 @@ body {  }
 #MnuLst2 {
   display: grid;
   background-color: inherit; color:inherit;
-  width:100%; height:66vw;
+  width:100%; height:66vw; /* Behoud vaste hoogte of overweeg auto met grid-auto-rows */
   grid-template-columns: 31vw;
-  grid-template-rows: repeat(11, 7vw); /* Aangepast naar 11 voor de nieuwe items, check of dit past */
+  grid-template-rows: repeat(12, auto); /* Aangepast naar 12 rijen 'auto' voor flexibiliteit */
+  /* Of gebruik: grid-auto-rows: 5.5vw; als je een vaste rijhoogte wilt voor 12 items in 66vw */
   justify-content: start; align-content:start;
   justify-items:start; align-items:center;
   row-gap:0px; column-gap:0px; }
@@ -109,8 +110,8 @@ body {  }
   grid-template-rows:1fr;
   justify-items:start; align-items:center;}
 
-#MnuItm2A, #MnuItm2B, #MnuItm2C, #MnuItm2D, #MnuItm2K, #MnuItm2L, #MnuItm2M, #MnuItl2E, /* Nieuwe items toegevoegd */
-#MnuItm2F, #MnuItm2G, #MnuItm2H, #MnuItm2I { display: block; } /* #MnuItm2I toegevoegd */
+/* Verwijder individuele MnuItm2X regels als ze niet meer nodig zijn voor specifieke styling */
+/* #MnuItm2A, #MnuItm2B, ... { display: block; } */
 
 #tableSocials {
   display:grid;
@@ -156,7 +157,7 @@ body {  }
 #allPages {
   display:block; float:right;
   background-color: var(--pgBackColor); color: var(--pgColor) ;
-  width:97.6vw;  height: calc(100% - 18.5vw) ;
+  width:97.6vw;  height: calc(100% - 18.5vw) ; /* Aangepast naar 18.5vw */
   font-size: 3vw; line-height: 1.2;
   font-weight: normal;
   border-width: 1vw 1vw 1vw 2.2vw;
@@ -171,8 +172,9 @@ body {  }
 .pgContent {
   display:none;
   width:100%; height:100%;
-  overflow-x:hidden; overflow-y:auto; 
-  padding-bottom: 6vw;}
+  overflow-x:hidden; overflow-y:auto;
+  padding-bottom: 6vw; /* Behoud van de scroll-fix */
+}
 
 img.LogoSize1 {
   display:inline-block; background-color:transparent;
@@ -188,7 +190,8 @@ img.LogoSize2 {
 /* -------------------------------------------------------- */
 @media only screen and (min-width: 768px) and ( orientation: landscape)   {
 
-  * { box-sizing: border-box;  }
+  /* Jouw bestaande algemene medium scherm instellingen */
+  * { box-sizing: border-box;  } /* Deze staat al globaal, kan hier weg als je wilt, maar dubbel is niet erg */
 
   ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
     width: 0.5vw;  background: rgba(255,255,255,0) ; }
@@ -211,127 +214,111 @@ img.LogoSize2 {
     font-family: Helvetica, Arial,  sans-serif;
     font-size: 2.4vw; line-height: 1.2;
     font-weight: normal;  color:#ffffff;
-    --pgBackColor: #ffffff;
-    --pgColor: #333;
-    --colorRed: #ff0000;
-    --Mnu1BackColor: #6f32aa;
-    --Mnu1Color: #ffffff;
-    --Mnu1SelColor: #ff0000;
-    --Mnu2BackColor: #6f32aa;
-    --Mnu2Color: #ffffff;
-    --Mnu2SelColor: #ff0000;  }
+    /* Variabelen worden geërfd, tenzij je ze hier specifiek wilt overschrijven */
+  }
 
-  body {     }
+  body {     } /* Blijft leeg als er geen specifieke medium body stijl is */
 
   #wrapper {
-    display:block; position:fixed;
-    left:.0px; top:0px;
-    width:100vw; height:100vh;
+    /* Jouw bestaande #wrapper stijlen voor medium blijven hier, bijv. border */
     border: 1vw #ffffff solid;
-    overflow-x: hidden; overflow-y: hidden; }
+  }
 
-  #titelWebsite { display:block; position:relative; width:98.4vw; height:auto; }
-  #imgLogoV1 { display:none; }
-  #imgLogoV2 { display:block; width:98.4vw; height:10.6vw; }
+  #titelWebsite {
+    /* Jouw bestaande #titelWebsite stijlen voor medium, bijv. width */
+    width:98.4vw;
+  }
+
+  /* --- TOEGEVOEGDE/AANGEPASTE REGELS VOOR BANNER LOGO'S OP MEDIUM SCHERM --- */
+  #imgLogoV1 {
+    display: none; /* Verberg het kleine scherm logo */
+  }
+  #imgLogoV2 {
+    display: block;    /* Toon het grote scherm logo */
+    width: 98.4vw;     /* Behoud de breedte zoals in je large screen CSS */
+    height: auto;      /* LAAT BROWSER ASPECT RATIO BEPALEN */
+    /* max-height: 110px;  Optioneel, voor later finetunen als het nog te hoog is */
+  }
+  /* --- EINDE TOEGEVOEGDE/AANGEPASTE REGELS VOOR BANNER LOGO'S --- */
+
 
   #btnMnu {
-    display:block; position:absolute;
-    right:0px; top:1vw;
+    /* Jouw bestaande #btnMnu stijlen voor medium */
     width: 8vw; height:7.6vw;
-    background-color: transparent; }
+  }
 
    #actieveMnu {
-    display:block; position:absolute;
-    right:5vw; bottom: -1.8vw; z-index:55;
-    width: auto; height:auto; white-space:nowrap;
+    /* Jouw bestaande #actieveMnu stijlen voor medium */
+    bottom: -1.8vw;
     padding: 0.4vw 4vw 0.4vw 4vw;
-    text-align:center;
-    background-color: var(--colorRed);
-    color: var(--pgBackColor);
     border-radius: 1.7vw;
-    font-size: 2.4vw; line-height:1; font-weight:bold; }
+    font-size: 2.4vw;
+   }
 
-  #Mnu1 { display:none; } /* Blijft none voor medium, wordt block voor large */
+  #Mnu1 { display:none; } /* Blijft display:none; voor medium scherm */
 
   #Mnu2 {
-    display:none; position:absolute; z-index:99;
-    right:2vw; top:11.5vw;
-    width:38vw; height:auto; /* Aangepast */ max-height: calc(100vh - 15vw) ;
-    background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
-    -webkit-transition: height 1200ms ease;
-    -moz-transition: height 1200ms ease;
-    -ms-transition: height 1200ms ease;
-    -o-transition: height 1200ms ease;
-    transition: height 1200ms ease; }
+    /* Jouw bestaande #Mnu2 stijlen voor medium */
+    width:38vw;
+    height:auto; /* Aangepast van vaste hoogte */
+    max-height: calc(100vh - 15vw) ;
+  }
 
   #MnuFrame2 {
-    display:block;
-    width:38vw; height: 100% ;
-    border-width: 1.5vw 1.8vw 1.5vw 2vw ;
-    border-color: transparent;
-    border-style: solid;
-    outline:1px #ffffff solid;
-    outline-offset: -0.8vw;
-    overflow-x:hidden;overflow-y:auto; }
+    /* Jouw bestaande #MnuFrame2 stijlen voor medium */
+    width:38vw;
+  }
 
   #MnuLst2 {
-    display: grid;
-    background-color: inherit; color:inherit;
-    width:100%; height:auto; /* Aangepast */
-    grid-template-columns: auto; /* Aangepast */
-    grid-auto-rows: 5vw; /* Aangepast voor dynamische hoogte */
-    justify-content: start; align-content:start;
-    justify-items:start; align-items:center;
-    row-gap:0px; column-gap:0px; }
+    /* Jouw bestaande #MnuLst2 stijlen voor medium */
+    font-size: 2.6vw; /* Toegevoegd uit jouw eerdere CSS */
+    grid-auto-rows: 4vw; /* Toegevoegd uit jouw eerdere CSS, of pas aan */
+    height: auto; /* Toegevoegd uit jouw eerdere CSS */
+    /* grid-template-rows: repeat(12, auto);  of de grid-auto-rows hierboven is voldoende */
+  }
 
   #MnuLst2 div {
-    display:grid; width: 100%; height:100%;
-    background-color: inherit; color: var(--Mnu2Color);
-    font-size: 2.6vw; line-height: 1.2;
-    font-weight: normal;
-    white-space:nowrap;
+    /* Jouw bestaande #MnuLst2 div stijlen voor medium */
+    font-size: 2.6vw;
     grid-template-columns: 7.5vw 1fr ;
-    grid-template-rows:1fr;
-    justify-items:start; align-items:center;}
-
-  #MnuItm2A, #MnuItm2B, #MnuItm2C, #MnuItm2D, #MnuItm2K, #MnuItm2L, #MnuItm2M, #MnuItl2E,
-  #MnuItm2F, #MnuItm2G, #MnuItm2H, #MnuItm2I { display: block; }
+  }
 
   #allPages {
-    display:block; float:right;
-    background-color: var(--pgBackColor); color: var(--pgColor) ;
-    width:98vw;  height: calc(100% - 10.6vw) ;
-    font-size: 1.8vw; line-height: 1.2;
-    font-weight: normal;
+    /* Jouw bestaande #allPages stijlen voor medium */
+    width:98vw;
+    height: calc(100% - 10.6vw) ; /* BELANGRIJK: Deze 10.6vw is waarschijnlijk nu incorrect.
+                                       We passen dit aan nadat de banner correct wordt weergegeven. */
+    font-size: 1.8vw;
     border-width: 0.8vw 0.8vw 0.8vw 2vw;
-    border-color:transparent; border-style:solid;
-    outline:1px #a0a0c4 solid; outline-offset:-2px;
-    overflow-x:hidden; overflow-y:hidden;
-    background-image: url("image/LogoDLML.png");
-    background-repeat: no-repeat;
-    background-position: right 1vw top;
-    background-size: 20% ; }
+    outline-offset:-2px;
+  }
 
   .pgContent {
-    display:none;
-    width:100%; height:100%;
-    overflow-x:hidden; overflow-y:auto; }
+    /* Jouw bestaande .pgContent stijlen voor medium, als die er zijn */
+  }
 
+   /* De .LogoSize1 en .LogoSize2 class regels hieronder zijn voor de kleinere logo's
+     die je BINNEN de content pagina's gebruikt. */
    img.LogoSize1 {
-     display:block; background-color:transparent;
-     height: 3.4vw; width: auto; }
+     /* display:block;  Indien nodig, anders erft het inline-block van algemeen */
+     height: 3.4vw;
+     /* width: auto; is al standaard voor img */
+   }
 
    img.LogoSize2 {
-     display:block; background-color:transparent;
-     height: 6vw; width: auto; }
-  }
+     /* display:block; Indien nodig */
+     height: 6vw;
+     /* width: auto; */
+   }
+}
 
 /* -------------------------------------------------------- */
 /*  --------------     large scherm     ----------------    */
 /* -------------------------------------------------------- */
 @media only screen and (min-width: 1280px) {
 
-  * { box-sizing: border-box; }
+  /* Bestaande algemene large screen instellingen die je wilt behouden */
+  * { box-sizing: border-box; } /* Kan hier weg als het globaal al staat */
 
   ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
     width: 0.4vw;  background: rgba(255,255,255,0) ; }
@@ -351,164 +338,110 @@ img.LogoSize2 {
   a:active { color: var(--linkColor);  text-decoration:underline; background-color: transparent; }
 
   html {
-    font-family: Helvetica, Arial,  sans-serif;
+    font-family: Helvetica, Arial,  sans-serif; /* Behoud of verander indien gewenst */
     font-size: 1.25vw; line-height: 1.2;
     font-weight: normal;  color:#ffffff;
-    --pgBackColor: #ffffff;
-    --pgColor: #333;
-    --colorRed: #ff0000;
-    --Mnu1BackColor: #6f32aa;
-    --Mnu1Color: #ffffff;
-    --Mnu1SelColor: #ff0000;
-    --Mnu2BackColor: #6f32aa;
-    --Mnu2Color: #ffffff;
-    --Mnu2SelColor: #ff0000; }
+    /* Variabelen worden geërfd */
+  }
 
   body  {  }
 
   #wrapper {
-    display:block; position:fixed;
-    left:.0px; top:0px;
-    width:100vw; height:100vh;
     border: 0.8vw #ffffff solid;
-    overflow-x: hidden; overflow-y: hidden; }
+  }
 
-  #titelWebsite { display:block; position:relative; width:98.4vw; height:auto; }
-  #imgLogoV1 { display:none; }
-  #imgLogoV2 { display:block; width:98.4vw; height:10.6vw; }
+  #titelWebsite {
+    width:98.4vw; /* Stond al impliciet via medium, maar kan hier expliciet */
+  }
+
+  /* --- TOEGEVOEGDE/AANGEPASTE REGELS VOOR BANNER LOGO'S OP LARGE SCHERM --- */
+  #imgLogoV1 {
+    display: none; /* Verberg het kleine scherm logo */
+  }
+  #imgLogoV2 {
+    display: block;    /* Toon het grote scherm logo */
+    width: 98.4vw;
+    height: auto;      /* LAAT BROWSER ASPECT RATIO BEPALEN */
+    /* max-height: 110px;  Optioneel, voor later finetunen als het nog te hoog is */
+  }
+  /* --- EINDE TOEGEVOEGDE/AANGEPASTE REGELS VOOR BANNER LOGO'S --- */
+
 
   #btnMnu {
-    display:block; position:absolute;
-    right:0px; top:1vw;
-    width: 8vw; height:7.6vw;
-    background-color: transparent; }
+    /* Jouw bestaande #btnMnu stijlen voor large, indien verschillend van medium */
+    width: 8vw; height:7.6vw; /* Geërfd van medium als niet specifiek hier */
+  }
 
   #actieveMnu {
-    display:block; position:absolute;
-    right:5vw; bottom: -1.7vw; z-index:55;
-    width: auto;  height:auto; white-space:nowrap;
+    right:5vw; bottom: -1.7vw;
     padding: 0.4vw 3vw 0.4vw 3vw;
-    text-align:center;
-    background-color: var(--colorRed);
-    color: var(--pgBackColor);
     border-radius: 1.5vw;
-    font-size: 2.2vw; line-height:1; font-weight:bold; }
+    font-size: 2.2vw;
+  }
 
   #Mnu1 {
     display:block; float:left;
     background-color: var(--Mnu1BackColor); color:var(--Mnu1Color) ;
-    width:24vw; height: calc(100% - 10.6vw) ;
+    width:24vw;
+    height: calc(100% - 10.6vw) ; /* BELANGRIJK: Deze 10.6vw is waarschijnlijk nu incorrect.
+                                       Aanpassen na meten van #imgLogoV2 hoogte. */
     border-width: 0.4vw 0.4vw 0.4vw 1.5vw;
     border-color:transparent; border-style:solid;
-    overflow-x:hidden;overflow-y:auto; }
+    overflow-x:hidden;overflow-y:auto;
+  }
 
   #MnuLst1 {
     display: grid;
     background-color:inherit; color:inherit;
     width:100%; height:auto;
     grid-template-columns: auto;
-    grid-auto-rows: 3.2vw; /* Voor dynamisch aantal items */
+    grid-auto-rows: 2.6vw;
     justify-content: start; align-content:start;
     justify-items:start; align-items:center;
-    row-gap:2px; column-gap:1vw; }
+    row-gap:2px; column-gap:1vw;
+  }
 
   #MnuLst1 div {
-    display:grid; width:100%;
     font-size: 1.5vw;
-    line-height: 1.2;
-    font-weight: normal;
-    background-color:inherit; color:var(--Mnu1Color);;
-    white-space:nowrap;
     grid-template-columns: 3vw 1fr ;
-    grid-template-rows:100%;
-    justify-items:start; align-items:center;}
+  }
 
-  #Mnu2 { /* Dropdown menu, wordt hier niet gebruikt, maar behoud structuur */
-    display:none; position:absolute; z-index:99;
-    right:2vw; top:9.5vw;
-    width:38vw; height:auto;
-    max-height:calc(100vh - 12vw) ;
-    background-color: var(--Mnu2BackColor); color:var(--Mnu2Color);
-    -webkit-transition: height 1200ms ease;
-    -moz-transition: height 1200ms ease;
-    -ms-transition: height 1200ms ease;
-    -o-transition: height 1200ms ease;
-    transition: height 1200ms ease; }
+  /* Mnu2 en MnuFrame2 zijn waarschijnlijk niet relevant hier omdat Mnu1 actief is */
+  /* Je kunt de stijlen ervoor hier weglaten of behouden als fallback */
 
-  #MnuFrame2 {
-    display:block;
-    width:38vw; height: 100% ;
-    border-width: 1.5vw 1.8vw 1.5vw 2vw ;
-    border-color: transparent;
-    border-style: solid;
-    outline:1px #ffffff solid;
-    outline-offset: -0.8vw;
-    overflow-x:hidden;overflow-y:auto; }
-
-  #MnuLst2 {
-    display: grid;
-    background-color: inherit; color:inherit;
-    width:100%;
-    height: auto;
-    grid-template-columns: auto;
-    grid-auto-rows: 4vw; /* Aangepast */
-    justify-content: start; align-content:start;
-    justify-items:start; align-items:center;
-    row-gap:0px; column-gap:0px; }
-
-  #MnuLst2 div {
-    display:grid; width: 100%; height: 100%;
-    background-color: inherit; color: var(--Mnu2Color);
-    overflow-x:hidden; overflow-y:hidden;
-    font-size: 2.0vw;
-    line-height: 1.2;
-    font-weight: normal;
-    white-space:nowrap;
-    grid-template-columns: 5vw 1fr ;
-    grid-template-rows:1fr;
-    justify-items:start; align-items:center;}
 
   #allPages {
-    display:block; float:right;
-    background-color: var(--pgBackColor); color: var(--pgColor) ;
-    font-size: 1.25vw; line-height: 1.2;
-    font-weight: normal;
-    width:73vw;  height: calc(100% - 10.6vw) ;
+    width:73vw; /* Was specifiek voor large screen */
+    height: calc(100% - 10.6vw) ; /* BELANGRIJK: Ook deze 10.6vw is waarschijnlijk nu incorrect.
+                                       Aanpassen na meten van #imgLogoV2 hoogte. */
+    font-size: 1.25vw; /* Was specifiek voor large screen */
     border-width: 0.6vw 0.6vw 0.6vw 1.8vw;
-    border-color:transparent; border-style:solid;
-    outline:1px #a0a0c4 solid; outline-offset:-5px;
-    overflow-x:hidden; overflow-y:hidden;
-    background-image: url("image/LogoDLML.png");
-    background-repeat: no-repeat;
-    background-position: right 1vw top;
-    background-size: 20% ; }
+    outline-offset:-5px;
+    /* background-image etc. worden geërfd van algemene #allPages stijl */
+  }
 
   .pgContent {
-    display:none;
-    width:100%; height:100%;
-    overflow-x:hidden; overflow-y:auto; }
+    /* Jouw bestaande .pgContent stijlen voor large, als die er zijn */
+  }
 
+  /* Kleinere logo's binnen de content pagina's */
   .LogoSize1 {
-     display:block; background-color:transparent;
-     height:2.4vw;  width:  auto; }
-
+     height:2.4vw;
+  }
   .LogoSize2 {
-     display:block; background-color:transparent;
-     height:5vw;  width: auto; }
+     height:5vw;
+  }
 }
+
 /* ============================================= */
 /* CSS VOOR YOUTUBE VIDEO'S IN PAGINA PG_E       */
 /* ============================================= */
-
-/* Basis container voor de video */
 .pgContent#pgE .youtube-video-container {
   position: relative;
-  width: 100%; /* Zal de breedte van het flex-item zijn */
+  width: 100%;
   overflow: hidden;
   background-color: #000;
-  /* padding-top wordt nu per media query ingesteld */
 }
-
 .pgContent#pgE .youtube-video-container iframe {
   position: absolute;
   top: 0;
@@ -517,8 +450,6 @@ img.LogoSize2 {
   height: 100%;
   border: 0;
 }
-
-/* Layout voor de video-items binnen fotoGroup.Grp10 */
 .pgContent#pgE .fotoGroup.Grp10 {
   display: flex;
   flex-wrap: wrap;
@@ -526,22 +457,106 @@ img.LogoSize2 {
   padding: 15px 10px 0 10px;
   justify-content: flex-start;
 }
-
-/* Standaard (mobiel): 1 kolom */
 .pgContent#pgE .fotoGroup.Grp10 .youtube-video-container {
-  flex-basis: 100%; /* Video neemt volle breedte op mobiel */
+  flex-basis: 100%;
   min-width: 0;
-  padding-top: 56.25%; /* TERUG NAAR 16:9 aspect ratio VOOR MOBIEL */
-                      /* Dit zou het pletten moeten oplossen */
+  padding-top: 56.25%; /* 16:9 voor MOBIEL */
 }
-
-/* Medium schermen en groter: 2 kolommen met aangepaste aspect ratio */
 @media (min-width: 768px) {
   .pgContent#pgE .fotoGroup.Grp10 .youtube-video-container {
     flex-grow: 0;
     flex-shrink: 1;
-    flex-basis: calc(45% - 7.5px); /* Jouw gekozen breedte voor desktop */
-    min-width: 260px; /* Of wat je hier had */
-    padding-top: 35%; /* Jouw gekozen (minder hoge) aspect ratio VOOR DESKTOP */
+    flex-basis: calc(45% - 7.5px);
+    min-width: 260px;
+    padding-top: 35%; /* Jouw gekozen ratio voor DESKTOP */
   }
+}
+
+/* ============================================= */
+/* CSS VOOR LIGHTBOX FOTO'S                      */
+/* ============================================= */
+.lightbox-overlay-hidden {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.85); /* Donkere overlay met transparantie */
+    padding-top: 30px;
+    box-sizing: border-box;
+}
+/* Toon de lightbox wanneer deze class wordt toegevoegd (of display: flex; als je dat gebruikt) */
+.lightbox-overlay-visible {
+    display: flex; /* Gebruik flex om content te centreren */
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-content-wrapper {
+    position: relative;
+    margin: auto; /* Al gecentreerd door flex op parent, maar kan helpen */
+    display: block; /* Of inline-block als dat beter werkt met de image */
+    width: auto;
+    max-width: 90%;
+    max-height: 90vh; /* Limiteer hoogte inclusief knoppen */
+}
+.lightbox-image-display {
+    display: block;
+    max-width: 100%;
+    max-height: calc(90vh - 70px); /* 90vh minus ruimte voor close knop en wat marge */
+    margin: auto;
+    border: 3px solid white;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+.lightbox-close-btn {
+    position: absolute;
+    top: -5px; /* Iets boven de afbeelding, pas aan voor esthetiek */
+    right: 5px; /* Dichterbij de hoek */
+    color: #ffffff;
+    font-size: 45px; /* Iets groter voor betere zichtbaarheid */
+    line-height: 1; /* Voorkom extra hoogte */
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 5px; /* Maak het klikgebied iets groter */
+}
+.lightbox-close-btn:hover,
+.lightbox-close-btn:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+.lightbox-prev-btn,
+.lightbox-next-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Betere verticale centrering */
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 28px;
+    transition: 0.3s ease;
+    user-select: none;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 1001;
+}
+.lightbox-next-btn {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+.lightbox-prev-btn {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+.lightbox-prev-btn:hover,
+.lightbox-next-btn:hover {
+    background-color: rgba(0,0,0,0.6);
+}
+/* Cursor voor klikbare afbeeldingen in de fotogalerij pgD */
+#pgD .fotoImg {
+    cursor: pointer;
 }
