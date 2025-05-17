@@ -511,6 +511,7 @@ img.LogoSize2 {
 /* ============================================= */
 /* CSS VOOR LIGHTBOX FOTO'S                      */
 /* ============================================= */
+
 .lightbox-overlay-hidden {
     display: none;
     position: fixed;
@@ -519,57 +520,76 @@ img.LogoSize2 {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.85); /* Donkere overlay met transparantie */
-    padding-top: 30px;
+    /* overflow: auto; /* Uitgezet voor betere flex-centrering, kan aan als scrollen nodig is */
+    background-color: rgba(0, 0, 0, 0.85);
+    /* padding-top: 30px; /* Verwijderd voor flex-centrering */
     box-sizing: border-box;
 }
-/* Toon de lightbox wanneer deze class wordt toegevoegd (of display: flex; als je dat gebruikt) */
+
 .lightbox-overlay-visible {
-    display: flex; /* Gebruik flex om content te centreren */
+    display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    box-sizing: border-box;
+    overflow: auto; /* Weer toegevoegd voor het geval de content groter is dan de viewport */
 }
+
 .lightbox-content-wrapper {
     position: relative;
-    margin: auto; /* Al gecentreerd door flex op parent, maar kan helpen */
-    display: block; /* Of inline-block als dat beter werkt met de image */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: auto;
     max-width: 90%;
-    max-height: 90vh; /* Limiteer hoogte inclusief knoppen */
+    max-height: 90vh;
+    padding: 15px; /* Optionele padding rondom de content binnen de wrapper */
+    box-sizing: border-box; /* Zorg dat padding binnen max-width/height valt */
 }
+
 .lightbox-image-display {
     display: block;
-    max-width: 100%;
-    max-height: calc(90vh - 70px); /* 90vh minus ruimte voor close knop en wat marge */
+    max-width: 100%; /* Maximaal breedte van content-wrapper */
+    max-height: 100%;/* Maximaal hoogte van content-wrapper (na padding) */
     margin: auto;
     border: 3px solid white;
     box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    object-fit: contain; /* Behoud aspect ratio en past binnen de box */
 }
+
 .lightbox-close-btn {
     position: absolute;
-    top: -5px; /* Iets boven de afbeelding, pas aan voor esthetiek */
-    right: 5px; /* Dichterbij de hoek */
+    top: 10px;  /* Aangepast voor betere positie met flex centrering */
+    right: 15px; /* Aangepast voor betere positie met flex centrering */
     color: #ffffff;
-    font-size: 45px; /* Iets groter voor betere zichtbaarheid */
-    line-height: 1; /* Voorkom extra hoogte */
+    font-size: 45px;
+    line-height: 0.5; /* Kan helpen om 'm strakker te positioneren */
     font-weight: bold;
     transition: 0.3s;
     cursor: pointer;
-    z-index: 1001;
-    padding: 5px; /* Maak het klikgebied iets groter */
+    z-index: 1002; /* Zorg dat het boven de pijlen kan komen als ze overlappen */
+    padding: 0 5px; /* Iets padding voor klikgebied */
 }
+
 .lightbox-close-btn:hover,
 .lightbox-close-btn:focus {
     color: #bbb;
     text-decoration: none;
 }
+
 .lightbox-prev-btn,
 .lightbox-next-btn {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%); /* Betere verticale centrering */
+    transform: translateY(-50%);
     width: auto;
     padding: 16px;
     color: white;
@@ -578,20 +598,25 @@ img.LogoSize2 {
     transition: 0.3s ease;
     user-select: none;
     background-color: rgba(0,0,0,0.3);
-    z-index: 1001;
+    z-index: 1001; /* Onder close knop, boven afbeelding */
 }
+
 .lightbox-next-btn {
-    right: 0;
+    right: 5px; /* Iets van de rand af voor esthetiek */
     border-radius: 3px 0 0 3px;
 }
+
 .lightbox-prev-btn {
-    left: 0;
+    left: 5px; /* Iets van de rand af voor esthetiek */
     border-radius: 0 3px 3px 0;
 }
+
+/* HIER ZIJN DE BEHOUDEN REGELS: */
 .lightbox-prev-btn:hover,
 .lightbox-next-btn:hover {
     background-color: rgba(0,0,0,0.6);
 }
+
 /* Cursor voor klikbare afbeeldingen in de fotogalerij pgD */
 #pgD .fotoImg {
     cursor: pointer;
