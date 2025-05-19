@@ -646,9 +646,17 @@ img.LogoSize2 {
   margin: 1vw;
   position: relative;
   flex: 1 1 320px;
+  box-sizing: border-box;
 }
 
-.video-wrapper iframe,
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  box-sizing: border-box;
+}
+
 .video-wrapper img {
   width: 100%;
   height: 100%;

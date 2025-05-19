@@ -242,11 +242,18 @@ $('.pgContent#pgE').on('click', '.video-wrapper', function () {
     title: $(this).find('img').attr('alt') || 'Video',
     allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
     allowfullscreen: true,
-    frameborder: 0
+    frameborder: 0,
+    css: {
+      width: '100%',
+      height: '100%',
+      display: 'block',
+      border: 'none'
+    }
   });
 
-  const container = $('<div>').addClass('youtube-video-container').append(iframe);
-  $(this).replaceWith(container);
+  // Verwijder alleen de thumbnail en play-button binnenin deze wrapper
+  $(this).find('img, .play-button').remove();
+  $(this).append(iframe);
 });
 
 // Toon Home-pagina (A) als er geen hash in de URL zit
@@ -255,5 +262,6 @@ if (!window.location.hash) {
 } else {
   loadPageFromURL();
 }
+
 
 });
