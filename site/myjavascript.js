@@ -1,110 +1,96 @@
-// strTxtMnu array blijft ongewijzigd, zorg dat het overeenkomt met je menu-items
-strTxtMnu = new Array();
-strTxtMnu[0] = "Home";
-strTxtMnu[1] = "Infosessies";
-strTxtMnu[2] = "Cultuur/ontspanning";
-// strTxtMnu[3] was "Inschrijven activiteiten"; - Zorg dat de indexen kloppen als dit item er niet meer is
-strTxtMnu[3] = "Foto's vorige activiteiten"; // Index aangepast als [3] vervalt
-strTxtMnu[4] = "Fotogalerij";             // Nieuwe index
-strTxtMnu[5] = "Podcast Eddy";             // Nieuwe index
-strTxtMnu[6] = "Q&A 100";                  // Nieuwe index
-strTxtMnu[7] = "Video's";                  // Index aangepast
-strTxtMnu[8] = "Info";                     // Index aangepast
-strTxtMnu[9] = "Download's";               // Index aangepast
-strTxtMnu[10] = "Contact";                 // Index aangepast
-// strTxtMnu[11] voor mode switch
-
 $(document).ready(function (e) {
-  var pgNr = 'A'; // Default pagina
+  var pgNr = 'A';
   var lightMode = true;
+  var menuIdToText = {};
 
-  // Functie om de actieve pagina in te stellen en de URL bij te werken
-  function setPageAndURL(newPgNr, newMnuText) {
-    pgNr = newPgNr;
+  $('div[id^="MnuItm1"]').each(function() {
+      var idSuffix = $(this).attr('id').slice(-1);
+      menuIdToText[idSuffix] = $("label", this).html();
+  });
+  $('div[id^="MnuItm2"]').each(function() {
+      var idSuffix = $(this).attr('id').slice(-1);
+      if (!menuIdToText[idSuffix]) {
+          menuIdToText[idSuffix] = $("label", this).html();
+      }
+  });
+
+  console.log("DEBUG: menuIdToText is gevuld:", menuIdToText);
+
+  function setPageAndURL(newPgIdSuffix) {
+    console.log("DEBUG: setPageAndURL gestart voor suffix:", newPgIdSuffix);
+    pgNr = newPgIdSuffix;
+    var newMnuText = menuIdToText[pgNr] || "Menu Tekst Niet Gevonden";
     $('#actieveMnu').html(newMnuText);
-    $.fn.setPg(); // Functie die de content div toont/verbergt
+    $.fn.setPg();
 
-    let pageName = newMnuText.toLowerCase()
+    let tempLabelElement = $('<div>').html(newMnuText);
+    let pageSlug = tempLabelElement.text().trim().toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
+    tempLabelElement.remove();
 
-    // Alleen de hash veranderen om geen volledige pageload te triggeren met GitHub Pages
-    // En om te voorkomen dat de basis-URL van GitHub Pages verandert
-    if (pageName === "home") { // Specifiek voor home om geen lelijke hash te hebben
-        history.pushState({page: pageName}, newMnuText, window.location.pathname);
+    if (pageSlug === "home" || !pageSlug || newPgIdSuffix === 'A') {
+        history.pushState({ pageIdSuffix: pgNr }, newMnuText, window.location.pathname + window.location.search);
     } else {
-        history.pushState({page: pageName}, newMnuText, '#' + pageName);
+        history.pushState({ pageIdSuffix: pgNr }, newMnuText, '#' + pageSlug);
     }
+    console.log("DEBUG: setPageAndURL klaar voor suffix:", newPgIdSuffix);
   }
 
-  // Terug/Vooruit knop browser afhandelen
   $(window).on('popstate', function(event) {
-    if (event.originalEvent.state && event.originalEvent.state.page) {
-        // Vind het menu-item dat overeenkomt met de state.page
-        let targetPg = '';
-        let targetMnuText = '';
-        $('div[id^="MnuItm1"]').each(function() {
-            let labelText = $("label", this).text().trim().toLowerCase()
-                             .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                             .replace(/[^a-z0-9]+/g, '-')
-                             .replace(/(^-|-$)/g, '');
-            if (labelText === event.originalEvent.state.page || (event.originalEvent.state.page === "home" && $(this).attr('id').slice(-1) === 'A')) {
-                targetPg = $(this).attr('id').slice(-1);
-                targetMnuText = $("label", this).html(); // Behoud (nieuw) indicators
-                return false; // Stop .each loop
-            }
-        });
-        if (targetPg) {
-            pgNr = targetPg;
-            $('#actieveMnu').html(targetMnuText);
-            $.fn.setPg();
-        }
+    console.log("DEBUG: popstate event gedetecteerd", event.originalEvent.state);
+    let targetPgIdSuffix = 'A';
+    if (event.originalEvent.state && event.originalEvent.state.pageIdSuffix) {
+        targetPgIdSuffix = event.originalEvent.state.pageIdSuffix;
     } else {
-        // Fallback naar home als er geen state is (bijv. eerste laad via hash)
         let hash = window.location.hash.substring(1);
-        if (!hash) hash = "home"; // Default naar home als er geen hash is
-
-         $('div[id^="MnuItm1"]').each(function() {
-            let labelText = $("label", this).text().trim().toLowerCase()
-                             .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                             .replace(/[^a-z0-9]+/g, '-')
-                             .replace(/(^-|-$)/g, '');
-            if (labelText === hash || (hash === "home" && $(this).attr('id').slice(-1) === 'A')) {
-                pgNr = $(this).attr('id').slice(-1);
-                $('#actieveMnu').html($("label", this).html());
-                $.fn.setPg();
-                return false;
+        if (hash) {
+            let found = false;
+            for (const idSuffix in menuIdToText) {
+                let tempLabelElement = $('<div>').html(menuIdToText[idSuffix]);
+                let labelSlug = tempLabelElement.text().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                tempLabelElement.remove();
+                if (labelSlug === hash) {
+                    targetPgIdSuffix = idSuffix;
+                    found = true;
+                    break;
+                }
             }
-        });
+            if (!found) targetPgIdSuffix = 'A';
+        }
     }
+    console.log("DEBUG: popstate verwerkt, nieuwe targetPgIdSuffix:", targetPgIdSuffix);
+    setPageAndURL(targetPgIdSuffix);
   });
 
-
-  // Functie om de juiste pagina te tonen op basis van URL bij eerste laad
   function loadPageFromURL() {
+    console.log("DEBUG: loadPageFromURL gestart. Hash:", window.location.hash);
     let hash = window.location.hash.substring(1);
-    let initialPg = 'A'; // Default naar Home
-    let initialMnuText = 'Home';
-
+    let initialPgIdSuffix = 'A';
     if (hash) {
-        $('div[id^="MnuItm1"]').each(function() {
-            let labelText = $("label", this).text().trim().toLowerCase()
-                             .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                             .replace(/[^a-z0-9]+/g, '-')
-                             .replace(/(^-|-$)/g, '');
-            if (labelText === hash) {
-                initialPg = $(this).attr('id').slice(-1);
-                initialMnuText = $("label", this).html();
-                return false; // Stop .each loop
+        let found = false;
+        for (const idSuffix in menuIdToText) {
+            let tempLabelElement = $('<div>').html(menuIdToText[idSuffix]);
+            let labelSlug = tempLabelElement.text().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            tempLabelElement.remove();
+            if (labelSlug === hash) {
+                initialPgIdSuffix = idSuffix;
+                found = true;
+                break;
             }
-        });
+        }
+        if (!found) {
+            console.log("DEBUG: Hash niet gevonden in menuIdToText, fallback naar Home (A)");
+            initialPgIdSuffix = 'A';
+        } else {
+            console.log("DEBUG: Hash gevonden, initialPgIdSuffix:", initialPgIdSuffix);
+        }
+    } else {
+        console.log("DEBUG: Geen hash, initialPgIdSuffix wordt Home (A)");
     }
-    pgNr = initialPg;
-    $('#actieveMnu').html(initialMnuText);
-    $.fn.setPg();
+    setPageAndURL(initialPgIdSuffix);
   }
-
 
   $(window).resize(function () {});
 
@@ -120,192 +106,154 @@ $(document).ready(function (e) {
   $.fn.setMode = function (e) {
     lightMode = !lightMode;
     if (lightMode) {
-      $('html').css('--pgBackColor', '#ffffff');
-      $('html').css('--pgColor', '#333');
-      // ... (andere light mode stijlen) ...
-      $('html').css('--linkColor', '#0000ff');
-      $('#imgHasselt').attr('src', 'site/image/Herkenrode.png'); // Aangepast pad als nodig
-      $('.LogoSize1, .LogoSize2').attr('src', function(i, oldSrc) {
-          return oldSrc.replace('LogoDLzw.png', 'LogoDLwt.png');
-      });
+      $('html').css('--pgBackColor', '#ffffff'); $('html').css('--pgColor', '#333');
+      $('html').css('--colorRed', '#ff0000'); $('html').css('--Mnu1BackColor', '#6f32aa');
+      $('html').css('--Mnu1Color', '#ffffff'); $('html').css('--Mnu1SelColor', '#00dd00');
+      $('html').css('--Mnu2BackColor', '#6f32aa'); $('html').css('--Mnu2Color', '#ffffff');
+      $('html').css('--Mnu2SelColor', '#00dd00'); $('html').css('--linkColor', '#0000ff');
+      $('#imgHasselt').attr('src', 'site/image/Herkenrode.png');
+      $('.LogoSize1, .LogoSize2').attr('src', function(i, oldSrc) { return oldSrc.replace('LogoDLzw.png', 'LogoDLwt.png'); });
     } else {
-      $('html').css('--pgBackColor', '#333');
-      $('html').css('--pgColor', '#ffff');
-      // ... (andere dark mode stijlen) ...
-      $('html').css('--linkColor', '#8080ff');
-      $('#imgHasselt').attr('src', 'site/image/HerkenrodeLight.png'); // Voorbeeld, pas aan indien nodig
-       $('.LogoSize1, .LogoSize2').attr('src', function(i, oldSrc) {
-          return oldSrc.replace('LogoDLwt.png', 'LogoDLzw.png');
-      });
+      $('html').css('--pgBackColor', '#333'); $('html').css('--pgColor', '#ffff');
+      $('html').css('--colorRed', '#ff7f50'); $('html').css('--Mnu1BackColor', '#ffffff');
+      $('html').css('--Mnu1Color', '#333'); $('html').css('--Mnu1SelColor', '#0000ff');
+      $('html').css('--Mnu2BackColor', '#6f32aa'); $('html').css('--Mnu2Color', '#ffffff');
+      $('html').css('--Mnu2SelColor', '#00dd00'); $('html').css('--linkColor', '#8080ff');
+      $('#imgHasselt').attr('src', 'site/image/HerkenrodeLight.png');
+      $('.LogoSize1, .LogoSize2').attr('src', function(i, oldSrc) { return oldSrc.replace('LogoDLwt.png', 'LogoDLzw.png'); });
     }
   };
 
-  // Universele menu klik handler
-  $('div[id^="MnuItm"]').on('click', function (e) {
-    e.stopPropagation(); // Voorkom dat wrapper klik ook Mnu2 sluit
-    let newPgIdSuffix = $(this).attr('id').slice(-1); // K, L, M, E, F, G, H, I, A, B, C, D
-    let menuText = $("label", this).html(); // Krijg HTML om (nieuw) te behouden
-
-    if (newPgIdSuffix == 'I') { // Mode switch
+  $('div[id^="MnuItm1"], div[id^="MnuItm2"]').on('click', function (e) {
+    e.stopPropagation();
+    let newPgIdSuffix = $(this).attr('id').slice(-1);
+    console.log("DEBUG: Menu item geklikt. ID Suffix:", newPgIdSuffix, "Label HTML:", $("label", this).html());
+    if (newPgIdSuffix === 'I') {
       $.fn.setMode();
     } else {
-      setPageAndURL(newPgIdSuffix, menuText);
+      setPageAndURL(newPgIdSuffix);
     }
-
-    // Sluit Mnu2 als het open is (voor mobiele weergave)
-    if ($('#Mnu2').css('display') == 'block') {
+    if ($(this).closest('#Mnu2').length && $('#Mnu2').css('display') == 'block') {
         $('#Mnu2').height(0);
-        setTimeout(function () {
-            $('#Mnu2').css('display', 'none');
-        }, 1200);
+        setTimeout(function () { $('#Mnu2').css('display', 'none'); }, 1200);
     }
   });
 
-
   $.fn.setPg = function () {
-    // Stop alle video's op pagina E als we weggaan
-    if (pgNr !== 'E') {
+    console.log("DEBUG: $.fn.setPg aangeroepen. Huidige pgNr:", pgNr);
+
+    // Stop iframes van YouTube (pgE) en andere (pgK, pgL, pgM)
+    // Zorg ervoor dat pgE, pgK, pgL, pgM ook daadwerkelijk iframes bevatten als je deze code gebruikt
+    if (pgNr !== 'E' && $('#pgE iframe').length) {
         $('#pgE iframe').each(function() {
-            // YouTube API gebruiken om video te stoppen
             this.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
         });
     }
-    // Stop alle iframes op K, L, M als we weggaan (aangenomen dat dit ook video/audio kan zijn)
-    if (pgNr !== 'K') $('#pgK iframe').attr('src', $('#pgK iframe').attr('src'));
-    if (pgNr !== 'L') $('#pgL iframe').attr('src', $('#pgL iframe').attr('src'));
-    if (pgNr !== 'M') $('#pgM iframe').attr('src', $('#pgM iframe').attr('src'));
+    if (pgNr !== 'K' && $('#pgK iframe').length) $('#pgK iframe').attr('src', $('#pgK iframe').attr('src'));
+    if (pgNr !== 'L' && $('#pgL iframe').length) $('#pgL iframe').attr('src', $('#pgL iframe').attr('src'));
+    if (pgNr !== 'M' && $('#pgM iframe').length) $('#pgM iframe').attr('src', $('#pgM iframe').attr('src'));
 
-
+    // Verberg alle .pgContent divs EERST
     $('.pgContent').css('display', 'none');
-    $('#pg' + pgNr).css('display', 'block').scrollTop(0); // Scroll naar bovenkant van nieuwe pagina
+    console.log("DEBUG: Alle .pgContent verborgen.");
+
+    // Toon de geselecteerde pagina
+    var $targetPage = $('#pg' + pgNr);
+    console.log("DEBUG: Probeer pagina te tonen: #pg" + pgNr);
+
+    if ($targetPage.length) { // Controleer of het element bestaat
+        $targetPage.removeAttr('style'); // VERWIJDER de inline style="display: none;"
+        $targetPage.css('display', 'block'); // Zet display expliciet op block
+        $targetPage.scrollTop(0); // Scroll naar bovenkant van nieuwe pagina
+        console.log("DEBUG: #pg" + pgNr + " zou nu zichtbaar moeten zijn. Huidige display:", $targetPage.css('display'));
+    } else {
+        console.error("DEBUG: FOOOOUT!!! Element #pg" + pgNr + " NIET GEVONDEN IN DE DOM!");
+    }
 
     // Update menu highlighting
     $('div[id^="MnuItm1"]').css({'color': 'var(--Mnu1Color)', 'font-weight': 'normal'});
     $('#MnuItm1' + pgNr).css({'color': 'var(--Mnu1SelColor)', 'font-weight': 'bold'});
+
     $('div[id^="MnuItm2"]').css({'color': 'var(--Mnu2Color)', 'font-weight': 'normal'});
     $('#MnuItm2' + pgNr).css({'color': 'var(--Mnu2SelColor)', 'font-weight': 'bold'});
   };
 
-
   $('#btnMnu').on('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); e.stopPropagation();
     if ($('#Mnu2').css('display') == 'block') {
-      $('#Mnu2').height(0);
-      setTimeout(function () {
-        $('#Mnu2').css('display', 'none');
-      }, 1200);
+      $('#Mnu2').height(0); setTimeout(function () { $('#Mnu2').css('display', 'none'); }, 1200);
     } else {
-      $('#Mnu2').css('display', 'block');
-      // Hoogte dynamisch instellen op basis van content van #MnuLst2
-      // Zorg ervoor dat #MnuLst2 zichtbaar is om de hoogte correct te meten
-      var actualHeight = 0;
-      $('#MnuLst2 > div').each(function(){
-          actualHeight += $(this).outerHeight(true); // Inclusief margin
-      });
-      // Voeg eventuele padding/border van MnuFrame2 toe als dat nodig is
+      $('#Mnu2').css('display', 'block'); var actualHeight = 0;
+      $('#MnuLst2 > div').each(function(){ actualHeight += $(this).outerHeight(true); });
       actualHeight += parseFloat($('#MnuFrame2').css('padding-top')) + parseFloat($('#MnuFrame2').css('padding-bottom'));
-
       $('#Mnu2').height(Math.min(actualHeight, parseFloat($('#Mnu2').css('max-height'))));
     }
   });
 
-  loadPageFromURL(); // Laad de juiste pagina op basis van de URL hash bij het starten
-
-  // --- ALGEMENE LIGHTBOX FUNCTIONALITEIT ---
-  var lightboxImages = [];
-  var currentImageIndex = 0;
-  var $lightbox = $('#imageLightbox');
-  var $lightboxImage = $('.lightbox-image-display');
-  var $prevButton = $('.lightbox-prev-btn');
-  var $nextButton = $('.lightbox-next-btn');
-
-  // Klik op een afbeelding binnen een .fotoGroup op pagina #pgD
-  $('#pgD').on('click', '.fotoGroup .fotoImg', function(e) {
-      e.preventDefault();
-      var $currentGallery = $(this).closest('.activity-gallery-wrapper');
+  // Lightbox functionaliteit (van antwoord #26, JavaScript deel)
+  var lightboxImages = []; var currentImageIndex = 0;
+  var $lightbox = $('#imageLightbox'); var $lightboxImage = $('.lightbox-image-display');
+  var $prevButton = $('.lightbox-prev-btn'); var $nextButton = $('.lightbox-next-btn');
+  $('#pgD').on('click', '.activity-gallery-wrapper .fotoImg', function(e) { // Aangepast naar .activity-gallery-wrapper
+      e.preventDefault(); var $currentGallery = $(this).closest('.activity-gallery-wrapper'); // Aangepast
       lightboxImages = [];
-      $currentGallery.find('.fotoImg').each(function() {
-          lightboxImages.push($(this).attr('src'));
-      });
+      $currentGallery.find('.fotoImg').each(function() { lightboxImages.push($(this).attr('src')); });
       currentImageIndex = lightboxImages.indexOf($(this).attr('src'));
-      if (currentImageIndex !== -1) {
-          openLightbox(currentImageIndex);
-      }
+      if (currentImageIndex !== -1) { openLightbox(currentImageIndex); }
   });
-
   function openLightbox(index) {
-      currentImageIndex = index;
-      $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
-      // Gebruik addClass/removeClass om de CSS transitie te triggeren als die er is
+      currentImageIndex = index; $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
       $lightbox.removeClass('lightbox-overlay-hidden').addClass('lightbox-overlay-visible');
-      $('body').css('overflow', 'hidden');
-      updateNavButtons();
+      $('body').css('overflow', 'hidden'); updateNavButtons();
   }
-
   function closeLightbox() {
       $lightbox.removeClass('lightbox-overlay-visible').addClass('lightbox-overlay-hidden');
       $('body').css('overflow', 'auto');
   }
-
   function showPrevImage() {
-      if (currentImageIndex > 0) {
-          currentImageIndex--;
-          $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
-          updateNavButtons();
-      }
+      if (currentImageIndex > 0) { currentImageIndex--; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); }
   }
-
   function showNextImage() {
-      if (currentImageIndex < lightboxImages.length - 1) {
-          currentImageIndex++;
-          $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
-          updateNavButtons();
-      }
+      if (currentImageIndex < lightboxImages.length - 1) { currentImageIndex++; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); }
   }
-
   function updateNavButtons() {
-      if (lightboxImages.length <= 1) {
-          $prevButton.hide();
-          $nextButton.hide();
-      } else {
-          $prevButton.toggle(currentImageIndex > 0);
-          $nextButton.toggle(currentImageIndex < lightboxImages.length - 1);
-      }
+      if (lightboxImages.length <= 1) { $prevButton.hide(); $nextButton.hide(); }
+      else { $prevButton.toggle(currentImageIndex > 0); $nextButton.toggle(currentImageIndex < lightboxImages.length - 1); }
   }
-
-  $('.lightbox-close-btn').on('click', function() {
-      closeLightbox();
-  });
-
-  $lightbox.on('click', function(e) {
-      if ($(e.target).is($lightbox)) {
-          closeLightbox();
-      }
-  });
-
-  $prevButton.on('click', function(e) {
-      e.stopPropagation();
-      showPrevImage();
-  });
-
-  $nextButton.on('click', function(e) {
-      e.stopPropagation();
-      showNextImage();
-  });
-
+  $('.lightbox-close-btn').on('click', function() { closeLightbox(); });
+  $lightbox.on('click', function(e) { if ($(e.target).is($lightbox)) { closeLightbox(); } });
+  $prevButton.on('click', function(e) { e.stopPropagation(); showPrevImage(); });
+  $nextButton.on('click', function(e) { e.stopPropagation(); showNextImage(); });
   $(document).on('keydown', function(e) {
-      // Controleer of de lightbox daadwerkelijk de class heeft die hem zichtbaar maakt
       if ($lightbox.hasClass('lightbox-overlay-visible')) {
-          if (e.key === "Escape") {
-              closeLightbox();
-          } else if (e.key === "ArrowLeft") {
-              showPrevImage();
-          } else if (e.key === "ArrowRight") {
-              showNextImage();
-          }
+          if (e.key === "Escape") { closeLightbox(); }
+          else if (e.key === "ArrowLeft") { showPrevImage(); }
+          else if (e.key === "ArrowRight") { showNextImage(); }
       }
   });
-  // --- EINDE LIGHTBOX FUNCTIONALITEIT ---
 
-}); // Einde van $(document).ready()
+// Video thumbnail klik functionaliteit (correcte selector: .video-wrapper)
+$('.pgContent#pgE').on('click', '.video-wrapper', function () {
+  const videoId = $(this).data('video-id');
+  if (!videoId) return;
+
+  const iframe = $('<iframe>', {
+    src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0',
+    title: $(this).find('img').attr('alt') || 'Video',
+    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+    allowfullscreen: true,
+    frameborder: 0
+  });
+
+  const container = $('<div>').addClass('youtube-video-container').append(iframe);
+  $(this).replaceWith(container);
+});
+
+// Toon Home-pagina (A) als er geen hash in de URL zit
+if (!window.location.hash) {
+  setPageAndURL('A');
+} else {
+  loadPageFromURL();
+}
+
+});
