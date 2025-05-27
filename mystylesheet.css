@@ -133,8 +133,9 @@
     text-align:right;
     width:80%; height:3vw; margin: 1vw 10% 3vw 10%; }
 	
-	.nieuw-indicator {
+.nieuw-indicator {
   color: #FFE0A3; /* Dit is een oranje kleur, pas aan naar wens */
+  font-size: 0.8em; /* VOEG DEZE REGEL TOE - Pas de waarde aan naar wens */
   /* Optioneel: als u het ook vetgedrukt wilt of een andere stijl */
   /* font-weight: bold; */
 }
