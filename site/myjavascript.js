@@ -1,4 +1,22 @@
 $(document).ready(function (e) {
+
+  // --- START: TOEGEVOEGDE CODE VOOR CONTENT-ONLY WEERGAVE ---
+  function checkViewMode() {
+    // Haal de URL-parameters op
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Controleer of de parameter 'view' de waarde 'content' heeft
+    if (urlParams.get('view') === 'content') {
+        // Voeg de 'content-only' klasse toe aan de body
+        $('body').addClass('content-only');
+    } else {
+        // Als de parameter niet aanwezig is, zorg dat de klasse er niet is
+        $('body').removeClass('content-only');
+    }
+  }
+  // Voer de functie direct uit bij het laden van de pagina
+  checkViewMode();
+  // --- EINDE: TOEGEVOEGDE CODE ---	
   var pgNr = 'A';
   var lightMode = true;
   var menuIdToText = {};

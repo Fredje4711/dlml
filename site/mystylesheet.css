@@ -678,4 +678,38 @@ img.LogoSize2 {
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
+/* ========================================================= */
+/*  --- VERSTERKTE CSS VOOR CONTENT-ONLY WEERGAVE ---        */
+/* ========================================================= */
 
+/* Verberg de header en het linkermenu op alle schermgroottes */
+body.content-only #titelWebsite,
+body.content-only #Mnu1 {
+    display: none !important;
+}
+
+/* Pas de hoofdcontent-container aan zodat deze de volledige ruimte inneemt */
+body.content-only #allPages {
+    float: none !important; /* Verwijder de float die op grote schermen wordt gebruikt */
+    width: 100% !important; /* Neem de volledige breedte in */
+    height: 100vh !important; /* Neem de volledige hoogte van het scherm in */
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    /* Verwijder de achtergrondafbeelding die stoort in deze modus */
+    background-image: none !important; 
+}
+
+/* Zorg ervoor dat de wrapper in content-only modus geen onnodige randen heeft */
+body.content-only #wrapper {
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* Zorg ervoor dat de content binnen de pagina de volledige ruimte kan gebruiken */
+body.content-only .pgContent {
+    height: 100vh !important; /* Volledige hoogte van het viewport */
+    padding: 20px !important; /* Voeg wat padding toe voor de leesbaarheid */
+    box-sizing: border-box !important; /* Zorgt dat padding binnen de hoogte/breedte valt */
+}
