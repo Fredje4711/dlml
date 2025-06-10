@@ -1,26 +1,63 @@
-$(document).ready(function (e) {
+// ========================================================================
+// == FINALE, GECORRIGEERDE VERSIE VAN MYJAVASCRIPT.JS (V3) ==
+// ========================================================================
 
-  // --- START: TOEGEVOEGDE CODE VOOR CONTENT-ONLY WEERGAVE ---
-  function checkViewMode() {
-    // Haal de URL-parameters op
-    const urlParams = new URLSearchParams(window.location.search);
+// Globale variabelen die overal in het script toegankelijk zijn
+var pgNr = 'A';
+var menuIdToText = {}; // Nu globaal, zodat handleRouting erbij kan
 
-    // Controleer of de parameter 'view' de waarde 'content' heeft
-    if (urlParams.get('view') === 'content') {
-        // Voeg de 'content-only' klasse toe aan de body
+// De "Chef-kok" functie met een verbeterd "recept" voor URL-namen.
+function handleRouting() {
+    let hash = window.location.hash.substring(1); // Haal hash op zonder #
+    let targetPgIdSuffix = 'A'; // Standaard is Home
+
+    // 1. Controleer voor content-only modus
+    if (hash.startsWith('content-')) {
         $('body').addClass('content-only');
+        hash = hash.substring(8); // Verwijder 'content-' prefix om de echte slug over te houden
     } else {
-        // Als de parameter niet aanwezig is, zorg dat de klasse er niet is
         $('body').removeClass('content-only');
     }
-  }
-  // Voer de functie direct uit bij het laden van de pagina
-  checkViewMode();
-  // --- EINDE: TOEGEVOEGDE CODE ---	
-  var pgNr = 'A';
-  var lightMode = true;
-  var menuIdToText = {};
 
+    // 2. Bepaal de juiste pagina-ID op basis van de overgebleven slug
+    if (hash) {
+        let found = false;
+        for (const idSuffix in menuIdToText) {
+            let tempLabelElement = $('<div>').html(menuIdToText[idSuffix]);
+            
+            // --- HIER ZIT DE CORRECTIE: Het verbeterde recept ---
+            let labelSlug = tempLabelElement.text().trim()
+              .toLowerCase()
+              .replace(/'/g, '') // VERWIJDERT EERST DE APOSTROFS
+              .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Dan de accenten
+              .replace(/[^a-z0-9]+/g, '-') // Dan de rest vervangen door -
+              .replace(/(^-|-$)/g, ''); // Dan opkuisen
+              
+            tempLabelElement.remove();
+
+            if (labelSlug === hash) {
+                targetPgIdSuffix = idSuffix;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+          targetPgIdSuffix = 'A'; // Fallback naar Home als slug niet gevonden is
+        }
+    }
+    
+    // 3. Toon de pagina met de gevonden ID
+    pgNr = targetPgIdSuffix;
+    var newMnuText = menuIdToText[pgNr] || "Diabetes Liga";
+    $('#actieveMnu').html(newMnuText);
+    $.fn.setPg(); // Deze functie toont de juiste pagina en update de menu's
+}
+
+
+$(document).ready(function (e) {
+  var lightMode = true;
+
+  // Vul de globale 'menuIdToText' lijst
   $('div[id^="MnuItm1"]').each(function() {
       var idSuffix = $(this).attr('id').slice(-1);
       menuIdToText[idSuffix] = $("label", this).html();
@@ -33,94 +70,69 @@ $(document).ready(function (e) {
   });
 
   console.log("DEBUG: menuIdToText is gevuld:", menuIdToText);
-
+  
+  // Deze functie wordt nu alleen gebruikt voor interne navigatie (klik op menu)
   function setPageAndURL(newPgIdSuffix) {
-    console.log("DEBUG: setPageAndURL gestart voor suffix:", newPgIdSuffix);
-    pgNr = newPgIdSuffix;
-    var newMnuText = menuIdToText[pgNr] || "Menu Tekst Niet Gevonden";
-    $('#actieveMnu').html(newMnuText);
-    $.fn.setPg();
-
+    var newMnuText = menuIdToText[newPgIdSuffix] || "Diabetes Liga";
+    
+    // --- HIER OOK DE CORRECTIE TOEPASSEN VOOR CONSISTENTIE ---
     let tempLabelElement = $('<div>').html(newMnuText);
-    let pageSlug = tempLabelElement.text().trim().toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+    let pageSlug = tempLabelElement.text().trim()
+        .toLowerCase()
+        .replace(/'/g, '') // VERWIJDERT EERST DE APOSTROFS
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
     tempLabelElement.remove();
 
     if (pageSlug === "home" || !pageSlug || newPgIdSuffix === 'A') {
-        history.pushState({ pageIdSuffix: pgNr }, newMnuText, window.location.pathname + window.location.search);
-    } else {
-        history.pushState({ pageIdSuffix: pgNr }, newMnuText, '#' + pageSlug);
-    }
-    console.log("DEBUG: setPageAndURL klaar voor suffix:", newPgIdSuffix);
-  }
-
-  $(window).on('popstate', function(event) {
-    console.log("DEBUG: popstate event gedetecteerd", event.originalEvent.state);
-    let targetPgIdSuffix = 'A';
-    if (event.originalEvent.state && event.originalEvent.state.pageIdSuffix) {
-        targetPgIdSuffix = event.originalEvent.state.pageIdSuffix;
-    } else {
-        let hash = window.location.hash.substring(1);
-        if (hash) {
-            let found = false;
-            for (const idSuffix in menuIdToText) {
-                let tempLabelElement = $('<div>').html(menuIdToText[idSuffix]);
-                let labelSlug = tempLabelElement.text().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                tempLabelElement.remove();
-                if (labelSlug === hash) {
-                    targetPgIdSuffix = idSuffix;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) targetPgIdSuffix = 'A';
-        }
-    }
-    console.log("DEBUG: popstate verwerkt, nieuwe targetPgIdSuffix:", targetPgIdSuffix);
-    setPageAndURL(targetPgIdSuffix);
-  });
-
-  function loadPageFromURL() {
-    console.log("DEBUG: loadPageFromURL gestart. Hash:", window.location.hash);
-    let hash = window.location.hash.substring(1);
-    let initialPgIdSuffix = 'A';
-    if (hash) {
-        let found = false;
-        for (const idSuffix in menuIdToText) {
-            let tempLabelElement = $('<div>').html(menuIdToText[idSuffix]);
-            let labelSlug = tempLabelElement.text().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            tempLabelElement.remove();
-            if (labelSlug === hash) {
-                initialPgIdSuffix = idSuffix;
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            console.log("DEBUG: Hash niet gevonden in menuIdToText, fallback naar Home (A)");
-            initialPgIdSuffix = 'A';
+        if (window.location.hash) {
+            window.location.hash = '';
         } else {
-            console.log("DEBUG: Hash gevonden, initialPgIdSuffix:", initialPgIdSuffix);
+            handleRouting();
         }
     } else {
-        console.log("DEBUG: Geen hash, initialPgIdSuffix wordt Home (A)");
+        window.location.hash = '#' + pageSlug;
     }
-    setPageAndURL(initialPgIdSuffix);
   }
-
-  $(window).resize(function () {});
-
-  $('#wrapper').on('click', function (e) {
-    if ($('#Mnu2').css('display') == 'block') {
-      $('#Mnu2').height(0);
-      setTimeout(function () {
-        $('#Mnu2').css('display', 'none');
-      }, 1200);
+  
+  // Luister naar kliks op menu-items
+  $('div[id^="MnuItm1"], div[id^="MnuItm2"]').on('click', function (e) {
+    e.stopPropagation();
+    let newPgIdSuffix = $(this).attr('id').slice(-1);
+    
+    if (newPgIdSuffix === 'I') {
+      $.fn.setMode();
+    } else {
+      setPageAndURL(newPgIdSuffix);
+    }
+    
+    if ($(this).closest('#Mnu2').length && $('#Mnu2').css('display') == 'block') {
+        $('#Mnu2').height(0);
+        setTimeout(function () { $('#Mnu2').css('display', 'none'); }, 1200);
     }
   });
 
+  // De setPg functie
+  $.fn.setPg = function () {
+    $('.pgContent').css('display', 'none');
+    var $targetPage = $('#pg' + pgNr);
+    if ($targetPage.length) {
+        $targetPage.removeAttr('style').css('display', 'block');
+        $targetPage.scrollTop(0);
+    }
+    $('div[id^="MnuItm1"]').css({'color': 'var(--Mnu1Color)', 'font-weight': 'normal'});
+    $('#MnuItm1' + pgNr).css({'color': 'var(--Mnu1SelColor)', 'font-weight': 'bold'});
+    $('div[id^="MnuItm2"]').css({'color': 'var(--Mnu2Color)', 'font-weight': 'normal'});
+    $('#MnuItm2' + pgNr).css({'color': 'var(--Mnu2SelColor)', 'font-weight': 'bold'});
+  };
+
+  // --- ROUTING LOGICA ---
+  $(window).on('hashchange', handleRouting);
+  handleRouting();
+  // --- EINDE ROUTING LOGICA ---
+  
+  // De .setMode functie
   $.fn.setMode = function (e) {
     lightMode = !lightMode;
     if (lightMode) {
@@ -141,61 +153,8 @@ $(document).ready(function (e) {
       $('.LogoSize1, .LogoSize2').attr('src', function(i, oldSrc) { return oldSrc.replace('LogoDLwt.png', 'LogoDLzw.png'); });
     }
   };
-
-  $('div[id^="MnuItm1"], div[id^="MnuItm2"]').on('click', function (e) {
-    e.stopPropagation();
-    let newPgIdSuffix = $(this).attr('id').slice(-1);
-    console.log("DEBUG: Menu item geklikt. ID Suffix:", newPgIdSuffix, "Label HTML:", $("label", this).html());
-    if (newPgIdSuffix === 'I') {
-      $.fn.setMode();
-    } else {
-      setPageAndURL(newPgIdSuffix);
-    }
-    if ($(this).closest('#Mnu2').length && $('#Mnu2').css('display') == 'block') {
-        $('#Mnu2').height(0);
-        setTimeout(function () { $('#Mnu2').css('display', 'none'); }, 1200);
-    }
-  });
-
-  $.fn.setPg = function () {
-    console.log("DEBUG: $.fn.setPg aangeroepen. Huidige pgNr:", pgNr);
-
-    // Stop iframes van YouTube (pgE) en andere (pgK, pgL, pgM)
-    // Zorg ervoor dat pgE, pgK, pgL, pgM ook daadwerkelijk iframes bevatten als je deze code gebruikt
-    if (pgNr !== 'E' && $('#pgE iframe').length) {
-        $('#pgE iframe').each(function() {
-            this.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
-        });
-    }
-    if (pgNr !== 'K' && $('#pgK iframe').length) $('#pgK iframe').attr('src', $('#pgK iframe').attr('src'));
-    if (pgNr !== 'L' && $('#pgL iframe').length) $('#pgL iframe').attr('src', $('#pgL iframe').attr('src'));
-    if (pgNr !== 'M' && $('#pgM iframe').length) $('#pgM iframe').attr('src', $('#pgM iframe').attr('src'));
-
-    // Verberg alle .pgContent divs EERST
-    $('.pgContent').css('display', 'none');
-    console.log("DEBUG: Alle .pgContent verborgen.");
-
-    // Toon de geselecteerde pagina
-    var $targetPage = $('#pg' + pgNr);
-    console.log("DEBUG: Probeer pagina te tonen: #pg" + pgNr);
-
-    if ($targetPage.length) { // Controleer of het element bestaat
-        $targetPage.removeAttr('style'); // VERWIJDER de inline style="display: none;"
-        $targetPage.css('display', 'block'); // Zet display expliciet op block
-        $targetPage.scrollTop(0); // Scroll naar bovenkant van nieuwe pagina
-        console.log("DEBUG: #pg" + pgNr + " zou nu zichtbaar moeten zijn. Huidige display:", $targetPage.css('display'));
-    } else {
-        console.error("DEBUG: FOOOOUT!!! Element #pg" + pgNr + " NIET GEVONDEN IN DE DOM!");
-    }
-
-    // Update menu highlighting
-    $('div[id^="MnuItm1"]').css({'color': 'var(--Mnu1Color)', 'font-weight': 'normal'});
-    $('#MnuItm1' + pgNr).css({'color': 'var(--Mnu1SelColor)', 'font-weight': 'bold'});
-
-    $('div[id^="MnuItm2"]').css({'color': 'var(--Mnu2Color)', 'font-weight': 'normal'});
-    $('#MnuItm2' + pgNr).css({'color': 'var(--Mnu2SelColor)', 'font-weight': 'bold'});
-  };
-
+  
+  // Knop voor mobiel menu
   $('#btnMnu').on('click', function (e) {
     e.preventDefault(); e.stopPropagation();
     if ($('#Mnu2').css('display') == 'block') {
@@ -208,12 +167,12 @@ $(document).ready(function (e) {
     }
   });
 
-  // Lightbox functionaliteit (van antwoord #26, JavaScript deel)
+  // Lightbox
   var lightboxImages = []; var currentImageIndex = 0;
   var $lightbox = $('#imageLightbox'); var $lightboxImage = $('.lightbox-image-display');
   var $prevButton = $('.lightbox-prev-btn'); var $nextButton = $('.lightbox-next-btn');
-  $('#pgD').on('click', '.activity-gallery-wrapper .fotoImg', function(e) { // Aangepast naar .activity-gallery-wrapper
-      e.preventDefault(); var $currentGallery = $(this).closest('.activity-gallery-wrapper'); // Aangepast
+  $('#pgD').on('click', '.activity-gallery-wrapper .fotoImg', function(e) {
+      e.preventDefault(); var $currentGallery = $(this).closest('.activity-gallery-wrapper');
       lightboxImages = [];
       $currentGallery.find('.fotoImg').each(function() { lightboxImages.push($(this).attr('src')); });
       currentImageIndex = lightboxImages.indexOf($(this).attr('src'));
@@ -228,12 +187,8 @@ $(document).ready(function (e) {
       $lightbox.removeClass('lightbox-overlay-visible').addClass('lightbox-overlay-hidden');
       $('body').css('overflow', 'auto');
   }
-  function showPrevImage() {
-      if (currentImageIndex > 0) { currentImageIndex--; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); }
-  }
-  function showNextImage() {
-      if (currentImageIndex < lightboxImages.length - 1) { currentImageIndex++; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); }
-  }
+  function showPrevImage() { if (currentImageIndex > 0) { currentImageIndex--; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); } }
+  function showNextImage() { if (currentImageIndex < lightboxImages.length - 1) { currentImageIndex++; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); } }
   function updateNavButtons() {
       if (lightboxImages.length <= 1) { $prevButton.hide(); $nextButton.hide(); }
       else { $prevButton.toggle(currentImageIndex > 0); $nextButton.toggle(currentImageIndex < lightboxImages.length - 1); }
@@ -250,36 +205,19 @@ $(document).ready(function (e) {
       }
   });
 
-// Video thumbnail klik functionaliteit (correcte selector: .video-wrapper)
-$('.pgContent#pgE').on('click', '.video-wrapper', function () {
-  const videoId = $(this).data('video-id');
-  if (!videoId) return;
-
-  const iframe = $('<iframe>', {
-    src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0',
-    title: $(this).find('img').attr('alt') || 'Video',
-    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
-    allowfullscreen: true,
-    frameborder: 0,
-    css: {
-      width: '100%',
-      height: '100%',
-      display: 'block',
-      border: 'none'
-    }
+  // Video's
+  $('.pgContent#pgE').on('click', '.video-wrapper', function () {
+    const videoId = $(this).data('video-id');
+    if (!videoId) return;
+    const iframe = $('<iframe>', {
+        src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0',
+        title: $(this).find('img').attr('alt') || 'Video',
+        allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+        allowfullscreen: true,
+        frameborder: 0,
+        css: { width: '100%', height: '100%', display: 'block', border: 'none' }
+    });
+    $(this).find('img, .play-button').remove();
+    $(this).append(iframe);
   });
-
-  // Verwijder alleen de thumbnail en play-button binnenin deze wrapper
-  $(this).find('img, .play-button').remove();
-  $(this).append(iframe);
-});
-
-// Toon Home-pagina (A) als er geen hash in de URL zit
-if (!window.location.hash) {
-  setPageAndURL('A');
-} else {
-  loadPageFromURL();
-}
-
-
 });
