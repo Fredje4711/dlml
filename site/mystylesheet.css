@@ -65,7 +65,7 @@ body {  }
   border-radius: 1.7vw;
   font-size: 2.6vw; line-height:1; font-weight:bold; }
 
-#Mnu1 { display:none; }
+
 
 #Mnu2 {
   display:none; position:absolute; z-index:99;
@@ -95,10 +95,10 @@ body {  }
   width:100%; height:66vw; /* Behoud vaste hoogte of overweeg auto met grid-auto-rows */
   grid-template-columns: 31vw;
   grid-template-rows: repeat(12, auto); /* Aangepast naar 12 rijen 'auto' voor flexibiliteit */
-  /* Of gebruik: grid-auto-rows: 5.5vw; als je een vaste rijhoogte wilt voor 12 items in 66vw */
+  /* Of gebruik:  als je een vaste rijhoogte wilt voor 12 items in 66vw */
   justify-content: start; align-content:start;
   justify-items:start; align-items:center;
-  row-gap:0px; column-gap:0px; }
+   column-gap:0px; }
 
 #MnuLst2 div {
   display:grid; width: 100%; height:100%;
@@ -162,7 +162,7 @@ body {  }
   font-weight: normal;
   border-width: 1vw 1vw 1vw 2.2vw;
   border-color:transparent; border-style:solid;
-  outline:1px #a0a0c4 solid; outline-offset:-2px;
+  outline: none; outline-offset: 0;
   overflow-x:hidden; overflow-y:hidden;
   background-image: url("image/LogoDLML.png");
   background-repeat: no-repeat;
@@ -257,7 +257,7 @@ img.LogoSize2 {
     font-size: 2.4vw;
    }
 
-  #Mnu1 { display:none; } /* Blijft display:none; voor medium scherm */
+   /* Blijft display:none; voor medium scherm */
 
   #Mnu2 {
     /* Jouw bestaande #Mnu2 stijlen voor medium */
@@ -274,7 +274,7 @@ img.LogoSize2 {
   #MnuLst2 {
     /* Jouw bestaande #MnuLst2 stijlen voor medium */
     font-size: 2.6vw; /* Toegevoegd uit jouw eerdere CSS */
-    grid-auto-rows: 4vw; /* Toegevoegd uit jouw eerdere CSS, of pas aan */
+     /* Toegevoegd uit jouw eerdere CSS, of pas aan */
     height: auto; /* Toegevoegd uit jouw eerdere CSS */
     /* grid-template-rows: repeat(12, auto);  of de grid-auto-rows hierboven is voldoende */
   }
@@ -395,10 +395,10 @@ img.LogoSize2 {
     background-color:inherit; color:inherit;
     width:100%; height:auto;
     grid-template-columns: auto;
-    grid-auto-rows: 2.6vw; /* Bepaalt rijhoogte, pas aan als menu te hoog/laag wordt */
+     /* Bepaalt rijhoogte, pas aan als menu te hoog/laag wordt */
     justify-content: start; align-content:start;
     justify-items:start; align-items:center;
-    row-gap:2px; column-gap:1vw;
+     column-gap:1vw;
   }
 
 /* BINNEN @media only screen and (min-width: 1280px) { ... } */
@@ -713,3 +713,167 @@ body.content-only .pgContent {
     padding: 20px !important; /* Voeg wat padding toe voor de leesbaarheid */
     box-sizing: border-box !important; /* Zorgt dat padding binnen de hoogte/breedte valt */
 }
+
+/* Mobiele versie van het menu */
+
+#Mnu2 {
+  display: none;
+  position: absolute;
+  z-index: 99;
+  right: 2vw;
+  top: 11.5vw;
+  width: 54vw;
+  height: auto;
+  max-height: calc(100vh - 15vw);
+  background-color: var(--Mnu2BackColor);
+  color: var(--Mnu2Color);
+  overflow-y: auto;
+  padding: 2vw 0;
+}
+
+#MnuLst2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  justify-items: start;
+  align-items: center;
+  
+  column-gap: 0;
+  width: 100%;
+  background-color: inherit;
+  color: inherit;
+}
+
+#MnuLst2 div {
+  display: grid;
+  grid-template-columns: 7.5vw auto;
+  grid-template-rows: 1fr;
+  align-items: center;
+  width: 100%;
+  padding: 1.5vw 2vw;
+  font-size: 3.8vw;
+  line-height: 1.2;
+  background-color: inherit;
+  color: var(--Mnu2Color);
+}
+
+#MnuLst2 div i {
+  font-size: 4vw;
+  text-align: center;
+  color: var(--Mnu2Color);
+}
+
+#MnuLst2 div label {
+  padding-left: 1vw;
+  white-space: nowrap;
+  font-size: 3.8vw;
+  color: var(--Mnu2Color);
+}
+
+
+/* ============================= */
+/* AANPASSINGEN MENU-ITEM GEBIED */
+/* ============================= */
+
+/* Witte achtergrond voor menu's */
+#Mnu1, #Mnu2 {
+  background-color: #ffffff;
+}
+
+/* Menu-teksten en iconen in zwart en niet vet */
+#MnuLst1 div,
+#MnuLst2 div {
+  color: #000000;
+  font-weight: normal;
+}
+
+#MnuLst1 div i,
+#MnuLst2 div i {
+  color: #000000;
+  font-weight: normal;
+}
+
+#MnuLst1 div label,
+#MnuLst2 div label {
+  color: #000000;
+  font-weight: normal;
+  padding-left: 0.6vw;
+}
+
+/* Scheidingslijn tussen groepen */
+
+#MnuLst1 > div,
+
+
+
+/* Minder witruimte tussen menu-items */
+#MnuLst1 {
+   /* of experimenteer met 2vw */
+  
+}
+
+#MnuLst2 {
+   /* mobiel, kleinere rijhoogte */
+  
+}
+#MnuLst1 .MnuLine,
+#MnuLst2 
+#MnuLst1 .MnuLine,
+#MnuLst2
+
+/* ======= GEOPTIMALISEERDE .MnuLine en MENU-SPACING ========== */
+
+#MnuLst1 > div,
+
+#MnuLst1 {
+  
+  
+}
+#MnuLst2 {
+  
+  
+}
+/* ============ HARD OVERRIDES scheidingslijnen + groepafstand ============ */
+
+#MnuLst1 > .MnuLine,
+#MnuLst2 > 
+
+#MnuLst1 > div,
+
+
+/* ======= GEOPTIMALISEERDE .MnuLine en MENU-SPACING ========== */
+
+/* Zwarte dunne scheidingslijn tussen groepen */
+.MnuLine {
+  width: 100%;
+  height: 1px;
+  background-color: #000000 !important;
+  margin: 0.4vw 0 !important;  /* ↑↑ Dit regelt witruimte boven én onder */
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Minimale witruimte rond alle menu-items én groepen */
+#MnuLst1 > div,
+#MnuLst2 > div {
+  margin: 0 !important;
+  padding: 0.2vw 0 !important; /* Minimale ruimte boven/onder item */
+  line-height: 1 !important;
+}
+
+/* Menu lijsten zonder extra rijhoogte */
+#MnuLst1 {
+  grid-auto-rows: auto;
+  row-gap: 0px !important;
+}
+
+#MnuLst2 {
+  grid-auto-rows: auto;
+  row-gap: 0px !important;
+}
+#MnuLst1 .activeMnuItem label,
+#MnuLst2 .activeMnuItem label {
+  font-weight: bold !important;
+}
+
+
