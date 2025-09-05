@@ -80,7 +80,7 @@ body {  }
 
 #MnuFrame2 {
   display:block;
-  width:54vw; height: 100% ;
+  width:60vw; height: 100% ;
   border-width: 1.5vw 1.8vw 1.5vw 2vw ;
   border-color: transparent;
   border-style: solid;
@@ -725,7 +725,7 @@ body.content-only .pgContent {
   z-index: 99;
   right: 2vw;
   top: 11.5vw;
-  width: 54vw;
+  width: 60vw;
   height: auto;
   max-height: calc(100vh - 15vw);
   background-color: var(--Mnu2BackColor);
@@ -753,7 +753,7 @@ body.content-only .pgContent {
   grid-template-rows: 1fr;
   align-items: center;
   width: 100%;
-  padding: 1.5vw 2vw;
+  padding: 2vw 2vw;
   font-size: 3.8vw;
   line-height: 1.2;
   background-color: inherit;
@@ -888,6 +888,13 @@ body.content-only .pgContent {
 @media only screen and (min-width: 768px) {
   #btnMnu {
     display: none !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #MnuLst2 > div:not(.MnuLine) {
+    margin: 0 !important;
+    padding: 3vw 2vw !important; /* Meer ruimte boven/onder voor tikgemak */
+    line-height: 1 !important;
   }
 }
 
