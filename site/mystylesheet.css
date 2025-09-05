@@ -361,11 +361,14 @@ img.LogoSize2 {
     display: none;
   }
   #imgLogoV2 {
-    display: block;
-    width: 98.4vw;
-    height: auto;
-    /* max-height: 110px; */ /* Optioneel, voor later finetunen */
-  }
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  /* optioneel: max-height: 110px; */
+}
+
   /* --- EINDE CORRECTE REGELS VOOR BANNER LOGO'S --- */
 
 
@@ -874,6 +877,18 @@ body.content-only .pgContent {
 #MnuLst1 .activeMnuItem label,
 #MnuLst2 .activeMnuItem label {
   font-weight: bold !important;
+}
+/* Verberg het linker menu op kleine schermen */
+@media only screen and (max-width: 767px) {
+  #Mnu1 {
+    display: none !important;
+  }
+}
+/* Verberg hamburgerknop op grote schermen */
+@media only screen and (min-width: 768px) {
+  #btnMnu {
+    display: none !important;
+  }
 }
 
 
