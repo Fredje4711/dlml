@@ -890,11 +890,130 @@ body.content-only .pgContent {
     display: none !important;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  #btnMnu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 1vw;
+    top: 1vw;
+    width: 14vw;
+    height: 14vw;
+    background-color: rgba(255, 255, 255, 0.5);  /* Lichtgrijze achtergrond */
+    border: 1px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    font-size: 4vw;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   #MnuLst2 > div:not(.MnuLine) {
     margin: 0 !important;
     padding: 3vw 2vw !important; /* Meer ruimte boven/onder voor tikgemak */
     line-height: 1 !important;
+  }
+}
+/* ROLLENDE BANNER ONDER HEADER */
+#rollingBanner {
+  width: 100%;
+  overflow: hidden;
+  background-color: #23a9e4; /* Opvallend geel */
+  color: #FFFFFF;
+  font-size: 1.3vw;
+  font-weight: bold;
+  white-space: nowrap;
+  border-top: 2px solid #6f32aa;
+  border-bottom: 2px solid #6f32aa;
+}
+
+.rollingText {
+  display: inline-block;
+  padding-left: 100%;
+  animation: rollText 20s linear infinite;
+  text-shadow:
+    -2px -2px 0 #000,
+     1px -2px 0 #000,
+    -2px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+@keyframes rollText {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #rollingBanner {
+    font-size: 3.2vw;
+    padding: 1vw 0;
+  }
+}
+/* ======== AANPASSING CONTACTTEKSTEN VOOR GSM ========== */
+@media only screen and (max-width: 767px) {
+  .contactTxt {
+    font-size: 4.2vw; /* Iets groter voor leesbaarheid op gsm */
+    line-height: 1.4;
+  }
+}
+
+/* ======== AANPASSING SOCIALE MEDIA LINKS (iconen en tekst) ========== */
+#tableSocials img {
+  vertical-align: middle;
+}
+
+#tableSocials div {
+  font-size: 1.7vw; /* DESKTOP: maak tekst iets groter */
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  #tableSocials div {
+    font-size: 4vw; /* GSM: grotere tekst */
+    line-height: 1.4;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #pgH .contactTxt > div {
+    font-size: 3.8vw !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* Rode titels (in <label>) boven de afbeeldingen in Infosessies & Cultuur/ontspanning */
+  .infosessie > label {
+    font-size: 5vw !important;
+    font-weight: bold;
+    display: block;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    line-height: 1.3;
+  }
+
+  /* Tekst onder afbeeldingen */
+  .infosessie > div {
+    font-size: 3.5vw !important;
+    line-height: 1.4 !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* Alleen de tekst onder de afbeelding opschuiven */
+  .infosessie > div:not(.infosessieImg):not(.msgAfgesloten) {
+    margin-left: 4vw !important;
+    text-align: left !important;
+    padding-left: 0 !important;
   }
 }
 
