@@ -1067,9 +1067,11 @@ body.content-only .pgContent {
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
+  font-size: 3.7vw; /* vergroot tekst, schaalbaar met schermbreedte */
+  line-height: 1.6; /* iets meer ruimte tussen regels */
 }
 .ctaBtn {
-  display: inline-block;
+  display: block;
   background-color: red;
   color: white;
   padding: 14px 24px;
