@@ -185,6 +185,39 @@ img.LogoSize1 {
 img.LogoSize2 {
   display:inline-block; background-color:transparent;
   height: 7vw; width: auto; }
+  
+  
+  .ctaMobiel {
+  display: block;
+  margin: 4vw 5vw;
+  font-size: 3.4vw;
+  color: #000;
+}
+
+.ctaBox {
+  background-color: #ffe0e0;
+  border-left: 6px solid #ff0000;
+  padding: 3vw;
+  margin-bottom: 4vw;
+  border-radius: 2vw;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+.ctaBox strong {
+  font-weight: bold;
+  color: #990000;
+}
+
+.ctaBox button {
+  margin-top: 2vw;
+  padding: 1.5vw 4vw;
+  font-size: 3.2vw;
+  border: none;
+  border-radius: 1.5vw;
+  background-color: #ff0000;
+  color: #fff;
+}
+
 
 
 /* -------------------------------------------------------- */
@@ -884,12 +917,20 @@ body.content-only .pgContent {
     display: none !important;
   }
 }
+
 /* Verberg hamburgerknop op grote schermen */
 @media only screen and (min-width: 768px) {
   #btnMnu {
     display: none !important;
   }
 }
+
+@media only screen and (min-width: 768px) {
+  .ctaMobiel {
+    display: none;
+  }
+}
+
 
 @media only screen and (max-width: 767px) {
   #btnMnu {
@@ -1016,5 +1057,20 @@ body.content-only .pgContent {
     padding-left: 0 !important;
   }
 }
+/* CTA-knopstijl voor mobiel */
+.ctaBtn {
+  display: inline-block;
+  background-color: red;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 4.5vw;
+  margin-top: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
 
 
