@@ -1057,7 +1057,17 @@ body.content-only .pgContent {
     padding-left: 0 !important;
   }
 }
-/* CTA-knopstijl voor mobiel */
+.ctaBox {
+  background-color: #ffe5e5;
+  padding: 4vw;
+  margin: 5vw auto;
+  border-radius: 15px;
+  border-left: 6px solid red;
+  box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
 .ctaBtn {
   display: inline-block;
   background-color: red;
@@ -1071,6 +1081,7 @@ body.content-only .pgContent {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
   text-align: center;
 }
+
 
 
 
