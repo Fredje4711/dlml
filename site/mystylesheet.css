@@ -1103,8 +1103,9 @@ body.content-only .pgContent {
 }
 /* Footer en lightbox zichtbaar en stabiel op mobiel */
 @media (max-width: 767px) {
-  html, body {
-    min-height: 100vh !important;
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
     overflow-y: auto !important;
   }
 
@@ -1113,7 +1114,7 @@ body.content-only .pgContent {
   }
 
   .lg-outer .lg-thumb-outer {
-    min-height: 80px !important; /* Reserveer ruimte voor fotostrip */
+    min-height: 80px !important;
     box-sizing: border-box;
   }
 }
