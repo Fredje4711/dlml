@@ -1083,6 +1083,14 @@ body.content-only .pgContent {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
   text-align: center;
 }
+@media (max-width: 767px) {
+    body.lg-show #wrapper {
+        position: relative !important;
+        height: auto !important;
+        overflow-y: auto !important;
+    }
+}
+
 
 
 
