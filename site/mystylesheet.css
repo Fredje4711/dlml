@@ -1101,6 +1101,22 @@ body.content-only .pgContent {
         min-height: 100vh !important;
     }
 }
+/* Footer en lightbox zichtbaar en stabiel op mobiel */
+@media (max-width: 767px) {
+  html, body {
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+
+  #wrapper {
+    min-height: 100vh !important;
+  }
+
+  .lg-outer .lg-thumb-outer {
+    min-height: 80px !important; /* Reserveer ruimte voor fotostrip */
+    box-sizing: border-box;
+  }
+}
 
 
 
