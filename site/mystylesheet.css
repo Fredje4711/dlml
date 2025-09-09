@@ -1090,6 +1090,17 @@ body.content-only .pgContent {
         overflow-y: auto !important;
     }
 }
+/* Mobiele footer correct tonen en scroll toestaan */
+@media (max-width: 767px) {
+    html, body {
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+    }
+
+    #wrapper {
+        min-height: 100vh !important;
+    }
+}
 
 
 
