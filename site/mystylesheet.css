@@ -1110,7 +1110,7 @@ body.content-only .pgContent {
   }
 
   #wrapper {
-    min-height: 100vh !important;
+    min-height: 100svh !important;
   }
 
   .lg-outer .lg-thumb-outer {
@@ -1118,8 +1118,3 @@ body.content-only .pgContent {
     box-sizing: border-box;
   }
 }
-
-
-
-
-
