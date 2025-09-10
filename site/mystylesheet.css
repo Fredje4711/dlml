@@ -1118,3 +1118,12 @@ body.content-only .pgContent {
     box-sizing: border-box;
   }
 }
+@media screen and (max-width: 768px) {
+  body {
+    min-height: 100svh;
+  }
+
+  html {
+    min-height: 100svh;
+  }
+}
