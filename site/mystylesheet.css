@@ -1119,11 +1119,11 @@ body.content-only .pgContent {
   }
 }
 @media screen and (max-width: 768px) {
-  body {
-    min-height: 100svh;
+  body, html {
+    min-height: 120svh !important;
   }
 
-  html {
-    min-height: 100svh;
+  #wrapper {
+    min-height: 120svh !important;
   }
 }
