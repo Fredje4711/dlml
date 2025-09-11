@@ -1127,3 +1127,80 @@ body.content-only .pgContent {
     min-height: 120svh !important;
   }
 }
+/* ========== MOBIELE AANPASSINGEN VOOR SOCIAL MEDIA ICONEN ========== */
+@media only screen and (max-width: 767px) {
+
+  /* Verplaatsing en centrering van het sociale iconenblok */
+  #socIcons {
+    margin-top: 2vw;
+    margin-bottom: 4vw;
+    width: 96vw;
+    height: auto;
+    text-align: center;
+  }
+
+  /* Grotere iconen: 2× zo groot */
+  .socItm {
+    display: inline-block;
+    margin: 0 1.8vw;
+    width: 8vw;
+    height: 8vw;
+  }
+
+  .icon {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  /* Optioneel: tooltip kleiner op mobiel verbergen of aanpassen */
+  .tooltipTxt {
+    font-size: 3vw;
+    margin-top: 0.5vw;
+    display: block;
+  }
+}
+@media (max-width: 767px) {
+  .social-icon-row img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .social-icon-row {
+    margin-bottom: 5vw !important;
+  }
+
+  .social-icon-row a {
+    font-size: 1.5em !important;
+  }
+}
+/* ============================================= */
+/* Sociale media blok onder blauw logo op gsm */
+/* ============================================= */
+@media only screen and (max-width: 767px) {
+  .socialBlockGsm {
+    width: 90%;
+    margin: 4vw auto 8vw auto;
+    background-color: #f8f8f8;
+    padding: 4vw;
+    border-radius: 2vw;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+
+  .socialRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3vw;
+  }
+
+  .socialRow img {
+    width: 8vw;
+    height: 8vw;
+    margin-right: 4vw;
+  }
+
+  .socialRow a {
+    font-size: 3.6vw;
+    color: #000;
+    text-decoration: underline;
+  }
+}
