@@ -1204,3 +1204,9 @@ body.content-only .pgContent {
     text-decoration: underline;
   }
 }
+/* Verberg tooltips op mobiele schermen */
+@media only screen and (max-width: 767px) {
+  .tooltipTxt {
+    display: none !important;
+  }
+}
