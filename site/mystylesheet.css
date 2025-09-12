@@ -194,15 +194,6 @@ img.LogoSize2 {
   color: #000;
 }
 
-.ctaBox {
-  background-color: #ffe0e0;
-  border-left: 6px solid #ff0000;
-  padding: 3vw;
-  margin-bottom: 4vw;
-  border-radius: 2vw;
-  box-shadow: 0 0 4px rgba(0,0,0,0.2);
-}
-
 .ctaBox strong {
   font-weight: bold;
   color: #990000;
@@ -1057,19 +1048,6 @@ body.content-only .pgContent {
     padding-left: 0 !important;
   }
 }
-.ctaBox {
-  background-color: #ffe5e5;
-  padding: 4vw;
-  margin: 5vw auto;
-  border-radius: 15px;
-  border-left: 6px solid red;
-  box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-  font-size: 3.7vw; /* vergroot tekst, schaalbaar met schermbreedte */
-  line-height: 1.6; /* iets meer ruimte tussen regels */
-}
 .ctaBtn {
   display: block;
   background-color: red;
@@ -1209,4 +1187,187 @@ body.content-only .pgContent {
   .tooltipTxt {
     display: none !important;
   }
+}
+/* ====== Diabetes Infolijn pagina ====== */
+
+.infolijn-header {
+  background: #23a9e4;
+  color: white;
+  padding: 6vw 4vw;
+  text-align: center;
+  border-radius: 0 0 20px 20px;
+}
+
+.infolijn-header h1 {
+  font-size: 7vw;
+  margin: 0;
+}
+
+.infolijn-header p {
+  font-size: 4vw;
+  margin: 1vw 0 0;
+}
+
+.infolijn-highlight {
+  background: #ffe5e5;
+  border-left: 6px solid red;
+  padding: 5vw;
+  margin: 6vw 10%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.infolijn-highlight h2 {
+  margin: 0 0 2vw;
+  font-size: 5vw;
+  color: #990000;
+}
+
+.infolijn-kernpunten {
+  display: flex;
+  justify-content: space-around;
+  margin: 6vw 5%;
+  font-size: 4vw;
+  flex-wrap: wrap;
+}
+
+.kernpunt {
+  flex: 1 1 30%;
+  margin: 2vw;
+  background: #f5f5f5;
+  padding: 4vw;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.infolijn-vragen {
+  margin: 6vw 8%;
+}
+
+.infolijn-vragen h3 {
+  font-size: 5vw;
+  margin-bottom: 3vw;
+}
+
+.infolijn-vragen ul {
+  list-style: none;
+  padding: 0;
+}
+
+.infolijn-vragen li {
+  margin: 2vw 0;
+  padding-left: 1.5em;
+  position: relative;
+  font-size: 4vw;
+}
+
+.infolijn-vragen li::before {
+  content: "✔";
+  color: #23a9e4;
+  position: absolute;
+  left: 0;
+}
+
+.infolijn-cta {
+  text-align: center;
+  margin: 8vw 0;
+}
+
+.infolijn-extra {
+  text-align: center;
+  margin: 4vw 20%;
+  font-size: 3.5vw;
+}
+.ctaBox {
+  background-color: #ffe5e5 !important;
+  border-left: 6px solid #ff0000 !important;
+  padding: 1vw !important;
+  margin: 1vw auto !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2) !important;
+  width: 92% !important;
+  margin-left: 5% !important;
+  margin-right: 0% !important;
+  font-size: 4.5vw !important;
+  line-height: 1.4 !important;
+}
+/* CTA-rij voor activiteiten naast elkaar — VERBETERD */
+.ctaRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 2 kolommen */
+  gap: 2.5vw;                       /* ruimte tussen de kolommen */
+  margin: 0 2vw 3vw 2vw;            /* kleine buitenmarges */
+  align-items: stretch;              /* beide boxen even hoog */
+}
+
+.ctaRow .ctaBox {
+  width: 100% !important;           /* geen interne 92% in de rij */
+  margin: 0 !important;             /* geen links/rechts offset */
+  padding: 2.4vw !important;        /* compacte padding */
+  display: flex;                     /* zodat de knop naar onder kan */
+  flex-direction: column;
+}
+
+/* Centreer de linktekst en zet de knop onderaan in elke box.
+   Werkt zowel met <a class="ctaBtn"> als met een ‘gewone’ <a> */
+.ctaRow .ctaBox .ctaBtn,
+.ctaRow .ctaBox a {
+  display: block;
+  text-align: center;
+  margin-top: auto;                  /* duwt de knop naar de onderkant */
+}
+/* --------------------------------------------------- */
+/* Compactere CTA-knoppen en uitlijning                */
+/* --------------------------------------------------- */
+
+/* Alle CTA-knoppen kleiner en zonder onderlijning */
+.ctaBtn {
+  display: inline-block;
+  background-color: red;
+  color: white;
+  padding: 2vw 0;           /* compacter */
+  border-radius: 8px;
+  text-decoration: none !important;
+  font-weight: bold;
+  font-size: 4.5vw;         /* vult bijna de hele knop */
+  width: 100%;              /* knop even breed als de box */
+  text-align: center;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.ctaBtn {
+  display: block;
+  background-color: red;
+  color: black !important;
+  padding: 2vw 0;             /* compacte hoogte */
+  border-radius: 8px;
+  text-decoration: none !important;
+  font-weight: bold;
+  font-size: 4.5vw;
+  width: 100%;
+  text-align: center;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+/* Infolijn tekst gecentreerd */
+.ctaBox strong, 
+.ctaBox p, 
+.ctaBox div {
+  text-align: center;
+}
+/* Links uitlijnen voor de eerste twee CTA-boxen */
+.ctaRow .ctaBox {
+  text-align: left !important;
+}
+
+/* Centraal uitlijnen voor de Infolijn-CTA (de brede box eronder) */
+.ctaMobiel > .ctaBox {
+  text-align: center !important;
+}
+/* Forceer de titels in de 2 activiteiten-links naar links */
+.ctaRow .ctaBox strong {
+  text-align: left !important;
+  display: block;
 }
