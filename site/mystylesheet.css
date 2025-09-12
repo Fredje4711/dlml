@@ -1371,3 +1371,76 @@ body.content-only .pgContent {
   text-align: left !important;
   display: block;
 }
+.infolijn-header-img {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 4vw 0;
+}
+
+.infolijn-header-img img {
+  width: 90%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+/* Desktop-aanpassingen voor de Infolijn-pagina */
+@media only screen and (min-width: 1024px) {
+  .infolijn-header-img img {
+    width: 50%;   /* kleiner op breed scherm */
+    border-radius: 10px;
+  }
+
+  .infolijn-highlight {
+    padding: 2vw;
+    margin: 2vw auto;
+    width: 60%;
+    font-size: 1.2vw;
+  }
+
+  .infolijn-highlight h2 {
+    font-size: 1.8vw;
+  }
+
+  .infolijn-kernpunten {
+    margin: 2vw auto;
+    width: 70%;
+    font-size: 1.2vw;
+  }
+
+  .kernpunt {
+    padding: 1.5vw;
+    font-size: 1vw;
+  }
+
+  .infolijn-vragen {
+    margin: 2vw auto;
+    width: 70%;
+    font-size: 1.2vw;
+  }
+
+  .infolijn-vragen h3 {
+    font-size: 1.6vw;
+  }
+
+  .infolijn-vragen li {
+    font-size: 1.2vw;
+    margin: 0.8vw 0;
+  }
+
+  .infolijn-cta {
+    margin: 2vw auto;
+  }
+
+  .infolijn-cta .ctaBtn {
+    font-size: 1.2vw;
+    padding: 0.8vw 2vw;
+    width: auto;
+    display: inline-block;
+  }
+
+  .infolijn-extra {
+    font-size: 1.1vw;
+    margin: 1.5vw auto;
+    width: 60%;
+  }
+}
