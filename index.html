@@ -217,12 +217,13 @@
     </div>
   </div>
 
-  <!-- Nieuwe brede CTA voor Infolijn -->
-  <div class="ctaBox">
-    <strong>📞 Diabetes Infolijn</strong><br>
-    Gratis bellen: 0800 96 333<br>
-    <a href="#pgInfolijn" class="ctaBtn">Info</a>
-  </div>
+<!-- Nieuwe brede CTA voor Infolijn -->
+<div class="ctaBox">
+  <strong>📞 Diabetes Infolijn</strong><br>
+  Gratis bellen: 0800 96 333<br>
+  <a href="#pgQ" class="ctaBtn" onclick="setActivePage('Q'); return false;">Info</a>
+</div>
+
 
 </div>
 
@@ -2639,34 +2640,39 @@
     <script  src="site/myjavascript.js"> </script>
 	
 <script>
+// Maak setActivePage GLOBAAL beschikbaar
+function setActivePage(id) {
+  console.log("setActivePage aangeroepen met id:", id); // ✅ TESTREGEL
+
+  const pages = document.querySelectorAll(".pgContent");
+  const menuItems1 = document.querySelectorAll("#MnuLst1 > div:not(.MnuLine)");
+  const menuItems2 = document.querySelectorAll("#MnuLst2 > div:not(.MnuLine)");
+
+  // Verberg alle pagina's
+  pages.forEach(p => p.style.display = "none");
+
+  // Toon gewenste pagina
+  const page = document.getElementById("pg" + id);
+  if (page) page.style.display = "block";
+
+  // Menu activeren
+  menuItems1.forEach(i => i.classList.remove("activeMnuItem"));
+  menuItems2.forEach(i => i.classList.remove("activeMnuItem"));
+
+  const itm1 = document.getElementById("MnuItm1" + id);
+  const itm2 = document.getElementById("MnuItm2" + id);
+  if (itm1) itm1.classList.add("activeMnuItem");
+  if (itm2) itm2.classList.add("activeMnuItem");
+
+  // Opslaan in localStorage
+  localStorage.setItem("activePage", id);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const menuItems1 = document.querySelectorAll("#MnuLst1 > div:not(.MnuLine)");
   const menuItems2 = document.querySelectorAll("#MnuLst2 > div:not(.MnuLine)");
-  const pages = document.querySelectorAll(".pgContent");
 
-  function setActivePage(id) {
-    // Verberg alle pagina's
-    pages.forEach(p => p.style.display = "none");
-
-    // Toon de gewenste pagina
-    const page = document.getElementById("pg" + id);
-    if (page) page.style.display = "block";
-
-    // Verwijder bestaande actieve klassen
-    menuItems1.forEach(i => i.classList.remove("activeMnuItem"));
-    menuItems2.forEach(i => i.classList.remove("activeMnuItem"));
-
-    // Zet actieve menu-items vet
-    const itm1 = document.getElementById("MnuItm1" + id);
-    const itm2 = document.getElementById("MnuItm2" + id);
-    if (itm1) itm1.classList.add("activeMnuItem");
-    if (itm2) itm2.classList.add("activeMnuItem");
-
-    // Bewaar de actieve pagina in localStorage
-    localStorage.setItem("activePage", id);
-  }
-
-  // Voeg click-events toe aan alle menu-items
+  // Voeg click-events toe aan menu
   [...menuItems1, ...menuItems2].forEach(item => {
     item.addEventListener("click", function () {
       const id = this.id.replace("MnuItm1", "").replace("MnuItm2", "");
@@ -2674,12 +2680,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Herstel vorige pagina (of Home als default)
+  // CTA-knop van Infolijn op Home laten werken
+  const extraCTA = document.querySelector('.ctaBox a[href="#pgInfolijn"]');
+  console.log("extraCTA gevonden?", !!extraCTA); // ✅ TESTREGEL
+  if (extraCTA) {
+    extraCTA.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("CTA knop geklikt"); // ✅ TESTREGEL
+      setActivePage("Q"); // Let op: de ID is "pgQ", dus geef "Q" door
+    });
+  }
+
+  // Laatst bezochte pagina herstellen
   const lastPage = localStorage.getItem("activePage") || "A";
   setActivePage(lastPage);
 });
 </script>
-
 
 </body>
 </html>
