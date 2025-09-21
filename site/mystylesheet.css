@@ -1444,3 +1444,108 @@ body.content-only .pgContent {
     width: 60%;
   }
 }
+/* ============================================= */
+/*          STYLING VOOR DE DLML CHATBOT         */
+/* ============================================= */
+
+/* De ronde 'open' knop rechtsonder */
+#chatbot-button { 
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    background-color: #007bff; 
+    color: white; 
+    border-radius: 50%; 
+    width: 60px; 
+    height: 60px; 
+    font-size: 28px; 
+    text-align: center; 
+    line-height: 60px; 
+    cursor: pointer; 
+    z-index: 1000; 
+}
+
+/* De container van het chatvenster */
+#chatbot-container { 
+    position: fixed; 
+    bottom: 90px; 
+    right: 20px; 
+    width: 350px; 
+    max-height: 500px; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    background-color: white; 
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+    z-index: 1000; 
+    font-family: Arial, sans-serif;
+}
+
+/* De header van het chatvenster */
+#chatbot-header { 
+    background-color: #007bff; 
+    color: white; 
+    padding: 10px; 
+    font-weight: bold; 
+    text-align: center; 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
+}
+
+/* De box waar de berichten in komen */
+#chat-box { 
+    flex: 1; 
+    padding: 10px; 
+    overflow-y: auto; 
+    font-size: 14px; 
+}
+
+/* De input-area onderaan */
+#chatbot-input-area { 
+    display: flex; 
+    border-top: 1px solid #ccc; 
+}
+
+/* Het tekstveld */
+#chat-input { 
+    flex: 1; 
+    border: none; 
+    padding: 10px; 
+    font-size: 14px; 
+}
+
+/* De verzendknop */
+#chatbot-send { 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 0 16px; 
+    cursor: pointer; 
+}
+
+/* Algemene styling voor de chatbubbels */
+.message { display: flex; align-items: flex-start; margin: 10px 0; max-width: 85%; line-height: 1.4; }
+.message div { padding: 10px 12px; border-radius: 18px; word-wrap: break-word; color: #000000; /* Zwarte tekst voor betere leesbaarheid */}
+
+/* Styling voor de iconen (gebruiker & bot) */
+.message .icon { width: 32px; height: 32px; flex-shrink: 0; margin-right: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; border-radius: 50%; overflow: hidden; }
+.message .icon img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Specifiek voor de gebruikers-bubbel (rechts) */
+.user-message { margin-left: auto; flex-direction: row-reverse; }
+.user-message .icon { margin-left: 8px; margin-right: 0; }
+.user-message div { background-color: #dcf8c6; border-bottom-right-radius: 4px; }
+
+/* Specifiek voor de bot-bubbel (links) */
+.assistant-message { margin-right: auto; }
+.assistant-message div { background-color: #f1f0f0; border-bottom-left-radius: 4px; }
+
+/* De 'denk'-animatie */
+.loader { border: 2px solid #f3f3f3; border-top: 2px solid #3498db; border-radius: 50%; width: 4px; height: 4px; animation: spin 1.5s linear infinite; margin: 4px; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Mobiele weergave voor de chatbot */
+@media (max-width: 480px) { 
+    #chatbot-container { width: 90%; left: 5%; right: 5%; } 
+}
