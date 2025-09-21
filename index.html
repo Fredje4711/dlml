@@ -93,7 +93,7 @@
 
     <!-- Groep 4 -->
     <div id="MnuItm1E"><i class="fa fa-video-camera"></i><label>Video's</label></div>
-    <div id="MnuItm1F"><i class="fa fa-info-circle"></i><label>Info</label></div>
+    <div id="MnuItm1F"><i class="fa fa-info-circle"></i><label>Info Diabetes Liga</label></div>
     <div id="MnuItm1G"><i class="fa fa-download"></i><label>Downloads</label></div>
     <div id="MnuItm1H"><i class="fa fa-fw fa-envelope"></i><label>Contact</label></div>
 
@@ -134,7 +134,7 @@
 
       <!-- Groep 4 -->
       <div id="MnuItm2E"><i class="fa fa-video-camera"></i><label>Video's</label></div>
-      <div id="MnuItm2F"><i class="fa fa-info-circle"></i><label>Info</label></div>
+      <div id="MnuItm2F"><i class="fa fa-info-circle"></i><label>Info Diabetes Liga</label></div>
       <div id="MnuItm2G"><i class="fa fa-download"></i><label>Downloads</label></div>
       <div id="MnuItm2H"><i class="fa fa-fw fa-envelope"></i><label>Contact</label></div>
 
@@ -2696,6 +2696,34 @@ document.addEventListener("DOMContentLoaded", function () {
   setActivePage(lastPage);
 });
 </script>
+
+  <!-- === CHATBOT ELEMENTEN EN SCRIPTS === -->
+  
+  <!-- De HTML-structuur voor de chatbot -->
+  <div id="chatbot-button">💬</div>
+  <div id="chatbot-container" style="display:none;">
+    <div id="chatbot-header">Hulp & Info Diabetes</div>
+    <div id="chat-box"></div>
+    <div id="chatbot-input-area">
+      <input type="text" id="chat-input" placeholder="Typ je vraag..." />
+      <button id="chatbot-send" onclick="sendMessage()">▶</button>
+    </div>
+  </div>
+
+  <!-- De link naar de chatbot-logica -->
+  <script src="chatbot.js"></script>
+  
+  <!-- Het script om de knop te laten werken -->
+  <script>
+    document.getElementById("chatbot-button").addEventListener("click", function () {
+      const venster = document.getElementById("chatbot-container");
+      venster.style.display = venster.style.display === "none" ? "flex" : "none";
+    });
+
+    document.getElementById("chat-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
 
 </body>
 </html>
