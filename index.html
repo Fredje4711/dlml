@@ -2656,19 +2656,26 @@ document.addEventListener("DOMContentLoaded", function () {
   <div id="chatbot-button">💬</div>
   <div id="chatbot-container" style="display:none;">
     <div id="chatbot-header">Hulp & Info Diabetes</div>
-    <div id="chat-box"></div>
-    <!-- AFROLLIJST VOOR DOWNLOADS -->
-    <div id="chatbot-downloads-area">
-      <label for="downloads-select">Of selecteer een presentatie:</label>
-      <select id="downloads-select">
-        <option value="">-- Kies een download --</option>
-      </select>
-    </div>
-    <div id="chatbot-input-area">
-      <input type="text" id="chat-input" placeholder="Typ je vraag..." />
-      <button id="chatbot-send" onclick="sendMessage()">▶</button>
-    </div>
+      <!-- ... (uw #chat-box div) ... -->
+  <div id="chat-box"></div>
+
+  <!-- HIER IS DE CORRECTE VOLGORDE -->
+  
+  <!-- EERST DE INPUT-AREA -->
+  <div id="chatbot-input-area">
+    <input type="text" id="chat-input" placeholder="Typ je vraag..." />
+    <button id="chatbot-send" onclick="sendMessage()">▶</button>
   </div>
+
+  <!-- DAARNA DE AFROLLIJST VOOR DOWNLOADS -->
+  <div id="chatbot-downloads-area">
+    <label for="downloads-select">Of selecteer een presentatie:</label>
+    <select id="downloads-select">
+      <option value="">-- Kies een download --</option>
+    </select>
+  </div>
+
+</div> <!-- Dit is de sluit-tag van #chatbot-container -->
 
   <!-- De link naar de chatbot-logica (één keer) -->
   <script src="chatbot.js"></script>
