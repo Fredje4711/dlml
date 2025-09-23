@@ -2656,78 +2656,77 @@ document.addEventListener("DOMContentLoaded", function () {
   <div id="chatbot-button">💬</div>
   <div id="chatbot-container" style="display:none;">
     <div id="chatbot-header">Hulp & Info Diabetes</div>
-      <!-- ... (uw #chat-box div) ... -->
-  <div id="chat-box"></div>
-
-  <!-- HIER IS DE CORRECTE VOLGORDE -->
-  
-  <!-- EERST DE INPUT-AREA -->
-  <div id="chatbot-input-area">
-    <input type="text" id="chat-input" placeholder="Typ je vraag..." />
-    <button id="chatbot-send" onclick="sendMessage()">▶</button>
+    <div id="chat-box"></div>
+    <div id="chatbot-input-area">
+      <input type="text" id="chat-input" placeholder="Typ je vraag..." />
+      <button id="chatbot-help-btn">?</button>
+      <button id="chatbot-send" onclick="sendMessage()">▶</button>
+    </div>
+    <div id="chatbot-downloads-area">
+      <label for="downloads-select">Of selecteer een presentatie:</label>
+      <select id="downloads-select">
+        <option value="">-- Kies een download --</option>
+      </select>
+    </div>
   </div>
-
-  <!-- DAARNA DE AFROLLIJST VOOR DOWNLOADS -->
-  <div id="chatbot-downloads-area">
-    <label for="downloads-select">Of selecteer een presentatie:</label>
-    <select id="downloads-select">
-      <option value="">-- Kies een download --</option>
-    </select>
-  </div>
-
-</div> <!-- Dit is de sluit-tag van #chatbot-container -->
 
   <!-- De link naar de chatbot-logica (één keer) -->
   <script src="chatbot.js"></script>
   
   <!-- Het script om de knoppen en de afrollijst te laten werken (één keer, en robuust) -->
-  <script>
-    // Wacht tot de volledige HTML-pagina is geladen
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // --- LOGICA VOOR DE AFROLLIJST ---
-      async function populateDownloads() {
-        try {
-          const response = await fetch('downloads_menu.json');
-          if (!response.ok) { throw new Error('Netwerkfout'); }
-          const downloads = await response.json();
-          const selectElement = document.getElementById('downloads-select');
-          
-          downloads.forEach(download => {
-            const option = document.createElement('option');
-            option.value = download.link;
-            option.textContent = download.title;
-            selectElement.appendChild(option);
-          });
 
-          selectElement.addEventListener('change', function() {
-            if (this.value) {
-              window.open(this.value, '_blank');
-              this.selectedIndex = 0;
-            }
-          });
-        } catch (error) {
-          console.error('Fout bij het laden van de downloads:', error);
-        }
-      }
-      // Voer de functie uit om de lijst te vullen
-      populateDownloads();
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- LOGICA VOOR DE AFROLLIJST ---
+    async function populateDownloads() {
+      try {
+        const response = await fetch('downloads_menu.json');
+        const downloads = await response.json();
+        const selectElement = document.getElementById('downloads-select');
+        downloads.forEach(download => {
+          const option = document.createElement('option');
+          option.value = download.link;
+          option.textContent = download.title;
+          selectElement.appendChild(option);
+        });
+        selectElement.addEventListener('change', function() {
+          if (this.value) { window.open(this.value, '_blank'); this.selectedIndex = 0; }
+        });
+      } catch (error) { console.error('Fout bij het laden van de downloads:', error); }
+    }
+    populateDownloads();
 
-      // --- LOGICA VOOR DE CHATBOT KNOPPEN ---
-      document.getElementById("chatbot-button").addEventListener("click", function () {
-        const venster = document.getElementById("chatbot-container");
-        venster.style.display = venster.style.display === "none" ? "flex" : "none";
-      });
-
-      document.getElementById("chat-input").addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          e.preventDefault(); 
-          sendMessage();
-        }
-      });
+    // --- LOGICA VOOR DE HELP-KNOP (MET DE CORRECTE, VOLLEDIGE TEKST) ---
+    document.getElementById("chatbot-help-btn").addEventListener("click", function() {
+      const chatBox = document.getElementById("chat-box");
+      const helpText = `Hallo! Ik ben de AI Assistent van de Diabetes Liga Midden-Limburg. U kunt mij vragen stellen over:
+<br>- Onze activiteiten en infosessies
+<br>- Contactgegevens van het bestuur
+<br>- Algemene onderwerpen over diabetes
+<br>
+<br>Als ik het antwoord niet weet in mijn eigen documenten, probeer ik het met mijn algemene kennis. Ik ben een computerprogramma en kan geen medisch advies geven.`;
+      const helpMessage = document.createElement("div");
+      helpMessage.className = "message assistant-message";
+      helpMessage.innerHTML = `<span class="icon"><img src="logo.png" alt="Bot icon"></span><div>${helpText}</div>`;
+      chatBox.appendChild(helpMessage);
+      chatBox.scrollTop = chatBox.scrollHeight;
     });
-  </script>
-  </body>
+    
+    // --- LOGICA VOOR DE CHATBOT KNOPPEN ---
+    document.getElementById("chatbot-button").addEventListener("click", function () {
+      const venster = document.getElementById("chatbot-container");
+      venster.style.display = venster.style.display === "none" ? "flex" : "none";
+    });
+
+    document.getElementById("chat-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  });
+</script>
+  
+</body>
 </html>
+
 
 ```
