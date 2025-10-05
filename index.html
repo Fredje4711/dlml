@@ -38,6 +38,129 @@
   <link rel="stylesheet" type="text/css" href="site/contactgegevens.css">
   
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  
+  <!-- ========================================================== -->
+<!-- ============ CSS VOOR DE DIABETES KLOK HIER ============ -->
+<!-- ========================================================== -->
+<style>
+
+/* ========================================================== */
+/* ========= ALLERLAATSTE, GEPERFECTIONEERDE CSS ============ */
+/* ========================================================== */
+
+#diabetes-clock-wrapper {
+    padding: 15px 10% 5px 10%; 
+    box-sizing: border-box;
+}
+
+.clock-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: linear-gradient(270deg, #fdfbfb, #ebedee, #fdfbfb, #ebedee);
+    background-size: 400% 400%;
+    animation: animatedGradient 15s ease infinite;
+    /* --- HIER ZIT DE AANPASSING --- */
+    box-shadow: 0 0 12px rgba(35, 169, 228, 0.5); /* Zachte blauwe gloed */
+    border: 2px solid #23a9e4;                     /* Duidelijke blauwe rand */
+    box-sizing: border-box;
+}
+
+@keyframes animatedGradient { /* Blijft ongewijzigd */ }
+
+.clock-text-group {
+    text-align: left;
+}
+.clock-text-group p {
+    margin: 0;
+}
+
+#diabetes-counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #d9534f;
+    margin: 0 15px;
+    animation: numberOutline 2.5s ease-in-out infinite;
+    transition: transform 0.2s ease-out;
+}
+
+@keyframes numberOutline { /* Blijft ongewijzigd */ }
+#diabetes-counter.updated { transform: scale(1.15); }
+
+.clock-container .slogan {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.3;
+}
+
+#countdown-timer {
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    background-color: #e9e9e9;
+    padding: 5px 10px;
+    border-radius: 5px;
+    animation: heartbeat 1.2s infinite;
+    white-space: nowrap;
+}
+
+@keyframes heartbeat { /* Blijft ongewijzigd */ }
+
+
+/* =============================================================== */
+/* === FINALE, GEOPTIMALISEERDE AANPASSINGEN VOOR MOBIELE WEERGAVE === */
+/* =============================================================== */
+@media (max-width: 768px) {
+    #diabetes-clock-wrapper {
+        padding: 15px 10% 5px 10%;
+    }
+
+    .clock-container {
+        flex-direction: column;
+        /* *** DE OPLOSSING: Interne padding drastisch verminderd *** */
+        padding: 5px 4px; 
+    }
+    
+    .clock-text-group {
+        text-align: center;
+    }
+    
+    /* *** DE OPLOSSING: Lettertype aangepast voor maximale ruimte *** */
+    .clock-container .slogan {
+        font-size: 1rem;       /* Goede, leesbare grootte */
+        font-weight: normal;   /* Niet-vet voor minder breedte */
+        line-height: 1.2;
+    }
+	
+	/* --- VOEG DEZE NIEUWE REGEL HIER TOE --- */
+    /* Deze selector pakt alleen de EERSTE <p> in de tekstgroep */
+    .clock-text-group p:first-child {
+        font-weight: bold; /* Maak hem vet */
+		font-size: 1.2rem;
+    }
+    .clock-text-group p:first-child {
+        margin-bottom: 1px;
+    }
+
+    #diabetes-counter {
+        font-size: 3.2rem;
+        margin: 8px 0;
+    }
+
+    #countdown-timer {
+        font-size: 1.2rem;
+        margin-top: 0px;
+    }
+}
+ 
+</style>
+<!-- ========================================================== -->
+<!-- ================= EINDE CSS VOOR DE KLOK ================= -->
+<!-- ========================================================== -->  
 
 </head>
 
@@ -153,12 +276,31 @@
     <!--   home pagina                                         --> 
 	 
     <div class="pgContent" id="pgA" >
-    <!-- -->  
+    <!-- --> 
+
+<!-- ========================================================== -->
+<!-- ============ HIER BEGINT DE DIABETES KLOK ============= -->
+<!-- ========================================================== -->
+<div id="diabetes-clock-wrapper">
+    <div class="clock-container">
+    <div class="clock-text-group">
+        <p class="slogan">Iedere 17 minuten krijgt iemand in België de diagnose diabetes.</p>
+        <p class="slogan">Mensen met diabetes erbij sinds 1 januari 2025.</p>
+    </div>
+    <div id="diabetes-counter">Laden...</div>
+    <div id="countdown-timer">--:--</div>
+</div>
+</div>
+<!-- ========================================================== -->
+<!-- ================== EINDE VAN DE KLOK =================== -->
+<!-- ========================================================== -->
+	
         
 	  <div style="width: 100%; height:auto; background-color:var(--pgBackColor);"> 
-        <img id="imgLogo" alt=".." src="site/image/DiabetesLigaICM.png" style="width:80%; height:auto; margin: 5vw 10% 0 10%;" >
+        <img id="imgLogo" alt=".." src="site/image/DiabetesLigaICM.png" style="width:80%; height:auto; margin: 0 10%;" >
         <br>
 	  </div>
+ 
 <!-- Sociale media links onder blauwe afbeelding -->
 
 	   <div id="socIcons" style="display:block;">
@@ -2705,6 +2847,83 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 </script>
+
+<!-- =============================================================== -->
+<!-- ============ JAVASCRIPT VOOR DE DIABETES KLOK HIER ============ -->
+<!-- =============================================================== -->
+<script>
+  // Zorg ervoor dat de code pas wordt uitgevoerd als de pagina volledig geladen is.
+  document.addEventListener('DOMContentLoaded', function() {
+
+      // De vaste waarden die u kunt aanpassen voor de start van de klok.
+      // We gebruiken hier de testwaarden.
+      const INITIAL_COUNT = 23516; 
+      const COUNT_FIXED_TIMESTAMP = new Date('2025-10-05T15:06:00');
+      
+      // Constanten voor de berekening
+      const intervalMillis = 17 * 60 * 1000;
+      const counterElement = document.getElementById('diabetes-counter');
+      const countdownElement = document.getElementById('countdown-timer');
+      
+      let lastKnownTotalCount = 0; // Deze variabele onthoudt de vorige telling
+
+      // Dit is de hoofdfunctie die elke seconde wordt uitgevoerd
+      function updateCounterAndCountdown() {
+          // Heel belangrijk: de klok is alleen op de homepagina.
+          // Als de elementen niet gevonden worden, doe dan niets.
+          // Dit voorkomt fouten op andere pagina's van uw website.
+          if (!counterElement || !countdownElement) {
+              return;
+          }
+
+          const now = new Date();
+          const diffSinceFix = now - COUNT_FIXED_TIMESTAMP;
+
+          // Als we nog *voor* het vastgezette startmoment zijn
+          if (diffSinceFix < 0) {
+              counterElement.textContent = INITIAL_COUNT.toLocaleString('nl-BE');
+              const secondsUntilStart = Math.abs(Math.floor(diffSinceFix / 1000));
+              countdownElement.textContent = `Klok start over: ${secondsUntilStart} seconden`;
+              return;
+          }
+
+          // Bereken het totaal aantal diagnoses
+          const additionalIntervals = Math.floor(diffSinceFix / intervalMillis);
+          const totalCount = INITIAL_COUNT + additionalIntervals;
+          
+          // Voer de "pop" animatie uit als het getal verandert
+          if (totalCount !== lastKnownTotalCount && lastKnownTotalCount !== 0) {
+              counterElement.textContent = totalCount.toLocaleString('nl-BE');
+              counterElement.classList.add('updated');
+              
+              setTimeout(() => {
+                  counterElement.classList.remove('updated');
+                  counterElement.style.transform = 'scale(1)'; 
+              }, 200);
+          } else if (lastKnownTotalCount === 0) {
+              // Zet het getal de eerste keer zonder animatie
+              counterElement.textContent = totalCount.toLocaleString('nl-BE');
+          }
+          lastKnownTotalCount = totalCount;
+
+          // Bereken de resterende tijd voor de countdown
+          const millisIntoCurrentInterval = diffSinceFix % intervalMillis;
+          const remainingMillis = intervalMillis - millisIntoCurrentInterval;
+          const remainingSecondsTotal = Math.floor(remainingMillis / 1000);
+          const minutes = Math.floor(remainingSecondsTotal / 60);
+          const seconds = remainingSecondsTotal % 60;
+          const formattedSeconds = String(seconds).padStart(2, '0');
+          countdownElement.textContent = `Volgende diagnose over: ${minutes}:${formattedSeconds}`;
+      }
+
+      // Start de klok en zorg ervoor dat hij elke seconde wordt bijgewerkt
+      updateCounterAndCountdown();
+      setInterval(updateCounterAndCountdown, 1000);
+  });
+</script>
+<!-- =============================================================== -->
+<!-- ================= EINDE JAVASCRIPT VOOR DE KLOK =============== -->
+<!-- =============================================================== -->
   
 </body>
 </html>
