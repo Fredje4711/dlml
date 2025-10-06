@@ -9,9 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="site.webmanifest">
   
-  <!-- Mobiele browser kleur -->
   <meta name="theme-color" content="#23a9e4">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
@@ -22,11 +20,8 @@
   <META NAME="Reply-to" CONTENT="diabetesliga.middenlimburg@gmail.com">
   <META NAME="Identifier-URL" CONTENT="www.dlml.be">
   
- 
-  
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
-  <!-- DE NIEUWE, CORRECTE REGEL STAAT NU HIER -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   
   <link rel="stylesheet" type="text/css" href="site/mystylesheet.css?v=777">
@@ -38,13 +33,10 @@
   
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   
-  <!-- ========================================================== -->
-<!-- ============ CSS VOOR DE DIABETES KLOK HIER ============ -->
-<!-- ========================================================== -->
 <style>
 
 /* ========================================================== */
-/* ========= FINALE RE-DESIGN CSS VOOR DE BANNER ============ */
+/* ========= FINALE, GECORRIGEERDE CSS-CODE ============ */
 /* ========================================================== */
 
 #diabetes-clock-wrapper {
@@ -53,37 +45,32 @@
 }
 
 .clock-container {
-    display: flex; /* De basis voor beide layouts */
+    display: flex;
     width: 100%;
-    padding: 12px 5px;
+    padding: 12px 8px;
     border-radius: 12px;
     background: linear-gradient(270deg, #ebf7fd, #23a9e4, #ebf7fd, #23a9e4);
     background-size: 400% 400%;
     animation: animatedGradient 15s ease infinite;
     box-shadow: 0 0 12px rgba(35, 169, 228, 0.5); 
-    border: 2px solid #23a_9e4;                     
+    border: 2px solid #23a9e4;
     box-sizing: border-box;
 }
 
 @keyframes animatedGradient { /* Blijft ongewijzigd */ }
 
-
-/* ========================================================== */
-/* === MOBIELE WEERGAVE (DEFAULT, "MOBILE-FIRST") =========== */
-/* ========================================================== */
-
 .clock-container {
-    flex-direction: column; /* Stapel alles verticaal */
-    align-items: center;    /* Centreer alles horizontaal */
+    flex-direction: column;
+    align-items: center;
 }
 
 .clock-info-group {
     text-align: center;
-    order: 1; /* Komt als eerste */
+    order: 1;
 }
 
 .slogan-main {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: bold;
     color: #333;
     line-height: 1.2;
@@ -91,7 +78,8 @@
 }
 
 .slogan-sub {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    font-weight: normal;
     color: #555;
     margin: 4px 0 0 0;
 }
@@ -100,14 +88,14 @@
     font-size: 3.2rem;
     font-weight: bold;
     color: #d9534f;
-    margin: 8px 0 0px 0;
+    margin: 8px 0 4px 0;
     animation: numberOutline 2.5s ease-in-out infinite;
     transition: transform 0.2s ease-out;
-    order: 2; /* Komt als tweede */
+    order: 2;
 }
 
 #countdown-timer {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 	font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
     color: #23a9e4;
@@ -116,30 +104,25 @@
     border-radius: 5px;
     animation: heartbeat 1.2s infinite;
     white-space: nowrap;
-    order: 3; /* Komt als laatste */
-	/* --- VOEG DEZE REGEL TOE VOOR DE RUIMTE Eronder --- */
-    margin-bottom: -5px; /* Verander '5px' naar wens */
+    order: 3;
+    margin-bottom: 0;
 }
 
-
-/* ========================================================== */
-/* === DESKTOP WEERGAVE (voor schermen breder dan 768px) ==== */
-/* ========================================================== */
 @media (min-width: 769px) {
     .clock-container {
-        flex-direction: row; /* Zet elementen naast elkaar */
-        justify-content: space-between; /* Spreid ze over de balk */
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
     }
 
     .clock-info-group {
-        text-align: left; /* Lijn slogans links uit */
+        text-align: left;
         order: 1;
     }
     
     .slogan-main { font-size: 0.9rem; }
-    .slogan-sub { font-size: 0.8rem; }
+    .slogan-sub { font-size: 0.8rem; font-weight: normal;}
 
     #diabetes-counter {
         font-size: 2.5rem;
@@ -153,22 +136,31 @@
     }
 }
 
-/* ========================================================== */
-/* ========= CSS VOOR HET NIEUWE CTA-KNOPPEN DESIGN ========= */
-/* ========================================================== */
+@keyframes numberOutline {
+    0%   { text-shadow: 0 0 5px #23a9e4; }
+    50%  { text-shadow: 0 0 15px #23a9e4, 0 0 20px #23a9e4; }
+    100% { text-shadow: 0 0 5px #23a9e4; }
+}
+#diabetes-counter.updated { transform: scale(1.15); }
+@keyframes heartbeat {
+    0%   { transform: scale(1); }
+    10%  { transform: scale(1.08); }
+    20%  { transform: scale(1); }
+    30%  { transform: scale(1.08); }
+    40%  { transform: scale(1); }
+    100% { transform: scale(1); }
+}
 
 .cta-container {
-    padding: 15px 10%; /* Zorgt voor dezelfde breedte als de rest */
+    padding: 15px 10%;
     box-sizing: border-box;
 }
-
 .cta-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Standaard (mobiel): 1 kolom */
-    gap: 10px; /* Ruimte tussen de knoppen */
+    grid-template-columns: 1fr;
+    gap: 10px;
     margin-bottom: 10px;
 }
-
 .cta-button {
     display: flex;
     align-items: center;
@@ -177,90 +169,83 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    text-decoration: none;
+    text-decoration: none !important;
     color: #333;
     transition: all 0.2s ease-in-out;
-	text-decoration: none !important;
 }
-
 .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
-
 .cta-icon {
     font-size: 1.2rem;
-    color: #23a9e4; /* Uw themakleur! */
+    color: #23a9e4;
     margin-right: 12px;
-    width: 24px; /* Vaste breedte voor uitlijning */
+    width: 24px;
     text-align: center;
 }
-
 .cta-text {
-    flex-grow: 1; /* Neemt alle beschikbare ruimte in */
+    flex-grow: 1;
     font-weight: bold;
     font-size: 1rem;
 }
-
 .cta-chevron {
     font-size: 0.9rem;
     color: #aaa;
 }
-
-/* Voor de brede knop (Infolijn) */
-.cta-full-width {
-    /* is al standaard 100% breed */
-}
-
-/* Desktop weergave: 2 kolommen voor de grid */
 @media (min-width: 769px) {
     .cta-grid {
-        grid-template-columns: 1fr 1fr; /* 2 kolommen naast elkaar */
+        grid-template-columns: 1fr 1fr;
     }
+}
+.cta-button i {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 900 !important;
 }
 
 /* ========================================================== */
-/* ========= CORRECTIE OM ALLE CTA-ICONEN TE TONEN ========== */
+/* == ALLERLAATSTE DEFINITIEVE FIX VOOR ONTBREKENDE ICONEN == */
 /* ========================================================== */
 
-.cta-button i {
-    font-family: 'Font Awesome 5 Free' !important; /* Forceer het juiste lettertype */
-    font-weight: 900 !important; /* Zorg ervoor dat het icoon correct wordt weergegeven */
+/* Deze regel dwingt de browser om het juiste 'lettertype' voor de iconen te gebruiken */
+#MnuLst1 i, #MnuLst2 i {
+    font-family: 'Font Awesome 5 Free' !important;
+}
+
+/* Font Awesome 5 gebruikt verschillende 'gewichten' voor verschillende stijlen.
+   Deze regels zorgen ervoor dat zowel de 'solid' (fas) als de 'regular' (far) iconen correct worden getoond. */
+#MnuLst1 .fas, #MnuLst2 .fas {
+    font-weight: 900 !important;
+}
+#MnuLst1 .far, #MnuLst2 .far {
+    font-weight: 400 !important;
 }
  
 </style>
-<!-- ========================================================== -->
-<!-- ================= EINDE CSS VOOR DE KLOK ================= -->
-<!-- ========================================================== -->  
-
 </head>
 
 <body>
   
   <div id="wrapper">
   
-    <!-- ********  titelblock  ***************   -->
-		
     <div id="titelWebsite">
       <img id="imgLogoV1" alt=".." src="site/image/webLogov1.png" >
       <img id="imgLogoV2" alt=".." src="site/image/webLogov3.png" >
 	  <div id="btnMnu">MENU</div>
       <div id="actieveMnu">Home</div>
     </div>
-	<!-- Rollende banner onder header -->
+
 <div id="rollingBanner">
   <div class="rollingText">
     🧑‍🤝‍🧑 Praatcafé — Een gezellig gesprek voor en door mensen met diabetes! 👨‍⚕️ Klik op ‘Infosessies’ in het menu! 📘
   </div>
 </div>
 
- 
  		
 <!-- ***********  Mnu 1 (links, desktop) - GECORRIGEERD  ************ -->
 <div id="Mnu1" class="colorLight">
   <div id="MnuLst1">
 
-    <!-- Groep 1 -->
     <div id="MnuItm1A"><i class="fas fa-home"></i><label>Home</label></div>
     <div class="MnuLine"></div>
     
@@ -268,13 +253,11 @@
     <div id="MnuItm1C"><i class="far fa-smile"></i><label>Cultuur/ontspanning</label></div>
     <div class="MnuLine"></div>
 
-    <!-- Groep 2 -->
     <div id="MnuItm1D"><i class="fas fa-camera"></i><label>Foto's vorige activiteiten</label></div>
     <div id="MnuItm1K"><i class="fas fa-images"></i><label>Fotogalerij</label></div>
     <div id="MnuItm1L"><i class="fas fa-podcast"></i><label>Podcast Eddy</label></div>
     <div class="MnuLine"></div>
 
-    <!-- Groep 3 -->
     <div id="MnuItm1M"><i class="fas fa-comments"></i><label>Q&amp;A 100</label></div>
     <div id="MnuItm1N"><i class="far fa-lightbulb"></i><label>Mythen &amp; Feiten</label></div>
     <div id="MnuItm1O"><i class="far fa-id-card"></i><label>Rijbewijs &amp; Diabetes</label></div>
@@ -284,7 +267,6 @@
     </div>
     <div class="MnuLine"></div>
 
-    <!-- Groep 4 -->
     <div id="MnuItm1E"><i class="fas fa-video"></i><label>Video's</label></div>
     <div id="MnuItm1F"><i class="fas fa-info-circle"></i><label>Info Diabetes Liga</label></div>
     <div id="MnuItm1G"><i class="fas fa-download"></i><label>Downloads</label></div>
@@ -292,13 +274,13 @@
 
   </div>
 </div>
+
 	
 <!-- ************  Mnu 2 (uitklap, mobiel/tablet) - GECORRIGEERD  *********** -->
 <div id="Mnu2" class="colorLight">
   <div id="MnuFrame2">
     <div id="MnuLst2">
 
-      <!-- Groep 1 -->
       <div id="MnuItm2A"><i class="fas fa-home"></i><label>Home</label></div>
       <div class="MnuLine"></div>
       
@@ -306,13 +288,11 @@
       <div id="MnuItm2C"><i class="far fa-smile"></i><label>Cultuur/ontspanning</label></div>
       <div class="MnuLine"></div>
 
-      <!-- Groep 2 -->
       <div id="MnuItm2D"><i class="fas fa-camera"></i><label>Foto's vorige activiteiten</label></div>
       <div id="MnuItm2K"><i class="fas fa-images"></i><label>Fotogalerij</label></div>
       <div id="MnuItm2L"><i class="fas fa-podcast"></i><label>Podcast Eddy</label></div>
       <div class="MnuLine"></div>
 
-      <!-- Groep 3 -->
       <div id="MnuItm2M"><i class="fas fa-comments"></i><label>Q&amp;A 100</label></div>
       <div id="MnuItm2N"><i class="far fa-lightbulb"></i><label>Mythen &amp; Feiten</label></div>
       <div id="MnuItm2O"><i class="far fa-id-card"></i><label>Rijbewijs &amp; Diabetes</label></div>
@@ -322,7 +302,6 @@
       </div>
       <div class="MnuLine"></div>
 
-      <!-- Groep 4 -->
       <div id="MnuItm2E"><i class="fas fa-video"></i><label>Video's</label></div>
       <div id="MnuItm2F"><i class="fas fa-info-circle"></i><label>Info Diabetes Liga</label></div>
       <div id="MnuItm2G"><i class="fas fa-download"></i><label>Downloads</label></div>
@@ -331,7 +310,11 @@
     </div>
   </div>
 </div>
-    
+
+    <!-- ... de rest van uw HTML blijft hier ... -->
+
+</body>
+</html>    
       
     <!-- ****** content website  * ****************   -->
 	  
