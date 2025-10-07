@@ -167,17 +167,23 @@
     display: flex;
     align-items: center;
     padding: 12px 15px;
-    background-color: #ffffff;
+    background-color: #f9fcff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(35, 169, 228, 0.25);
+    color: #138ccc;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.8),
+                 0 1px 3px rgba(0,0,0,0.25);
     text-decoration: none !important;
-    color: #333;
     transition: all 0.2s ease-in-out;
 }
+
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    background-color: #23a9e4;              /* blauwe achtergrond bij hover */
+    color: #ffffff;                         /* witte tekst voor maximaal contrast */
+    box-shadow: 0 4px 12px rgba(35,169,228,0.4); /* blauwe gloed i.p.v. grijs */
+    text-shadow: none;                      /* schone tekst bij hover */
 }
 .cta-icon {
     font-size: 1.2rem;
