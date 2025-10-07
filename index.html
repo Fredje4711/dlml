@@ -2821,22 +2821,40 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-  <!-- === CHATBOT ELEMENTEN EN SCRIPTS (Definitieve, opgeschoonde versie) === -->
-  
-   <!-- De HTML-structuur voor de chatbot met de correcte volgorde -->
+<!-- De HTML-structuur voor de chatbot met de correcte volgorde -->
   <div id="chatbot-button">💬</div>
   <div id="chatbot-container" style="display:none;">
     <div id="chatbot-header">Hulp & Info Diabetes</div>
     <div id="chat-box"></div>
 
-    <!-- DE CORRECTE VOLGORDE: EERST HET INVOERVELD -->
+    <!-- HELP-POPUP BEGIN -->
+    <div id="chatbot-help-container">
+      <div id="chatbot-help-popup" class="hidden">
+        <strong>ℹ️ Wat kan je vragen?</strong><br>
+        • Activiteiten van DLML (zoals infosessies, wandelingen, uitstappen…)<br>
+        • Contactgegevens van bestuursleden<br>
+        • Vragen over diabetes, voeding, rijbewijs, medicatie…<br>
+        📁 Onder het invoerveld vind je een lijst met presentaties die je kunt openen of downloaden.<br>
+        🤖 Antwoorden zijn informatief en geen vervanging voor medisch advies.<br>
+        🌐 De chatbot heeft geen live toegang tot het internet.<br>
+        <button id="chatbot-help-close">Sluiten</button>
+      </div>
+    </div>
+    <!-- HELP-POPUP EINDE -->
+
+    <!-- ZORG DAT DE STRUCTUUR ZO IS: -->
     <div id="chatbot-input-area">
       <input type="text" id="chat-input" placeholder="Typ je vraag..." />
-      <button id="chatbot-help-btn">?</button>
+      <button id="chatbot-help-icon">?</button>
       <button id="chatbot-send" onclick="sendMessage()">▶</button>
+      
+      <!-- De reset-knop staat BINNEN de input-area -->
+      <div id="chatbot-reset-area">
+        <button id="reset-button">♻️ Reset</button>
+      </div>
     </div>
 
-    <!-- DAARNA DE AFROLLIJST -->
+    <!-- DE AFROLLIJST -->
     <div id="chatbot-downloads-area">
       <label for="downloads-select">Of selecteer een presentatie:</label>
       <select id="downloads-select">
@@ -2873,30 +2891,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     populateDownloads();
 
-    // --- LOGICA VOOR DE HELP-KNOP (MET DE CORRECTE, VOLLEDIGE TEKST) ---
-    document.getElementById("chatbot-help-btn").addEventListener("click", function() {
-      const chatBox = document.getElementById("chat-box");
-      const helpText = `Hallo! Ik ben de AI Assistent van de Diabetes Liga Midden-Limburg. U kunt mij vragen stellen over:
-<br>- Onze activiteiten en infosessies
-<br>- Contactgegevens van het bestuur
-<br>- Algemene onderwerpen over diabetes
-<br>
-<br>Als ik het antwoord niet weet in mijn eigen documenten, probeer ik het met mijn algemene kennis. Ik ben een computerprogramma en kan geen medisch advies geven.`;
-      const helpMessage = document.createElement("div");
-      helpMessage.className = "message assistant-message";
-      helpMessage.innerHTML = `<span class="icon"><img src="logo.png" alt="Bot icon"></span><div>${helpText}</div>`;
-      chatBox.appendChild(helpMessage);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
-    
-    // --- LOGICA VOOR DE CHATBOT KNOPPEN ---
+    // --- LOGICA VOOR DE CHATBOT KNOP (OPEN/SLUIT) ---
     document.getElementById("chatbot-button").addEventListener("click", function () {
       const venster = document.getElementById("chatbot-container");
       venster.style.display = venster.style.display === "none" ? "flex" : "none";
     });
 
+    // --- LOGICA VOOR VERZENDEN MET ENTER ---
     document.getElementById("chat-input").addEventListener("keydown", function (e) {
       if (e.key === "Enter") sendMessage();
+    });
+
+    // --- NIEUW: LOGICA VOOR DE HELP-POPUP ---
+    document.getElementById("chatbot-help-icon").addEventListener("click", () => {
+      const popup = document.getElementById("chatbot-help-popup");
+      popup.classList.toggle("hidden");
+    });
+
+    document.getElementById("chatbot-help-close").addEventListener("click", () => {
+      document.getElementById("chatbot-help-popup").classList.add("hidden");
+    });
+
+    // --- NIEUW: LOGICA VOOR DE RESET-KNOP ---
+    document.getElementById("reset-button").addEventListener("click", () => {
+      // Wis de chatgeschiedenis
+      const messages = document.getElementById("chat-box");
+      if (messages) messages.innerHTML = "";
+
+      // Wis het invoerveld
+      const input = document.getElementById("chat-input");
+      if (input) input.value = "";
+
+      // Zet dropdown terug naar standaardwaarde
+      const dropdown = document.getElementById("downloads-select");
+      if (dropdown) dropdown.selectedIndex = 0;
     });
   });
 </script>
