@@ -49,7 +49,7 @@
     width: 100%;
     padding: 12px 8px;
     border-radius: 12px;
-    background: linear-gradient(270deg, #ebf7fd, #23a9e4, #ebf7fd, #23a9e4);
+    background: linear-gradient(270deg, #1b8cc5 0%, #23a9e4 100%);
     background-size: 400% 400%;
     animation: animatedGradient 15s ease infinite;
     box-shadow: 0 0 12px rgba(35, 169, 228, 0.5); 
@@ -72,7 +72,7 @@
 .slogan-main {
     font-size: 0.95rem;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
     line-height: 1.2;
     margin: 0;
 }
@@ -80,7 +80,7 @@
 .slogan-sub {
     font-size: 0.95rem;
     font-weight: normal;
-    color: #555;
+    color: #ffffff;
     margin: 4px 0 0 0;
 }
 
@@ -93,6 +93,13 @@
     /* animation: numberOutline 2.5s ease-in-out infinite; */
     transition: transform 0.2s ease-out;
     order: 2;
+	
+	text-shadow:
+    -0.5px -0.5px 0 rgba(255,255,255,0.9),
+     0.5px -0.5px 0 rgba(255,255,255,0.9),
+    -0.5px  0.5px 0 rgba(255,255,255,0.9),
+     0.5px  0.5px 0 rgba(255,255,255,0.9);
+
 }
 
 #countdown-timer {
@@ -185,6 +192,7 @@
     box-shadow: 0 4px 12px rgba(35,169,228,0.4); /* blauwe gloed i.p.v. grijs */
     text-shadow: none;                      /* schone tekst bij hover */
 }
+
 .cta-icon {
     font-size: 1.2rem;
     color: #23a9e4;
