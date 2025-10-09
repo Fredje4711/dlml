@@ -49,7 +49,7 @@
     width: 100%;
     padding: 12px 8px;
     border-radius: 12px;
-    background: linear-gradient(270deg, #1b8cc5 0%, #23a9e4 100%);
+    background: linear-gradient(270deg, #ebf7fd, #23a9e4, #ebf7fd, #23a9e4);
     background-size: 400% 400%;
     animation: animatedGradient 15s ease infinite;
     box-shadow: 0 0 12px rgba(35, 169, 228, 0.5); 
@@ -72,7 +72,7 @@
 .slogan-main {
     font-size: 0.95rem;
     font-weight: bold;
-    color: #ffffff;
+    color: #333;
     line-height: 1.2;
     margin: 0;
 }
@@ -80,7 +80,7 @@
 .slogan-sub {
     font-size: 0.95rem;
     font-weight: normal;
-    color: #ffffff;
+    color: #555;
     margin: 4px 0 0 0;
 }
 
@@ -93,13 +93,6 @@
     /* animation: numberOutline 2.5s ease-in-out infinite; */
     transition: transform 0.2s ease-out;
     order: 2;
-	
-	text-shadow:
-    -0.5px -0.5px 0 rgba(255,255,255,0.9),
-     0.5px -0.5px 0 rgba(255,255,255,0.9),
-    -0.5px  0.5px 0 rgba(255,255,255,0.9),
-     0.5px  0.5px 0 rgba(255,255,255,0.9);
-
 }
 
 #countdown-timer {
@@ -174,25 +167,18 @@
     display: flex;
     align-items: center;
     padding: 12px 15px;
-    background-color: #f9fcff;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(35, 169, 228, 0.25);
-    color: #138ccc;
-    text-shadow: 0 1px 1px rgba(255,255,255,0.8),
-                 0 1px 3px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     text-decoration: none !important;
+    color: #333;
     transition: all 0.2s ease-in-out;
 }
-
 .cta-button:hover {
     transform: translateY(-2px);
-    background-color: #23a9e4;              /* blauwe achtergrond bij hover */
-    color: #ffffff;                         /* witte tekst voor maximaal contrast */
-    box-shadow: 0 4px 12px rgba(35,169,228,0.4); /* blauwe gloed i.p.v. grijs */
-    text-shadow: none;                      /* schone tekst bij hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
-
 .cta-icon {
     font-size: 1.2rem;
     color: #23a9e4;
@@ -247,6 +233,10 @@
     <div id="titelWebsite">
       <img id="imgLogoV1" alt=".." src="site/image/webLogov1.png" >
       <img id="imgLogoV2" alt=".." src="site/image/webLogov3.png" >
+	  
+	  <!-- HIERONDER DE NIEUWE REGEL TOEVOEGEN -->
+  <div id="datum-tijd-overlay" class="overlay-text"></div>
+	  
 	  <div id="btnMnu">MENU</div>
       <div id="actieveMnu">Home</div>
     </div>
@@ -2835,40 +2825,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- De HTML-structuur voor de chatbot met de correcte volgorde -->
+  <!-- === CHATBOT ELEMENTEN EN SCRIPTS (Definitieve, opgeschoonde versie) === -->
+  
+   <!-- De HTML-structuur voor de chatbot met de correcte volgorde -->
   <div id="chatbot-button">💬</div>
   <div id="chatbot-container" style="display:none;">
     <div id="chatbot-header">Hulp & Info Diabetes</div>
     <div id="chat-box"></div>
 
-    <!-- HELP-POPUP BEGIN -->
-    <div id="chatbot-help-container">
-      <div id="chatbot-help-popup" class="hidden">
-        <strong>ℹ️ Wat kan je vragen?</strong><br>
-        • Activiteiten van DLML (zoals infosessies, wandelingen, uitstappen…)<br>
-        • Contactgegevens van bestuursleden<br>
-        • Vragen over diabetes, voeding, rijbewijs, medicatie…<br>
-        📁 Onder het invoerveld vind je een lijst met presentaties die je kunt openen of downloaden.<br>
-        🤖 Antwoorden zijn informatief en geen vervanging voor medisch advies.<br>
-        🌐 De chatbot heeft geen live toegang tot het internet.<br>
-        <button id="chatbot-help-close">Sluiten</button>
-      </div>
-    </div>
-    <!-- HELP-POPUP EINDE -->
-
-    <!-- ZORG DAT DE STRUCTUUR ZO IS: -->
+    <!-- DE CORRECTE VOLGORDE: EERST HET INVOERVELD -->
     <div id="chatbot-input-area">
       <input type="text" id="chat-input" placeholder="Typ je vraag..." />
-      <button id="chatbot-help-icon">?</button>
+      <button id="chatbot-help-btn">?</button>
       <button id="chatbot-send" onclick="sendMessage()">▶</button>
-      
-      <!-- De reset-knop staat BINNEN de input-area -->
-      <div id="chatbot-reset-area">
-        <button id="reset-button">♻️ Reset</button>
-      </div>
     </div>
 
-    <!-- DE AFROLLIJST -->
+    <!-- DAARNA DE AFROLLIJST -->
     <div id="chatbot-downloads-area">
       <label for="downloads-select">Of selecteer een presentatie:</label>
       <select id="downloads-select">
@@ -2905,40 +2877,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     populateDownloads();
 
-    // --- LOGICA VOOR DE CHATBOT KNOP (OPEN/SLUIT) ---
+    // --- LOGICA VOOR DE HELP-KNOP (MET DE CORRECTE, VOLLEDIGE TEKST) ---
+    document.getElementById("chatbot-help-btn").addEventListener("click", function() {
+      const chatBox = document.getElementById("chat-box");
+      const helpText = `Hallo! Ik ben de AI Assistent van de Diabetes Liga Midden-Limburg. U kunt mij vragen stellen over:
+<br>- Onze activiteiten en infosessies
+<br>- Contactgegevens van het bestuur
+<br>- Algemene onderwerpen over diabetes
+<br>
+<br>Als ik het antwoord niet weet in mijn eigen documenten, probeer ik het met mijn algemene kennis. Ik ben een computerprogramma en kan geen medisch advies geven.`;
+      const helpMessage = document.createElement("div");
+      helpMessage.className = "message assistant-message";
+      helpMessage.innerHTML = `<span class="icon"><img src="logo.png" alt="Bot icon"></span><div>${helpText}</div>`;
+      chatBox.appendChild(helpMessage);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+    
+    // --- LOGICA VOOR DE CHATBOT KNOPPEN ---
     document.getElementById("chatbot-button").addEventListener("click", function () {
       const venster = document.getElementById("chatbot-container");
       venster.style.display = venster.style.display === "none" ? "flex" : "none";
     });
 
-    // --- LOGICA VOOR VERZENDEN MET ENTER ---
     document.getElementById("chat-input").addEventListener("keydown", function (e) {
       if (e.key === "Enter") sendMessage();
-    });
-
-    // --- NIEUW: LOGICA VOOR DE HELP-POPUP ---
-    document.getElementById("chatbot-help-icon").addEventListener("click", () => {
-      const popup = document.getElementById("chatbot-help-popup");
-      popup.classList.toggle("hidden");
-    });
-
-    document.getElementById("chatbot-help-close").addEventListener("click", () => {
-      document.getElementById("chatbot-help-popup").classList.add("hidden");
-    });
-
-    // --- NIEUW: LOGICA VOOR DE RESET-KNOP ---
-    document.getElementById("reset-button").addEventListener("click", () => {
-      // Wis de chatgeschiedenis
-      const messages = document.getElementById("chat-box");
-      if (messages) messages.innerHTML = "";
-
-      // Wis het invoerveld
-      const input = document.getElementById("chat-input");
-      if (input) input.value = "";
-
-      // Zet dropdown terug naar standaardwaarde
-      const dropdown = document.getElementById("downloads-select");
-      if (dropdown) dropdown.selectedIndex = 0;
     });
   });
 </script>
@@ -3019,7 +2981,36 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- =============================================================== -->
 <!-- ================= EINDE JAVASCRIPT VOOR DE KLOK =============== -->
 <!-- =============================================================== -->
-  
+   <!-- ======================================================== -->
+  <!-- HIERONDER DE NIEUWE JAVASCRIPT CODE VOOR DE DATUM EN TIJD -->
+  <!-- ======================================================== -->
+  <script>
+      function toonDatumTijd() {
+          const nu = new Date();
+          const opties = { 
+              weekday: 'long', 
+              day: 'numeric',
+              month: 'long', 
+              year: 'numeric', 
+              hour: '2-digit', 
+              minute: '2-digit',
+              second: '2-digit'
+          };
+          const geformatteerdeDatumTijd = nu.toLocaleString('nl-NL', opties);
+          
+          // Zoek het element en plaats de tekst erin
+          const overlayElement = document.getElementById('datum-tijd-overlay');
+          if (overlayElement) {
+            overlayElement.textContent = geformatteerdeDatumTijd;
+          }
+      }
+
+      // Roep de functie aan als de pagina laadt
+      toonDatumTijd();
+
+      // Update de tijd elke seconde
+      setInterval(toonDatumTijd, 1000);
+  </script> 
 </body>
 </html>
 
