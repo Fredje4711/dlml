@@ -1452,11 +1452,15 @@ body.content-only .pgContent {
 #chatbot-container { position: fixed; bottom: 90px; right: 20px; width: 350px; max-height: 500px; border: 1px solid #ccc; border-radius: 10px; background-color: white; display: flex; flex-direction: column; box-shadow: 0 0 10px rgba(0,0,0,0.1); z-index: 1000; font-family: Arial, sans-serif; }
 #chatbot-header { background-color: #007bff; color: white; padding: 10px; font-weight: bold; text-align: center; border-top-left-radius: 10px; border-top-right-radius: 10px; }
 #chat-box { flex: 1; padding: 10px; overflow-y: auto; font-size: 14px; }
+#chatbot-input-area { display: flex; }
 #chat-input { flex: 1; border: none; padding: 10px; font-size: 14px; }
 #chatbot-send { background-color: #007bff; color: white; border: none; padding: 0 16px; cursor: pointer; }
 .message { display: flex; align-items: flex-start; margin: 10px 0; max-width: 85%; line-height: 1.4; }
 .message div { padding: 10px 12px; border-radius: 18px; overflow-wrap: break-word; color: #000000 !important; }
-.message div a { word-break: break-all; }
+/* DE NIEUWE, SPECIFIEKE REGEL HIERONDER */
+.message div a {
+    word-break: break-all; /* Forceert afbreken alleen voor URLs */
+}
 .message .icon { width: 32px; height: 32px; flex-shrink: 0; margin-right: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; border-radius: 50%; overflow: hidden; }
 .message .icon img { width: 100%; height: 100%; object-fit: cover; }
 .user-message { margin-left: auto; flex-direction: row-reverse; }
@@ -1466,62 +1470,57 @@ body.content-only .pgContent {
 .assistant-message div { background-color: #f1f0f0; border-bottom-left-radius: 4px; }
 .loader { border: 2px solid #f3f3f3; border-top: 2px solid #3498db; border-radius: 50%; width: 4px; height: 4px; animation: spin 1.5s linear infinite; margin: 4px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-/* --- HELP POPUP STYLING --- */
-#chatbot-help-icon { background-color: #f1f0f0; color: #555; border: none; border-left: 1px solid #ccc; padding: 0 12px; font-size: 16px; font-weight: bold; cursor: pointer; }
-#chatbot-help-icon:hover { background-color: #e9e9eb; }
-#chatbot-help-container { position: absolute; bottom: 85px; left: 10px; right: 10px; z-index: 10; }
-#chatbot-help-popup { background-color: #ffffff; border: 1px solid #ccc; border-radius: 8px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); font-size: 13px; line-height: 1.5; z-index: 1010; color: #000000; }
-.hidden { display: none; }
-#chatbot-help-close { display: block; margin: 10px auto 0; padding: 5px 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #f1f0f0; cursor: pointer; }
-
-/* --- DEFINITIEVE UITLIJNING VOOR INPUT & RESET KNOP VOLGENS AFBEELDING --- */
-#chatbot-input-area {
-  display: grid;
-  grid-template-columns: 1fr auto auto; /* Kolommen: 1. Input (flexibel), 2. Help (auto), 3. Verzend (auto) */
-  border-top: 1px solid #ccc;
-}
-#chat-input, #chatbot-help-icon, #chatbot-send {
-  grid-row: 1; /* Alles van de eerste regel staat op rij 1 */
-}
-#chat-input {
-  border: none; /* Verwijder standaard randen */
-}
-#chatbot-reset-area {
-  grid-row: 2;          /* Plaats op de tweede rij */
-  grid-column: 2 / 4;   /* DE SLEUTEL: Span over de 2e en 3e kolom (onder de knoppen) */
-  padding: 0;
-  background-color: #f8f9fa;
-  border-top: 1px solid #ccc;
-}
-#reset-button {
-  width: 100%; /* Vul de volledige breedte van de 2 kolommen */
-  height: 100%; /* Vul de volledige hoogte */
-  padding: 6px 12px;
-  border-radius: 0; /* Geen afgeronde hoeken voor strakke look */
-  border: none;
-  background-color: #e9e9eb;
-  cursor: pointer;
-  font-size: 13px;
-  box-sizing: border-box;
-}
-#reset-button:hover {
-  background-color: #dcdcdc;
-}
-
-/* --- DOWNLOADS DROPDOWN --- */
 #chatbot-downloads-area { padding: 8px 10px; border-top: 1px solid #ccc; background-color: #f8f9fa; }
 #chatbot-downloads-area label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #555; }
 #downloads-select { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 13px; }
-
-/* --- MOBIELE WEERGAVE --- */
+#chatbot-help-btn { background-color: #f1f0f0; color: #555; border: none; border-left: 1px solid #ccc; padding: 0 12px; font-size: 16px; font-weight: bold; cursor: pointer; }
+#chatbot-help-btn:hover { background-color: #e9e9eb; }
+/* Mobiele weergave voor de chatbot */
 @media (max-width: 480px) { 
     #chatbot-container { 
         width: 90%; 
         left: 5%; 
         right: 5%; 
     }
+    /* NIEUWE REGEL HIERONDER: Maak de headertekst groter op mobiel */
     #chatbot-header {
-        font-size: 16px !important;
+        font-size: 16px !important; /* Forceer een leesbare lettergrootte */
+    }
+}
+/* ============================================= */
+/* STIJL VOOR DATUM/TIJD OP HEADER               */
+/* ============================================= */
+
+/* --- Desktop Stijl --- */
+.overlay-text {
+    position: absolute;
+    bottom: 25px;
+    left: 200px;
+    color: white;
+    font-size: 0.8em;
+    line-height: 1.4;
+    padding: 10px 15px;
+    border-radius: 5px;
+    
+    /* Deze regels uit uw test-code zijn uitgecommentarieerd. 
+       Verwijder de /* en */ als u toch een achtergrond of schaduw wilt. */
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    /* text-shadow: 1px 1px 3px rgba(0,0,0,0.7); */
+}
+/* --- Mobiele Stijl --- */
+@media only screen and (max-width: 768px) {
+    .overlay-text {
+        /* We overschrijven hier de desktop-positie */
+        bottom: -8px;
+        left: 36px;
+        
+        /* We maken top en right 'ongedaan' voor de zekerheid */
+        top: auto;
+        right: auto;
+
+        /* Aangepaste stijl voor mobiel */
+        color: #000000;
+        font-size: 0.6em;
+        font-weight: bold; /* Let op: 'font-style: bold' is incorrect, dit is de juiste code */
     }
 }
