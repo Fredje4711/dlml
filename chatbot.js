@@ -22,7 +22,7 @@ async function sendMessage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        question: question // ✨ AANGEPAST: Stuur 'question' zoals de werkende worker verwacht
+        question: question
       })
     });
 
@@ -31,14 +31,29 @@ async function sendMessage() {
         throw new Error(`Serverfout: ${response.status} - ${errorText}`);
     }
 
-    // ✨ AANGEPAST: Lees het correcte response formaat
     const data = await response.json();
     const antwoord = data.choices?.[0]?.message?.content?.trim() || "(Geen antwoord ontvangen)";
     
-    // URL, e-mail en regeleinde conversies (deze logica is correct en blijft)
-    let formattedAntwoord = antwoord.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    formattedAntwoord = formattedAntwoord.replace(/(?<!href=")(https?:\/\/[^\s<]+)/g, url => `<a href="${url.replace(/[.,!?;:]+$/, '')}" target="_blank" rel="noopener noreferrer">${url.replace(/[.,!?;:]+$/, '')}</a>`);
-    formattedAntwoord = formattedAntwoord.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1">$1</a>');
+    // --- DEFINITIEVE, DUBBELE LINK-VERVANGER ---
+
+    // Stap A: Converteer Markdown links ([titel](url)) eerst naar HTML links
+    const markdownLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+    let formattedAntwoord = antwoord.replace(markdownLinkRegex, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+    // Stap B: Converteer daarna de overgebleven losse URLs naar HTML links
+    const urlRegex = /(?<!href=")(https?:\/\/[^\s<]+)/g; // Zoekt naar URLs die nog niet in een <a> tag staan
+    formattedAntwoord = formattedAntwoord.replace(urlRegex, (url) => {
+        // Verwijder eventuele leestekens aan het einde van de URL
+        const cleanedUrl = url.replace(/[.,!?;:]+$/, '');
+        return `<a href="${cleanedUrl}" target="_blank" rel="noopener noreferrer">${cleanedUrl}</a>`;
+    });
+	
+	// Stap B2: Maak e-mailadressen aanklikbaar
+const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+formattedAntwoord = formattedAntwoord.replace(emailRegex, '<a href="mailto:$1">$1</a>');
+
+    
+    // Stap C: Converteer regeleindes naar <br>
     formattedAntwoord = formattedAntwoord.replace(/\n/g, '<br>');
 
     loadingMessage.remove();
@@ -58,3 +73,15 @@ async function sendMessage() {
     chat.appendChild(errorMessage);
   }
 }
+// Suggestieknoppen koppelen aan invoerveld (met veilige check)
+document.querySelectorAll('.suggestion').forEach(button => {
+  button.addEventListener('click', () => {
+    const vraag = button.textContent.trim();
+    const inputField = document.getElementById('chat-input');
+
+    if (inputField) {
+      inputField.value = vraag;
+      inputField.focus(); // cursor in het veld zetten
+    }
+  });
+});
