@@ -446,7 +446,7 @@
       <div class="pgContent" id="pgB">
 	  
 		<!-- -->
-        <div class="infosessie">
+        <div class="infosessie" id="praatcafe">
 		  <label>
             <img class="LogoSize2" alt=".." src="https://dlml.be/site/image/LogoDLwt.png"  >PRAATCAFÉ
           </label>
@@ -470,7 +470,7 @@
 
 	  
       
-	    <div class="infosessie">
+	    <div class="infosessie" id="nieuwe_technieken">
 		  <label>
             <img class="LogoSize2" alt=".." src="https://dlml.be/site/image/LogoDLwt.png">
 			NIEUWE TECHNIEKEN<br>NIEUWE MEDICATIE
@@ -498,7 +498,7 @@
 		<!-- -->
         <div id="scrollLedenfeest"></div>
 		
-		<div class="infosessie">
+		<div class="infosessie" id="holiday">
 		  <label>
             <img class="LogoSize2" alt=".." src="https://dlml.be/site/image/LogoDLwt.png" >
             ALL-IN HOLIDAY
@@ -544,7 +544,7 @@
 		
 		
 		<!-- -->
-		<div class="infosessie">
+		<div class="infosessie" id="wandeling_wdd_2025">
 	      <label>
             <img class="LogoSize2" alt=".." src="https://dlml.be/site/image/LogoDLwt.png" >
             Wandelevenement
@@ -571,7 +571,7 @@
         </div>
 		
 		<!-- --> 
-		<div class="infosessie" style="margin-bottom: 0px;">
+		<div class="infosessie" id="ledenfeest2025" style="margin-bottom:0;">
 	      <label>
             <img class="LogoSize2" alt=".." src="https://dlml.be/site/image/LogoDLwt.png" >
             LEDENFEEST 2025
@@ -597,7 +597,7 @@
         </div>
 		
 	     <!-- -->
-        <div class="infosessie">
+        <div class="infosessie" id="wekelijkse_wandeling">
 	      <label>
             <img class="LogoSize2" alt=".." src="https://dlml.be/site/image/LogoDLwt.png" >
             WEKELIJJKSE WANDELING
@@ -3019,6 +3019,75 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- =============================================================== -->
 <!-- ================= EINDE JAVASCRIPT VOOR DE KLOK =============== -->
 <!-- =============================================================== -->
+
+<script>
+window.addEventListener("load", function() {
+  const hash = window.location.hash;
+  if (!hash) return; // geen hash in de URL → niets doen
+
+  const target = document.querySelector(hash);
+  if (!target) {
+    console.log("Geen element gevonden voor", hash);
+    return;
+  }
+
+  // Zoek de bovenliggende pagina (pgA, pgB, pgC, ...)
+  const parentPage = target.closest(".pgContent");
+  if (parentPage) {
+    parentPage.style.display = "block";
+    console.log("Pagina zichtbaar gemaakt:", parentPage.id);
+  }
+
+  // Wacht even tot de DOM gerenderd is, dan scrollen
+  setTimeout(() => {
+    const headerOffset = 80; // hoogte van je header
+    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    console.log("Automatisch gescrold naar", hash);
+  }, 1000);
+});
+</script>
+
+<!-- Alle inhoud en activiteiten bovenaan -->
+
+<!-- Eerst uw hoofdbestand -->
+<script src="myjavascript.js"></script>
+
+<!-- Daarna het hash-scroll script -->
+<script>
+function scrollToHashTarget() {
+  const hash = window.location.hash;
+  if (!hash) return;
+
+  const target = document.querySelector(hash);
+  if (!target) {
+    console.log("Geen element gevonden voor", hash);
+    return;
+  }
+
+  const parentPage = target.closest(".pgContent");
+  if (parentPage) parentPage.style.display = "block";
+  
+  setTimeout(() => {
+    const headerOffset = 80;
+    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+  }, 800);
+}
+
+window.addEventListener("load", scrollToHashTarget);
+window.addEventListener("hashchange", scrollToHashTarget);
+
+setTimeout(() => {
+  const headerOffset = 80;
+  const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+  const offsetPosition = elementPosition - headerOffset;
+  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+}, 300);
+
+</script>
   
 </body>
 </html>
