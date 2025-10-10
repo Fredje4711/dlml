@@ -2,43 +2,69 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<title>Activiteitenlinks – Diabetes Liga Midden-Limburg</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activiteitenlinks – DLML</title>
 <style>
   body {
     font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 10px;
+    color: #111;
+    background-color: #fff;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .card {
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 5px;
+    color: #004080;
+  }
+
+  .card-link {
+    word-break: break-all;
     font-size: 14px;
-    margin: 20px;
-    color: #222;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    vertical-align: middle;
-  }
-  th {
-    background-color: #f3f3f3;
-    text-align: left;
-  }
-  a {
+    display: block;
+    margin-bottom: 8px;
     color: #0066cc;
     text-decoration: none;
   }
-  a:hover {
+
+  .card-link:hover {
     text-decoration: underline;
   }
+
   button {
     background-color: #007bff;
-    border: none;
     color: white;
-    padding: 6px 10px;
+    border: none;
+    padding: 6px 12px;
     border-radius: 5px;
+    font-size: 15px;
     cursor: pointer;
-    font-size: 13px;
+    width: 100%;
   }
+
   button:hover {
     background-color: #0056b3;
   }
@@ -46,55 +72,61 @@
 </head>
 <body>
 
-<h2>Rechtstreekse GitHub-links naar activiteiten</h2>
-<p>Klik op <b>📋 Kopieer</b> om een link te kopiëren voor gebruik in e-mails of sociale media.</p>
+<h2>DLML – Activiteitenlinks</h2>
+<p>Tik op 📋 <b>Kopieer</b> om de link te gebruiken in mail of bericht.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Activiteit</th>
-      <th>GitHub Link</th>
-      <th>Kopieerlink</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Nieuwe technieken, nieuwe medicatie</td>
-      <td><a href="https://fredje4711.github.io/dlml/index.html#nieuwe_technieken" target="_blank">https://fredje4711.github.io/dlml/index.html#nieuwe_technieken</a></td>
-      <td><button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#nieuwe_technieken')">📋 Kopieer</button></td>
-    </tr>
-    <tr>
-      <td>Praatcafé</td>
-      <td><a href="https://fredje4711.github.io/dlml/index.html#praatcafe" target="_blank">https://fredje4711.github.io/dlml/index.html#praatcafe</a></td>
-      <td><button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#praatcafe')">📋 Kopieer</button></td>
-    </tr>
-    <tr>
-      <td>All-in Holiday</td>
-      <td><a href="https://fredje4711.github.io/dlml/index.html#holiday" target="_blank">https://fredje4711.github.io/dlml/index.html#holiday</a></td>
-      <td><button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#holiday')">📋 Kopieer</button></td>
-    </tr>
-    <tr>
-      <td>Wandelevenement – Wereld Diabetes Dag 2025</td>
-      <td><a href="https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025" target="_blank">https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025</a></td>
-      <td><button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025')">📋 Kopieer</button></td>
-    </tr>
-    <tr>
-      <td>Wekelijkse wandeling</td>
-      <td><a href="https://fredje4711.github.io/dlml/index.html#wekelijkse_wandeling" target="_blank">https://fredje4711.github.io/dlml/index.html#wekelijkse_wandeling</a></td>
-      <td><button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#wekelijkse_wandeling')">📋 Kopieer</button></td>
-    </tr>
-    <tr>
-      <td>Ledenfeest 2025</td>
-      <td><a href="https://fredje4711.github.io/dlml/index.html#ledenfeest2025" target="_blank">https://fredje4711.github.io/dlml/index.html#ledenfeest2025</a></td>
-      <td><button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#ledenfeest2025')">📋 Kopieer</button></td>
-    </tr>
-  </tbody>
-</table>
+<div class="card">
+  <div class="card-title">Nieuwe technieken, nieuwe medicatie</div>
+  <a class="card-link" href="https://fredje4711.github.io/dlml/index.html#nieuwe_technieken" target="_blank">
+    https://fredje4711.github.io/dlml/index.html#nieuwe_technieken
+  </a>
+  <button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#nieuwe_technieken')">📋 Kopieer</button>
+</div>
+
+<div class="card">
+  <div class="card-title">Praatcafé</div>
+  <a class="card-link" href="https://fredje4711.github.io/dlml/index.html#praatcafe" target="_blank">
+    https://fredje4711.github.io/dlml/index.html#praatcafe
+  </a>
+  <button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#praatcafe')">📋 Kopieer</button>
+</div>
+
+<div class="card">
+  <div class="card-title">All-in Holiday</div>
+  <a class="card-link" href="https://fredje4711.github.io/dlml/index.html#holiday" target="_blank">
+    https://fredje4711.github.io/dlml/index.html#holiday
+  </a>
+  <button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#holiday')">📋 Kopieer</button>
+</div>
+
+<div class="card">
+  <div class="card-title">Wandelevenement – Wereld Diabetes Dag 2025</div>
+  <a class="card-link" href="https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025" target="_blank">
+    https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025
+  </a>
+  <button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025')">📋 Kopieer</button>
+</div>
+
+<div class="card">
+  <div class="card-title">Wekelijkse wandeling</div>
+  <a class="card-link" href="https://fredje4711.github.io/dlml/index.html#wekelijkse_wandeling" target="_blank">
+    https://fredje4711.github.io/dlml/index.html#wekelijkse_wandeling
+  </a>
+  <button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#wekelijkse_wandeling')">📋 Kopieer</button>
+</div>
+
+<div class="card">
+  <div class="card-title">Ledenfeest 2025</div>
+  <a class="card-link" href="https://fredje4711.github.io/dlml/index.html#ledenfeest2025" target="_blank">
+    https://fredje4711.github.io/dlml/index.html#ledenfeest2025
+  </a>
+  <button onclick="copyToClipboard('https://fredje4711.github.io/dlml/index.html#ledenfeest2025')">📋 Kopieer</button>
+</div>
 
 <script>
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
-    alert("Link gekopieerd:\n" + text);
+    alert("✅ Link gekopieerd:\n" + text);
   });
 }
 </script>
