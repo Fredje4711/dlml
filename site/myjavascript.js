@@ -128,9 +128,16 @@ $(document).ready(function (e) {
   };
 
   // --- ROUTING LOGICA ---
-  $(window).on('hashchange', handleRouting);
+$(window).on('hashchange', handleRouting);
+
+// Controleer of de URL een directe hash bevat naar een bestaand element
+if (window.location.hash && document.querySelector(window.location.hash)) {
+  console.log("Direct element gevonden, sla handleRouting over:", window.location.hash);
+} else {
   handleRouting();
-  // --- EINDE ROUTING LOGICA ---
+}
+// --- EINDE ROUTING LOGICA ---
+
   
   // De .setMode functie
   $.fn.setMode = function (e) {
