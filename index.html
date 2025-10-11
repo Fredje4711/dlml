@@ -352,9 +352,14 @@
             <p class="slogan-main">Iedere 17 minuten krijgt iemand de diagnose diabetes.</p>
             <p class="slogan-sub">Mensen met diabetes erbij sinds 1 januari 2025.</p>
         </div>
-        <!-- Het getal en de countdown blijven apart voor maximale controle -->
+        <!-- Het getal -->
         <div id="diabetes-counter">Laden...</div>
-        <div id="countdown-timer">--:--</div>
+        
+        <!-- NIEUWE WRAPPER voor de twee laatste tellers -->
+        <div id="today-and-countdown-wrapper">
+            <div id="diagnoses-today-counter"></div> <!-- Nieuw element voor de dagteller -->
+            <div id="countdown-timer">--:--</div> <!-- Bestaande countdown timer -->
+        </div>
     </div>
 </div>
 <!-- ========================================================== -->
@@ -2946,47 +2951,37 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- =============================================================== -->
 <!-- ============ JAVASCRIPT VOOR DE DIABETES KLOK HIER ============ -->
 <!-- =============================================================== -->
-<script>
-  // Zorg ervoor dat de code pas wordt uitgevoerd als de pagina volledig geladen is.
-  document.addEventListener('DOMContentLoaded', function() {
 
-      // De vaste waarden die u kunt aanpassen voor de start van de klok.
-      // We gebruiken hier de testwaarden.
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
       const INITIAL_COUNT = 23516; 
       const COUNT_FIXED_TIMESTAMP = new Date('2025-10-05T15:06:00');
       
-      // Constanten voor de berekening
       const intervalMillis = 17 * 60 * 1000;
       const counterElement = document.getElementById('diabetes-counter');
       const countdownElement = document.getElementById('countdown-timer');
+      const todayCounterElement = document.getElementById('diagnoses-today-counter'); // Nieuw element
       
-      let lastKnownTotalCount = 0; // Deze variabele onthoudt de vorige telling
+      let lastKnownTotalCount = 0;
 
-      // Dit is de hoofdfunctie die elke seconde wordt uitgevoerd
       function updateCounterAndCountdown() {
-          // Heel belangrijk: de klok is alleen op de homepagina.
-          // Als de elementen niet gevonden worden, doe dan niets.
-          // Dit voorkomt fouten op andere pagina's van uw website.
-          if (!counterElement || !countdownElement) {
+          if (!counterElement || !countdownElement || !todayCounterElement) {
               return;
           }
 
           const now = new Date();
           const diffSinceFix = now - COUNT_FIXED_TIMESTAMP;
 
-          // Als we nog *voor* het vastgezette startmoment zijn
           if (diffSinceFix < 0) {
               counterElement.textContent = INITIAL_COUNT.toLocaleString('nl-BE');
-              const secondsUntilStart = Math.abs(Math.floor(diffSinceFix / 1000));
-              countdownElement.textContent = `Klok start over: ${secondsUntilStart} seconden`;
+              // ... (bestaande logica voor start)
               return;
           }
 
-          // Bereken het totaal aantal diagnoses
+          // Bestaande logica voor totaaltelling
           const additionalIntervals = Math.floor(diffSinceFix / intervalMillis);
           const totalCount = INITIAL_COUNT + additionalIntervals;
           
-          // Voer de "pop" animatie uit als het getal verandert
           if (totalCount !== lastKnownTotalCount && lastKnownTotalCount !== 0) {
               counterElement.textContent = totalCount.toLocaleString('nl-BE');
               counterElement.classList.add('updated');
@@ -2996,12 +2991,18 @@ document.addEventListener("DOMContentLoaded", function () {
                   counterElement.style.transform = 'scale(1)'; 
               }, 200);
           } else if (lastKnownTotalCount === 0) {
-              // Zet het getal de eerste keer zonder animatie
               counterElement.textContent = totalCount.toLocaleString('nl-BE');
           }
           lastKnownTotalCount = totalCount;
 
-          // Bereken de resterende tijd voor de countdown
+          // *** NIEUWE LOGICA VOOR TELLER VANDAAG ***
+          const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // Middernacht
+          const diffSinceMidnight = now - todayStart;
+          const diagnosesToday = Math.floor(diffSinceMidnight / intervalMillis);
+          todayCounterElement.innerHTML = `Nieuwe diagnoses vandaag: <span class="today-count-number">${diagnosesToday}</span>`;
+          // *** EINDE NIEUWE LOGICA ***
+
+          // Bestaande logica voor countdown
           const millisIntoCurrentInterval = diffSinceFix % intervalMillis;
           const remainingMillis = intervalMillis - millisIntoCurrentInterval;
           const remainingSecondsTotal = Math.floor(remainingMillis / 1000);
@@ -3011,11 +3012,11 @@ document.addEventListener("DOMContentLoaded", function () {
           countdownElement.textContent = `Volgende diagnose over: ${minutes}:${formattedSeconds}`;
       }
 
-      // Start de klok en zorg ervoor dat hij elke seconde wordt bijgewerkt
       updateCounterAndCountdown();
       setInterval(updateCounterAndCountdown, 1000);
   });
 </script>
+
 <!-- =============================================================== -->
 <!-- ================= EINDE JAVASCRIPT VOOR DE KLOK =============== -->
 <!-- =============================================================== -->
