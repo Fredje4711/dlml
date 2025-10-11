@@ -1525,3 +1525,64 @@ body.content-only .pgContent {
         font-size: 16px !important;
     }
 }
+/* =============================================================== */
+/* ============ STYLING VOOR NIEUWE DIABETES TELLER ============ */
+/* =============================================================== */
+
+/* =============================================================== */
+/* ============ STYLING VOOR NIEUWE DIABETES TELLER (v2) ========= */
+/* =============================================================== */
+
+/* --- Mobiele weergave (standaard) --- */
+
+/* De wrapper voor dagteller en countdown */
+#today-and-countdown-wrapper {
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* MEER ruimte tussen de twee regels */
+    margin-top: 4px; /* MINDER ruimte boven dit blok (dichter bij de grote teller) */
+}
+
+/* De tekst van de nieuwe dagteller */
+#diagnoses-today-counter {
+    font-size: 1.1rem; /* Iets groter gemaakt */
+    font-weight: bold; /* Vetgedrukt voor meer nadruk */
+    color: #ffffff;
+}
+
+/* De nieuwe klasse specifiek voor het getal */
+.today-count-number {
+    font-size: 1.3em; /* Maakt het getal 30% groter dan de omringende tekst */
+    font-weight: 900; /* Extra vet */
+}
+
+/* Verwijder de 'order' van de originele countdown-timer */
+#countdown-timer {
+    order: unset; 
+}
+
+
+/* --- Desktop weergave --- */
+@media (min-width: 769px) {
+
+    /* De wrapper op desktop */
+    #today-and-countdown-wrapper {
+        order: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px; /* MEER ruimte tussen de regels */
+        margin-top: 0;
+    }
+
+    /* Pas de lettergrootte aan voor desktop */
+    #diagnoses-today-counter {
+        font-size: 0.9rem; /* Iets groter gemaakt */
+    }
+    
+    #countdown-timer {
+        order: unset;
+    }
+}
