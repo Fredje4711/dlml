@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Activiteitenlinks – DLML</title>
+
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -11,6 +12,12 @@
     margin: 10px;
     color: #111;
     background-color: #fff;
+  }
+
+  /* ✳️ Centrale kolom op desktop */
+  .container {
+    max-width: 435px;   /* smalle, gecentreerde kolom */
+    margin: 0 auto;     /* centreert horizontaal */
   }
 
   h2 {
@@ -54,24 +61,47 @@
     text-decoration: underline;
   }
 
+  /* ✳️ Normale knopmaat (desktop + mobiel) */
   button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 15px;
+    padding: 8px 14px;      /* iets compacter */
+    border-radius: 6px;
+    font-size: 14px;
     cursor: pointer;
-    width: 100%;
+    width: auto;            /* geen 100%, dus geen volle breedte meer */
+    display: inline-block;
   }
 
   button:hover {
     background-color: #0056b3;
   }
+
+  /* ✳️ Mobiele weergave */
+  @media (max-width: 768px) {
+    .container {
+      width: 94%;
+      padding: 5px;
+    }
+
+    button {
+      font-size: 13px;
+      padding: 7px 12px;
+      width: auto;
+    }
+  }
+  .card {
+  text-align: center;
+}
+
 </style>
+
+
 </head>
 <body>
 
+<div class="container">
 <h2>DLML – Activiteitenlinks</h2>
 <p>Tik op 📋 <b>Kopieer</b> om de link te gebruiken in mail of bericht.</p>
 
@@ -130,6 +160,8 @@ function copyToClipboard(text) {
   });
 }
 </script>
+  
+</div> <!-- einde container -->
 
 </body>
 </html>
