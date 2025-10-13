@@ -164,7 +164,7 @@ body {  }
   border-color:transparent; border-style:solid;
   outline: none; outline-offset: 0;
   overflow-x:hidden; overflow-y:hidden;
-  background-image: url("image/LogoDLML.png");
+ /* background-image: url("image/LogoDLML.png"); */
   background-repeat: no-repeat;
   background-position: right 1vw top;
   background-size: 20% ; }
