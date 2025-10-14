@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabetes Klok</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #000;
+  background: #ffffff;
+  text-align: center;
+}
+
+/* ===== WRAPPER ===== */
+#diabetes-clock-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;       /* weer mooi verticaal gecentreerd */
+  justify-content: center;   /* alles in het midden van het scherm */
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0;
+  gap: 0;                    /* geen ruimte meer tussen logo en klok */
+}
+
+/* ===== LOGO ===== */
+#logo {
+  height: 34vh;              /* hoogte blijft goed */
+  width: auto;
+  display: block;            /* voorkomt inline witruimte */
+  margin-right: 8px;       /* logo dichter bij klok trekken */
+  margin-top: 10px;          /* laat logo iets zakken */
+  transform: translateY(5px);/* fijne visuele correctie */
+}
+
+
+/* ===== TEKSTGEDEELTE ===== */
+#clock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+}
+
+/* ===== TITELS ===== */
+#clock-content h1 {
+  font-size: 2vw;
+  color: #c00000;
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  text-align: left;
+}
+#clock-content h2 {
+  font-size: 1.2vw;
+  color: #333;
+  font-weight: normal;
+  margin: 0;
+  text-align: left;
+}
+
+#clock-content h2:nth-of-type(2) {
+  text-align: center;  /* centreert enkel "Vanaf 1 januari 2025" */
+  width: 75%;
+}
+
+
+/* ===== HOOFDTELLER ===== */
+#diabetes-counter {
+  font-size: 5vw;
+  font-weight: bold;
+  color: #c00000;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* ===== DAGTELLER ===== */
+#diagnoses-today {
+  font-size: 1.3vw;
+  color: #23a9e4;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+/* ===== COUNTDOWN ===== */
+#countdown-wrapper {
+  font-size: 1.3vw;
+  color: #23a9e4;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 6px;
+  text-align: left;
+}
+
+#countdown-label {
+  font-weight: normal;
+  color: #23a9e4;
+}
+#countdown-timer {
+  font-weight: bold;
+  color: #23a9e4;
+}
+
+/* ===== RESPONSIEVE AANPASSINGEN ===== */
+@media (max-width: 768px) {
+  #diabetes-clock-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+  }
+  #logo {
+    height: 25vh;
+  }
+  #clock-content h1 { font-size: 6vw; }
+  #clock-content h2 { font-size: 4vw; }
+  #diabetes-counter { font-size: 12vw; }
+  #diagnoses-today { font-size: 4vw; }
+  #countdown-wrapper { font-size: 4vw; }
+}
+
+/* ===== VERGROTE PRESENTATIEVERSIE ===== */
+@media (min-width: 1000px) {
+  #diabetes-clock-wrapper {
+    transform: scale(2);           /* verdubbelt alles */
+    transform-origin: center center; /* houdt het midden als referentiepunt */
+  }
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div id="diabetes-clock-wrapper">
+  <img id="logo" src="logo_klok.png" alt="Diabetes Liga Midden-Limburg logo">
+  <div id="clock-content">
+    <h1>Diabetes klok</h1>
+    <h2>Aantal diagnoses in België</h2>
+    <h2>Vanaf 1 januari 2025</h2>
+    <div id="diabetes-counter">0</div>
+    <div id="diagnoses-today">Nieuwe diagnoses vandaag: <span id="diagnoses-today-counter">0</span></div>
+    <div id="countdown-wrapper">
+      <span id="countdown-label">Volgende diagnose over:</span>
+      <span id="countdown-timer">00:00</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CONFIGURATIE =====
+const INITIAL_COUNT = 23516; // zelfde waarde als in jouw site
+const COUNT_FIXED_TIMESTAMP = new Date('2025-10-05T15:06:00').getTime();
+const intervalMillis = 17 * 60 * 1000; // elke 17 minuten
+
+// ===== FUNCTIES =====
+function updateCounterAndCountdown() {
+  const now = Date.now();
+
+  // Totale teller
+  const elapsed = now - COUNT_FIXED_TIMESTAMP;
+  const increments = Math.floor(elapsed / intervalMillis);
+  const totalCount = INITIAL_COUNT + increments;
+  document.getElementById('diabetes-counter').textContent = totalCount.toLocaleString('nl-BE');
+
+  // Diagnoses vandaag
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const elapsedToday = now - todayStart.getTime();
+  const todayCount = Math.floor(elapsedToday / intervalMillis);
+  document.getElementById('diagnoses-today-counter').textContent = todayCount;
+
+  // Countdown
+  const remaining = intervalMillis - (elapsed % intervalMillis);
+  const minutes = Math.floor(remaining / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+  document.getElementById('countdown-timer').textContent =
+    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  updateCounterAndCountdown();
+  setInterval(updateCounterAndCountdown, 1000);
+});
+</script>
+
+</body>
+</html>
