@@ -40,7 +40,7 @@
 /* ========================================================== */
 
 #diabetes-clock-wrapper {
-    padding: 15px 10% 5px 10%; 
+    padding: 1px 10% 5px 10%; 
     box-sizing: border-box;
 }
 
@@ -251,11 +251,85 @@
       <div id="actieveMnu">Home</div>
     </div>
 
-<div id="rollingBanner">
-  <div class="rollingText">
-    🧑‍🤝‍🧑 Praatcafé — Een gezellig gesprek voor en door mensen met diabetes! 👨‍⚕️ Klik op ‘Infosessies’ in het menu! 📘
-  </div>
+<<div id="eventBanner">
+  <span>
+    🚶‍♂️ Wandel mee voor Wereld Diabetes Dag — 
+    <br class="mobileOnly">
+    zondag 16 november in Hasselt! 🌍 
+    <a href="https://fredje4711.github.io/dlml/index.html#wandeling_wdd_2025" target="_blank"><strong>Meer info ›</strong></a>
+  </span>
 </div>
+
+<style>
+#eventBanner {
+  background: linear-gradient(90deg, #d7efff, #f0f8ff);
+  text-align: center;
+  padding: 10px 10px;
+  font-size: 1.05em;
+  border-bottom: 2px solid #99ccee;
+  font-family: Arial, sans-serif;
+  animation: fadeIn 2.5s ease-in;
+  color: #003366;
+}
+
+#eventBanner a {
+  color: #0078d7;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 4px;
+}
+#eventBanner a:hover {
+  text-decoration: underline;
+}
+
+/* standaard: <br> niet tonen */
+.mobileOnly {
+  display: none;
+}
+
+/* enkel op desktop: tekst iets naar rechts, weg van menu */
+@media screen and (min-width: 901px) {
+  #eventBanner {
+    text-align: left;
+    padding-left: 25px; /* schuift tekst rechts van het menu */
+  }
+}
+
+/* enkel op gsm: <br> zichtbaar maken + minder witruimte */
+@media screen and (max-width: 600px) {
+  .mobileOnly {
+    display: inline;
+  }
+  #eventBanner {
+    font-size: 1em;
+    padding-top: 6px;   /* minder ruimte boven */
+    padding-bottom: 0px;/* minder ruimte onder */
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  #eventBanner span {
+    display: inline-block;
+    max-width: 95%;
+    line-height: 1.4;
+  }
+}
+
+/* zachte fade-in met lichte opwaartse beweging */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px); /* begint iets lager */
+  }
+  60% {
+    opacity: 0.6;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style><
 
  		
 <!-- ***********  Mnu 1 (links, desktop) - GECORRIGEERD  ************ -->
@@ -416,30 +490,57 @@
 <!-- ============ NIEUW DESIGN CTA-KNOPPEN HIER ============= -->
 <!-- ========================================================== -->
 <div class="cta-container">
-    <div class="cta-grid">
-        <!-- Knop 1: Praatcafé -->
-        <a href="#" onclick="setActivePage('B'); return false;" class="cta-button">
-            <i class="fas fa-comments cta-icon"></i>
-            <span class="cta-text">Praatcafé</span>
-            <i class="fas fa-chevron-right cta-chevron"></i>
-        </a>
-        <!-- Knop 2: Wandeling -->
-        <a href="#" onclick="setActivePage('C'); return false;" class="cta-button">
-            <i class="fas fa-walking cta-icon"></i>
-            <span class="cta-text">Wandeling WDD</span>
-            <i class="fas fa-chevron-right cta-chevron"></i>
-        </a>
-    </div>
-    <!-- Knop 3: Infolijn -->
-    <a href="#" onclick="setActivePage('Q'); return false;" class="cta-button cta-full-width">
-        <i class="fas fa-phone-alt cta-icon"></i>
-        <span class="cta-text">Diabetes Infolijn: 0800 96 333</span>
-        <i class="fas fa-chevron-right cta-chevron"></i>
+  <div class="cta-grid">
+
+    <!-- CTA 1: Nieuwe technieken en inzichten -->
+    <a href="https://fredje4711.github.io/dlml/index.html#nieuwe_technieken" target="_blank" class="cta-button">
+      <i class="fas fa-microscope cta-icon"></i>
+      <span class="cta-text">Nieuwe technieken en stopzetten ontwikkeling type 1 en obesitas (27/11)</span>
+      <i class="fas fa-chevron-right cta-chevron"></i>
     </a>
+
+    <!-- CTA 2: Ledenfeest -->
+    <a href="https://fredje4711.github.io/dlml/index.html#ledenfeest2025" target="_blank" class="cta-button">
+      <i class="fas fa-utensils cta-icon"></i>
+      <span class="cta-text">Ledenfeest (13/12)<br>Bekijk ons uitgebreid buffet menu</span>
+      <i class="fas fa-chevron-right cta-chevron"></i>
+    </a>
+
+  </div>
 </div>
+   
+<style>
+/* Compactere weergave van CTA-sectie */
+.cta-container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* verwijder extra witruimte in bovenliggende sectie (indien aanwezig) */
+.cta-grid {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* compacte knoppen zelf */
+.cta-button {
+  padding: 2px 10px !important;
+  line-height: 1.2 !important;
+}
+
+/* mobiel nog compacter */
+@media (max-width: 600px) {
+  .cta-button {
+    padding: 5px 8px !important;
+    font-size: 0.9em !important;
+  }
+}
+
+</style>
 <!-- ========================================================== -->
 <!-- ============== EINDE NIEUW DESIGN CTA-KNOPPEN ============ -->
 <!-- ========================================================== -->
+
 
 	  
 	  	  <br>&nbsp;<br>
