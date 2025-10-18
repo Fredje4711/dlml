@@ -354,7 +354,7 @@
     <div id="MnuItm1O"><i class="far fa-id-card"></i><label>Rijbewijs &amp; Diabetes</label></div>
     <div id="MnuItm1P"><i class="fas fa-medkit"></i><label>Mounjaro® &amp; terugbetaald</label></div>
     <div id="MnuItm1Q" onclick="setActivePage('Q')">
-        <i class="fas fa-phone-alt"></i><label>Gratis Diabetes Infolijn</label>
+        <i class="fas fa-phone-alt"></i><label>Diabetes Infolijn</label>
     </div>
     <div class="MnuLine"></div>
 
@@ -390,7 +390,7 @@
       <div id="MnuItm2O"><i class="far fa-id-card"></i><label>Rijbewijs &amp; Diabetes</label></div>
       <div id="MnuItm2P"><i class="fas fa-medkit"></i><label>Mounjaro® &amp; terugbetaald</label></div>
       <div id="MnuItm2Q" onclick="setActivePage('Q')">
-        <i class="fas fa-phone-alt"></i><label>Gratis Diabetes Infolijn</label>
+        <i class="fas fa-phone-alt"></i><label>Diabetes Infolijn</label>
       </div>
       <div class="MnuLine"></div>
 
@@ -2870,9 +2870,6 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script  src="myjavascript.js"> </script>
-	
 <script>
 // Maak setActivePage GLOBAAL beschikbaar
 function setActivePage(id) {
@@ -3112,42 +3109,18 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- ================= EINDE JAVASCRIPT VOOR DE KLOK =============== -->
 <!-- =============================================================== -->
 
-<script>
-window.addEventListener("load", function() {
-  const hash = window.location.hash;
-  if (!hash) return; // geen hash in de URL → niets doen
-
-  const target = document.querySelector(hash);
-  if (!target) {
-    console.log("Geen element gevonden voor", hash);
-    return;
-  }
-
-  // Zoek de bovenliggende pagina (pgA, pgB, pgC, ...)
-  const parentPage = target.closest(".pgContent");
-  if (parentPage) {
-    parentPage.style.display = "block";
-    console.log("Pagina zichtbaar gemaakt:", parentPage.id);
-  }
-
-  // Wacht even tot de DOM gerenderd is, dan scrollen
-  setTimeout(() => {
-    const headerOffset = 80; // hoogte van je header
-    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-    const offsetPosition = elementPosition - headerOffset;
-    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    console.log("Automatisch gescrold naar", hash);
-  }, 1000);
-});
-</script>
-
-<!-- Alle inhoud en activiteiten bovenaan -->
+<!-- jQuery-bibliotheek -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- Eerst uw hoofdbestand -->
 <script src="site/myjavascript.js"></script>
 
-<!-- Daarna het hash-scroll script -->
+
 <script>
+/* ================================
+   Automatisch scrollen naar anker (#)
+   Verbeterde scroll: vloeiend en precies
+   ================================= */
 function scrollToHashTarget() {
   const hash = window.location.hash;
   if (!hash) return;
@@ -3160,29 +3133,35 @@ function scrollToHashTarget() {
 
   const parentPage = target.closest(".pgContent");
   if (parentPage) parentPage.style.display = "block";
-  
+
   setTimeout(() => {
-    const headerOffset = 80;
-    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-    const offsetPosition = elementPosition - headerOffset;
+    const headerOffset = 70;
+    const elementTop = target.getBoundingClientRect().top + window.scrollY;
+    const elementHeight = target.offsetHeight;
+
+    // 🎯 Doelpositie
+    let offsetPosition = elementTop - headerOffset;
+
+    // ⛔ Boven- en onderlimieten instellen
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const minScroll = 0;
+    offsetPosition = Math.max(minScroll, Math.min(offsetPosition, maxScroll - elementHeight / 3));
+
+    // 🕊️ Vloeiend scrollen
     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-  }, 800);
+
+    console.log("Nauwkeurig gescrold naar", hash);
+  }, 300);
 }
 
 window.addEventListener("load", scrollToHashTarget);
 window.addEventListener("hashchange", scrollToHashTarget);
-
-setTimeout(() => {
-  const headerOffset = 80;
-  const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-  const offsetPosition = elementPosition - headerOffset;
-  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-}, 300);
-
 </script>
-  
+
+
+
+
 </body>
 </html>
 
 
-```
