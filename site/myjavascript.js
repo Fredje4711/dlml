@@ -107,10 +107,17 @@ $(document).ready(function (e) {
       setPageAndURL(newPgIdSuffix);
     }
     
-    if ($(this).closest('#Mnu2').length && $('#Mnu2').css('display') == 'block') {
-        $('#Mnu2').height(0);
-        setTimeout(function () { $('#Mnu2').css('display', 'none'); }, 1200);
-    }
+// Menu sluiten op mobiel, ongeacht welke pagina wordt gekozen
+if (
+  $(this).closest('#Mnu2').length &&
+  $('#Mnu2').css('display') === 'block'
+) {
+  $('#Mnu2').height(0);
+  setTimeout(function () {
+    $('#Mnu2').css('display', 'none');
+  }, 1200);
+}
+
   });
 
   // De setPg functie
@@ -161,18 +168,44 @@ if (window.location.hash && document.querySelector(window.location.hash)) {
     }
   };
   
-  // Knop voor mobiel menu
-  $('#btnMnu').on('click', function (e) {
-    e.preventDefault(); e.stopPropagation();
-    if ($('#Mnu2').css('display') == 'block') {
-      $('#Mnu2').height(0); setTimeout(function () { $('#Mnu2').css('display', 'none'); }, 1200);
-    } else {
-      $('#Mnu2').css('display', 'block'); var actualHeight = 0;
-      $('#MnuLst2 > div').each(function(){ actualHeight += $(this).outerHeight(true); });
-      actualHeight += parseFloat($('#MnuFrame2').css('padding-top')) + parseFloat($('#MnuFrame2').css('padding-bottom'));
-      $('#Mnu2').height(Math.min(actualHeight, parseFloat($('#Mnu2').css('max-height'))));
-    }
-  });
+
+ // Knop voor mobiel menu
+$('#btnMnu').off('click').on('click', function (e) {
+  console.log("TEST: menu-knop aangeklikt");
+  e.preventDefault();
+  e.stopPropagation();
+
+  const $menu = $('#Mnu2');
+  if ($menu.css('display') === '') {
+    $menu.css('display', 'none');
+  }
+
+  if ($menu.css('display') === 'block') {
+    console.log("TEST: menu sluiten...");
+    $menu.height(0);
+    setTimeout(function () {
+      $menu.css('display', 'none');
+    }, 400);
+  } else {
+    console.log("TEST: menu openen...");
+    $menu.css('display', 'block');
+    $menu.css('height', 'auto');
+    let actualHeight = 0;
+    $('#MnuLst2 > div').each(function () {
+      actualHeight += $(this).outerHeight(true);
+    });
+    actualHeight +=
+      parseFloat($('#MnuFrame2').css('padding-top')) +
+      parseFloat($('#MnuFrame2').css('padding-bottom'));
+    $menu.height(Math.min(actualHeight, parseFloat($menu.css('max-height'))));
+  }
+});
+
+}); // ✅ sluit $(document).ready correct af
+
+
+
+
 
   // Lightbox
   var lightboxImages = []; var currentImageIndex = 0;
@@ -227,4 +260,3 @@ if (window.location.hash && document.querySelector(window.location.hash)) {
     $(this).find('img, .play-button').remove();
     $(this).append(iframe);
   });
-});

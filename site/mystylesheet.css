@@ -37,12 +37,24 @@ html {
 
 body {  }
 
+/* Wrapper: vrij scrollbaar op desktop, vast op mobiel */
 #wrapper {
-  display:block; position:fixed;
-  left:.0px; top:0px;
-  width:100vw; height:100vh;
-  border: 1.2vw #ffffff solid;
-  overflow-x: hidden; overflow-y: hidden; }
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Enkel op kleine schermen: menu mag schermvullend zijn */
+@media (max-width: 768px) {
+  #wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+}
 
 #titelWebsite { display:block; position:relative; width:98vw; height:auto; }
 #imgLogoV1 { display:block; width:97.6vw; height:auto; }
