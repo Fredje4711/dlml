@@ -132,6 +132,13 @@ if (
     $('#MnuItm1' + pgNr).css({'color': 'var(--Mnu1SelColor)', 'font-weight': 'bold'});
     $('div[id^="MnuItm2"]').css({'color': 'var(--Mnu2Color)', 'font-weight': 'normal'});
     $('#MnuItm2' + pgNr).css({'color': 'var(--Mnu2SelColor)', 'font-weight': 'bold'});
+	    // Nieuw toegevoegd: toon event-banner alleen op Home
+    if (pgNr === 'A') {
+        $('#eventBanner').show();
+    } else {
+        $('#eventBanner').hide();
+    }
+
   };
 
   // --- ROUTING LOGICA ---
