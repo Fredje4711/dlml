@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>Inschrijving infosessie - All in Holiday</title>
+  
+
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="Keywords" content="diabetesligamiddenlimburg, diabetesligamiddenlimburg.be , Diabetes, Diabetes Liga, Midden-Limburg, locale afdeling">
+  <meta name="Description" content="Inschrijvingsformulier infosessie All in Holiday">
+  <meta name="Robots" content="noindex, nofollow">
+  <meta name="Author" content="Diabetes Liga Midden-Limburg">
+
+  <style>
+    html, body {
+      background-color:#ffffff;
+      color:#333;
+      font-family: 'Roboto', sans-serif;
+      font-size:16px;
+      font-weight: 500;
+      line-height:18px;
+      text-align: center;
+      white-space: normal; /* was nowrap; nu beter voor gsm */
+    }
+
+    #content {
+      display:block;
+      width: 650px;
+	  padding: 0px 20px 0px 20px; /* boven – rechts – onder – links */
+      margin: 10px auto;
+      background-color:#afeeee;
+      color:#333;
+    }
+
+    #top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width:650px;
+      background-color: #663ab7;
+      color:#ffffff;
+    }
+
+    #top div:nth-child(1) { width:100%; padding: 10px 0 3px 0; font-size:32px; line-height:34px;  }
+    #top div:nth-child(2) { width:100%; padding: 2px 0 5px 0; font-size:34px; line-height:36px;  }
+    #top div:nth-child(3) { width:100%; height:14px;  }
+    #top div:nth-child(n + 4) { padding: 1px 10px; }
+    #top div:nth-child(6) { width:100%; height:1px;  }
+    #top div:nth-child(9) { width:100%; font-size:22px; line-height:22px; }
+
+    #myForm {
+      display:block;
+      position:relative;
+      width:520px;
+      padding: 20px 20px 20px 25px;
+      margin: 0 auto;
+      background-color:#ffffff;
+      font-size:16px;
+      font-weight: 500;
+      line-height: 18px;
+      border-top:6px #b388ff solid;
+      border-right:1px #B388FF solid;
+      border-left:1px #B388FF solid;
+      border-bottom:1px #b388ff solid;
+      text-align:left;
+    }
+
+    #myForm > *   { display:block; margin: 3px 0; }
+    #myForm .inln { margin: 3px 0; }
+    #myForm .lnfd { margin: 3px 0 22px 0;}
+
+    label { position: relative; }
+    label span {
+      visibility:hidden;
+      position:relative;
+      left: 8px;
+      top:9px;
+      font-size:15px;
+      font-weight:600;
+      color:#ff0000;
+      background-color:#ffffff;
+    }
+
+    input[type=text], textarea {
+      font-size:17px;
+      line-height:19px;
+      font-weight:500;
+      border: 1px #a0a0c0 solid;
+      outline:0;
+    }
+
+    input::placeholder {
+      font-size: 13px;
+      font-weight: bold;
+      opacity: 0.8;
+      color: gray;
+    }
+
+    #divAttest {
+      display: flex;
+      flex-direction:row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width:80%;
+    }
+
+    #txtFakeBtnSubmit {
+      display:block;
+      visibility:visible;
+      margin-left:25px;
+      margin-top:5px;
+      margin-bottom:5px;
+      font-size:14px;
+      line-height: 18px;
+      font-weight:400;
+      padding: 1px 0 3px 0;
+      color:#ff0000;
+    }
+
+    #txtVerplicht {
+      display:block;
+      margin-left:25px;
+      margin-top:5px;
+      margin-bottom:5px;
+      font-size:14px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    #logoDL {
+      display:block;
+      position:absolute;
+      top:10px;
+      right:30px;
+      width: 180px;
+      height:60px;
+    }
+
+    #containerBevestiging {
+      display:grid;
+      position: absolute;
+      visibility: hidden;
+      z-index:99;
+      left:0;
+      top:0;
+      right:0;
+      bottom:0;
+      grid-template-columns: minmax( 480px, auto);
+      grid-template-rows: auto 135px;
+      justify-content: center;
+      align-content: end;
+      background-color: rgba( 135, 206, 250, 0.2 );
+    }
+
+    #bevestiging {
+      background-color: #ffffff;
+      color: #000000;
+      background-image: linear-gradient(to bottom, #7b68ee , #7b68ee );
+      background-size: 100% 42px;
+      background-position: top left;
+      background-repeat:no-repeat;
+      border: 2px solid #333;
+      border-radius: 7px;
+    }
+
+    #bevestiging:hover, #btnOK:hover { cursor: pointer; }
+
+    #bevestigingTitel {
+      justify-self: center;
+      padding: 10px 25px;
+      font-size: 22px;
+      line-height:22px;
+      font-weight: 400;
+      background-color:transparent;
+      color:#ffffff;
+      text-align:center;
+    }
+
+    /* hier maken we de melding blauw met witte tekst */
+    #bevestigingMsg {
+      justify-self: start;
+      padding: 24px 25px 12px 15px;
+      text-align:left;
+      font-size: 18px;
+      line-height:22px;
+      font-weight: 500;
+      background-color:#23a9e4;
+      color:#ffffff;
+      border-radius:6px;
+    }
+
+    #bevestiging #btnOK {
+      justify-self: end;
+      display:block;
+      float: right;
+      font-size: 18px;
+      line-height:22px;
+      font-weight: 500;
+      background-color:#e4e4e4;
+      color:#333;
+      border:1px #333 solid;
+      border-radius: 3px;
+      padding: 3px 25px;
+      margin: 2px 15px 12px 0;
+    }
+
+    /* Mooie inschrijf-knoppen */
+    .inschrijf-btn {
+      background-color: #0078d4;       /* DLML-blauw */
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: inline-block;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .inschrijf-btn:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .inschrijf-btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+      background-color: #004f85;
+    }
+
+    .inschrijf-btn.disabled {
+      background-color: #d0d0d0;
+      color: #666;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    #fakeBtnSubmit {
+      display: block;
+      text-align:center;
+    }
+
+    #btnSubmit {
+      display: none;  /* wordt in JS zichtbaar wanneer formulier geldig is */
+      text-align:center;
+    }
+
+    /* CTA-blok onder het formulier – met knoppen */
+    .cta-blok {
+      margin-top: 0px;
+      padding: 0px 20px 5px 20px; /* minder padding onderaan */
+      border-radius: 12px;
+      background: #f7faff;
+      border: 1px solid #dce9f7;
+      text-align: center;
+    }
+
+    .cta-blok h2 {
+      font-size: 1.4rem;
+      color: #005fa3;
+      margin-bottom: 5px;
+    }
+
+    .cta-blok p {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .cta-btn {
+      background-color: #0078d4;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-block;
+    }
+
+    .cta-btn:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
+    }
+
+    .cta-btn:active {
+      background-color: #004f85;
+      transform: translateY(0);
+    }
+
+    /* eenvoudige responsiviteit */
+    @media (max-width: 700px) {
+      #content, #top, .cta-blok {
+        width: 100%;
+      }
+      #myForm {
+        width: auto;
+        margin: 0 10px 20px 10px;
+      }
+	.cta-centrum {
+    text-align: center;
+	  
+}
+
+  </style>
+</head>
+<body>
+
+<div id="content">
+
+  <div id="top">
+    <div>Inschrijving infosessie</div>
+    <div>ALL IN HOLIDAY</div>
+    <div>&nbsp;</div>
+    <div>Dinsdag 9 december 2025</div>
+    <div>Personeelscafetaria AZ Vesalius</div>
+    <div>&nbsp;</div>
+    <div>19.00 u - 21.00 u</div>
+    <div>Hazelereik 51, 3700 Tongeren</div>
+    <div>&nbsp;</div>
+  </div>
+
+  <div id="filenaam" style="display:none;">lijst4holiday</div>
+  <div id="checkafzender" style="display:none;">checkAfzender09122025</div>
+
+  <!-- method POST naar jouw Google Apps Script Web App, target = verborgen iframe -->
+  <form id="myForm"
+        method="POST"
+        target="hidden_iframe"
+        action="https://script.google.com/macros/s/AKfycbyqDMw2j887a7Wy6vyKSa8ZmKWoGd5sandTB7Bi_cOqw13GBtqnKdHw6fmvE1x8nUvx/exec"
+        accept-charset="utf-8">
+
+    <label class="lnfd" for="naam">
+      Naam (*)
+      <span>&nbsp;gelieve uw naam in te vullen!&nbsp;</span><br>
+      <input type="text" id="naam" size="30" placeholder="naam">
+    </label>
+
+    <label class="lnfd" for="voornaam">
+      Voornaam<br>
+      <input type="text" id="voornaam" size="25">
+    </label>
+
+    <label for="email">
+      e-mail
+      <input class="lnfd" type="text" id="email" size="40">
+    </label>
+
+    <label for="tel">
+      Tel/GSM<br>
+      <input class="lnfd" type="text" id="tel" size="25">
+    </label>
+
+    <label for="aantal">
+      Aantal deelnemers (*)<br>
+      <input class="lnfd" type="text" id="aantal" size="8" value="" placeholder="aantal">
+      <span style="left:10px; top:0px;">&nbsp;gelieve het aantal deelnemers te vermelden!&nbsp;</span>
+    </label>
+
+    <label class="lnfd" for="attest">
+      <input id="attest" type="checkbox" value="">wenst een deelname-attest
+    </label>
+
+    <label for="opmerkingen">opmerkingen</label>
+    <textarea class="lnfd" id="opmerkingen" cols="35" rows="6" style="resize: none;"></textarea>
+
+    <!-- Mooie inschrijfknoppen -->
+    <button id="btnSubmit" type="submit" class="inschrijf-btn">Inschrijven</button>
+    <div id="fakeBtnSubmit" class="inschrijf-btn disabled">Inschrijven</div>
+
+    <div class="lnfd" id="txtFakeBtnSubmit">Gelieve alle verplichte velden in te vullen</div>
+
+    <div id="txtVerplicht">
+      (*) velden zijn verplicht<br>
+    </div>
+
+    <div style="width:400px; height:40px;">&nbsp;</div>
+
+    <img id="logoDL" alt="" src="DLML_ZBT.png">
+
+
+    <div id="containerBevestiging">
+      <div id="bevestiging">
+        <div id="bevestigingTitel">&nbsp;</div>
+        <div id="bevestigingMsg">Inschrijving</div>
+        <div id="btnOK">Ok</div>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- verborgen iframe zodat de "OK" pagina niet in het hoofdvenster verschijnt -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <div style="width:100%; height:25px;">&nbsp;</div>
+
+  <!-- CTA-blok met knoppen naar website & socials -->
+  <div class="cta-blok">
+    <h2>Wil je meer weten over onze werking, activiteiten of contactinformatie?</h2>
+    <p class="cta-centrum">  Neem zeker een kijkje op onze website en sociale media!  </p>
+
+
+    <div class="cta-buttons">
+      <a class="cta-btn" href="https://fredje4711.github.io/dlml/" target="_blank">🌐 Website</a>
+      <a class="cta-btn" href="https://fredje4711.github.io/dlml/#infosessies" target="_blank">📅 Infosessies</a>
+      <a class="cta-btn" href="https://fredje4711.github.io/dlml/#cultuur-ontspanning" target="_blank">🎭 Cultuur & ontspanning</a>
+      <a class="cta-btn" href="https://www.facebook.com/p/Diabetes-Liga-Midden-Limburg-100091325418693/?locale=nl_NL" target="_blank">📘 Facebook</a>
+      <a class="cta-btn" href="https://www.youtube.com/@Diabetesligamiddenlimburg/xregexp" target="_blank">▶️ YouTube</a>
+      <a class="cta-btn" href="https://www.instagram.com/diabetes_liga_midden_limburg/" target="_blank">📸 Instagram</a>
+      <a class="cta-btn" href="mailto:midden.limburg@diabetes.be">✉️ E-mail</a>
+    </div>
+  </div>
+
+  <div style="width:100%; height:25px;">&nbsp;</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+  var charAantal = '0123456789';
+  var charTel = '0123456789 ,.:/+';
+
+  $(document).ready(function() {
+
+    var prvNaam = '';
+    var newNaam = '';
+
+    var prvVoornaam = '';
+    var newVoornaam = '';
+
+    // naam check ascii code
+    $('#naam').on('keypress', function (e) {
+      prvNaam = $(this).val();
+      var regex = new RegExp("^[a-zA-Z0-9 éèëàùç'\\s]+$");
+      var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+      if (regex.test(str)) {
+        return true;
+      } else {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // voornaam check ascii code
+    $('#voornaam').on('keypress', function (e) {
+      prvVoornaam = $(this).val();
+      var regex = new RegExp("^[a-zA-Z0-9 éèëàùç'\\s]+$");
+      var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+      if (regex.test(str)) {
+        return true;
+      } else {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // naam hoofdletters + set Btn submit
+    $('#naam').on('keyup', function(e) {
+      newNaam = $(this).val();
+      if ( newNaam.length == 1 ) {  $(this).val( newNaam.toUpperCase() ); }
+      if ( prvNaam ==  newNaam.slice(0,-1) ) {
+        if ( prvNaam.slice(-1) == ' ' ) {
+          $(this).val( newNaam.slice(0,-1) + newNaam.slice(-1).toUpperCase() );
+        }
+      }
+      $.fn.setBtnSubmit();
+    });
+
+    // voornaam hoofdletters
+    $('#voornaam').on('keyup', function(e) {
+      newVoornaam = $(this).val();
+      if ( newVoornaam.length == 1 ) {  $(this).val( newVoornaam.toUpperCase() ); }
+      if ( prvVoornaam ==  newVoornaam.slice(0,-1) ) {
+        if ( prvVoornaam.slice(-1) == ' ' ) {
+          $(this).val( newVoornaam.slice(0,-1) + newVoornaam.slice(-1).toUpperCase() );
+        }
+      }
+    });
+
+    // on focus naam / aantal
+    $('#naam').on('click', function () {
+      $(this).css('border','1px #a0a0c0 solid');
+      $(this).parent().find('span').css('visibility','hidden');
+    });
+
+    $('#aantal').on('click', function () {
+      $(this).css('border','1px #a0a0c0 solid');
+      $(this).parent().find('span').css('visibility','hidden');
+    });
+
+    // mailadres characters
+    $('#email').on('keypress', function (e) {
+      var regex = new RegExp("^[a-zA-Z0-9@._]+$");
+      var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+      if (regex.test(str)) {
+        return true;
+      } else {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // tel
+    $('#tel').on('keypress', function (e)  {
+      var key = String.fromCharCode(e.keyCode || e.which);
+      return  charTel.indexOf(key) >= 0;
+    });
+
+    // aantal alleen cijfers
+    $('#aantal').on('keypress', function (e)  {
+      var key = String.fromCharCode(e.keyCode || e.which);
+      return  charAantal.indexOf(key) >= 0;
+    });
+
+    // aantal change set Btn submit
+    $('#aantal').on('keyup', function(e) {
+      $.fn.setBtnSubmit();
+    });
+
+    // aantal prevent cut copy paste
+    $('#aantal').on('cut copy paste', function(e) {
+      e.preventDefault();
+    });
+
+    // submit form – maak hidden velden en laat browser POSTEN naar verborgen iframe
+    $('#myForm').on('submit', function (event) {
+      event.preventDefault();
+
+      let form = this;
+
+      $(form).find('.hidden-field').remove(); // oude verborgen velden verwijderen
+
+      function addHidden(name, value) {
+        $('<input>')
+          .attr('type', 'hidden')
+          .attr('class', 'hidden-field')
+          .attr('name', name)
+          .attr('value', value)
+          .appendTo(form);
+      }
+
+      addHidden('strCheckAfzender',  $('#checkafzender').html());
+      addHidden('strInschrijving',   $('#top div:nth-child(1)').html());
+      addHidden('strTitel',          $('#top div:nth-child(2)').html());
+      addHidden('strDatum',          $('#top div:nth-child(4)').html());
+      addHidden('strPlaats',         $('#top div:nth-child(5)').html());
+      addHidden('strUur',            $('#top div:nth-child(7)').html());
+      addHidden('strAdres',          $('#top div:nth-child(8)').html());
+      addHidden('strFileNaam',       $('#filenaam').html());
+
+      addHidden('strNaam',           $('#naam').val());
+      addHidden('strVoornaam',       $('#voornaam').val());
+      addHidden('strMail',           $('#email').val());
+      addHidden('strTel',            $('#tel').val());
+      addHidden('strAantal',         $('#aantal').val());
+      addHidden('strAttest',         $('#attest').is(':checked') ? 'ja' : '-');
+      addHidden('strOpmerkingen',    $('#opmerkingen').val());
+
+      // Overlay tonen met blauwe bevestigingsmelding
+      $('#containerBevestiging').css('visibility','visible');
+      $('#btnSubmit').hide();
+      $('#fakeBtnSubmit').hide();
+      $('#txtFakeBtnSubmit').hide();
+      $('#txtVerplicht').hide();
+      $('#bevestigingMsg').html('Je inschrijving is verstuurd en werd goed ontvangen. Bedankt!');
+
+      // Formulier POSTEN naar de hidden iframe (geen zwart OK-scherm meer)
+      form.submit();
+    });
+
+    // fakeButton click
+    $('#fakeBtnSubmit').on('click', function () {
+      var pos = $(window).scrollTop();
+      if  ( $('#aantal').val().length == 0 ) { pos = $.fn.scroll('aantal'); }
+      if  ( $('#naam').val().length == 0 )   { pos = $.fn.scroll('naam'); }
+      pos -= 80;
+      $('html, body').animate({ scrollTop: pos }, 500);
+    });
+
+    // scroll + border on verplichte veld leeg
+    $.fn.scroll = function (objId) {
+      $('#' + objId).css('border','3px #ff0000 solid');
+      $('#' + objId).parent().find('span').css('visibility','visible');
+      return $('#' + objId).offset().top;
+    };
+
+    // bevestiging click: formulier leegmaken en overlay sluiten
+    $('#bevestiging').on('click',  function () {
+      $('#myForm input[type=text]').val('');
+      $('#myForm textarea').val('');
+      $('#containerBevestiging').css('visibility','hidden');
+      $('#attest').prop('checked', false);
+      $.fn.setBtnSubmit();
+    });
+
+    // functie setBtnSubmit
+    $.fn.setBtnSubmit = function() {
+      var okSubmit = true;
+      if ( $('#aantal').val().length == 0 ) { okSubmit = false; }
+      if ( $('#naam').val().length == 0 )   { okSubmit = false; }
+
+      if (okSubmit) {
+        $('#btnSubmit').css('display','inline-block');
+        $('#fakeBtnSubmit').css('display','none');
+        $('#txtFakeBtnSubmit').css('display','none');
+      } else {
+        $('#btnSubmit').css('display','none');
+        $('#fakeBtnSubmit').css('display','inline-block');
+        $('#txtFakeBtnSubmit').css('display','block');
+      }
+    };
+
+    // init
+    $('#bevestigingTitel').html( $('#top div:nth-child(2)').html() );
+    $.fn.setBtnSubmit();
+
+  });
+</script>
+
+</body>
+</html>
