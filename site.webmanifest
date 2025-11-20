@@ -1,6 +1,6 @@
 {
   "name": "DLML Website",
-  "short_name": "DLML",
+  "short_name": "DLML Website",
   "start_url": "https://fredje4711.github.io/dlml/",
   "scope": "/dlml/",
   "display": "standalone",
