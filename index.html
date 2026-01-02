@@ -269,12 +269,13 @@
 
 <div id="eventBanner">
   <span>
-    🏖️ All-in Holiday – gezond op reis (09/12) —
+    🧒 Gezinsnamiddag voor kinderen met diabetes (21/03) —
     <br class="mobileOnly">
-    ontdek praktische tips en medische inzichten! 🌎✨
-    <a href="#infosessies"><strong>Meer info ›</strong></a>
+    een namiddag vol sport, avontuur en ontmoeting 🤸
+    <a href="#cultuur-ontspanning"><strong>Meer info ›</strong></a>
   </span>
 </div>
+
 
 
 <style>
@@ -441,7 +442,7 @@
         <!-- De slogans worden nu apart gegroepeerd voor meer controle -->
         <div class="clock-info-group">
             <p class="slogan-main">Iedere 17 minuten krijgt iemand de diagnose diabetes.</p>
-            <p class="slogan-sub">Mensen met diabetes erbij sinds 1 januari 2025.</p>
+            <p class="slogan-sub">Mensen met diabetes erbij sinds 1 januari 2026.</p>
         </div>
         <!-- Het getal -->
         <div id="diabetes-counter">Laden...</div>
@@ -517,13 +518,17 @@
 </a> -->
 
 
+<!-- CTA 2: Bewegen en Diabetes -->
+<a href="#infosessies" class="cta-button">
+  <i class="fas fa-person-walking cta-icon"></i>
+  <span class="cta-text">
+    Bewegen en Diabetes (23/04)<br>
+    Ontdek hoe beweging helpt bij diabetes
+  </span>
+  <i class="fas fa-chevron-right cta-chevron"></i>
+</a>
 
-    <!-- CTA 2: Ledenfeest -->
-    <a href="#cultuur-ontspanning" class="cta-button">
-      <i class="fas fa-utensils cta-icon"></i>
-      <span class="cta-text">Ledenfeest (13/12)<br>Bekijk ons uitgebreid buffet menu</span>
-      <i class="fas fa-chevron-right cta-chevron"></i>
-    </a>
+    
 
   </div>
 </div>
@@ -2982,8 +2987,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-      const INITIAL_COUNT = 23516; 
-      const COUNT_FIXED_TIMESTAMP = new Date('2025-10-05T15:06:00');
+      const INITIAL_COUNT = 0;
+      const COUNT_FIXED_TIMESTAMP = new Date(2026, 0, 1, 0, 0, 0); // 01/01/2026 00:00 lokaal
+
       
       const intervalMillis = 17 * 60 * 1000;
       const counterElement = document.getElementById('diabetes-counter');
