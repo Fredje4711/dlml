@@ -252,6 +252,38 @@
 .inschrijf-btn:hover {
     background-color: #23a9e4;
 }
+
+/* DLML - foto layout fix voor GSM (alleen voor de aangepaste rijen) */
+@media (max-width: 768px) {
+
+  /* Maak elke '2 naast elkaar' rij op GSM 1 kolom (alles onder elkaar) */
+  .dlmlRow2 > div{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* De '1 gecentreerd' rij ook volle breedte op GSM */
+  .dlmlRow1 > div{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Zorg dat de foto's op GSM mooi centreren en niet te breed worden */
+  .dlmlRow2 img.fotoImg,
+  .dlmlRow1 img.fotoImg{
+    width: 100% !important;
+    max-width: 92vw !important;   /* past netjes in het scherm */
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  /* Optioneel: iets minder ruimte tussen blokken op GSM */
+  .dlmlRow2{
+    gap: 14px !important;
+  }
+}
+
  
 </style>
 </head>
@@ -866,6 +898,149 @@
 
       <!--     foto's                                                                -->
       <div class="pgContent" id="pgD">
+
+
+<div class="fotoGroupPerActiviteit activity-gallery-wrapper">
+  <div class="titelFotoGrp">
+    <label>
+      NIEUWE TECHNIEKEN - NIEUWE MEDICATIE
+    </label>
+  </div>
+
+  <!-- Rij 1: 2 foto's naast elkaar (desktop), op GSM automatisch onder elkaar -->
+  <div class="fotoGroup Grp02 dlmlRow2"
+       style="display:flex; gap:24px; justify-content:center; align-items:flex-start; flex-wrap:wrap;">
+    <div style="flex:0 0 48%; max-width:48%; position:relative;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           style="width:100%; height:auto; display:block;"
+           src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_1.png">
+      <p class="fotoDatum">27 november 2025</p>
+    </div>
+    <div style="flex:0 0 48%; max-width:48%;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           style="width:100%; height:auto; display:block;"
+           src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_2.png">
+    </div>
+  </div>
+
+  <!-- Rij 2: 1 foto (desktop gecentreerd), op GSM ook netjes gecentreerd -->
+  <div class="fotoGroup Grp01 dlmlRow1"
+       style="display:flex; justify-content:center; align-items:flex-start;">
+    <div style="flex:0 0 48%; max-width:48%;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           style="width:100%; height:auto; display:block;"
+           src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_3.png">
+    </div>
+  </div>
+</div>
+
+
+<div class="fotoGroupPerActiviteit activity-gallery-wrapper">
+  <div class="titelFotoGrp">
+    <label>
+      CULTURELE UITSTAP HERKENRODE
+    </label>
+  </div>
+
+  <!-- Bovenste 2 foto's: zoals u aangaf waren die goed -->
+  <div class="fotoGroup Grp03">
+    <div>
+      <img class="fotoImg" loading="lazy" alt=".." style="aspect-ratio: 1 / 1;"
+           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_1.png">
+    </div>
+    <div style="position:relative;">
+      <img class="fotoImg" loading="lazy" alt=".." style="aspect-ratio: 2 / 1;"
+           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_3.png">
+      <p class="fotoDatum">27 september 2025</p>
+    </div>
+  </div>
+
+  <!-- Onderste reeks: 2 naast elkaar + 1 gecentreerd (desktop), op GSM onder elkaar -->
+  <div class="fotoGroup Grp02 dlmlRow2"
+       style="display:flex; gap:24px; justify-content:center; align-items:flex-start; flex-wrap:wrap;">
+    <div style="flex:0 0 48%; max-width:48%;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           style="width:100%; height:auto; display:block;"
+           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_2.png">
+    </div>
+    <div style="flex:0 0 48%; max-width:48%;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           style="width:100%; height:auto; display:block;"
+           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_4.png">
+    </div>
+  </div>
+
+  <div class="fotoGroup Grp01 dlmlRow1"
+       style="display:flex; justify-content:center; align-items:flex-start;">
+    <div style="flex:0 0 48%; max-width:48%;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           style="width:100%; height:auto; display:block;"
+           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_5.png">
+    </div>
+  </div>
+</div>
+
+
+<div class="fotoGroupPerActiviteit activity-gallery-wrapper">
+  <div class="titelFotoGrp">
+    <label>
+      INFOSTAND WERELD DIABETES DAG<br>AZ VESALIUS ZIEKENHUIS TONGEREN
+    </label>
+  </div>
+  <div class="fotoGroup Grp01">
+    <div>
+      <img class="fotoImg" loading="lazy" alt=".."
+           src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_1.jpg">
+    </div>
+    <div style="position:relative;">
+      <img class="fotoImg" loading="lazy" alt=".."
+           src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_3.jpg">
+      <p class="fotoDatum">&nbsp;</p>
+    </div>
+    <div>
+      <img class="fotoImg" loading="lazy" alt=".."
+           src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_2.jpg">
+    </div>
+  </div>
+</div>
+
+
+<div class="fotoGroupPerActiviteit activity-gallery-wrapper">
+  <div class="titelFotoGrp">
+    <label>
+      GEEF DARMKANKER GEEN KANS
+    </label><br>
+
+    <div class="fotoGroup Grp02">
+      <div style="position:relative;">
+        <img class="fotoImg" loading="lazy" alt=".."
+             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_5.png">
+        <p class="fotoDatum">15 septrmber 2025</p>
+      </div>
+      <div>
+        <img class="fotoImg" loading="lazy" alt=".."
+             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_6.png">
+      </div>
+    </div>
+
+    <div class="fotoGroup Grp09">
+      <div>
+        <img class="fotoImg" loading="lazy" alt=".."
+             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_1.png">
+      </div>
+      <div>
+        <img class="fotoImg" loading="lazy" alt=".."
+             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_2.png">
+      </div>
+      <div>
+        <img class="fotoImg" loading="lazy" alt=".."
+             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_4.png">
+      </div>
+    </div>
+
+  </div>
+</div>
+
 	  	  
 	    <div class="activity-gallery-wrapper"> <!-- WRAPPER START: WANDELING TERHILLS RESORT -->
           <div class="titelFotoGrp">
