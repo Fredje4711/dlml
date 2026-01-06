@@ -313,6 +313,31 @@
   }
 }
 
+/* Swipe-ready gallery items: zorgt dat <a> rond de foto geen layout/underline veroorzaakt */
+.activity-gallery-wrapper a.dlmlGalleryItem{
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* Optioneel: duidelijke klik-indicatie */
+.activity-gallery-wrapper a.dlmlGalleryItem img.fotoImg{
+  cursor: pointer;
+}
+
+/* Zorgt dat de <a> rond de foto geen layout/underline issues geeft */
+.activity-gallery-wrapper a.dlmlGalleryItem{
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* Helpt browsers met touch-gedrag op de lightbox-foto */
+.lightbox-image-display{
+  touch-action: pan-y;
+}
 
  
 </style>
@@ -926,88 +951,61 @@
        
       </div>		 
 
-      <!--     foto's                                                                -->
-      <div class="pgContent" id="pgD">
-
-
+ <!--     foto's                                                                -->
+<div class="pgContent" id="pgD">
 <div class="fotoGroupPerActiviteit activity-gallery-wrapper">
-  <div class="titelFotoGrp">
-    <label>
+<div class="titelFotoGrp">
+<label>
       NIEUWE TECHNIEKEN - NIEUWE MEDICATIE
     </label>
-  </div>
-
-  <!-- Rij 1: 2 foto's naast elkaar (desktop), op GSM automatisch onder elkaar -->
-  <div class="fotoGroup Grp02 dlmlRow2"
-       style="display:flex; gap:24px; justify-content:center; align-items:flex-start; flex-wrap:wrap;">
-    <div style="flex:0 0 48%; max-width:48%; position:relative;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           style="width:100%; height:auto; display:block;"
-           src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_1.png">
-      <p class="fotoDatum">27 november 2025</p>
-    </div>
-    <div style="flex:0 0 48%; max-width:48%;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           style="width:100%; height:auto; display:block;"
-           src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_2.png">
-    </div>
-  </div>
-
-  <!-- Rij 2: 1 foto (desktop gecentreerd), op GSM ook netjes gecentreerd -->
-  <div class="fotoGroup Grp01 dlmlRow1"
-       style="display:flex; justify-content:center; align-items:flex-start;">
-    <div style="flex:0 0 48%; max-width:48%;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           style="width:100%; height:auto; display:block;"
-           src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_3.png">
-    </div>
-  </div>
 </div>
-
-
+<!-- Rij 1: 2 foto's naast elkaar (desktop), op GSM automatisch onder elkaar -->
+<div class="fotoGroup Grp02 dlmlRow2" style="display:flex; gap:24px; justify-content:center; align-items:flex-start; flex-wrap:wrap;">
+<div style="flex:0 0 48%; max-width:48%; position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_1.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_1.png" style="width:100%; height:auto; display:block;"/></a>
+<p class="fotoDatum">27 november 2025</p>
+</div>
+<div style="flex:0 0 48%; max-width:48%;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_2.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_2.png" style="width:100%; height:auto; display:block;"/></a>
+</div>
+</div>
+<!-- Rij 2: 1 foto (desktop gecentreerd), op GSM ook netjes gecentreerd -->
+<div class="fotoGroup Grp01 dlmlRow1" style="display:flex; justify-content:center; align-items:flex-start;">
+<div style="flex:0 0 48%; max-width:48%;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_3.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/NieuweTechnieken2025_3.png" style="width:100%; height:auto; display:block;"/></a>
+</div>
+</div>
+</div>
 <div class="fotoGroupPerActiviteit activity-gallery-wrapper">
-  <div class="titelFotoGrp">
-    <label>
+<div class="titelFotoGrp">
+<label>
       CULTURELE UITSTAP HERKENRODE
     </label>
-  </div>
-
-  <!-- Bovenste 2 foto's: zoals u aangaf waren die goed -->
-  <div class="fotoGroup Grp03">
-    <div>
-      <img class="fotoImg" loading="lazy" alt=".." style="aspect-ratio: 1 / 1;"
-           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_1.png">
-    </div>
-    <div style="position:relative;">
-      <img class="fotoImg" loading="lazy" alt=".." style="aspect-ratio: 2 / 1;"
-           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_3.png">
-      <p class="fotoDatum">27 september 2025</p>
-    </div>
-  </div>
-
-  <!-- Onderste reeks: 2 naast elkaar + 1 gecentreerd (desktop), op GSM onder elkaar -->
-  <div class="fotoGroup Grp02 dlmlRow2"
-       style="display:flex; gap:24px; justify-content:center; align-items:flex-start; flex-wrap:wrap;">
-    <div style="flex:0 0 48%; max-width:48%;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           style="width:100%; height:auto; display:block;"
-           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_2.png">
-    </div>
-    <div style="flex:0 0 48%; max-width:48%;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           style="width:100%; height:auto; display:block;"
-           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_4.png">
-    </div>
-  </div>
-
-  <div class="fotoGroup Grp01 dlmlRow1"
-       style="display:flex; justify-content:center; align-items:flex-start;">
-    <div style="flex:0 0 48%; max-width:48%;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           style="width:100%; height:auto; display:block;"
-           src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_5.png">
-    </div>
-  </div>
+</div>
+<!-- Bovenste 2 foto's: zoals u aangaf waren die goed -->
+<div class="fotoGroup Grp03">
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_1.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_1.png" style="aspect-ratio: 1 / 1;"/></a>
+</div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_3.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_3.png" style="aspect-ratio: 2 / 1;"/></a>
+<p class="fotoDatum">27 september 2025</p>
+</div>
+</div>
+<!-- Onderste reeks: 2 naast elkaar + 1 gecentreerd (desktop), op GSM onder elkaar -->
+<div class="fotoGroup Grp02 dlmlRow2" style="display:flex; gap:24px; justify-content:center; align-items:flex-start; flex-wrap:wrap;">
+<div style="flex:0 0 48%; max-width:48%;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_2.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_2.png" style="width:100%; height:auto; display:block;"/></a>
+</div>
+<div style="flex:0 0 48%; max-width:48%;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_4.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_4.png" style="width:100%; height:auto; display:block;"/></a>
+</div>
+</div>
+<div class="fotoGroup Grp01 dlmlRow1" style="display:flex; justify-content:center; align-items:flex-start;">
+<div style="flex:0 0 48%; max-width:48%;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_5.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/cultureleuitstap20250927_5.png" style="width:100%; height:auto; display:block;"/></a>
+</div>
+</div>
 </div>
 <!-- ================================================================= -->
 <!-- START DEFINITIEVE VERSIE: TONGEREN 2-BOVEN-1-ONDER + GSM FIX -->
@@ -1051,457 +1049,418 @@
     #wdd-sectie-final .wdd-titel-container { margin: 0 !important; width: 100% !important; }
   }
 </style>
-
 <div class="fotoGroupPerActiviteit activity-gallery-wrapper" id="wdd-sectie-final" style="margin-top: 5vw !important; width: 100% !important; display: block !important; padding-top: 10px;">
-
-  <!-- TITEL SECTIE 1: TONGEREN -->
-  <div class="wdd-titel-container" style="text-align: center; margin-bottom: 20px; width: 100%;">
-    <label class="wdd-titel-hoofd" style="display: block; font-weight: bold; color: #d9534f; margin: 0; line-height: 1.2;">
+<!-- TITEL SECTIE 1: TONGEREN -->
+<div class="wdd-titel-container" style="text-align: center; margin-bottom: 20px; width: 100%;">
+<label class="wdd-titel-hoofd" style="display: block; font-weight: bold; color: #d9534f; margin: 0; line-height: 1.2;">
       INFOSTAND WERELD DIABETES DAG
     </label>
-    <div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase; margin-top: 5px;">
+<div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase; margin-top: 5px;">
       AZ VESALIUS ZIEKENHUIS TONGEREN
     </div>
-  </div>
-
-  <!-- FOTO GROEP 1: TONGEREN (Desktop: 2 kleine boven, 1 grote onder) -->
-  <div class="fotoGroup" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 2%; width: 86%; margin: 0 auto;">
-    
-    <!-- De twee kleine foto's eerst -->
-    <div class="wdd-foto-tongeren-klein">
-      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_1.jpg" style="width: 100%; height: auto; display: block;">
-    </div>
-    <div class="wdd-foto-tongeren-klein">
-      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_2.jpg" style="width: 100%; height: auto; display: block;">
-    </div>
-    
-    <!-- De grote foto als derde (komt op desktop op de nieuwe regel) -->
-    <div class="wdd-foto-tongeren-groot">
-      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_3.jpg" style="width: 100%; height: auto; display: block;">
-    </div>
-  </div>
-
-  <!-- TITEL SECTIE 2: HASSELT -->
-  <div class="wdd-titel-container" style="text-align: center; margin: 35px 0 15px 0; width: 100%;">
-    <div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase;">
+</div>
+<!-- FOTO GROEP 1: TONGEREN (Desktop: 2 kleine boven, 1 grote onder) -->
+<div class="fotoGroup" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 2%; width: 86%; margin: 0 auto;">
+<!-- De twee kleine foto's eerst -->
+<div class="wdd-foto-tongeren-klein">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_1.jpg"><img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_1.jpg" style="width: 100%; height: auto; display: block;"/></a>
+</div>
+<div class="wdd-foto-tongeren-klein">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_2.jpg"><img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_2.jpg" style="width: 100%; height: auto; display: block;"/></a>
+</div>
+<!-- De grote foto als derde (komt op desktop op de nieuwe regel) -->
+<div class="wdd-foto-tongeren-groot">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_3.jpg"><img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_3.jpg" style="width: 100%; height: auto; display: block;"/></a>
+</div>
+</div>
+<!-- TITEL SECTIE 2: HASSELT -->
+<div class="wdd-titel-container" style="text-align: center; margin: 35px 0 15px 0; width: 100%;">
+<div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase;">
       JESSA ZIEKENHUIS CAMPUS SALVATOR
     </div>
-  </div>
-
-  <!-- FOTO GROEP 2: HASSELT -->
-  <div class="fotoGroup" style="display: flex; justify-content: center; width: 100%; margin-bottom: 5vw;">
-    <div class="wdd-foto-hasselt">
-      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg" style="width: 100%; height: auto; display: block;">
-    </div>
-  </div>
-
+</div>
+<!-- FOTO GROEP 2: HASSELT -->
+<div class="fotoGroup" style="display: flex; justify-content: center; width: 100%; margin-bottom: 5vw;">
+<div class="wdd-foto-hasselt">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg"><img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg" style="width: 100%; height: auto; display: block;"/></a>
+</div>
+</div>
 </div>
 <!-- EINDE DEFINITIEVE VERSIE -->
-
-
 <div class="fotoGroupPerActiviteit activity-gallery-wrapper">
-  <div class="titelFotoGrp">
-    <label>
+<div class="titelFotoGrp">
+<label>
       GEEF DARMKANKER GEEN KANS
-    </label><br>
-
-    <div class="fotoGroup Grp02">
-      <div style="position:relative;">
-        <img class="fotoImg" loading="lazy" alt=".."
-             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_5.png">
-        <p class="fotoDatum">15 septrmber 2025</p>
-      </div>
-      <div>
-        <img class="fotoImg" loading="lazy" alt=".."
-             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_6.png">
-      </div>
-    </div>
-
-    <div class="fotoGroup Grp09">
-      <div>
-        <img class="fotoImg" loading="lazy" alt=".."
-             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_1.png">
-      </div>
-      <div>
-        <img class="fotoImg" loading="lazy" alt=".."
-             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_2.png">
-      </div>
-      <div>
-        <img class="fotoImg" loading="lazy" alt=".."
-             src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_4.png">
-      </div>
-    </div>
-
-  </div>
+    </label><br/>
+<div class="fotoGroup Grp02">
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_5.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_5.png"/></a>
+<p class="fotoDatum">15 septrmber 2025</p>
 </div>
-
-	  	  
-	    <div class="activity-gallery-wrapper"> <!-- WRAPPER START: WANDELING TERHILLS RESORT -->
-          <div class="titelFotoGrp">
-            <label>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_6.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_6.png"/></a>
+</div>
+</div>
+<div class="fotoGroup Grp09">
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_1.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_1.png"/></a>
+</div>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_2.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_2.png"/></a>
+</div>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_4.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Darmkanker20250915_4.png"/></a>
+</div>
+</div>
+</div>
+</div>
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: WANDELING TERHILLS RESORT -->
+<div class="titelFotoGrp">
+<label>
               
                WANDELING TERHILLS RESORT
-            </label>  
-          </div>
-          <div class="fotoGroup Grp09">
-            <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills02.png"></div>
-              <div style="position:relative;">
-              <img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills01.png">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;17 mei 2025</p>
-              </div>
-              <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills03.png"></div>
-          </div> 
-             <div class="fotoGroup Grp09">
-            <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills04.png"></div>
-            <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills09.png"></div>
-            <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills05.png"></div>
-          </div> 
-          <div class="fotoGroup Grp02">
-            <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills07.png"></div>
-            <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/TerHills08.png"></div>
-          </div>
-        </div> <!-- WRAPPER EINDE: WANDELING TERHILLS RESORT -->
-
-	    <div class="activity-gallery-wrapper">
-        <div class="titelFotoGrp">
-      	  <label>
+            </label>
+</div>
+<div class="fotoGroup Grp09">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills02.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills02.png"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills01.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills01.png"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 17 mei 2025</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills03.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills03.png"/></a></div>
+</div>
+<div class="fotoGroup Grp09">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills04.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills04.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills09.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills09.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills05.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills05.png"/></a></div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills07.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills07.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/TerHills08.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/TerHills08.png"/></a></div>
+</div>
+</div> <!-- WRAPPER EINDE: WANDELING TERHILLS RESORT -->
+<div class="activity-gallery-wrapper">
+<div class="titelFotoGrp">
+<label>
             
              LUXUEUS MOEDERDAG ONTBIJT
-      	  </label>  
-        </div>
-        <div class="fotoGroup Grp01">
-      	  <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_1.jpg"></div>
-      		<div style="position:relative;">
-      	    <img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg">
-      		  <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;11 mei 2025</p>
-      		</div>
-      		<div><img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_2.jpg"></div>
-        </div> 
-       	<div class="fotoGroup Grp02">
-      	  <div><img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_3.jpg"></div>
-      	  <div><img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_4.jpg"></div>
-        </div>
-		</div>
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: CARDIOLOGISCHE -->
-            <div class="titelFotoGrp">
-              <label>
+      	  </label>
+</div>
+<div class="fotoGroup Grp01">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_1.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_1.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 11 mei 2025</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_2.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_2.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_3.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_3.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_4.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/ontbijt20250511_4.jpg"/></a></div>
+</div>
+</div>
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: CARDIOLOGISCHE -->
+<div class="titelFotoGrp">
+<label>
                 
-                NIEUWE CARDIOLOGISCHE<br>BENADERINGEN VOOR DIABETICI
+                NIEUWE CARDIOLOGISCHE<br/>BENADERINGEN VOOR DIABETICI
               </label>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/Cardiologie20250313_1.jpg">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 13 maart 2025</p>
-              </div>
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/Cardiologie20250313_2.jpg">
-              </div>
-            </div>
-        </div> <!-- WRAPPER EINDE: CARDIOLOGISCHE -->
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: INFOSTANDEN WDD -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp02">
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Cardiologie20250313_1.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/Cardiologie20250313_1.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 13 maart 2025</p>
+</div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Cardiologie20250313_2.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/Cardiologie20250313_2.jpg"/></a>
+</div>
+</div>
+</div> <!-- WRAPPER EINDE: CARDIOLOGISCHE -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: INFOSTANDEN WDD -->
+<div class="titelFotoGrp">
+<label>
                 
                 INFOSTANDEN WERELD DIABETES DAG 2024
               </label>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/WDD2024Tongeren.jpg">
-                <p class="fotoDatum"> az Vesalius Tongeren</p>
-              </div>
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg">
-                <p class="fotoDatum"> Jessa Ziekenhuis<br> campus Salvator Hasselt</p>
-              </div>
-            </div>
-        </div> <!-- WRAPPER EINDE: INFOSTANDEN WDD -->
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: TRAPPEN EN STAPPEN -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp02">
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/WDD2024Tongeren.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/WDD2024Tongeren.jpg"/></a>
+<p class="fotoDatum"> az Vesalius Tongeren</p>
+</div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg"/></a>
+<p class="fotoDatum"> Jessa Ziekenhuis<br/> campus Salvator Hasselt</p>
+</div>
+</div>
+</div> <!-- WRAPPER EINDE: INFOSTANDEN WDD -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: TRAPPEN EN STAPPEN -->
+<div class="titelFotoGrp">
+<label>
                 
                 TRAPPEN EN STAPPEN 2024
               </label>
-            </div>
-            <div class="fotoGroup Grp04">
-              <div style="position:relative;">
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht01.jpg">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 21 September 2024</p>
-              </div>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht02.jpg"></div>
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht03.jpg"></div>
-            </div>
-        </div> <!-- WRAPPER EINDE: TRAPPEN EN STAPPEN -->
-
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: PLATWIJERS -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp04">
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht01.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht01.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 21 September 2024</p>
+</div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht02.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht03.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/FietstochtMaastricht03.jpg"/></a></div>
+</div>
+</div> <!-- WRAPPER EINDE: TRAPPEN EN STAPPEN -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: PLATWIJERS -->
+<div class="titelFotoGrp">
+<label>
                 
                 WANDELING PLATWIJERS ZONHOVEN
                 </label>
-            </div>
-             <div class="fotoGroup Grp01">
-              <div>
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers01.jpg">
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers03.jpg">
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers04.jpg">
-              </div>
-                <div style="position:relative;">
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers02.jpg">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 25 mei 2024</p>
-                </div>
-              <div>
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers05.jpg">
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers06.jpg">
-                <img  class="fotoImg" alt=".." src="https://dlml.be/site/fotosActiviteiten/platwijers07.jpg">
-                </div>
-            </div>
-        </div> <!-- WRAPPER EINDE: PLATWIJERS -->
-
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: MOEDERDAG ONTBIJT -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp01">
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers01.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers01.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers03.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers03.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers04.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers04.jpg"/></a>
+</div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers02.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 25 mei 2024</p>
+</div>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers05.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers05.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers06.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers06.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/platwijers07.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/platwijers07.jpg"/></a>
+</div>
+</div>
+</div> <!-- WRAPPER EINDE: PLATWIJERS -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: MOEDERDAG ONTBIJT -->
+<div class="titelFotoGrp">
+<label>
                 
                  LUXUEUS MOEDERDAG ONTBIJT
               </label>
-            </div>
-            <div class="fotoGroup Grp01">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_07.jpg"></div>
-                <div style="position:relative;">
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg">
-                  <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 12 mei 2024</p>
-                </div>
-                <div><img class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_02.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp09">
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_03.jpg"></div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_04.jpg"></div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_05.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_06.jpg"></div>
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_01.jpg"></div>
-            </div>
-        </div> <!-- WRAPPER EINDE: MOEDERDAG ONTBIJT -->
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: NIERAANDOENINGEN -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp01">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_07.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_07.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 12 mei 2024</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_02.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_02.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp09">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_03.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_03.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_04.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_04.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_05.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_05.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_06.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_06.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_01.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/Ontbijt2024_01.jpg"/></a></div>
+</div>
+</div> <!-- WRAPPER EINDE: MOEDERDAG ONTBIJT -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: NIERAANDOENINGEN -->
+<div class="titelFotoGrp">
+<label>
                 
                 NIERAANDOENINGEN BIJ DIABETICI
               </label>
-            </div>
-            <div class="fotoGroup Grp03">
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/nieraandoeningen01.jpg" style="aspect-ratio: 1280/1440;"></div>
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/nieraandoeningen02.jpg" style="aspect-ratio: 2560/1440;">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 8 february 2024</p> </div>
-            </div>
-        </div> <!-- WRAPPER EINDE: NIERAANDOENINGEN -->
-
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: 40 JAAR -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp03">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/nieraandoeningen01.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/nieraandoeningen01.jpg" style="aspect-ratio: 1280/1440;"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/nieraandoeningen02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/nieraandoeningen02.jpg" style="aspect-ratio: 2560/1440;"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 8 february 2024</p> </div>
+</div>
+</div> <!-- WRAPPER EINDE: NIERAANDOENINGEN -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: 40 JAAR -->
+<div class="titelFotoGrp">
+<label>
                 
-                40 JAAR DIABETES LIGA <br>AFDELING MIDDEN-LIMBURG
+                40 JAAR DIABETES LIGA <br/>AFDELING MIDDEN-LIMBURG
                </label>
-            </div>
-            <div class="fotoGroup Grp09">
-              <div>
-                  <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar01.png">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar04.png">
-              </div>
-                <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar02.png">
-                  <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar05.png">
-                <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar07.png">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true">16 december 2023</i></p>
-              </div>
-                <div>
-                  <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar03.png">
-                  <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar06.png">
-              </div>
-            </div>
-            <div class="fotoGroup Grp06">
-              <div>
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar08.png">
-              </div>
-              <div>
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/film01.png">
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/film02.png">
-              </div>
-            </div>
-            <div class="fotoGroup Grp05">
-             <div style="position:relative;">
-                 <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar09.png">
-                 <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 16 december 2023</p>
-              </div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar10.png"></div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar11.png"></div>
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar12.png"></div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar13.png"></div>
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar14.png"></div>
-            </div>
-        </div> <!-- WRAPPER EINDE: 40 JAAR -->
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: DIABETES BEKEKEN -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp09">
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar01.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar01.png"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar04.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar04.png"/></a>
+</div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar02.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar02.png"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar05.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar05.png"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar07.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar07.png"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar">16 december 2023</i></p>
+</div>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar03.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar03.png"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar06.png"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar06.png"/></a>
+</div>
+</div>
+<div class="fotoGroup Grp06">
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar08.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar08.png"/></a>
+</div>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/film01.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/film01.png"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/film02.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/film02.png"/></a>
+</div>
+</div>
+<div class="fotoGroup Grp05">
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar09.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar09.png"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 16 december 2023</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar10.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar10.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar11.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar11.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar12.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar12.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar13.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar13.png"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/jubileum40jaar14.png"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/jubileum40jaar14.png"/></a></div>
+</div>
+</div> <!-- WRAPPER EINDE: 40 JAAR -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: DIABETES BEKEKEN -->
+<div class="titelFotoGrp">
+<label>
                 
-                DIABETES BEKEKEN DOOR DE BRIL<br>VAN EEN DIËTISTE EN EEN PSYCHOLOOG
+                DIABETES BEKEKEN DOOR DE BRIL<br/>VAN EEN DIËTISTE EN EEN PSYCHOLOOG
                 </label>
-            </div>
-            <div class="fotoGroup Grp07">
-              <div><img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken01.jpg"></div>
-              <div style="position:relative;">
-                <img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken03.jpg">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 25 oktober 2023</p>
-             </div>
-             <div><img  class="fotoImg"  alt=".." src="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken02.jpg"></div>
-            </div>
-        </div> <!-- WRAPPER EINDE: DIABETES BEKEKEN -->
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: PATIENT EMPOWERMENT -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp07">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken01.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken01.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken03.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken03.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 25 oktober 2023</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/diabetesandersbekeken02.jpg"/></a></div>
+</div>
+</div> <!-- WRAPPER EINDE: DIABETES BEKEKEN -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: PATIENT EMPOWERMENT -->
+<div class="titelFotoGrp">
+<label>
                 
                 PATIENT EMPOWERMENT
                 </label>
-            </div>
-            <div class="fotoGroup Grp09">
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment01.jpg"></div>
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment02.jpg">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 12 oktober 2023</p>
-             </div>
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment03.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp09">
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment04.jpg"></div>
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment05.jpg"></div>
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment06.jpg"></div>
-            </div>
-        </div> <!-- WRAPPER EINDE: PATIENT EMPOWERMENT -->
-
-        <div class="activity-gallery-wrapper"> <!-- WRAPPER START: GEZINSDAG 2023 -->
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp09">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment01.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment01.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment02.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 12 oktober 2023</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment03.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment03.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp09">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment04.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment04.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment05.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment05.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment06.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/PatientEmpowerment06.jpg"/></a></div>
+</div>
+</div> <!-- WRAPPER EINDE: PATIENT EMPOWERMENT -->
+<div class="activity-gallery-wrapper"> <!-- WRAPPER START: GEZINSDAG 2023 -->
+<div class="titelFotoGrp">
+<label>
                 
                 GEZINSDAG 2023 KATTEVENIA
               </label>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_01.jpg"></div>
-              <div><img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_06.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp09">
-              <div>
-                <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_10.jpg">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_03.jpg">
-                  <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_04.jpg">
-              </div>
-              <div style="position:relative;">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_07.jpg">
-                  <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_02.jpg">
-                <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 30 september 2023</p>
-                </div>
-              <div>
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_09.jpg">
-                  <img  class="fotoImg " alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_08.jpg">
-                <img  class="fotoImg "  alt=".." src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_05.jpg">
-                </div>
-            </div>
-        </div> <!-- WRAPPER EINDE: GEZINSDAG 2023 -->
-
-        <!-- Herhaal de .activity-gallery-wrapper structuur voor ALLE volgende foto-activiteiten -->
-        <!-- Voorbeeld voor DE TEUT -->
-        <div class="activity-gallery-wrapper">
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_01.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_01.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_06.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_06.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp09">
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_10.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_10.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_03.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_03.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_04.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_04.jpg"/></a>
+</div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_07.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_07.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_02.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_02.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 30 september 2023</p>
+</div>
+<div>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_09.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_09.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_08.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_08.jpg"/></a>
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_05.jpg"><img alt=".." class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/gezinsdag2023_05.jpg"/></a>
+</div>
+</div>
+</div> <!-- WRAPPER EINDE: GEZINSDAG 2023 -->
+<!-- Herhaal de .activity-gallery-wrapper structuur voor ALLE volgende foto-activiteiten -->
+<!-- Voorbeeld voor DE TEUT -->
+<div class="activity-gallery-wrapper">
+<div class="titelFotoGrp">
+<label>
                 
                 NATUURWANDELING 'DE TEUT'
               </label>
-            </div>
-            <div class="fotoGroup Grp01">
-             <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/DeTeut2.jpg"></div>
-             <div style="position:relative;">
-               <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/DeTeut1.jpg">
-               <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 3 juni 2023</p>
-             </div>
-             <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/DeTeut3.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/DeTeut4.jpg"></div>
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/DeTeut5.jpg"></div>
-            </div>
-        </div> <!-- EINDE DE TEUT -->
-
-        <!-- Voorbeeld voor DE WROETER -->
-        <div class="activity-gallery-wrapper">
-            <div class="titelFotoGrp">
-              <label>
+</div>
+<div class="fotoGroup Grp01">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/DeTeut2.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/DeTeut2.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/DeTeut1.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/DeTeut1.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 3 juni 2023</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/DeTeut3.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/DeTeut3.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/DeTeut4.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/DeTeut4.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/DeTeut5.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/DeTeut5.jpg"/></a></div>
+</div>
+</div> <!-- EINDE DE TEUT -->
+<!-- Voorbeeld voor DE WROETER -->
+<div class="activity-gallery-wrapper">
+<div class="titelFotoGrp">
+<label>
                 
                 CULTURELE UITSTAP 'DE WROETER'
               </label>
-            </div>
-            <div class="fotoGroup Grp01">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/dewroeter3.jpg"></div>
-                <div style="position:relative;">
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/dewroeter2.jpg">
-                  <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 26 mei 2023</p>
-                </div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/dewroeter1.jpg"></div>
-            </div>
-        </div> <!-- EINDE DE WROETER -->
-
-        <!-- GA ZO DOOR VOOR ALLE VOLGENDE FOTOBLOKKEN TOT HET EINDE VAN PG_D -->
-        <!-- Zorg ervoor dat elke logische "activiteit" (titel + bijbehorende foto's,
+</div>
+<div class="fotoGroup Grp01">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/dewroeter3.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/dewroeter3.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/dewroeter2.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/dewroeter2.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 26 mei 2023</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/dewroeter1.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/dewroeter1.jpg"/></a></div>
+</div>
+</div> <!-- EINDE DE WROETER -->
+<!-- GA ZO DOOR VOOR ALLE VOLGENDE FOTOBLOKKEN TOT HET EINDE VAN PG_D -->
+<!-- Zorg ervoor dat elke logische "activiteit" (titel + bijbehorende foto's,
              ook al zijn die foto's verdeeld over meerdere .fotoGroup divs)
              binnen één .activity-gallery-wrapper valt. -->
-
-        <!-- Voorbeeld MOEDERDAG LUXUEUS ONTBIJT (2023) -->
-        <div class="activity-gallery-wrapper">
-            <div class="titelFotoGrp">
-              <label>
+<!-- Voorbeeld MOEDERDAG LUXUEUS ONTBIJT (2023) -->
+<div class="activity-gallery-wrapper">
+<div class="titelFotoGrp">
+<label>
                 
                  MOEDERDAG LUXUEUS ONTBIJT
               </label>
-            </div>
-            <div class="fotoGroup Grp01">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_01.jpg"></div>
-                <div style="position:relative;">
-                <img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg">
-                  <p class="fotoDatum"><i class="fa fa-calendar" aria-hidden="true"></i> 14 mei 2023</p>
-                </div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_03.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp09">
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_04.jpg"></div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_05.jpg"></div>
-                <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_06.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_07.jpg"></div>
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_08.jpg"></div>
-            </div>
-            <div class="fotoGroup Grp02">
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_09.jpg"></div>
-              <div><img  class="fotoImg" loading="lazy" alt=".." src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_10.jpg"></div>
-            </div>
-        </div> <!-- EINDE MOEDERDAG 2023 -->
+</div>
+<div class="fotoGroup Grp01">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_01.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_01.jpg"/></a></div>
+<div style="position:relative;">
+<a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_02.jpg"/></a>
+<p class="fotoDatum"><i aria-hidden="true" class="fa fa-calendar"></i> 14 mei 2023</p>
+</div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_03.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_03.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp09">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_04.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_04.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_05.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_05.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_06.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_06.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_07.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_07.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_08.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_08.jpg"/></a></div>
+</div>
+<div class="fotoGroup Grp02">
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_09.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_09.jpg"/></a></div>
+<div><a class="dlmlGalleryItem" href="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_10.jpg"><img alt=".." class="fotoImg" loading="lazy" src="https://dlml.be/site/fotosActiviteiten/ontbijt14052023_10.jpg"/></a></div>
+</div>
+</div> <!-- EINDE MOEDERDAG 2023 -->
+<div style="display:block; width:100%; height:8vw;"></div> <!-- Deze spacer blijft buiten de wrappers -->
+</div>
 
-                <div style="display:block; width:100%; height:8vw;"></div> <!-- Deze spacer blijft buiten de wrappers -->
-
-      </div>
 
 	        <!-- START NIEUWE CONTENT DIV VOOR WEKELIJKSE WANDELING -->
 <div class="pgContent" id="pgJ" style="display: none;"> 
