@@ -979,30 +979,94 @@
     </div>
   </div>
 </div>
+<!-- ================================================================= -->
+<!-- START DEFINITIEVE VERSIE: TONGEREN 2-BOVEN-1-ONDER + GSM FIX -->
+<!-- ================================================================= -->
+<style>
+  /* --- DESKTOP INSTELLINGEN (PC) --- */
+  @media only screen and (min-width: 768px) {
+    /* De twee kleine foto's naast elkaar */
+    #wdd-sectie-final .wdd-foto-tongeren-klein { 
+      width: 48% !important; 
+    }
+    /* De grote foto daaronder gecentreerd */
+    #wdd-sectie-final .wdd-foto-tongeren-groot { 
+      width: 50% !important; 
+      margin-top: 20px !important; 
+    }
+    #wdd-sectie-final .wdd-foto-hasselt { width: 50% !important; max-width: 650px !important; }
+    #wdd-sectie-final .wdd-titel-hoofd { font-size: 2.4vw !important; }
+    #wdd-sectie-final .wdd-titel-sub { font-size: 1.8vw !important; }
+  }
 
+  /* --- GSM INSTELLINGEN (MOBIEL) --- */
+  @media only screen and (max-width: 767px) {
+    #wdd-sectie-final .fotoGroup { 
+      flex-direction: column !important; 
+      align-items: center !important; 
+      gap: 15px !important; 
+      width: 100% !important;
+      margin: 0 !important;
+      flex-wrap: nowrap !important;
+    }
+    #wdd-sectie-final .wdd-foto-tongeren-klein, 
+    #wdd-sectie-final .wdd-foto-tongeren-groot, 
+    #wdd-sectie-final .wdd-foto-hasselt { 
+      width: 92% !important; 
+      max-width: 92% !important; 
+      margin: 0 auto !important;
+    }
+    #wdd-sectie-final .wdd-titel-hoofd { font-size: 5.2vw !important; }
+    #wdd-sectie-final .wdd-titel-sub { font-size: 4.2vw !important; }
+    #wdd-sectie-final .wdd-titel-container { margin: 0 !important; width: 100% !important; }
+  }
+</style>
 
-<div class="fotoGroupPerActiviteit activity-gallery-wrapper">
-  <div class="titelFotoGrp">
-    <label>
-      INFOSTAND WERELD DIABETES DAG<br>AZ VESALIUS ZIEKENHUIS TONGEREN
+<div class="fotoGroupPerActiviteit activity-gallery-wrapper" id="wdd-sectie-final" style="margin-top: 5vw !important; width: 100% !important; display: block !important; padding-top: 10px;">
+
+  <!-- TITEL SECTIE 1: TONGEREN -->
+  <div class="wdd-titel-container" style="text-align: center; margin-bottom: 20px; width: 100%;">
+    <label class="wdd-titel-hoofd" style="display: block; font-weight: bold; color: #d9534f; margin: 0; line-height: 1.2;">
+      INFOSTAND WERELD DIABETES DAG
     </label>
-  </div>
-  <div class="fotoGroup Grp01">
-    <div>
-      <img class="fotoImg" loading="lazy" alt=".."
-           src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_1.jpg">
-    </div>
-    <div style="position:relative;">
-      <img class="fotoImg" loading="lazy" alt=".."
-           src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_3.jpg">
-      <p class="fotoDatum">&nbsp;</p>
-    </div>
-    <div>
-      <img class="fotoImg" loading="lazy" alt=".."
-           src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_2.jpg">
+    <div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase; margin-top: 5px;">
+      AZ VESALIUS ZIEKENHUIS TONGEREN
     </div>
   </div>
+
+  <!-- FOTO GROEP 1: TONGEREN (Desktop: 2 kleine boven, 1 grote onder) -->
+  <div class="fotoGroup" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 2%; width: 86%; margin: 0 auto;">
+    
+    <!-- De twee kleine foto's eerst -->
+    <div class="wdd-foto-tongeren-klein">
+      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_1.jpg" style="width: 100%; height: auto; display: block;">
+    </div>
+    <div class="wdd-foto-tongeren-klein">
+      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_2.jpg" style="width: 100%; height: auto; display: block;">
+    </div>
+    
+    <!-- De grote foto als derde (komt op desktop op de nieuwe regel) -->
+    <div class="wdd-foto-tongeren-groot">
+      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/InfostandWDD2025_3.jpg" style="width: 100%; height: auto; display: block;">
+    </div>
+  </div>
+
+  <!-- TITEL SECTIE 2: HASSELT -->
+  <div class="wdd-titel-container" style="text-align: center; margin: 35px 0 15px 0; width: 100%;">
+    <div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase;">
+      JESSA ZIEKENHUIS CAMPUS SALVATOR
+    </div>
+  </div>
+
+  <!-- FOTO GROEP 2: HASSELT -->
+  <div class="fotoGroup" style="display: flex; justify-content: center; width: 100%; margin-bottom: 5vw;">
+    <div class="wdd-foto-hasselt">
+      <img class="fotoImg" src="https://dlml.be/site/fotosActiviteiten/WDD2024Hasselt.jpg" style="width: 100%; height: auto; display: block;">
+    </div>
+  </div>
+
 </div>
+<!-- EINDE DEFINITIEVE VERSIE -->
 
 
 <div class="fotoGroupPerActiviteit activity-gallery-wrapper">
