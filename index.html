@@ -284,6 +284,36 @@
   }
 }
 
+/* Download-knoppen (werkt op desktop + gsm) */
+.containerDownloadImg a .dlBtn{
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 18px;
+  background-color: #0072b5;
+  color: #ffffff !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-align: center;
+  min-width: 120px;
+  text-decoration: none;
+}
+
+/* Hover (desktop) */
+.containerDownloadImg a:hover .dlBtn{
+  background-color: #005a8d;
+}
+
+/* Mobiel: iets groter en beter tappable */
+@media (max-width: 768px){
+  .containerDownloadImg a .dlBtn{
+    font-size: 1rem;
+    padding: 12px 20px;
+    min-width: 140px;
+  }
+}
+
+
  
 </style>
 </head>
@@ -1026,7 +1056,7 @@
 
   <!-- TITEL SECTIE 1: TONGEREN -->
   <div class="wdd-titel-container" style="text-align: center; margin-bottom: 20px; width: 100%;">
-    <label class="wdd-titel-hoofd" style="display: block; font-weight: bold; color: #ff0000; margin: 0; line-height: 1.2;">
+    <label class="wdd-titel-hoofd" style="display: block; font-weight: bold; color: #d9534f; margin: 0; line-height: 1.2;">
       INFOSTAND WERELD DIABETES DAG
     </label>
     <div class="wdd-titel-sub" style="display: block; font-weight: normal; color: #d9534f; text-transform: uppercase; margin-top: 5px;">
@@ -1828,8 +1858,8 @@
 
        <!--   downloads                                                                     -->
        <div class="pgContent" id="pgG">  
-
-		      <div class="containerDownload">
+	   
+	      <div class="containerDownload">
         <label>
           Nieuwe technieken
 		    </label>
@@ -1837,7 +1867,7 @@
         <div class="containerDownloadImg">
 		      <a href="https://www.dlml.be/site/downloadPDF/Diabetesliga_november_2025.pdf" target="_blank">
           <img alt=".." src="image/nieuwe technieken.png" style="height:auto;">
-          <div>download</div>
+          <span class="dlBtn">Download</span>
           </a>
         </div>
         <div class="containerDownloadTxt"> 
@@ -1858,7 +1888,7 @@
         <div class="containerDownloadImg">
 		      <a href="https://www.dlml.be/site/downloadPDF/NieuweMedicatie27112025.pdf" target="_blank">
           <img alt=".." src="image/nieuwe medicatie.png" style="height:auto;">
-          <div>download</div>
+          <span class="dlBtn">Download</span>
           </a>
         </div>
         <div class="containerDownloadTxt"> 
@@ -1879,7 +1909,7 @@
           <div class="containerDownloadImg">
 		  <a href="https://dlml.be/site/downloadPDF/OrthopedischeBehandelingEnDiabetesVoet.pdf" target="_blank">
           <img alt=".." src="https://www.dlml.be/site/downloadPDF/OrthopedischeBehandelingenEnDiabetesVoet.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -1900,7 +1930,7 @@
           <div class="containerDownloadImg">
 		  <a href="https://dlml.be/site/downloadPDF/Hartenbloedvaten20250313.pdf" target="_blank">
           <img alt=".." src="https://dlml.be/site/downloadPDF/Hartenbloedvaten20250313.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -1921,7 +1951,7 @@
           <div class="containerDownloadImg">
 		  <a href="https://dlml.be/site/downloadPDF/diabetes_en_de_feestdagen.pdf" target="_blank">
           <img alt=".." src="https://dlml.be/site/downloadPDF/diabetes_en_de_feestdagen.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -1943,7 +1973,7 @@
           <div class="containerDownloadImg">
 		  <a href="https://dlml.be/site/downloadPDF/DiabetesMaatschappelijkeAspecten.pdf" target="_blank">
           <img alt=".." src="https://dlml.be/site/downloadPDF/DiabetesMaatschappelijkeAspecten.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -1964,7 +1994,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/WaardigLevenseinde.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/WaardigLevenseinde.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -1987,7 +2017,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Wildgroei.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/Wildgroei.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2008,7 +2038,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/WerkingELZ_Herkenrode.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/WerkingELZ_Herkenrode.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2029,7 +2059,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/nieraandoeningen_bij_diabetes.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/nieraandoeningen_bij_diabetes.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2051,7 +2081,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/DiabetesLiga_Roadshow_Hasselt_KORT.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/PatientEmpowerment.png" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2073,7 +2103,7 @@
           <div class="containerDownloadImg">
             <a href="https://www.dlml.be/site/downloadPDF/maak_kennis_met_de_8_pati%C3%83%C2%ABntenrechten.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/PatientEmpowerment.png" style="height:auto;">
-             <div>download</div>
+             <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2094,7 +2124,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/FinancieleTegemoetkomingen.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/FinancieleTegemoetkomingen.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2115,7 +2145,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/tandverzorging09022023.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/tandverzorging09022023.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2136,7 +2166,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/dieten_JessaZH_door_Liesbeth_Jelena_Joke.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/dieten_JessaZH_door_Liesbeth_Jelena_Joke.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2158,7 +2188,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Nieuwe_technieken_Diabetes_Liga20220519.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/Nieuwe_technieken_Diabetes_Liga20220519.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2178,7 +2208,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/De_diabetische_voet.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/De_diabetische_voet.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2201,7 +2231,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/UHasselt_voorstellingDL_2022.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/UHasselt_voorstellingDL_2022.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2220,7 +2250,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/UHasselt_getuigenis_type1.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/UHasselt_getuigenis_type1.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2239,7 +2269,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/UHasselt_getuigenis_type2.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/UHasselt_getuigenis_type2.jpg" style="height:auto;">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2258,7 +2288,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/slaapapneu.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/slaapapneu.jpg">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2277,7 +2307,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/nierfunctievervangendeTherapie.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/nierfunctievervangendeTherapie.jpg">
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a>
           </div>
           <div class="containerDownloadTxt"> 
@@ -2296,7 +2326,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/DiabetesatSchool2019.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/DiabetesatSchool2019.jpg">
-            download 
+            <span class="dlBtn">Download</span> 
              </a>
          </div> 
           <div class="containerDownloadTxt"> 
@@ -2315,7 +2345,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/nieuweMedicatieInDeBehandelingVanType2.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/nieuweMedicatieInDeBehandelingVanType2.jpg"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a>
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2336,7 +2366,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Voeding_en_diabetes.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Voeding_en_diabetes.jpg"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2355,7 +2385,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Rookstop.pdf" target="_blank">
             <img alt=".." src="https://dlml.be/site/downloadPDF/Rookstop.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2374,7 +2404,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/beweging_en_diabetes.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/beweging_en_diabetes.jpg"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2393,7 +2423,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_nierziekte.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_nierziekte.jpg" style="width:100%"> 
-            doawnload
+            <span class="dlBtn">Download</span>
             </a>
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2415,7 +2445,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Obesitas.pdf" target="_blank"> 
           <img alt=".." src="https://dlml.be/site/downloadPDF/Obesitas.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2434,7 +2464,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/dagelijkse_beslommeringen.pdf" target="_blank"> 
              <img alt=".." src="https://dlml.be/site/downloadPDF/dagelijkse_beslommeringen.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2457,7 +2487,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/diabetesmedicatie_optimaliseren.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/diabetesmedicatie_optimaliseren.jpg" > 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2481,7 +2511,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Neuropathie.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Neuropathie.jpg" > 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2500,7 +2530,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Retinopathie.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Retinopathie.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2519,7 +2549,7 @@
           <div class="containerDownloadImg">
             <a href="https://www.dlml.be/site/downloadPDF/diabetes_en_stress.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/diabetes_en_stress.jpg" style="width:100%"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2538,7 +2568,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Hart_en_vaatziekte.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Hart_en_vaatziekte.jpg" style="width:100%"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2560,7 +2590,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_vetten.pdf" target="_blank"> 
           <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_vetten.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2581,7 +2611,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetesregister.pdf" target="_blank"> 
           <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetesregister.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2599,7 +2629,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetesquiz.pdf" target="_blank"> 
           <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetesquiz.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2618,7 +2648,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Gezond_snoepen.pdf" target="_blank"> 
           <img alt=".." src="https://dlml.be/site/downloadPDF/Gezond_snoepen.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2637,7 +2667,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Paradontologie.pdf" target="_blank"> 
           <img alt=".." src="https://dlml.be/site/downloadPDF/Paradontologie.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2656,7 +2686,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Voetverzorging.jpg" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Voetverzorging.jpg" style="width:100%"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2675,7 +2705,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Metabool_syndroom.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Metabool_syndroom.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2694,7 +2724,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_sport.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_sport.jpg" style="width:100%"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2713,7 +2743,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetesatschool2015.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetesatschool2015.jpg" style="width:100%"> 
-             download
+             <span class="dlBtn">Download</span>
 			</a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2732,7 +2762,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Sociale_items.pdf" target="_blank"> 
             <img alt=".." src="site/image/Sociale_items.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2754,7 +2784,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_medicatie.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_medicatie.jpg" style="width:100%"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2772,7 +2802,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Obesitas.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Obesitas.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2791,7 +2821,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Kinderconventie.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Kinderconventie.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2811,7 +2841,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Zorgtraject.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Zorgtraject.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2830,7 +2860,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetesconventie.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetesconventie.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2849,7 +2879,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Genezingskansen2014.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Genezingskansen2014.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2868,7 +2898,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Stevia.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Stevia.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2887,7 +2917,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetesatschool2013.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetesatschool2013.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2906,7 +2936,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_intimiteit.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_intimiteit.jpg" style="width:100%"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2925,7 +2955,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_seks.pdf" target="_blank"> 
             <img alt=" " src="https://dlml.be/site/downloadPDF/Diabetes_en_seks.jpg" style="width:100%; height:auto;"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2944,7 +2974,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Psychosociale_impact.pdf" target="_blank"> 
             <img alt=" " src="https://dlml.be/site/downloadPDF/Psychosociale_impact.jpg" style="width:100%; height:auto;"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2963,7 +2993,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/omgaan_met_diabetes.pdf" target="_blank"> 
             <img alt=" " src="https://dlml.be/site/downloadPDF/omgaan_met_diabetes.jpg" style="width:100%; height:auto;"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -2982,7 +3012,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_de_ogen.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_de_ogen.jpg" style="width:100%; height:auto;"> 
-               download 
+               <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3001,7 +3031,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_de_nieren.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_de_nieren.jpg" style="width:100%; height:auto;"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3020,7 +3050,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Etiketten_lezen.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Etiketten_lezen.jpg" style="width:100%; height:auto;"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3039,7 +3069,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/vetten_in_de_voeding.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/vetten_in_de_voeding.jpg" style="width:100%; height:auto;"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3058,7 +3088,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/suiker_zoetstoffen.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/suiker_zoetstoffen.jpg" style="width:100%; height:auto;"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3077,7 +3107,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_de_voeten.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_de_voeten.jpg" style="width:100%; height:auto;"> 
-            <div>download</div>
+            <span class="dlBtn">Download</span>
             </a> 
           </div>
           <div class="containerDownloadTxt"> 
@@ -3098,7 +3128,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabeteseducatoren.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabeteseducatoren.jpg" style="width:100%; height:auto;"> 
-             download 
+             <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3117,7 +3147,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Diabetes_en_beweging.pdf" style="color:#ffffff; " target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Diabetes_en_beweging.jpg" style="width:100%; height:auto;"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
@@ -3136,7 +3166,7 @@
           <div class="containerDownloadImg">
             <a href="https://dlml.be/site/downloadPDF/Topsport.pdf" target="_blank"> 
             <img alt=".." src="https://dlml.be/site/downloadPDF/Topsport.jpg" style="width:100%; height:auto;"> 
-            download 
+            <span class="dlBtn">Download</span> 
             </a> 
           </div> 
           <div class="containerDownloadTxt"> 
