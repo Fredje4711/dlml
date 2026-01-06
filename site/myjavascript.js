@@ -214,43 +214,177 @@ $('#btnMnu').off('click').on('click', function (e) {
 
 
 
-  // Lightbox
-  var lightboxImages = []; var currentImageIndex = 0;
-  var $lightbox = $('#imageLightbox'); var $lightboxImage = $('.lightbox-image-display');
-  var $prevButton = $('.lightbox-prev-btn'); var $nextButton = $('.lightbox-next-btn');
-  $('#pgD').on('click', '.activity-gallery-wrapper .fotoImg', function(e) {
-      e.preventDefault(); var $currentGallery = $(this).closest('.activity-gallery-wrapper');
-      lightboxImages = [];
-      $currentGallery.find('.fotoImg').each(function() { lightboxImages.push($(this).attr('src')); });
-      currentImageIndex = lightboxImages.indexOf($(this).attr('src'));
-      if (currentImageIndex !== -1) { openLightbox(currentImageIndex); }
+ // Lightbox
+var lightboxImages = [];
+var currentImageIndex = 0;
+
+var $lightbox = $('#imageLightbox');
+var $lightboxImage = $('.lightbox-image-display');
+var $prevButton = $('.lightbox-prev-btn');
+var $nextButton = $('.lightbox-next-btn');
+
+/*
+  Klik op een foto (of op de <a> rond de foto) opent de lightbox.
+  We gebruiken bij voorkeur de href van .dlmlGalleryItem (grotere/originele foto),
+  en vallen terug op img src als er geen <a> rond zit.
+*/
+$('#pgD').on('click', '.activity-gallery-wrapper a.dlmlGalleryItem, .activity-gallery-wrapper .fotoImg', function (e) {
+  e.preventDefault();
+
+  var $clicked = $(this);
+  var $currentGallery = $clicked.closest('.activity-gallery-wrapper');
+
+  // 1) Bouw de lijst met afbeeldingen op: voorkeur href van <a>, anders src van img
+  lightboxImages = [];
+
+  var $items = $currentGallery.find('a.dlmlGalleryItem');
+  if ($items.length) {
+    $items.each(function () {
+      var href = $(this).attr('href');
+      if (href) lightboxImages.push(href);
+    });
+  } else {
+    $currentGallery.find('.fotoImg').each(function () {
+      var src = $(this).attr('src');
+      if (src) lightboxImages.push(src);
+    });
+  }
+
+  // 2) Bepaal welke afbeelding aangeklikt werd
+  var clickedUrl = null;
+  if ($clicked.is('a.dlmlGalleryItem')) {
+    clickedUrl = $clicked.attr('href');
+  } else {
+    // klik op img -> pak eerst href van parent <a> (als die bestaat), anders src
+    var $parentLink = $clicked.closest('a.dlmlGalleryItem');
+    clickedUrl = $parentLink.length ? $parentLink.attr('href') : $clicked.attr('src');
+  }
+
+  currentImageIndex = lightboxImages.indexOf(clickedUrl);
+  if (currentImageIndex !== -1) {
+    openLightbox(currentImageIndex);
+  }
+});
+
+function openLightbox(index) {
+  currentImageIndex = index;
+  $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
+  $lightbox.removeClass('lightbox-overlay-hidden').addClass('lightbox-overlay-visible');
+  $('body').css('overflow', 'hidden');
+  updateNavButtons();
+}
+
+function closeLightbox() {
+  $lightbox.removeClass('lightbox-overlay-visible').addClass('lightbox-overlay-hidden');
+  $('body').css('overflow', 'auto');
+}
+
+function showPrevImage() {
+  if (currentImageIndex > 0) {
+    currentImageIndex--;
+    $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
+    updateNavButtons();
+  }
+}
+
+function showNextImage() {
+  if (currentImageIndex < lightboxImages.length - 1) {
+    currentImageIndex++;
+    $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
+    updateNavButtons();
+  }
+}
+
+function updateNavButtons() {
+  if (lightboxImages.length <= 1) {
+    $prevButton.hide();
+    $nextButton.hide();
+  } else {
+    $prevButton.toggle(currentImageIndex > 0);
+    $nextButton.toggle(currentImageIndex < lightboxImages.length - 1);
+  }
+}
+
+// Sluiten / klik buiten de foto
+$('.lightbox-close-btn').on('click', function () { closeLightbox(); });
+$lightbox.on('click', function (e) { if ($(e.target).is($lightbox)) { closeLightbox(); } });
+
+// Pijlen
+$prevButton.on('click', function (e) { e.stopPropagation(); showPrevImage(); });
+$nextButton.on('click', function (e) { e.stopPropagation(); showNextImage(); });
+
+// Keyboard
+$(document).on('keydown', function (e) {
+  if ($lightbox.hasClass('lightbox-overlay-visible')) {
+    if (e.key === "Escape") { closeLightbox(); }
+    else if (e.key === "ArrowLeft") { showPrevImage(); }
+    else if (e.key === "ArrowRight") { showNextImage(); }
+  }
+});
+
+/* ============================================================
+   SWIPE (GSM): links/rechts vegen om vorige/volgende te tonen
+   - Werkt enkel wanneer lightbox zichtbaar is
+   - Respecteert bestaande pijlen + keyboard
+   ============================================================ */
+(function enableLightboxSwipe() {
+  var startX = 0;
+  var startY = 0;
+  var tracking = false;
+  var SWIPE_MIN_X = 50;   // minimale horizontale beweging
+  var SWIPE_MAX_Y = 60;   // maximaal toegelaten verticale afwijking
+
+  // Touch start
+  $lightbox.on('touchstart', function (e) {
+    if (!$lightbox.hasClass('lightbox-overlay-visible')) return;
+    if (!e.originalEvent || !e.originalEvent.touches || e.originalEvent.touches.length !== 1) return;
+
+    var t = e.originalEvent.touches[0];
+    startX = t.clientX;
+    startY = t.clientY;
+    tracking = true;
   });
-  function openLightbox(index) {
-      currentImageIndex = index; $lightboxImage.attr('src', lightboxImages[currentImageIndex]);
-      $lightbox.removeClass('lightbox-overlay-hidden').addClass('lightbox-overlay-visible');
-      $('body').css('overflow', 'hidden'); updateNavButtons();
-  }
-  function closeLightbox() {
-      $lightbox.removeClass('lightbox-overlay-visible').addClass('lightbox-overlay-hidden');
-      $('body').css('overflow', 'auto');
-  }
-  function showPrevImage() { if (currentImageIndex > 0) { currentImageIndex--; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); } }
-  function showNextImage() { if (currentImageIndex < lightboxImages.length - 1) { currentImageIndex++; $lightboxImage.attr('src', lightboxImages[currentImageIndex]); updateNavButtons(); } }
-  function updateNavButtons() {
-      if (lightboxImages.length <= 1) { $prevButton.hide(); $nextButton.hide(); }
-      else { $prevButton.toggle(currentImageIndex > 0); $nextButton.toggle(currentImageIndex < lightboxImages.length - 1); }
-  }
-  $('.lightbox-close-btn').on('click', function() { closeLightbox(); });
-  $lightbox.on('click', function(e) { if ($(e.target).is($lightbox)) { closeLightbox(); } });
-  $prevButton.on('click', function(e) { e.stopPropagation(); showPrevImage(); });
-  $nextButton.on('click', function(e) { e.stopPropagation(); showNextImage(); });
-  $(document).on('keydown', function(e) {
-      if ($lightbox.hasClass('lightbox-overlay-visible')) {
-          if (e.key === "Escape") { closeLightbox(); }
-          else if (e.key === "ArrowLeft") { showPrevImage(); }
-          else if (e.key === "ArrowRight") { showNextImage(); }
-      }
+
+  // Touch move: we blokkeren alleen wanneer het echt een horizontale swipe is
+  $lightbox.on('touchmove', function (e) {
+    if (!tracking) return;
+    if (!e.originalEvent || !e.originalEvent.touches || e.originalEvent.touches.length !== 1) return;
+
+    var t = e.originalEvent.touches[0];
+    var dx = t.clientX - startX;
+    var dy = t.clientY - startY;
+
+    // Als het vooral horizontaal is, voorkomen we "page scroll"
+    if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+      e.preventDefault();
+    }
   });
+
+  // Touch end: bepaal swipe richting
+  $lightbox.on('touchend', function (e) {
+    if (!tracking) return;
+    tracking = false;
+
+    if (!e.originalEvent || !e.originalEvent.changedTouches || e.originalEvent.changedTouches.length !== 1) return;
+    var t = e.originalEvent.changedTouches[0];
+
+    var dx = t.clientX - startX;
+    var dy = t.clientY - startY;
+
+    // Niet swipen als verticale beweging te groot is
+    if (Math.abs(dy) > SWIPE_MAX_Y) return;
+
+    // Swipe rechts->links: volgende
+    if (dx < -SWIPE_MIN_X) {
+      showNextImage();
+    }
+    // Swipe links->rechts: vorige
+    else if (dx > SWIPE_MIN_X) {
+      showPrevImage();
+    }
+  });
+})();
+
 
   // Video's
   $('.pgContent#pgE').on('click', '.video-wrapper', function () {
