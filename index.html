@@ -339,6 +339,25 @@
   touch-action: pan-y;
 }
 
+/* Kleine informatiebalk boven de Voedingstijdlijn */
+.timeline-header {
+    background-color: #f8f9fa;
+    padding: 4px 10px;
+    border-bottom: 1px solid #23a9e4;
+    text-align: left; /* Link naar rechts uitlijnen */
+}
+
+.timeline-external-link {
+    color: #23a9e4;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.timeline-external-link:hover {
+    text-decoration: underline;
+}
+
  
 </style>
 </head>
@@ -452,6 +471,7 @@
     <div id="MnuItm1D"><i class="fas fa-camera"></i><label>Foto's vorige activiteiten</label></div>
     <div id="MnuItm1K"><i class="fas fa-images"></i><label>Fotogalerij</label></div>
     <div id="MnuItm1L"><i class="fas fa-podcast"></i><label>Podcast Eddy</label></div>
+	<div id="MnuItm1R"><i class="fas fa-history"></i><label>Voedingstijdlijn <strong>(nieuw)</strong></label></div>
     <div class="MnuLine"></div>
 
     <div id="MnuItm1M"><i class="fas fa-comments"></i><label>Q&amp;A 100</label></div>
@@ -488,6 +508,7 @@
       <div id="MnuItm2D"><i class="fas fa-camera"></i><label>Foto's vorige activiteiten</label></div>
       <div id="MnuItm2K"><i class="fas fa-images"></i><label>Fotogalerij</label></div>
       <div id="MnuItm2L"><i class="fas fa-podcast"></i><label>Podcast Eddy</label></div>
+	  <div id="MnuItm2R"><i class="fas fa-history"></i><label>Voedingstijdlijn <strong>(nieuw)</strong></label></div>
       <div class="MnuLine"></div>
 
       <div id="MnuItm2M"><i class="fas fa-comments"></i><label>Q&amp;A 100</label></div>
@@ -1489,6 +1510,26 @@
             frameborder="0" 
             scrolling="yes" 
             title="Podcast">
+    </iframe>
+</div>
+
+<!-- START NIEUWE CONTENT DIV VOOR VOEDINGSTIJDLIJN -->
+<div class="pgContent" id="pgR" style="display: none; height: 100%;"> 
+    
+    <!-- Alleen de link voor volledig scherm / GSM gebruikers -->
+    <div class="timeline-header">
+        <a href="https://fredje4711.github.io/voeding_tijdlijn/" target="_blank" class="timeline-external-link">
+            <i class="fas fa-expand-arrows-alt"></i> Open op volledig scherm
+        </a>
+    </div>
+
+    <!-- De iFrame -->
+    <iframe id="timelineFrame" 
+            src="https://fredje4711.github.io/voeding_tijdlijn/" 
+            style="width:100%; height:calc(100vh - 180px); border:none;" 
+            frameborder="0" 
+            scrolling="yes" 
+            title="Voedingstijdlijn">
     </iframe>
 </div>
 
