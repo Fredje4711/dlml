@@ -339,12 +339,21 @@
   touch-action: pan-y;
 }
 
-/* Kleine informatiebalk boven de Voedingstijdlijn */
+/* Container voor de tijdlijn - Verbeterde stabiele versie */
+#pgR {
+    display: none; /* Wordt 'block' via JavaScript */
+    width: 100%;
+    /* Zorgt voor een goede basishoogte op desktop */
+    height: 1200px; 
+    overflow: hidden;
+}
+
 .timeline-header {
     background-color: #f8f9fa;
-    padding: 4px 10px;
+    padding: 10px 15px;
     border-bottom: 1px solid #23a9e4;
-    text-align: left; /* Link naar rechts uitlijnen */
+    height: 40px; /* Vaste hoogte voor de balk */
+    box-sizing: border-box;
 }
 
 .timeline-external-link {
@@ -354,8 +363,23 @@
     text-decoration: none;
 }
 
-.timeline-external-link:hover {
-    text-decoration: underline;
+/* De iFrame zelf - geforceerde hoogte */
+#timelineFrame {
+    width: 100%;
+    height: calc(100% - 40px); /* Neemt de rest van de container in */
+    border: none;
+}
+
+/* --- Mobiele aanpassing (GSM) --- */
+@media (max-width: 768px) {
+    #pgR {
+        /* Op GSM vullen we het hele scherm */
+        height: calc(100dvh - 120px) !important;
+    }
+    
+    #timelineFrame {
+        height: calc(100% - 40px) !important;
+    }
 }
 
  
@@ -1514,22 +1538,17 @@
 </div>
 
 <!-- START NIEUWE CONTENT DIV VOOR VOEDINGSTIJDLIJN -->
-<div class="pgContent" id="pgR" style="display: none; height: 100%;"> 
+<div class="pgContent" id="pgR" style="display: none;"> 
     
-    <!-- Alleen de link voor volledig scherm / GSM gebruikers -->
     <div class="timeline-header">
         <a href="https://fredje4711.github.io/voeding_tijdlijn/" target="_blank" class="timeline-external-link">
             <i class="fas fa-expand-arrows-alt"></i> Open op volledig scherm
-        </a>
     </div>
 
-    <!-- De iFrame -->
     <iframe id="timelineFrame" 
             src="https://fredje4711.github.io/voeding_tijdlijn/" 
-            style="width:100%; height:calc(100vh - 180px); border:none;" 
             frameborder="0" 
-            scrolling="yes" 
-            title="Voedingstijdlijn">
+            scrolling="yes">
     </iframe>
 </div>
 
