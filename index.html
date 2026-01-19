@@ -339,12 +339,12 @@
   touch-action: pan-y;
 }
 
-/* Container voor de tijdlijn - Verbeterde stabiele versie */
+/* Container voor de tijdlijn - Volledige schermvulling */
 #pgR {
-    display: none; /* Wordt 'block' via JavaScript */
+    display: none;
     width: 100%;
-    /* Zorgt voor een goede basishoogte op desktop */
-    height: 1200px; 
+    /* Desktop hoogte */
+    height: 85vh; 
     overflow: hidden;
 }
 
@@ -352,7 +352,7 @@
     background-color: #f8f9fa;
     padding: 10px 15px;
     border-bottom: 1px solid #23a9e4;
-    height: 40px; /* Vaste hoogte voor de balk */
+    height: 35px;
     box-sizing: border-box;
 }
 
@@ -363,18 +363,20 @@
     text-decoration: none;
 }
 
-/* De iFrame zelf - geforceerde hoogte */
+/* De iFrame zelf */
 #timelineFrame {
     width: 100%;
-    height: calc(100% - 40px); /* Neemt de rest van de container in */
+    height: calc(100% - 40px);
     border: none;
+    display: block;
 }
 
 /* --- Mobiele aanpassing (GSM) --- */
 @media (max-width: 768px) {
     #pgR {
-        /* Op GSM vullen we het hele scherm */
-        height: calc(100dvh - 120px) !important;
+        /* We trekken veel minder af (60px i.p.v. 120px) om dieper te gaan */
+        height: calc(100dvh - 55px) !important;
+        margin-bottom: -20px; /* Trekt de container nog iets verder omlaag */
     }
     
     #timelineFrame {
@@ -1542,13 +1544,15 @@
     
     <div class="timeline-header">
         <a href="https://fredje4711.github.io/voeding_tijdlijn/" target="_blank" class="timeline-external-link">
-            <i class="fas fa-expand-arrows-alt"></i> Open op volledig scherm
+            <i class="fas fa-expand-arrows-alt"></i> Open op volledig scherm
+        </a>
     </div>
 
     <iframe id="timelineFrame" 
             src="https://fredje4711.github.io/voeding_tijdlijn/" 
             frameborder="0" 
-            scrolling="yes">
+            scrolling="yes"
+            style="width: 100%; height: calc(100% - 40px); border: none;">
     </iframe>
 </div>
 
