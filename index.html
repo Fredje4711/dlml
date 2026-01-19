@@ -348,12 +348,14 @@
     overflow: hidden;
 }
 
+/* De balk boven de tijdlijn - Grijze kleur verwijderd en compacter gemaakt */
 .timeline-header {
-    background-color: #f8f9fa;
-    padding: 10px 15px;
-    border-bottom: 1px solid #23a9e4;
-    height: 35px;
-    box-sizing: border-box;
+    background-color: transparent; /* Verwijder de grijze achtergrond */
+    padding: 0 0 8px 0;           /* Geen ruimte boven, alleen een beetje onder de tekst */
+    border-bottom: none;          /* Optioneel: verwijder de blauwe lijn als u die ook weg wilt */
+    height: auto;                 /* Geen vaste hoogte meer */
+    display: flex;
+    align-items: center;
 }
 
 .timeline-external-link {
@@ -361,12 +363,20 @@
     font-size: 13px;
     font-weight: bold;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
 }
 
-/* De iFrame zelf */
+.timeline-external-link:hover {
+    text-decoration: underline;
+    color: #1b8cc5;
+}
+
+/* Zorg dat de iFrame direct onder de link aansluit */
 #timelineFrame {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - 25px); /* Hoogte iets bijgesteld omdat de header nu kleiner is */
     border: none;
     display: block;
 }
@@ -1539,20 +1549,18 @@
     </iframe>
 </div>
 
-<!-- START NIEUWE CONTENT DIV VOOR VOEDINGSTIJDLIJN -->
-<div class="pgContent" id="pgR" style="display: none;"> 
+<div class="pgContent" id="pgR" style="display: none; padding-top: 0;"> 
     
     <div class="timeline-header">
         <a href="https://fredje4711.github.io/voeding_tijdlijn/" target="_blank" class="timeline-external-link">
-            <i class="fas fa-expand-arrows-alt"></i> Open op volledig scherm
+            <i class="fas fa-expand-arrows-alt"></i>  Open op volledig scherm
         </a>
     </div>
 
     <iframe id="timelineFrame" 
             src="https://fredje4711.github.io/voeding_tijdlijn/" 
             frameborder="0" 
-            scrolling="yes"
-            style="width: 100%; height: calc(100% - 40px); border: none;">
+            scrolling="yes">
     </iframe>
 </div>
 
