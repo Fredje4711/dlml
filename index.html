@@ -605,13 +605,24 @@
 <!-- ================== EINDE VAN HET KLOK-DESIGN =================== -->
 <!-- ========================================================== -->
         
-	  <!-- Start Video Sectie -->
-<div style="padding: 0 10%; box-sizing: border-box; text-align: center;"> 
-    <video controls playsinline poster="https://fredje4711.github.io/nieuwsbrief/Intro.png" style="width:100%; height:auto; border-radius: 12px; border: 2px solid #23a9e4; box-shadow: 0 0 12px rgba(35, 169, 228, 0.4); background-color: #000;">
-        <source src="https://fredje4711.github.io/nieuwsbrief/Presentatie_DLML_stem_achtergrondmuziek.mp4" type="video/mp4">
-        Je browser ondersteunt deze video niet.
-    </video>
+	<!-- Start Video Sectie (Perfecte uitlijning met de klok) -->
+<div id="diabetes-clock-wrapper" style="padding-top: 0px; padding-bottom: 10px;">
+    <div class="video-wrapper" id="customVideoPlayer" style="width: 100% !important; max-width: none !important; border-radius: 12px; border: 2px solid #23a9e4; box-shadow: 0 0 12px rgba(35, 169, 228, 0.4); background-color: #000; cursor: pointer; position: relative; overflow: hidden; margin: 0 !important; display: block !important;">
+        
+        <!-- Jouw introscherm afbeelding -->
+        <img src="https://fredje4711.github.io/nieuwsbrief/Intro.png" alt="Video Preview" style="width: 100% !important; height: auto; display: block; margin: 0 !important;">
+        
+        <!-- De grote witte Play Button overlay -->
+        <div class="play-button"></div>
+        
+    </div>
 </div>
+
+<script>
+    document.getElementById('customVideoPlayer').addEventListener('click', function() {
+        this.innerHTML = '<video controls autoplay playsinline style="width: 100%; height: auto; display: block; border-radius: 10px;"><source src="https://fredje4711.github.io/nieuwsbrief/Presentatie_DLML_stem_achtergrondmuziek.mp4" type="video/mp4">Je browser ondersteunt deze video niet.</video>';
+    });
+</script>
 <!-- Einde Video Sectie -->
  
 <!-- Sociale media links onder blauwe afbeelding -->
