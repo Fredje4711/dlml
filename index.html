@@ -3652,6 +3652,56 @@ window.addEventListener("load", scrollToHashTarget);
 window.addEventListener("hashchange", scrollToHashTarget);
 </script>
 
+<script src='https://cdn.jotfor.ms/agent/embedjs/019c129b986b71e3979b3d2e7af668cd4a6e/embed.js'></script>
+
+<!-- Chatbot hulplink (vast rechtsonder, bij de chatbot) -->
+<a class="chatbot-help-link"
+   href="chatbot-hulp.html"
+   target="_blank"
+   rel="noopener">
+  ❓ Hulp bij chatbot
+</a>
+
+<style>
+  .chatbot-help-link{
+    position: fixed;
+    right: 18px;
+    bottom: 90px;                 /* boven de chatbot */
+    z-index: 999999;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+	
+    background: #4ea9d9 !important; /* zichtbaar op wit */
+    color: #ffffff !important;      /* zichtbaar op blauw */
+    border: 2px solid #0b6fa4 !important;
+
+    text-decoration: none;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 700;
+    padding: 11px 14px;
+    border-radius: 999px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    line-height: 1;
+  }
+
+  .chatbot-help-link:hover{
+    background: #0b6fa4 !important;
+    color: #ffffff !important;
+  }
+
+  /* GSM: compacter */
+  @media (max-width: 600px){
+    .chatbot-help-link{
+      right: 12px;
+      bottom: 112px;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  }
+</style>
+
 
 
 

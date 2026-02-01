@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hulp – Hoe stel je goede vragen aan de DLML-chatbot?</title>
+  <meta name="description" content="Uitleg en voorbeelden om goede vragen te stellen aan de DLML-chatbot. Inclusief medische disclaimer en contact." />
+  <style>
+    :root{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-2: #0ea5e9;
+      --ok: #16a34a;
+      --warn: #b45309;
+      --shadow: 0 10px 24px rgba(2, 6, 23, .08);
+      --radius: 18px;
+      --max: 980px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--text);
+      background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 22%, var(--bg) 100%);
+      line-height: 1.5;
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 14px 40px;
+    }
+
+    header{
+      padding: 18px 6px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+      padding: 8px 12px;
+      border-radius: 999px;
+      width: fit-content;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    h1{
+      font-size: clamp(24px, 3.6vw, 36px);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .lead{
+      margin: 0;
+      font-size: clamp(16px, 2.2vw, 18px);
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1.2fr .8fr; gap: 16px; }
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    .card p{ margin: 0 0 10px; color: var(--muted); }
+
+    .tips{
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .tip{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      flex: 0 0 auto;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .icon.ok{ background: var(--ok); }
+    .icon.warn{ background: var(--warn); }
+    .icon.info{ background: var(--accent-2); }
+
+    .tip strong{ display:block; margin-bottom: 2px; color: var(--text); }
+
+    .examples{
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .example{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .example .row{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .q{
+      font-size: 16px;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .meta{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .btn{
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform .05s ease, background .2s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ background: #f8fafc; }
+    .btn:active{ transform: translateY(1px); }
+
+    .btnPrimary{
+      border-color: rgba(37,99,235,.25);
+      background: rgba(37,99,235,.08);
+      color: #1d4ed8;
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, .92);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    .disclaimer{
+      border: 1px solid rgba(180,83,9,.25);
+      background: rgba(180,83,9,.08);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .disclaimer h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #7c2d12;
+    }
+
+    .disclaimer p{
+      margin: 0;
+      color: #7c2d12;
+    }
+
+    /* New help box style (for the "more detail" tip) */
+    .helpBox{
+      margin-top: 14px;
+      border: 1px solid rgba(14,165,233,.28);
+      background: rgba(14,165,233,.08);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .helpBox h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #075985;
+      letter-spacing: -0.01em;
+    }
+    .helpBox p, .helpBox li{
+      color: #075985;
+      margin: 0;
+    }
+    .helpBox ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .helpBox .smallNote{
+      margin-top: 8px;
+      font-size: 13px;
+      color: #075985;
+      opacity: .95;
+    }
+
+    .contactList{
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .contactItem{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .contactItem .label{
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .contactItem .value{
+      font-size: 16px;
+      color: var(--text);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    footer{
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 0 6px;
+    }
+
+    .small{
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Make text comfortable for seniors */
+    @media (max-width: 420px){
+      .card{ padding: 14px; }
+      .btn{ padding: 10px 11px; }
+      .q{ font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="badge">ℹ️ Hulp & gebruik — DLML-chatbot</div>
+      <h1>Hoe stel je goede vragen aan de DLML-chatbot?</h1>
+      <p class="lead">
+        Je kan deze chatbot gebruiken om informatie te krijgen over diabetes én over activiteiten en contactgegevens van Diabetes Liga Midden-Limburg.
+        Met duidelijke vragen krijg je sneller het juiste antwoord.
+      </p>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: How to ask -->
+      <main class="card">
+        <h2>1) Zo stel je een goede vraag</h2>
+        <div class="tips">
+          <div class="tip">
+            <div class="icon ok">✓</div>
+            <div>
+              <strong>Gebruik gewone woorden</strong>
+              <div class="small">Schrijf zoals je het aan iemand zou vragen. Eén zin is genoeg.</div>
+            </div>
+          </div>
+
+          <div class="tip">
+            <div class="icon ok">✓</div>
+            <div>
+              <strong>Wees concreet</strong>
+              <div class="small">Bijvoorbeeld: “Welke infosessies zijn er?” of “Hoe kan ik contact opnemen?”</div>
+            </div>
+          </div>
+
+          <div class="tip">
+            <div class="icon ok">✓</div>
+            <div>
+              <strong>Gebruik het juiste onderwerpwoord</strong>
+              <div class="small">Bij DLML: “activiteiten”, “infosessies”, “wandelingen”, “bestuur”, “contact”.</div>
+            </div>
+          </div>
+
+          <div class="tip">
+            <div class="icon warn">!</div>
+            <div>
+              <strong>Bij persoonlijke of dringende problemen</strong>
+              <div class="small">Neem contact op met je arts, diabeteszorgteam of de Diabetes Infolijn (zie rechts).</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:14px;">2) Voorbeeldvragen (klik om te kopiëren)</h2>
+        <p>Je kan op een knop klikken en de vraag daarna in de chatbot plakken.</p>
+
+        <div class="examples" id="examples">
+          <div class="example">
+            <div class="row">
+              <p class="q">Welke activiteiten organiseert Diabetes Liga Midden-Limburg?</p>
+              <button class="btn btnPrimary" data-copy="Welke activiteiten organiseert Diabetes Liga Midden-Limburg?">Kopieer</button>
+            </div>
+            <div class="meta">Geeft een volledig overzicht van alle activiteiten (infosessies + cultuur/ontspanning).</div>
+          </div>
+
+          <div class="example">
+            <div class="row">
+              <p class="q">Welke infosessies zijn er in 2026?</p>
+              <button class="btn btnPrimary" data-copy="Welke infosessies zijn er in 2026?">Kopieer</button>
+            </div>
+            <div class="meta">Geeft het overzicht van alle infosessies met inschrijvingslinks.</div>
+          </div>
+
+          <div class="example">
+            <div class="row">
+              <p class="q">Hoe kan ik contact opnemen met Diabetes Liga Midden-Limburg?</p>
+              <button class="btn btnPrimary" data-copy="Hoe kan ik contact opnemen met Diabetes Liga Midden-Limburg?">Kopieer</button>
+            </div>
+            <div class="meta">Toont contactmogelijkheden en/of bestuurscontacten.</div>
+          </div>
+
+          <div class="example">
+            <div class="row">
+              <p class="q">Wat is het verschil tussen een hypo en een hyper?</p>
+              <button class="btn btnPrimary" data-copy="Wat is het verschil tussen een hypo en een hyper?">Kopieer</button>
+            </div>
+            <div class="meta">Algemene uitleg over lage en hoge bloedsuiker.</div>
+          </div>
+
+          <div class="example">
+            <div class="row">
+              <p class="q">Is diabetes type 2 omkeerbaar of in remissie te brengen?</p>
+              <button class="btn btnPrimary" data-copy="Is diabetes type 2 omkeerbaar of in remissie te brengen?">Kopieer</button>
+            </div>
+            <div class="meta">Geeft genuanceerde uitleg over remissie (zonder valse beloftes).</div>
+          </div>
+        </div>
+
+        <!-- ✅ NEW SECTION: How to ask for more detail -->
+        <div class="helpBox">
+  <h3>Hoe werken opvolgvragen? (2 duidelijke voorbeelden)</h3>
+
+  <p>
+    De chatbot geeft bij langere lijsten vaak eerst een <strong>overzicht</strong>.
+    Dat is meestal voldoende. Wie meer detail wil, kan eenvoudig verder vragen.
+  </p>
+
+  <ul>
+    <li><strong>Stap 1:</strong> stel een algemene vraag</li>
+    <li><strong>Stap 2:</strong> vraag daarna gericht om meer detail</li>
+  </ul>
+
+  <hr style="border:none;border-top:1px solid rgba(14,165,233,.25);margin:12px 0;">
+
+  <p><strong>Voorbeeld 1 – Activiteiten</strong></p>
+  <p class="small">
+    Je start met een algemene vraag:
+  </p>
+  <ul>
+    <li><em>“Welke activiteiten organiseert Diabetes Liga Midden-Limburg?”</em></li>
+  </ul>
+
+  <p class="small">
+    👉 Je krijgt een <strong>samenvattend overzicht</strong> van alle activiteiten.
+    Dat is vaak al voldoende.
+  </p>
+
+  <p class="small">
+    Wil je daarna meer detail, stel dan bijvoorbeeld:
+  </p>
+  <ul>
+    <li><em>“Geef alle activiteiten met datum, locatie en inschrijvingslink.”</em></li>
+    <li><em>“Geef per activiteit de details in een overzicht.”</em></li>
+  </ul>
+
+  <p class="small">
+    👉 Je krijgt dan een <strong>volledig en duidelijk uitgewerkt overzicht</strong>,
+    per activiteit apart.
+  </p>
+
+  <hr style="border:none;border-top:1px solid rgba(14,165,233,.25);margin:12px 0;">
+
+  <p><strong>Voorbeeld 2 – Infosessies</strong></p>
+  <p class="small">
+    Je start met:
+  </p>
+  <ul>
+    <li><em>“Welke infosessies zijn er in 2026?”</em></li>
+  </ul>
+
+  <p class="small">
+    👉 Je krijgt eerst een <strong>lijst met de geplande infosessies</strong>.
+  </p>
+
+  <p class="small">
+    Wil je meer uitleg per infosessie, vraag dan bijvoorbeeld:
+  </p>
+  <ul>
+    <li><em>“Geef per infosessie de details in een opsomming.”</em></li>
+    <li><em>“Geef meer detail over elke infosessie afzonderlijk.”</em></li>
+  </ul>
+
+  <p class="smallNote">
+    Tip: hoe duidelijker je vraagt wat je wil zien (details, opsomming, per onderdeel),
+    hoe overzichtelijker het antwoord wordt.
+  </p>
+</div>
+
+        <div class="disclaimer" style="margin-top:14px;">
+          <h3>Belangrijk</h3>
+          <p>
+            Deze chatbot geeft <strong>algemene informatie</strong> en vervangt geen medisch advies, diagnose of behandeling.
+            Bij persoonlijke vragen over gezondheid, behandeling of medicatie: bespreek dit met je arts of diabeteszorgteam.
+            Bij dringende medische problemen: neem onmiddellijk contact op met een arts of de hulpdiensten.
+          </p>
+        </div>
+      </main>
+
+      <!-- RIGHT: Quick help / contacts -->
+      <aside class="card">
+        <h2>Snel hulp nodig?</h2>
+        <p>Hier vind je betrouwbare contactpunten als je liever met iemand spreekt of als je vraag persoonlijk is.</p>
+
+        <div class="contactList">
+          <div class="contactItem">
+            <div class="label">Diabetes Infolijn (gratis)</div>
+            <div class="value">0800 96 333</div>
+            <div class="small">Ma–Vr: 9.00–12.00 en 13.00–16.00</div>
+          </div>
+
+          <div class="contactItem">
+            <div class="label">E-mail Diabetes Infolijn</div>
+            <div class="value"><a href="mailto:infolijn@diabetes.be">infolijn@diabetes.be</a></div>
+          </div>
+
+          <div class="contactItem">
+            <div class="label">Meer info over de Infolijn</div>
+            <div class="value"><a href="https://www.diabetes.be/nl/wie-zijn-we-wat-doen-we/kenniscentrum/diabetes-infolijn" target="_blank" rel="noopener">diabetes.be – Diabetes Infolijn</a></div>
+          </div>
+
+          <div class="contactItem">
+            <div class="label">DLML – algemeen contact</div>
+            <div class="value"><a href="mailto:midden.limburg@diabetes.be">midden.limburg@diabetes.be</a></div>
+          </div>
+
+          <div class="contactItem">
+            <div class="label">Meer info over Diabetes Liga Vlaanderen</div>
+            <div class="value"><a href="https://www.diabetes.be" target="_blank" rel="noopener">www.diabetes.be</a></div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:14px;">Tip</h2>
+        <p>
+          Als je niet meteen het juiste antwoord krijgt, probeer dan dezelfde vraag met één extra woord.
+          Bijvoorbeeld: “activiteiten”, “infosessies”, “contact”, “bestuur”.
+        </p>
+
+        <button class="btn" id="scrollTop" style="margin-top:8px;">Terug naar boven</button>
+      </aside>
+    </div>
+
+    <footer>
+      <p>
+        © Diabetes Liga Midden-Limburg — hulppagina voor chatbotgebruik.<br>
+        Laatste tip: stel één vraag per keer, zo blijft het antwoord duidelijk.
+      </p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">Gekopieerd!</div>
+
+  <script>
+    (function () {
+      const toast = document.getElementById("toast");
+
+      function showToast(msg) {
+        toast.textContent = msg || "Gekopieerd!";
+        toast.classList.add("show");
+        window.clearTimeout(showToast._t);
+        showToast._t = window.setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Vraag gekopieerd");
+        } catch (e) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "absolute";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          showToast("Vraag gekopieerd");
+        }
+      }
+
+      document.addEventListener("click", (ev) => {
+        const btn = ev.target.closest("button[data-copy]");
+        if (!btn) return;
+        const text = btn.getAttribute("data-copy");
+        if (text) copyText(text);
+      });
+
+      document.getElementById("scrollTop").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    })();
+  </script>
+</body>
+</html>
