@@ -3654,50 +3654,50 @@ window.addEventListener("hashchange", scrollToHashTarget);
 
 <script src='https://cdn.jotfor.ms/agent/embedjs/019c129b986b71e3979b3d2e7af668cd4a6e/embed.js'></script>
 
-<!-- Chatbot hulplink (vast rechtsonder, bij de chatbot) -->
+<!-- Chatbot hulplink (Compacte versie) -->
 <a class="chatbot-help-link"
    href="chatbot-hulp.html"
    target="_blank"
    rel="noopener">
-  ❓ Hulp bij chatbot
+  Chatbot hulp
 </a>
 
 <style>
-  .chatbot-help-link{
+  .chatbot-help-link {
     position: fixed;
     right: 18px;
-    bottom: 90px;                 /* boven de chatbot */
+    bottom: 85px;                 /* iets verlaagd voor betere aansluiting */
     z-index: 999999;
 
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-	
-    background: #4ea9d9 !important; /* zichtbaar op wit */
-    color: #ffffff !important;      /* zichtbaar op blauw */
-    border: 2px solid #0b6fa4 !important;
+    
+    background: #4ea9d9 !important;
+    color: #ffffff !important;
+    border: 1px solid #0b6fa4 !important; /* dunnere lijn voor compacter uiterlijk */
 
-    text-decoration: none;
+    text-decoration: none !important;     /* onderstreping geforceerd weg */
     font-family: Roboto, Arial, sans-serif;
-    font-weight: 700;
-    padding: 11px 14px;
-    border-radius: 999px;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    font-weight: 500;                     /* iets minder zwaar dan 700 */
+    font-size: 13px;                      /* kleinere letters */
+    padding: 6px 12px;                    /* aanzienlijk minder witruimte */
+    border-radius: 20px;                  /* minder 'bol', meer een strak label */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* subtielere schaduw */
     line-height: 1;
   }
 
-  .chatbot-help-link:hover{
+  .chatbot-help-link:hover {
     background: #0b6fa4 !important;
-    color: #ffffff !important;
+    text-decoration: none !important;
   }
 
-  /* GSM: compacter */
-  @media (max-width: 600px){
-    .chatbot-help-link{
+  /* GSM: Nog iets kleiner op kleine schermen */
+  @media (max-width: 600px) {
+    .chatbot-help-link {
       right: 12px;
-      bottom: 112px;
-      padding: 10px 12px;
-      font-size: 14px;
+      bottom: 110px;
+      padding: 5px 10px;
+      font-size: 12px;
     }
   }
 </style>
