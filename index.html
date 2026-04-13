@@ -905,33 +905,38 @@
       <!--    cultuur uitstap                                              -->  
       <div class="pgContent" id="pgC">
 
-		  <!-- START COMPACT KMI DASHBOARD -->
+<!-- START COMPACT KMI DASHBOARD MET LIVE KLOK -->
 <div style="max-width: 100%; margin: 10px auto; font-family: Arial, sans-serif; border: 1px solid #003366; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     
-    <!-- Slanke Header -->
-    <div style="background-color: #003366; color: white; padding: 8px 15px; display: flex; align-items: center; gap: 10px;">
-        <i class="fas fa-cloud-sun" style="font-size: 1.1rem; color: #ffcc00;"></i>
-        <span style="font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px;">KMI WANDEL-CHECK (Midden-Limburg/Hasselt)</span>
+    <!-- Slanke Header met Live Datum/Tijd -->
+    <div style="background-color: #003366; color: white; padding: 8px 15px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-cloud-sun" style="font-size: 1.1rem; color: #ffcc00;"></i>
+            <span style="font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px;">KMI WANDEL-CHECK</span>
+        </div>
+        <!-- Live Klok Element -->
+        <div id="kmi-live-klok" style="font-size: 0.8rem; font-weight: normal; opacity: 0.9;">
+            Laden...
+        </div>
     </div>
 
     <div style="padding: 10px;">
-        <!-- Knoppen in een compacte grid -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
             
             <!-- KNOP 1: 7-DAAGSE -->
             <a href="https://www.meteo.be/nl/hasselt" target="_blank" rel="noopener" 
-               style="display: flex; align-items: center; background-color: #e30613; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; transition: opacity 0.2s;">
+               style="display: flex; align-items: center; background-color: #e30613; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
                 <i class="fas fa-calendar-alt" style="font-size: 1.2rem; margin-right: 12px; width: 20px; text-align: center;"></i>
                 <div style="line-height: 1.2;">
                     <strong style="display: block; font-size: 0.9rem;">7-Daagse Voorspelling</strong>
-                    <span style="font-size: 0.75rem; opacity: 0.8;">Temperatuur & neerslag</span>
+                    <span style="font-size: 0.75rem; opacity: 0.8;">Hasselt & Midden-Limburg</span>
                 </div>
                 <i class="fas fa-chevron-right" style="margin-left: auto; font-size: 0.8rem; opacity: 0.6;"></i>
             </a>
 
             <!-- KNOP 2: RADAR -->
-            <a href="https://www.meteo.be/nl/weer/verwachtingen/neerslag-beta" target="_blank" rel="noopener" 
-               style="display: flex; align-items: center; background-color: #23a9e4; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; transition: opacity 0.2s;">
+            <a href="https://www.meteo.be/nl/weer/waarnemingen/neerslagradar/bliksem" target="_blank" rel="noopener" 
+               style="display: flex; align-items: center; background-color: #23a9e4; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
                 <i class="fas fa-satellite-dish" style="font-size: 1.2rem; margin-right: 12px; width: 20px; text-align: center;"></i>
                 <div style="line-height: 1.2;">
                     <strong style="display: block; font-size: 0.9rem;">Live Neerslagradar</strong>
@@ -943,6 +948,38 @@
         </div>
     </div>
 </div>
+
+<script>
+/**
+ * Functie om de live datum en tijd in het dashboard bij te werken
+ */
+function updateKmiKlok() {
+    const nu = new Date();
+    
+    // Opties voor de weergave (maandag 13 april 2026 16:15)
+    const opties = { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    };
+    
+    // Formatteer de datum naar NL-BE stijl
+    let datumTekst = nu.toLocaleString('nl-BE', opties);
+    
+    // Verwijder de komma die browsers soms toevoegen tussen datum en tijd
+    datumTekst = datumTekst.replace(',', '');
+    
+    // Voeg 'uur' toe aan het einde
+    document.getElementById('kmi-live-klok').innerText = datumTekst + ' uur';
+}
+
+// Start de klok direct en update elke minuut (60000 ms)
+updateKmiKlok();
+setInterval(updateKmiKlok, 60000);
+</script>
 <!-- EINDE COMPACT DASHBOARD -->
 	
       <div class="infosessie">
