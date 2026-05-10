@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaststellingen - Betrouwbaarheid Inschrijfformulieren DLML</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f7f9; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-top: 10px solid #0056b3; }
+        header { border-bottom: 2px solid #eee; padding-bottom: 5px; margin-bottom: 10px; text-align: center; }
+        h1 { color: #0056b3; margin: 0; font-size: 28px; }
+        h2 { color: #0056b3; border-left: 5px solid #0056b3; padding-left: 15px; margin-top: 40px; font-size: 22px; }
+        h3 { color: #d93025; font-size: 18px; margin-top: 0; }
+        .status-box { background-color: #fff4f4; border: 1px solid #f8d7da; padding: 20px; border-radius: 6px; margin: 20px 0; }
+        .instruction-box { background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 5px solid #6c757d; }
+        .error-log { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 14px; overflow-x: auto; line-height: 1.4; border-left: 5px solid #ff5555; }
+        .code-block { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; font-family: monospace; display: block; white-space: pre; margin: 10px 0; color: #222; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+        .badge-error { background: #d93025; color: #fff; }
+        .badge-success { background: #28a745; color: #fff; }
+        .step-list { padding-left: 20px; }
+        .step-list li { margin-bottom: 10px; }
+        @media (max-width: 600px) { .container { margin: 10px; padding: 20px; } h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Mijn vaststellingen (wat misschien zou kunnen zijn...)</h1>
+        <p><strong>Onderwerp:</strong> Analyse dataverlies bij inschrijfformulieren</p>
+    </header>
+
+    <section>
+        <h2>1. Context & Vaststelling</h2>
+        <p>Bij de infosessie <i>"Bewegen en diabetes"</i> is gebleken dat <strong>enkele deelnemers</strong> niet op de definitieve Excel-lijst stonden, terwijl zij wel een automatische bevestigingsmail hadden ontvangen. Dit bewijst dat de browser van de gebruiker de verzendopdracht heeft uitgevoerd, maar dat de server de data niet heeft opgeslagen.</p>
+    </section>
+
+    <section>
+        <h2>2. Analyse Browser Console (F12)</h2>
+        <p>Vermits het inschrijvingsformulier <i>"Bewegen en diabetes"</i> niet meer online staat, heb ik een analyse gedaan van het huidige formulier (Wandeling Bolderberg) wat vermoedelijk dezelfde fouten bevat.</p>
+        
+        <div class="badge badge-error">Gevonden Error 1: Mixed Content Blokkade</div>
+        <div class="error-log">
+            Mixed Content: The page at 'https://www.dlml.be/wandeling/index.html' was loaded over HTTPS, but requested an insecure script 'http://code.jquery.com/jquery-latest.js'. This request has been blocked; the content must be served over HTTPS.
+        </div>
+        <p><strong>Impact:</strong> Moderne iPhones (Safari) toestellen blokkeren dit script onmiddellijk. Omdat dit script de motor is voor de data-overdracht naar de lijst, wordt de inschrijving simpelweg gestopt.</p>
+
+<p style="background-color: #fff9e6; padding: 10px; border-left: 4px solid #ffcc00; font-size: 0.95em;">
+    <strong>Waarom verschijnt er geen foutmelding?</strong><br>
+    Browsers blokkeren deze onveilige scripts stilletjes op de achtergrond. De JavaScript-code die normaal gesproken een foutmelding op het scherm zou tonen, is afhankelijk van dit geblokkeerde script en kan dus zelf ook niet meer worden uitgevoerd. Voor de gebruiker (en het systeem) lijkt het proces dus een 'stille dood' te sterven zonder dat er een alarmbel afgaat.
+</p>
+
+        <div class="badge badge-error">Gevonden Error 2: Resource Missing</div>
+        <div class="error-log">
+            jquery.selection.js:1 Failed to load resource: the server responded with a status of 404 ()
+        </div>
+        <p><strong>Impact:</strong> Het ontbreken van dit bestand veroorzaakt JavaScript-crashes tijdens het klikproces, wat onvoorspelbaar gedrag van de verzendknop tot gevolg heeft.</p>
+
+        <!-- NIEUW TOEGEVOEGD: UITLEG F12 -->
+        <div class="instruction-box">
+            <h3 style="color: #495057;">Hoe kunt ge dit zelf controleren?</h3>
+            <p>Moest ge de Console-functie niet kennen, dan kunt ge deze foutmeldingen eenvoudig zelf bekijken op uw computer:</p>
+            <ul class="step-list">
+                <li>Open het formulier in uw browser (bijv. Google Chrome of Edge).</li>
+                <li>Druk op uw toetsenbord op de toets <strong>F12</strong>.</li>
+                <li>Klik bovenaan in het venster dat rechts (of onderaan) verschijnt op het tabblad <strong>'Console'</strong>.</li>
+                <li>U ziet hier de rode tekst onder het onderdeel <strong>'Errors'</strong>. Dit is wat de browser van een deelnemer ziet wanneer de pagina geladen wordt.</li>
+            </ul>
+        </div>
+    </section>
+
+<section>
+        <h2>3. De Oorzaak: Verouderde Techniek</h2>
+        <div class="status-box">
+            <h3>Technisch feit:</h3>
+            <p>De website van de DLML werkt keurig en veilig via <strong>HTTPS</strong>. Echter wordt er in de code een essentieel script aangeroepen via het verouderde <strong>HTTP</strong> (zonder de 's').</p>
+            <p>Dit creëert een situatie van <strong>"onveilig binnen veilig"</strong>. Moderne smartphones accepteren dit niet meer en blokkeren de verbinding met het script om de gebruiker te beschermen.</p>
+            <p>De gebruikte link <code>http://code.jquery.com/jquery-latest.js</code> is bovendien door de ontwikkelaars al in <strong>2014 bevroren</strong> op versie 1.11.1. Deze software is 12 jaar oud en niet langer compatibel met de strenge beveiligingseisen van smartphones in 2026.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Het voorstel (wat misschien kan helpen)</h2>
+        <p>De 5 verouderde script-regels in de HTML-formulier(en) vervangen door <strong>2 iets modernere, veilige HTTPS-regels</strong>.</p>
+        
+        <p><strong>Stap A: Verwijder deze 5 regels volledig:</strong></p>
+        <div class="code-block" style="text-decoration: line-through; color: #888;">
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://code.jquery.com/jquery.min.js"&gt; &lt;/script&gt;
+&lt;script src="http://code.jquery.com/jquery-latest.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery.selection.js"&gt;&lt;/script&gt;</div>
+
+        <p><strong>Stap B: Plaats deze 2 iets modernere regels in de plaats:</strong></p>
+        <div class="code-block" style="border: 2px solid #28a745; background: #f0fff4;">
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"&gt;&lt;/script&gt;</div>
+    </section>
+
+    <section>
+        <h2>5. Verificatie of het geholpen heeft</h2>
+        <ol class="step-list">
+            <li>Voer de bovenstaande wijziging door in de HTML.</li>
+            <li>Open de HTML-pagina in een browser en gebruik de <strong>F12-check</strong> zoals hierboven beschreven.</li>
+            <li>Indien nodig herlaad de pagina (F5). De rode errors kunnen nu misschien volledig verdwenen zijn.</li>
+        </ol>
+    </section>
+</div>
+
+</body>
+</html>
