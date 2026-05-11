@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn vaststellingen Deel 2 - DLML Optimalisatie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f0f2f5; }
+        .container { max-width: 1000px; margin: 40px auto; background: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid #0056b3; }
+        header { border-bottom: 2px solid #eee; padding-bottom: 0px; margin-bottom: 0px; text-align: center; }
+        h1 { color: #0056b3; margin: 0; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { color: #0056b3; border-left: 6px solid #0056b3; padding-left: 15px; margin-top: 50px; font-size: 24px; background: #f8faff; padding-top: 10px; padding-bottom: 10px; }
+        .intro-box { background-color: #eef6ff; border: 1px solid #bddef3; padding: 25px; border-radius: 8px; margin-bottom: 40px; font-size: 1.1em; color: #0369a1; }
+        
+        .audit-item { margin: 30px 0; padding-bottom: 30px; border-bottom: 1px dashed #ddd; }
+        .audit-item:last-child { border-bottom: none; }
+        .item-title { font-weight: bold; font-size: 18px; color: #333; margin-bottom: 15px; display: flex; align-items: center; }
+        .line-ref { background: #663ab7; color: #fff; padding: 2px 8px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 14px; margin-right: 12px; }
+        
+        .code-comparison { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+        .code-block { font-family: 'Fira Code', monospace; font-size: 14px; padding: 15px; border-radius: 6px; position: relative; }
+        .original { background-color: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; }
+        .updated { background-color: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d; }
+        .code-label { position: absolute; top: -10px; right: 10px; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+        .label-orig { background: #ffa39e; color: #fff; }
+        .label-upd { background: #b7eb8f; color: #fff; }
+
+        .explanation { margin-top: 15px; font-size: 15px; color: #555; border-left: 3px solid #ddd; padding-left: 15px; }
+        footer { text-align: center; margin-top: 50px; font-size: 14px; color: #888; border-top: 1px solid #eee; padding: 30px; }
+        b { color: #000; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Mijn vaststellingen Deel 2 </h1>
+        <p><b>Onderwerp:</b> Volledige website - Achtergrond fouten</p>
+    </header>
+
+    <div class="intro-box">
+        Voortbouwend op de eerdere mogelijke oplossing voor de inschrijfformulieren (Mijn vaststellingen...), heb ik de rest van de bronbestanden geanalyseerd, dus de website op zich. Hier volgen de exacte wijzigingen die nodig zijn om alle resterende Console-fouten (F12) weg te werken en de website 100% iPhone-vriendelijk te maken.
+    </div>
+
+    <section>
+        <h2>1. Analyse & Fixes: <span style="font-family: monospace;">voor "index.html"</span></h2>
+
+        <!-- ITEM 1: VIEWPORT -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 7</span> Metadata Viewport</div>
+            <div class="code-comparison">
+                <div class="code-block original">
+                    <div class="code-label label-orig">Origineel</div>
+                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0 "&gt;
+                </div>
+                <div class="code-block updated">
+                    <div class="code-label label-upd">Nieuw</div>
+                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                </div>
+            </div>
+            <div class="explanation">
+                De extra spatie na "1.0" zorgde voor de waarschuwing <i>"The key '' is not recognized"</i> in Chrome. Verwijdering garandeert een foutloze interpretatie van de schermbreedte.
+            </div>
+        </div>
+
+        <!-- ITEM 2: ROBOTO FONT -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 30</span> Google Fonts (Roboto)</div>
+            <div class="code-comparison">
+                <div class="code-block original">
+                    <div class="code-label label-orig">Origineel</div>
+                    &lt;link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'&gt;
+                </div>
+                <div class="code-block updated">
+                    <div class="code-label label-upd">Nieuw</div>
+                    &lt;link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'&gt;
+                </div>
+            </div>
+            <div class="explanation">
+                <b>Kritieke Fix:</b> De HTTP-aanroep wordt dikwijls op nieuwere iPhones (Safari) volledig geblokkeerd. Door over te stappen op HTTPS en specifieke diktes (400, 500, 700) mee te geven, laadt het font sneller en veiliger.
+            </div>
+        </div>
+
+        <!-- ITEM 3: FONTAWESOME DUPLICATE -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 28 & 29</span> Redundantie FontAwesome</div>
+            <div class="explanation">
+                Er stonden twee identieke links naar FontAwesome 4.7.0 onder elkaar. <b>Regel 28 is verwijderd</b> om onnodige data-aanvragen te voorkomen en de laadtijd te verbeteren.
+            </div>
+        </div>
+
+        <!-- ITEM 4: EMPTY.PNG 404 -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 3684</span> Resource 404 (empty.png)</div>
+            <div class="code-comparison">
+                <div class="code-block original">
+                    <div class="code-label label-orig">Origineel</div>
+                    &lt;img src="https://www.dlml.be/fotoActiviteiten/empty.png" alt=".." title="fullscreen"&gt;
+                </div>
+                <div class="code-block updated">
+                    <div class="code-label label-upd">Nieuw</div>
+                    &lt;img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=".." title="fullscreen"&gt;
+                </div>
+            </div>
+            <div class="explanation">
+                Omdat <code>empty.png</code> niet op de server staat, krijgt elke bezoeker een 404-fout, weliswaar op de achtergrond. De nieuwe code gebruikt een onzichtbare 'data-uri' placeholder. Dit lost de fout op zonder een extern bestand nodig te hebben.
+            </div>
+        </div>
+
+        <!-- ITEM 5: SCRIPTS CLEANUP -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 3695 - 3702</span> Consolidatie van Scripts</div>
+            <div class="code-comparison">
+                <div class="code-block updated">
+                    <div class="code-label label-upd">Nieuwe Structuur</div>
+                    &lt;!-- 1. Moderne en veilige jQuery v3.7.1 --&gt;<br>
+                    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"&gt;&lt;/script&gt;<br><br>
+                    &lt;!-- 2. Uw eigen website logica --&gt;<br>
+                    &lt;script src="site/js/myjavascript.js"&gt;&lt;/script&gt;<br><br>
+                    &lt;!-- 3. Stabiele FontAwesome link (Vervangt de kit-link voor CORS fix) --&gt;<br>
+                    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"&gt;&lt;/script&gt;
+                </div>
+            </div>
+            <div class="explanation">
+                De drie verschillende jQuery-versies zijn vervangen door één stabiele versie. De FontAwesome-kit link (regel 1152 in oude code) is vervangen door een CDN-link om de <b>CORS-blokkade</b> ("Access-Control-Allow-Origin") definitief op te lossen.
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Analyse & Fixes: <span style="font-family: monospace;">voor "myjavascript.js"</span></h2>
+
+        <!-- ITEM 6: IMAGE PATHS -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 300 & 318</span> Foutieve paden (Double Slash)</div>
+            <div class="code-comparison">
+                <div class="code-block original">
+                    <div class="code-label label-orig">Origineel</div>
+                    $('#imgHasselt').attr('src','image//HasseltDark.png');
+                </div>
+                <div class="code-block updated">
+                    <div class="code-label label-upd">Nieuw</div>
+                    $('#imgHasselt').attr('src','site/image/HasseltDark.png');
+                </div>
+            </div>
+            <div class="explanation">
+                De dubbele slash en ontbrekende mapnaam zorgden ervoor dat afbeeldingen op sommige systemen niet werden getoond, of niet meer van toepassing (oude code). Dit is nu uniform getrokken met de rest van de site.
+            </div>
+        </div>
+
+        <!-- ITEM 7: SEARCH LOGIC -->
+        <div class="audit-item">
+            <div class="item-title"><span class="line-ref">Regel 460</span> Fix Zoekfunctie (Diabetes 100 Q&A)</div>
+            <div class="code-comparison">
+                <div class="code-block original">
+                    <div class="code-label label-orig">Origineel</div>
+                    $('#div_viewQA' + n).css('display','one');
+                </div>
+                <div class="code-block updated">
+                    <div class="code-label label-upd">Nieuw</div>
+                    $('#div_viewQA' + n).css('display','none');
+                </div>
+            </div>
+            <div class="explanation">
+                Door een typfout (<b>'one'</b> in plaats van <b>'none'</b>).
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Nieuwe toevoeging: Favicon & Manifest</h2>
+        <div class="solution-box" style="background-color: #f0fdf4; border: 1px solid #b7eb8f;">
+            <p><strong>Wat is dit en wat doet het?</strong></p>
+            <p>
+                Een <strong>Favicon</strong> is het kleine logo dat u bovenaan in het tabblad van de browser ziet (naast de naam van de website). 
+                Dit is technisch gezien geen 'fout' in de code, maar moderne browsers zoeken hier tegenwoordig standaard naar bij elke website. 
+                Als dit icoontje ontbreekt, blijft de browser-console (F12) een 404-fout geven omdat hij het bestand niet kan vinden.
+            </p>
+            
+            <p><strong>De voordelen van deze aanvulling:</strong></p>
+            <ul class="step-list" style="margin-top: 10px;">
+                <li><strong>Professionele uitstraling:</strong> Het logo van de Diabetes Liga is nu zichtbaar in de tabbladen en favorieten van de bezoeker.</li>
+                <li><strong>Mobiele ervaring (Web App):</strong> Dankzij het <code>site.webmanifest</code> krijgt de website een officieel DLML-icoontje als leden de site op het startscherm van hun smartphone opslaan. De site opent dan netjes als een soort 'app' zonder storende browserbalken.</li>
+                <li><strong>Schone console:</strong> Hiermee verdwijnt de allerlaatste 404-foutmelding in de browser.</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Hiervoor zijn 4 kleine bestanden toegevoegd aan de hoofdmap:</strong></p>
+            <ul style="padding-left: 20px; font-family: monospace; font-size: 14px; color: #0369a1;">
+                <li>favicon.ico & favicon.svg</li>
+                <li>icon-192x192.png</li>
+                <li>site.webmanifest</li>
+            </ul>
+            <p style="margin-top: 10px;">De bijbehorende verwijzingen zijn toegevoegd aan de <code>&lt;head&gt;</code> van de <strong>index.html</strong> (regels 12 t/m 16).</p>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
