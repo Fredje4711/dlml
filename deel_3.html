@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overzicht Laatste Aanpassingen DLML Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f7f9; }
+        .container { max-width: 1000px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-top: 10px solid #663ab7; }
+        header { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { color: #663ab7; font-size: 26px; margin: 0; }
+        h2 { color: #0056b3; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; font-size: 22px; }
+        .intro { background-color: #f0f9ff; border-left: 5px solid #0056b3; padding: 20px; margin-bottom: 30px; font-style: italic; }
+        .file-label { font-family: 'Fira Code', monospace; background: #edf2f7; padding: 5px 12px; border-radius: 4px; color: #2d3748; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        
+        .code-title { font-weight: bold; margin-top: 20px; margin-bottom: 5px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .code-window { font-family: 'Fira Code', monospace; font-size: 13px; padding: 20px; border-radius: 6px; overflow-x: auto; white-space: pre; margin-bottom: 15px; line-height: 1.5; }
+        .current { background-color: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; }
+        .proposed { background-color: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d; }
+        
+        .vaststelling { background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 6px; margin-bottom: 30px; }
+        .vaststelling strong { color: #d93025; }
+        .info-note { background-color: #fff9e6; border-left: 5px solid #ffcc00; padding: 15px; margin: 10px 0; font-size: 0.95em; }
+        footer { text-align: center; margin-top: 50px; font-size: 14px; color: #777; padding-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+        <!-- SECTIE 1: INSCHRIJVINGSFORMULIER -->
+    <section>
+        <h2>1. Inschrijvingsformulier (leefstijl/index.html)</h2>
+        <span class="file-label">Bestand: leefstijl/index.html</span>
+
+        <div class="code-title">Huidige code (met kleine typfout):</div>
+        <div class="code-window current">&lt;met77a http-equiv="X-UA-Compatible" content="IE=Edge"&gt;</div>
+        
+        <div class="code-title">Aangepaste code:</div>
+        <div class="code-window proposed">&lt;meta http-equiv="X-UA-Compatible" content="IE=Edge"&gt;</div>
+        <div class="vaststelling">
+            <strong>Vaststelling:</strong> Waarschijnlijk is er een klein typfoutje geslopen bij het aanpassen. De browser herkent 'met77a' niet. Door dit te herstellen, werkt de instructie voor de weergave-motor op Windows-computers weer correct.
+        </div>
+
+        <div class="code-title">Huidige script-regels (3 regels):</div>
+        <div class="code-window current">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://code.jquery.com/jquery.min.js"&gt; &lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"&gt;&lt;/script&gt;</div>
+        
+        <div class="code-title">Aangepaste script-regels (2 regels):</div>
+        <div class="code-window proposed">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"&gt;&lt;/script&gt;</div>
+        
+        <div class="vaststelling">
+            <strong>Vaststelling:</strong> De tweede regel (code.jquery.com) is inmiddels HTTPS, dus die geeft geen blokkade meer. Maar omdat de regel erboven (ajax.googleapis.com) exact dezelfde motor inlaadt, is die tweede regel <strong>overbodig</strong> geworden. 
+            
+            <div class="info-note">
+                <strong>Waarom is verwijderen beter?</strong><br>
+                Twee keer dezelfde bibliotheek laden is als twee kapiteins op één schip: het maakt de pagina onnodig zwaar voor de gsm van de bezoeker en het kan soms voor kleine conflicten zorgen tussen de scripts. Door er eentje te houden, blijft de code schoon, snel en stabiel.
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTIE 2: HOOFDWEBSITE -->
+    <!-- SECTIE 2: MANIFEST & ICONEN (APP-WEERGAVE) -->
+    <!-- SECTIE 2: WEB-APP INSTELLINGEN (site.webmanifest) -->
+    <section>
+        <h2>2. Web-app configuratie (Aanpassing Manifest & Icoontjes)</h2>
+        <p>Om te zorgen dat men een mooi DLML-icoontje op de gsm kan krijgen, moeten we het manifest-bestand op twee plaatsen in orde zetten. <strong>Let op:</strong> het is belangrijk dat zowel de bestandsnaam als de verwijzing in de code gewijzigd wordt.</p>
+
+        <!-- AANPASSING HOOFDMAP -->
+        <div class="vaststelling" style="border-left: 5px solid #0056b3; background-color: #f8f9fa;">
+            <h3 style="margin-top: 0; color: #0056b3;">Locatie 1: De Hoofdmap (./)</h3>
+            
+            <p><strong>A. Actie in de hoofdmap:</strong></p>
+            <p>Hernoem het bestand <code style="color: #d93025;">site.webmanifest.html</code> naar <code style="color: #28a745; font-weight: bold;">site.webmanifest</code></p>
+            
+            <p><strong>B. Actie in de code van ./index.html:</strong></p>
+            <div class="code-title">Huidige code:</div>
+            <div class="code-window current">&lt;link rel="manifest" href="site.webmanifest.html"&gt;</div>
+            
+            <div class="code-title">Nieuwe code:</div>
+            <div class="code-window proposed">&lt;link rel="manifest" href="site.webmanifest"&gt;</div>
+        </div>
+
+        <!-- AANPASSING LEEFSTIJL MAP -->
+        <div class="vaststelling" style="border-left: 5px solid #0056b3; background-color: #f8f9fa; margin-top: 20px;">
+            <h3 style="margin-top: 0; color: #0056b3;">Locatie 2: De map van het formulier (leefstijl/)</h3>
+            
+            <p><strong>A. Actie in de map "Leefstijl":</strong></p>
+            <p>Hernoem het bestand in deze map ook van <code style="color: #d93025;">site.webmanifest.html</code> naar <code style="color: #28a745; font-weight: bold;">site.webmanifest</code></p>
+            
+            <p><strong>B. Actie in de code van leefstijl/index.html:</strong></p>
+            <div class="code-title">Huidige code:</div>
+            <div class="code-window current">&lt;link rel="manifest" href="site.webmanifest.html"&gt;</div>
+            
+            <div class="code-title">Nieuwe code:</div>
+            <div class="code-window proposed">&lt;link rel="manifest" href="site.webmanifest"&gt;</div>
+        </div>
+
+        <div class="vaststelling">
+            <strong>Vaststelling:</strong> Een manifest-bestand is een configuratiebestand voor smartphones en geen webpagina. Door de extensie <code>.html</code> overal te verwijderen, herkent een iPhone dit direct als de officiële 'App-instellingen' van onze site. 
+            <br>
+        </div>
+    </section>
+
+    <!-- SECTIE 3: JAVASCRIPT -->
+    <!-- SECTIE 3: JAVASCRIPT MOTOR (site/js/myjavascript.js) -->
+    <section>
+        <h2>3. JavaScript optimalisatie (Paden & Zoekfunctie)</h2>
+        <p>In het JavaScript-bestand moeten we de verwijzingen naar de afbeeldingen corrigeren zodat ze overeenkomen met de mappenstructuur op de server, en een typfout in de zoekfunctie herstellen.</p>
+
+        <!-- AANPASSING 1: FOTO HASSELT -->
+        <div class="code-title">AANPASSING 1: Paden naar foto Hasselt (Regel 300 & 318)</div>
+        <div class="code-window current">
+// Regel 300
+$('#imgHasselt').attr('src','image/HasseltDark.png');
+// Regel 318
+$('#imgHasselt').attr('src','image/HasseltLight.png');</div>
+        
+        <div class="code-window proposed">
+// Regel 300
+$('#imgHasselt').attr('src','site/image/HasseltDark.png');
+// Regel 318
+$('#imgHasselt').attr('src','site/image/HasseltLight.png');</div>
+
+        <!-- SECTIE 3: JAVASCRIPT MOTOR (site/js/myjavascript.js) -->
+    <section>
+        <h2>3. JavaScript optimalisatie (Paden & Zoekfunctie)</h2>
+        <!-- AANPASSING 1: FOTO HASSELT (Pad-correctie) -->
+        <div class="code-title">AANPASSING 1: Correcte mapnaam voor Hasselt foto's (Regel 300 & 318)</div>
+        <div class="code-window current">
+// Regel 300
+$('#imgHasselt').attr('src','image/HasseltDark.png');
+// Regel 318
+$('#imgHasselt').attr('src','image/HasseltLight.png');</div>
+        
+        <div class="code-window proposed">
+// Regel 300
+$('#imgHasselt').attr('src','site/image/HasseltDark.png');
+// Regel 318
+$('#imgHasselt').attr('src','site/image/HasseltLight.png');</div>
+
+        <!-- AANPASSING 2: LOGO'S (Domein verwijderen) -->
+        <div class="code-title">AANPASSING 2: Relatieve paden voor logo's (Regel 302, 305, 320, 323)</div>
+        <div class="code-window current">
+// Regel 302 & 305 (Wit logo)
+$(this).attr('src','https://www.dlml.be/site/image/LogoDLwt.png');
+
+// Regel 320 & 323 (Zwart logo)
+$(this).attr('src','https://www.dlml.be/site/image/LogoDLzw.png');</div>
+        
+        <div class="code-window proposed">
+// Regel 302 & 305
+$(this).attr('src','site/image/LogoDLwt.png');
+
+// Regel 320 & 323
+$(this).attr('src','site/image/LogoDLzw.png');</div>
+
+        <div class="vaststelling">
+            <strong>Vaststelling:</strong> De huidige links werken, maar ze wijzen naar het volledige internetadres. Door er 'relatieve' paden van te maken (zonder https://www.dlml.be), maken we de code onafhankelijk.
+        </div>
+
+    <!-- SECTIE 4: MYTHEN & FEITEN ICONEN -->
+    <section>
+        <h2>4. Iconen Mythen & Feiten (site/css/diabetesinfo.css)</h2>
+        <span class="file-label">Bestand: site/css/diabetesinfo.css</span>
+
+        <p>Omdat we nu FontAwesome 6 gebruiken, verandert de browser de icoontjes automatisch in <strong>SVG-plaatjes</strong>. De huidige CSS kijkt alleen naar het "i-element", waardoor de nieuwe icoontjes klein in de hoek blijven staan. We moeten de <strong>svg</strong> toevoegen aan de stijlregels op drie plaatsen:</p>
+
+        <!-- AANPASSING 1: Kleine schermen (Standaard) -->
+        <div class="code-title">AANPASSING 1: Standaard weergave (GSM)</div>
+        <div class="code-window current">.card_front i {
+    width:100%; height:100%;
+    grid-column:2; grid-row: 5; 
+    text-align:center; 
+    font-size: 10vw; line-height:1; }</div>
+        
+        <div class="code-window proposed">.card_front i, .card_front svg {
+    width:100%; height:100%;
+    grid-column:2; grid-row: 5; 
+    text-align:center; 
+    font-size: 10vw; line-height:1; }</div>
+
+        <!-- AANPASSING 2: Medium schermen -->
+        <div class="code-title">AANPASSING 2: @media only screen and (min-width: 768px)</div>
+        <div class="code-window current">.card_front i { font-size: 7vw; line-height:1; }</div>
+        
+        <div class="code-window proposed">.card_front i, .card_front svg { font-size: 7vw; line-height:1; }</div>
+
+        <!-- AANPASSING 3: Grote schermen -->
+        <div class="code-title">AANPASSING 3: @media only screen and (min-width: 1280px)</div>
+        <div class="code-window current">.card_front i { font-size: 7vw; line-height:1; }</div>
+        
+        <div class="code-window proposed">.card_front i, .card_front svg { font-size: 7vw; line-height:1; }</div>
+
+        <div class="vaststelling">
+            <strong>Vaststelling:</strong> Door overal <code>, .card_front svg</code> toe te voegen aan de selector, begrijpt de browser dat de nieuwe SVG-iconen exact dezelfde grootte (10vw of 7vw) en positie (grid-row 5) moeten krijgen als de oude lettertype-icoontjes. Hierdoor staan ze weer netjes groot en gecentreerd op de kaarten.
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
