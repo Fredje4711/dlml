@@ -61,8 +61,6 @@
         </div>
     </section>
 
-    <!-- SECTIE 2: HOOFDWEBSITE -->
-    <!-- SECTIE 2: MANIFEST & ICONEN (APP-WEERGAVE) -->
     <!-- SECTIE 2: WEB-APP INSTELLINGEN (site.webmanifest) -->
     <section>
         <h2>2. Web-app configuratie (Aanpassing Manifest & Icoontjes)</h2>
@@ -102,27 +100,7 @@
             <strong>Vaststelling:</strong> Een manifest-bestand is een configuratiebestand voor smartphones en geen webpagina. Door de extensie <code>.html</code> overal te verwijderen, herkent een iPhone dit direct als de officiële 'App-instellingen' van onze site. 
             <br>
         </div>
-    </section>
-
-    <!-- SECTIE 3: JAVASCRIPT -->
-    <!-- SECTIE 3: JAVASCRIPT MOTOR (site/js/myjavascript.js) -->
-    <section>
-        <h2>3. JavaScript optimalisatie (Paden & Zoekfunctie)</h2>
-        <p>In het JavaScript-bestand moeten we de verwijzingen naar de afbeeldingen corrigeren zodat ze overeenkomen met de mappenstructuur op de server, en een typfout in de zoekfunctie herstellen.</p>
-
-        <!-- AANPASSING 1: FOTO HASSELT -->
-        <div class="code-title">AANPASSING 1: Paden naar foto Hasselt (Regel 300 & 318)</div>
-        <div class="code-window current">
-// Regel 300
-$('#imgHasselt').attr('src','image/HasseltDark.png');
-// Regel 318
-$('#imgHasselt').attr('src','image/HasseltLight.png');</div>
-        
-        <div class="code-window proposed">
-// Regel 300
-$('#imgHasselt').attr('src','site/image/HasseltDark.png');
-// Regel 318
-$('#imgHasselt').attr('src','site/image/HasseltLight.png');</div>
+    </section>   
 
         <!-- SECTIE 3: JAVASCRIPT MOTOR (site/js/myjavascript.js) -->
     <section>
