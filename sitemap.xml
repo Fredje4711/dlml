@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="sitemaps.org">
+
+  <!-- GitHub Repository Home URL -->
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Lokale iFrame Submodules en pagina's -->
+  <url>
+    <loc>https://github.iowekelijkse_wandeling.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://github.iomenu_ledenfeest_2026.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://github.io</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://github.ioMounjaro.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Officiële Presentaties (PDF) op de hoofddomein server -->
+  <url><loc>https://dlml.be</loc><priority>0.75</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.75</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.75</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.75</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.70</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.70</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.70</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.65</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.65</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.70</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.65</priority></url>
+  <url><loc>dlml.be</loc><priority>0.65</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.60</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.60</priority></url>
+  <url><loc>dlml.be</loc><priority>0.60</priority></url>
+  <url><loc>dlml.be</loc><priority>0.60</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.60</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.55</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.55</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.55</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.55</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.50</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.50</priority></url>
+  <url><loc>dlml.be</loc><priority>0.50</priority></url>
+  <url><loc>https://dlml.be</loc><priority>0.50</priority></url>
+  <url><loc>github.io</loc><priority>0.60</priority></url>
+
+</urlset>

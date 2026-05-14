@@ -1,2 +1,20 @@
 User-agent: *
-Disallow:
+Allow: /
+Allow: /dlml/
+
+# Geef expliciete kruiprechten aan alle leidende AI- en LLM-bots
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Anthropic-ai
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+
+# Directe koppeling naar de sitemap ter versnelling van de indexering
+Sitemap: github.io
