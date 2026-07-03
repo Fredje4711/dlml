@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Diabetes in België, de provincies en Limburgse gemeenten — IMA-AIM update 2024</title>
+<style>
+:root {
+  --blue:#23a9e4; --blue-dark:#1689bd; --blue-soft:#eefaff; --bar:#bfefff; --orange:#f28c28; --ink:#18222b; --muted:#64727d; --line:#dce8ee; --bg:#f6fbfe; --card:#ffffff; --green:#257a59;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial, Helvetica, sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:17px}
+a{color:var(--blue-dark);font-weight:700}
+.hero{background:linear-gradient(135deg,#0b6e99,#23a9e4);color:white;padding:34px 18px 26px}
+.wrap{max-width:1120px;margin:0 auto}
+.kicker{font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;opacity:.95}
+h1{font-size:clamp(31px,5vw,54px);line-height:1.05;margin:.35rem 0 .7rem}
+.update{display:inline-block;font-size:clamp(16px,2.2vw,22px);font-weight:800;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 11px;margin-left:4px;vertical-align:middle;white-space:nowrap}
+.subtitle{font-size:clamp(18px,2.3vw,24px);max-width:940px;margin:0;opacity:.98}
+.notice{background:#fff8e9;border-left:6px solid var(--orange);padding:14px 16px;border-radius:14px;margin:18px 0;color:#4b3418}
+.info-note{background:#f2fbff;border:1px solid #cfeef9;border-left:5px solid var(--blue);padding:14px 16px;border-radius:16px;margin:18px 0;color:#244250}
+.info-note strong{color:#1689bd}
+.nav{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.nav a{background:rgba(255,255,255,.16);color:white;text-decoration:none;border:1px solid rgba(255,255,255,.38);padding:9px 12px;border-radius:999px;font-size:15px}
+main{padding:22px 14px 44px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;margin:18px 0;box-shadow:0 10px 28px rgba(15,86,119,.08)}
+h2{font-size:clamp(25px,3.5vw,36px);margin:0 0 12px;color:#1689bd;line-height:1.15}
+h3{font-size:23px;margin:26px 0 10px;color:#1689bd}
+p{margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.stat{background:linear-gradient(180deg,#fff,#f0fbff);border:1px solid #cae9f6;border-radius:18px;padding:18px;min-height:142px}
+.stat .num{font-size:34px;font-weight:900;color:var(--blue);line-height:1.05}
+.stat .lbl{font-weight:800;margin-top:6px}
+.stat .small{font-size:14px;color:var(--muted);margin-top:6px}
+.callout{background:var(--blue-soft);border:1px solid #bfe9f8;border-radius:18px;padding:18px;margin:18px 0}
+.warning{background:#fff3e0;border:1px solid #ffd39b;border-radius:18px;padding:18px;margin:18px 0}
+.good{background:#eaf8f1;border:1px solid #bfe4d2;border-radius:18px;padding:18px;margin:18px 0}
+.term{display:grid;grid-template-columns:180px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.term:last-child{border-bottom:0}
+.term strong{color:var(--blue)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;margin:14px 0;background:white}
+table{width:100%;border-collapse:collapse;min-width:740px}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{background:#eefaff;color:#1689bd;font-size:15px}
+tr:last-child td{border-bottom:0}
+.highlight-row td{background:#eefaff!important;font-weight:800}
+.muted{color:var(--muted)}
+.chart{padding:12px;border:1px solid var(--line);background:#fbfdfe;border-radius:18px;margin:14px 0}
+.chartrow{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:center;margin:10px 0}
+.chartlabel{font-weight:800;color:#20313c}
+.barline{position:relative;height:32px;background:#f3f9fc;border-radius:999px;overflow:hidden;border:1px solid #d9edf5}
+.barfill{position:absolute;left:0;top:0;bottom:0;background:var(--bar);border-radius:999px}
+.bartext{position:relative;z-index:1;display:flex;align-items:center;height:100%;padding-left:12px;font-weight:700;color:#35515f;text-shadow:none;white-space:nowrap}
+.twobars{display:grid;grid-template-columns:80px 1fr 1fr;gap:10px;align-items:center;margin:10px 0}
+.men .barfill{background:var(--bar)}
+.women .barfill{background:var(--bar)}
+ul.clean{padding-left:22px}
+ul.clean li{margin:8px 0}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;background:#e8f7fd;color:var(--blue);font-weight:800;font-size:14px}
+.source{font-size:14px;color:#53636f}
+.footnote{font-size:14px;color:#53636f;border-top:1px solid var(--line);padding-top:10px;margin-top:14px}
+.sourcebox{background:#f7fbfd;border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:12px 0}
+.sourcebox h3{font-size:20px;margin:0 0 8px;color:#1689bd}
+.disclaimer{background:#f7fbfd;border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:16px;padding:14px 16px;margin:16px 0;color:#33434d}
+.footer{border-top:1px solid var(--line);margin-top:26px;padding-top:16px;color:#53636f;font-size:14px}
+.print-note{display:none}
+@media(max-width:850px){
+  body{font-size:16px}
+  .grid{grid-template-columns:1fr 1fr}
+  .term{grid-template-columns:1fr}
+  .chartrow{grid-template-columns:1fr}
+  .twobars{grid-template-columns:1fr}
+  .hero{padding-top:26px}
+  .card{padding:18px;border-radius:18px}
+  table{min-width:720px}
+}
+@media(max-width:520px){.grid{grid-template-columns:1fr} h1{font-size:34px} .stat{min-height:auto}}
+@media print{body{background:#fff;font-size:12px}.hero{background:#fff;color:#000;border-bottom:2px solid #000}.nav{display:none}.card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}.print-note{display:block}a{color:#000}}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="wrap">
+<div class="kicker">Diabetes Liga Midden-Limburg · IMA-Atlasgegevens</div>
+<h1>Diabetes in België, de provincies en Limburgse gemeenten <span class="update">IMA-AIM update 2024</span></h1>
+<p class="subtitle">Recente cijfers uit de IMA-Atlas over het aantal gekende mensen met diabetes.</p>
+<nav aria-label="Inhoud" class="nav">
+<a href="#kern">Kerncijfers</a><a href="#begrippen">Begrippen</a><a href="#belgie">België</a><a href="#interpretatie">Interpretatie</a><a href="#provincies">Provincies</a><a href="#limburg">Limburgse gemeenten</a><a href="#bronnen">Bronnen</a>
+</nav>
+</div>
+</header>
+<main><div class="wrap">
+<section class="info-note" aria-label="Waarom geen cijfers van 2025?">
+<strong>Waarom geen cijfers van 2025?</strong><br/>
+Officiële gezondheidsgegevens (Belgische ziekteverzekeringen) worden pas gepubliceerd nadat ze volledig verwerkt en gecontroleerd zijn. Daardoor lopen deze cijfers meestal één tot twee jaar achter. De IMA-AIM update 2024 is momenteel de recentste beschikbare update voor deze diabetesgegevens.
+</section>
+<section class="card" id="kern">
+<h2>Enkele opvallende cijfers uit 2024</h2>
+<div class="grid">
+<div class="stat"><div class="num">82</div><div class="lbl">België — totaal</div><div class="small">per 1.000 = 8,2%, ongeveer 1 op 12</div></div>
+<div class="stat"><div class="num">247</div><div class="lbl">België — 75 jaar en ouder</div><div class="small">per 1.000 = 24,7%, bijna 1 op 4</div></div>
+<div class="stat"><div class="num">26</div><div class="lbl">België — 25 tot 44 jaar</div><div class="small">per 1.000 = 2,6%; in 2014 was dit 1,6%</div></div>
+<div class="stat"><div class="num">84</div><div class="lbl">Limburg — totaal</div><div class="small">per 1.000 = 8,4%, ongeveer 1 op 12</div></div>
+</div>
+<p class="footnote">Deze vier cijfers zijn een korte selectie van wat het meest opvalt. De volledige leeftijdsgroepen, provincies en Limburgse gemeenten staan verder op deze pagina.</p>
+</section>
+<section class="card" id="begrippen">
+<h2>Enkele woorden kort uitgelegd</h2>
+<div class="term"><strong>Prevalentie</strong><span>Een moeilijk woord voor: hoeveel mensen in een bepaalde groep diabetes hebben. Het gaat dus om alle gekende mensen met diabetes in die groep, niet enkel om wie er pas is bijgekomen.</span></div>
+<div class="term"><strong>Per 1.000</strong><span>De cijfers worden getoond per 1.000 inwoners. 82 per 1.000 betekent 8,2%, of ongeveer 1 op 12 mensen.</span></div>
+<div class="term"><strong>Gekende diabetes</strong><span>Diabetes die zichtbaar is in de gegevens van de ziekteverzekering, bijvoorbeeld door medicatie of diabeteszorg.</span></div>
+</section>
+<section class="card" id="belgie">
+<h2>België: leeftijdsgroepen 2014 tegenover 2024</h2>
+<p>Hier staan alle leeftijdsgroepen uit de aangeleverde Belgische tabel. De cijfers tonen hoeveel mensen per 1.000 inwoners gekend zijn met diabetes.</p>
+<div aria-label="Staafgrafiek België leeftijdsgroepen 2024" class="chart"><div class="chartrow"><div class="chartlabel">0-24 jaar</div><div class="barline"><span class="barfill" style="width:3.0%"></span><span class="bartext">5 per 1.000</span></div></div><div class="chartrow"><div class="chartlabel">25-44 jaar</div><div class="barline"><span class="barfill" style="width:10.5%"></span><span class="bartext">26 per 1.000</span></div></div><div class="chartrow"><div class="chartlabel">45-64 jaar</div><div class="barline"><span class="barfill" style="width:40.5%"></span><span class="bartext">100 per 1.000</span></div></div><div class="chartrow"><div class="chartlabel">65-74 jaar</div><div class="barline"><span class="barfill" style="width:83.8%"></span><span class="bartext">207 per 1.000</span></div></div><div class="chartrow"><div class="chartlabel">75+ jaar</div><div class="barline"><span class="barfill" style="width:100.0%"></span><span class="bartext">247 per 1.000</span></div></div></div>
+<div class="table-wrap"><table><thead><tr><th>Leeftijdsgroep</th><th>2014 per 1.000</th><th>2024 per 1.000</th><th>2024 als %</th><th>Verschil</th><th>Relatieve stijging</th><th>Gewone taal 2024</th></tr></thead><tbody><tr><td>0-24 jaar</td><td>4</td><td>5</td><td><strong>0,5%</strong></td><td>+1</td><td>+25,0%</td><td>ongeveer 1 op 200,0</td></tr><tr><td>25-44 jaar</td><td>16</td><td>26</td><td><strong>2,6%</strong></td><td>+10</td><td>+62,5%</td><td>ongeveer 1 op 38,5</td></tr><tr><td>45-64 jaar</td><td>76</td><td>100</td><td><strong>10,0%</strong></td><td>+24</td><td>+31,6%</td><td>ongeveer 1 op 10,0</td></tr><tr><td>65-74 jaar</td><td>169</td><td>207</td><td><strong>20,7%</strong></td><td>+38</td><td>+22,5%</td><td>ongeveer 1 op 4,8</td></tr><tr><td>75+ jaar</td><td>176</td><td>247</td><td><strong>24,7%</strong></td><td>+71</td><td>+40,3%</td><td>ongeveer 1 op 4,0</td></tr></tbody></table></div>
+<div class="good"><strong>Wat valt op in België?</strong> Bij 65–74 jaar gaat het in 2024 om ongeveer 1 op 5. Bij 75+ om bijna 1 op 4. Ook bij 25–44 jaar is er een duidelijke stijging: van 16 naar 26 per 1.000.</div>
+<h3>Mannen en vrouwen: evolutie 2014–2024</h3>
+<p>In de aangeleverde Belgische tabel is de evolutie naar geslacht beschikbaar. In 2024 ligt het cijfer bij mannen hoger dan bij vrouwen.</p>
+<div class="chart"><div class="twobars"><div class="chartlabel">2014</div><div class="barline men"><span class="barfill" style="width:66.7%"></span><span class="bartext">Mannen 60 per 1.000</span></div><div class="barline women"><span class="barfill" style="width:63.3%"></span><span class="bartext">Vrouwen 57 per 1.000</span></div></div><div class="twobars"><div class="chartlabel">2024</div><div class="barline men"><span class="barfill" style="width:95.6%"></span><span class="bartext">Mannen 86 per 1.000</span></div><div class="barline women"><span class="barfill" style="width:86.7%"></span><span class="bartext">Vrouwen 78 per 1.000</span></div></div></div>
+<div class="table-wrap"><table><thead><tr><th>Jaar</th><th>Mannen per 1.000</th><th>Mannen als %</th><th>Vrouwen per 1.000</th><th>Vrouwen als %</th></tr></thead><tbody><tr><td>2014</td><td>60</td><td>6,0%</td><td>57</td><td>5,7%</td></tr><tr><td>2024</td><td>86</td><td>8,6%</td><td>78</td><td>7,8%</td></tr></tbody></table></div>
+<h3>2024: leeftijd én geslacht samen</h3>
+<p>Hier ziet u dat het verschil tussen mannen en vrouwen vooral groter wordt vanaf middelbare en oudere leeftijd.</p>
+<div class="table-wrap"><table><thead><tr><th>Leeftijdsgroep</th><th>Mannen per 1.000</th><th>Mannen als %</th><th>Vrouwen per 1.000</th><th>Vrouwen als %</th><th>Verschil man-vrouw</th></tr></thead><tbody><tr><td>0-24 jaar</td><td>4</td><td>0,4%</td><td>6</td><td>0,6%</td><td>-2</td></tr><tr><td>25-44 jaar</td><td>18</td><td>1,8%</td><td>33</td><td>3,3%</td><td>-15</td></tr><tr><td>45-64 jaar</td><td>112</td><td>11,2%</td><td>88</td><td>8,8%</td><td>24</td></tr><tr><td>65-74 jaar</td><td>244</td><td>24,4%</td><td>173</td><td>17,3%</td><td>71</td></tr><tr><td>75+ jaar</td><td>287</td><td>28,7%</td><td>219</td><td>21,9%</td><td>68</td></tr></tbody></table></div>
+</section>
+<section class="card" id="interpretatie">
+<h2>Wat leert de evolutie?</h2>
+<p>De Belgische cijfers tonen tussen 2014 en 2024 een stijging in elke leeftijdsgroep uit deze tabel. Dat blijft opvallend, ook al zijn behandeling en opvolging sterk verbeterd.</p>
+<ul class="clean">
+<li><strong>Oudere leeftijd blijft belangrijk:</strong> de hoogste cijfers staan bij 65 jaar en ouder.</li>
+<li><strong>Ook jongere volwassenen stijgen:</strong> bij 25–44 jaar gaat het van 16 naar 26 per 1.000.</li>
+<li><strong>Betere zorg voorkomt niet automatisch een daling:</strong> mensen leven langer met diabetes en er blijven nieuwe gevallen bijkomen.</li>
+</ul>
+<p class="footnote"><strong>Type 1/type 2:</strong> de gebruikte IMA-tabellen tonen alle gekende diabetes samen en splitsen niet op naar type 1 en type 2.</p>
+</section>
+<section class="card" id="provincies">
+<h2>Provincies en Brussel: cijfers 2024</h2>
+<p>Onderstaande tabel rangschikt de provincies en Brussel volgens het aantal gekende mensen met diabetes per 1.000 inwoners. België als geheel staat op <strong>82 per 1.000</strong>. Limburg staat op <strong>84 per 1.000</strong> en ligt daarmee licht boven België.</p>
+<div class="table-wrap"><table><thead><tr><th>Provincie/gewest</th><th>2024 per 1.000</th><th>Als %</th><th>Verschil tegenover België</th></tr></thead><tbody><tr class=""><td>Luik</td><td><div class="barline"><span class="barfill" style="width:100.0%"></span><span class="bartext">117 per 1.000</span></div></td><td>11,7%</td><td>+35</td></tr><tr class=""><td>Henegouwen</td><td><div class="barline"><span class="barfill" style="width:80.3%"></span><span class="bartext">94 per 1.000</span></div></td><td>9,4%</td><td>+12</td></tr><tr class=""><td>Luxemburg</td><td><div class="barline"><span class="barfill" style="width:78.6%"></span><span class="bartext">92 per 1.000</span></div></td><td>9,2%</td><td>+10</td></tr><tr class=""><td>Namen</td><td><div class="barline"><span class="barfill" style="width:73.5%"></span><span class="bartext">86 per 1.000</span></div></td><td>8,6%</td><td>+4</td></tr><tr class="highlight-row"><td>Limburg</td><td><div class="barline"><span class="barfill" style="width:71.8%"></span><span class="bartext">84 per 1.000</span></div></td><td>8,4%</td><td>+2</td></tr><tr class=""><td>West-Vlaanderen</td><td><div class="barline"><span class="barfill" style="width:71.8%"></span><span class="bartext">84 per 1.000</span></div></td><td>8,4%</td><td>+2</td></tr><tr class=""><td>Oost-Vlaanderen</td><td><div class="barline"><span class="barfill" style="width:64.1%"></span><span class="bartext">75 per 1.000</span></div></td><td>7,5%</td><td>-7</td></tr><tr class=""><td>Vlaams-Brabant</td><td><div class="barline"><span class="barfill" style="width:62.4%"></span><span class="bartext">73 per 1.000</span></div></td><td>7,3%</td><td>-9</td></tr><tr class=""><td>Antwerpen</td><td><div class="barline"><span class="barfill" style="width:59.8%"></span><span class="bartext">70 per 1.000</span></div></td><td>7,0%</td><td>-12</td></tr><tr class=""><td>Brussel-Hoofdstad</td><td><div class="barline"><span class="barfill" style="width:59.8%"></span><span class="bartext">70 per 1.000</span></div></td><td>7,0%</td><td>-12</td></tr><tr class=""><td>Waals-Brabant</td><td><div class="barline"><span class="barfill" style="width:57.3%"></span><span class="bartext">67 per 1.000</span></div></td><td>6,7%</td><td>-15</td></tr></tbody></table></div>
+</section>
+<section class="card" id="limburg">
+<h2>Limburgse gemeenten 2024</h2>
+<p>Onderstaande tabel toont de Limburgse gemeenten uit het aangeleverde IMA-bestand, gesorteerd van hoogste naar laagste cijfer. Sommige gemeenten zijn in de bron al samengevoegd: Kortessem zit bij Hasselt, Hoeselt bij Bilzen-Hoeselt, Borgloon bij Tongeren-Borgloon en Ham bij Tessenderlo-Ham.</p>
+
+
+
+<div class="table-wrap"><table><thead><tr><th>Gemeente</th><th>2024 per 1.000</th><th>Als %</th><th>Gewone taal</th><th>Opmerking</th></tr></thead><tbody><tr><td>Voeren</td><td><div class="barline"><span class="barfill" style="width:100.0%"></span><span class="bartext">99 per 1.000</span></div></td><td>9,9%</td><td>ongeveer 1 op 10,1</td><td></td></tr><tr><td>Genk</td><td><div class="barline"><span class="barfill" style="width:99.0%"></span><span class="bartext">98 per 1.000</span></div></td><td>9,8%</td><td>ongeveer 1 op 10,2</td><td></td></tr><tr><td>Gingelom</td><td><div class="barline"><span class="barfill" style="width:98.0%"></span><span class="bartext">97 per 1.000</span></div></td><td>9,7%</td><td>ongeveer 1 op 10,3</td><td></td></tr><tr><td>Heers</td><td><div class="barline"><span class="barfill" style="width:97.0%"></span><span class="bartext">96 per 1.000</span></div></td><td>9,6%</td><td>ongeveer 1 op 10,4</td><td></td></tr><tr><td>Nieuwerkerken</td><td><div class="barline"><span class="barfill" style="width:96.0%"></span><span class="bartext">95 per 1.000</span></div></td><td>9,5%</td><td>ongeveer 1 op 10,5</td><td></td></tr><tr><td>St.-Truiden</td><td><div class="barline"><span class="barfill" style="width:94.9%"></span><span class="bartext">94 per 1.000</span></div></td><td>9,4%</td><td>ongeveer 1 op 10,6</td><td></td></tr><tr><td>Houthalen-Helchteren</td><td><div class="barline"><span class="barfill" style="width:93.9%"></span><span class="bartext">93 per 1.000</span></div></td><td>9,3%</td><td>ongeveer 1 op 10,8</td><td></td></tr><tr><td>Lommel</td><td><div class="barline"><span class="barfill" style="width:93.9%"></span><span class="bartext">93 per 1.000</span></div></td><td>9,3%</td><td>ongeveer 1 op 10,8</td><td></td></tr><tr><td>Heusden-Zolder</td><td><div class="barline"><span class="barfill" style="width:86.9%"></span><span class="bartext">86 per 1.000</span></div></td><td>8,6%</td><td>ongeveer 1 op 11,6</td><td></td></tr><tr><td>Lanaken</td><td><div class="barline"><span class="barfill" style="width:86.9%"></span><span class="bartext">86 per 1.000</span></div></td><td>8,6%</td><td>ongeveer 1 op 11,6</td><td></td></tr><tr><td>Maasmechelen</td><td><div class="barline"><span class="barfill" style="width:86.9%"></span><span class="bartext">86 per 1.000</span></div></td><td>8,6%</td><td>ongeveer 1 op 11,6</td><td></td></tr><tr><td>Tongeren-Borgloon</td><td><div class="barline"><span class="barfill" style="width:86.9%"></span><span class="bartext">86 per 1.000</span></div></td><td>8,6%</td><td>ongeveer 1 op 11,6</td><td></td></tr><tr><td>Diepenbeek</td><td><div class="barline"><span class="barfill" style="width:85.9%"></span><span class="bartext">85 per 1.000</span></div></td><td>8,5%</td><td>ongeveer 1 op 11,8</td><td></td></tr><tr><td>Halen</td><td><div class="barline"><span class="barfill" style="width:85.9%"></span><span class="bartext">85 per 1.000</span></div></td><td>8,5%</td><td>ongeveer 1 op 11,8</td><td></td></tr><tr><td>Wellen</td><td><div class="barline"><span class="barfill" style="width:85.9%"></span><span class="bartext">85 per 1.000</span></div></td><td>8,5%</td><td>ongeveer 1 op 11,8</td><td></td></tr><tr><td>Dilsen-Stokkem</td><td><div class="barline"><span class="barfill" style="width:84.8%"></span><span class="bartext">84 per 1.000</span></div></td><td>8,4%</td><td>ongeveer 1 op 11,9</td><td></td></tr><tr><td>Hamont-Achel</td><td><div class="barline"><span class="barfill" style="width:84.8%"></span><span class="bartext">84 per 1.000</span></div></td><td>8,4%</td><td>ongeveer 1 op 11,9</td><td></td></tr><tr><td>Leopoldsburg</td><td><div class="barline"><span class="barfill" style="width:82.8%"></span><span class="bartext">82 per 1.000</span></div></td><td>8,2%</td><td>ongeveer 1 op 12,2</td><td></td></tr><tr><td>Alken</td><td><div class="barline"><span class="barfill" style="width:81.8%"></span><span class="bartext">81 per 1.000</span></div></td><td>8,1%</td><td>ongeveer 1 op 12,3</td><td></td></tr><tr><td>Beringen</td><td><div class="barline"><span class="barfill" style="width:81.8%"></span><span class="bartext">81 per 1.000</span></div></td><td>8,1%</td><td>ongeveer 1 op 12,3</td><td></td></tr><tr><td>Bilzen-hoeselt</td><td><div class="barline"><span class="barfill" style="width:81.8%"></span><span class="bartext">81 per 1.000</span></div></td><td>8,1%</td><td>ongeveer 1 op 12,3</td><td></td></tr><tr><td>Hasselt</td><td><div class="barline"><span class="barfill" style="width:81.8%"></span><span class="bartext">81 per 1.000</span></div></td><td>8,1%</td><td>ongeveer 1 op 12,3</td><td></td></tr><tr><td>Hechtel-Eksel</td><td><div class="barline"><span class="barfill" style="width:80.8%"></span><span class="bartext">80 per 1.000</span></div></td><td>8,0%</td><td>ongeveer 1 op 12,5</td><td></td></tr><tr><td>Maaseik</td><td><div class="barline"><span class="barfill" style="width:80.8%"></span><span class="bartext">80 per 1.000</span></div></td><td>8,0%</td><td>ongeveer 1 op 12,5</td><td></td></tr><tr><td>Pelt</td><td><div class="barline"><span class="barfill" style="width:80.8%"></span><span class="bartext">80 per 1.000</span></div></td><td>8,0%</td><td>ongeveer 1 op 12,5</td><td></td></tr><tr><td>Riemst</td><td><div class="barline"><span class="barfill" style="width:80.8%"></span><span class="bartext">80 per 1.000</span></div></td><td>8,0%</td><td>ongeveer 1 op 12,5</td><td></td></tr><tr><td>As</td><td><div class="barline"><span class="barfill" style="width:79.8%"></span><span class="bartext">79 per 1.000</span></div></td><td>7,9%</td><td>ongeveer 1 op 12,7</td><td></td></tr><tr><td>Herk-de-Stad</td><td><div class="barline"><span class="barfill" style="width:77.8%"></span><span class="bartext">77 per 1.000</span></div></td><td>7,7%</td><td>ongeveer 1 op 13,0</td><td></td></tr><tr><td>Peer</td><td><div class="barline"><span class="barfill" style="width:77.8%"></span><span class="bartext">77 per 1.000</span></div></td><td>7,7%</td><td>ongeveer 1 op 13,0</td><td></td></tr><tr><td>Bocholt</td><td><div class="barline"><span class="barfill" style="width:75.8%"></span><span class="bartext">75 per 1.000</span></div></td><td>7,5%</td><td>ongeveer 1 op 13,3</td><td></td></tr><tr><td>Zonhoven</td><td><div class="barline"><span class="barfill" style="width:75.8%"></span><span class="bartext">75 per 1.000</span></div></td><td>7,5%</td><td>ongeveer 1 op 13,3</td><td></td></tr><tr><td>Oudsbergen</td><td><div class="barline"><span class="barfill" style="width:74.7%"></span><span class="bartext">74 per 1.000</span></div></td><td>7,4%</td><td>ongeveer 1 op 13,5</td><td></td></tr><tr><td>Tessenderlo-Ham</td><td><div class="barline"><span class="barfill" style="width:74.7%"></span><span class="bartext">74 per 1.000</span></div></td><td>7,4%</td><td>ongeveer 1 op 13,5</td><td></td></tr><tr><td>Kinrooi</td><td><div class="barline"><span class="barfill" style="width:73.7%"></span><span class="bartext">73 per 1.000</span></div></td><td>7,3%</td><td>ongeveer 1 op 13,7</td><td></td></tr><tr><td>Zutendaal</td><td><div class="barline"><span class="barfill" style="width:72.7%"></span><span class="bartext">72 per 1.000</span></div></td><td>7,2%</td><td>ongeveer 1 op 13,9</td><td></td></tr><tr><td>Lummen</td><td><div class="barline"><span class="barfill" style="width:71.7%"></span><span class="bartext">71 per 1.000</span></div></td><td>7,1%</td><td>ongeveer 1 op 14,1</td><td></td></tr><tr><td>Bree</td><td><div class="barline"><span class="barfill" style="width:69.7%"></span><span class="bartext">69 per 1.000</span></div></td><td>6,9%</td><td>ongeveer 1 op 14,5</td><td></td></tr><tr><td>Herstappe</td><td><span class="muted">niet weergegeven in bron</span></td><td>—</td><td>—</td><td></td></tr></tbody></table></div>
+</section>
+<section class="card" id="bronnen">
+<h2>Bron en disclaimer</h2>
+<div class="sourcebox">
+<h3>Bron van de cijfers</h3>
+<p class="source"><strong>InterMutualistisch Agentschap / Agence InterMutualiste — IMA-Atlas</strong><br/>
+Thema: doelgroepenzorg — diabetes<br/>
+Indicator: <strong>Prevalentie diabetes</strong><br/>
+Metadata: <a href="https://metadata.ima-aim.be/nl/app/Atlas/stat_002_001_At">https://metadata.ima-aim.be/nl/app/Atlas/stat_002_001_At</a><br/>
+Publieke atlas: <a href="https://atlas.ima-aim.be/mosaic/nl-nl/ima-atlas/doelgroepenzorg/diabetes">https://atlas.ima-aim.be/mosaic/nl-nl/ima-atlas/doelgroepenzorg/diabetes</a></p>
+<p class="source">De cijfers tonen gekende diabetes binnen de Belgische ziekteverzekering, uitgedrukt per 1.000 inwoners. Niet-ontdekte diabetes kan ontbreken. De gebruikte tabellen maken geen opsplitsing tussen type 1 en type 2.</p>
+</div>
+<div class="disclaimer"><strong>Disclaimer Diabetes Liga Midden-Limburg:</strong> deze infopagina geeft begrijpelijke duiding bij publieke IMA-Atlasgegevens. Diabetes Liga Midden-Limburg heeft de cijfers niet zelf verzameld. De pagina is informatief en vervangt geen medisch advies. Voor persoonlijke medische vragen neemt men best contact op met de huisarts, het diabetesteam of de behandelend specialist.</div>
+<div class="footer">Infopagina opgesteld voor Diabetes Liga Midden-Limburg. Bronverwerking: IMA-Atlasgegevens tot en met 2024. Laatste verwerking: 3 juli 2026.</div>
+</section>
+</div></main>
+</body></html>
