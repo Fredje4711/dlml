@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Twee promotievideo's van Diabetes Liga: een horizontale videoclip en een verticale YouTube Short."
+    />
+    <title>Diabetes Liga in beeld | Twee promotievideo's</title>
+    <style>
+      :root {
+        --navy-950: #071d30;
+        --navy-900: #0a2942;
+        --navy-800: #0c3d62;
+        --cyan: #25c9ed;
+        --cyan-soft: #bdeffc;
+        --paper: #fff;
+        --page: #f4f9fb;
+        --ink: #102638;
+        --muted: #536b7c;
+        --line: #d4e7ef;
+        --shadow: 0 10px 28px rgba(7, 44, 69, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--page);
+        font-family:
+          Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 30px max(24px, calc((100vw - 1160px) / 2)) 32px;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 88% 18%,
+            rgba(37, 201, 237, 0.28),
+            transparent 27%
+          ),
+          linear-gradient(135deg, var(--navy-950), var(--navy-900) 58%, #075478);
+      }
+
+      .hero::after {
+        display: none;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 780px;
+      }
+
+      .eyebrow {
+        margin-bottom: 10px;
+        color: var(--cyan);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 16px;
+        font-size: clamp(2.35rem, 4.2vw, 3.55rem);
+        font-weight: 780;
+        letter-spacing: -0.06em;
+        line-height: 0.98;
+      }
+
+      h1 span {
+        display: block;
+        color: var(--cyan);
+      }
+
+      .hero p:last-child {
+        max-width: 700px;
+        margin-bottom: 0;
+        color: #d8ecf4;
+        font-size: 1rem;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 22px 0 26px;
+      }
+
+      .intro {
+        max-width: 700px;
+        margin-bottom: 13px;
+      }
+
+      h2 {
+        margin-bottom: 10px;
+        color: var(--navy-900);
+        font-size: clamp(1.8rem, 3.2vw, 2.55rem);
+        letter-spacing: -0.045em;
+        line-height: 1.05;
+      }
+
+      .intro > p:last-child,
+      .copy > p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .card {
+        display: grid;
+        gap: clamp(22px, 3vw, 36px);
+        align-items: center;
+        margin-top: 14px;
+        padding: clamp(20px, 2.5vw, 29px);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .card-wide {
+        grid-template-columns: minmax(290px, 0.8fr) minmax(480px, 1.3fr);
+      }
+
+      .card-short {
+        grid-template-columns: minmax(260px, 0.6fr) minmax(340px, 1fr);
+        padding-inline: clamp(24px, 4vw, 44px);
+        background:
+          radial-gradient(
+            circle at 8% 88%,
+            rgba(37, 201, 237, 0.1),
+            transparent 30%
+          ),
+          #fff;
+      }
+
+      .format-line {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .badge {
+        padding: 5px 9px;
+        border-radius: 7px;
+        color: var(--navy-900);
+        background: var(--cyan-soft);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .duration {
+        color: #688091;
+        font-size: 0.76rem;
+        font-weight: 700;
+      }
+
+      h3 {
+        margin-bottom: 14px;
+        color: var(--navy-900);
+        font-size: clamp(1.65rem, 2.6vw, 2.3rem);
+        letter-spacing: -0.04em;
+        line-height: 1.08;
+      }
+
+      ul {
+        display: grid;
+        gap: 8px;
+        margin: 20px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      li {
+        position: relative;
+        padding-left: 28px;
+        color: #244359;
+        font-size: 0.9rem;
+        font-weight: 650;
+        line-height: 1.4;
+      }
+
+      li::before {
+        position: absolute;
+        top: 0.15em;
+        left: 0;
+        display: grid;
+        width: 18px;
+        height: 18px;
+        content: "✓";
+        place-items: center;
+        border-radius: 50%;
+        color: #fff;
+        background: #086f9a;
+        font-size: 0.65rem;
+      }
+
+      .note {
+        margin-top: 20px !important;
+        padding: 13px 15px;
+        border-left: 3px solid var(--cyan);
+        border-radius: 0 9px 9px 0;
+        background: #effaff;
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+
+      .video {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        background: var(--navy-950);
+        box-shadow: 0 18px 44px rgba(7, 29, 48, 0.22);
+      }
+
+      .landscape {
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
+      }
+
+      .portrait {
+        width: min(100%, 310px);
+        aspect-ratio: 9 / 16;
+        margin: 0 auto;
+        border-radius: 16px;
+      }
+
+      .video img,
+      .video iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        object-fit: cover;
+      }
+
+      .play {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        display: grid;
+        width: clamp(64px, 7vw, 86px);
+        height: clamp(64px, 7vw, 86px);
+        padding: 0;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        color: var(--navy-950);
+        background: var(--cyan);
+        box-shadow:
+          0 10px 28px rgba(7, 29, 48, 0.35),
+          0 0 0 8px rgba(255, 255, 255, 0.22);
+        cursor: pointer;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 160ms ease,
+          background 160ms ease;
+      }
+
+      .play:hover {
+        background: #fff;
+        transform: translate(-50%, -50%) scale(1.06);
+      }
+
+      .play:focus-visible {
+        outline: 4px solid #fff;
+        outline-offset: 5px;
+      }
+
+      .triangle {
+        width: 0;
+        height: 0;
+        margin-left: 6px;
+        border-top: 11px solid transparent;
+        border-bottom: 11px solid transparent;
+        border-left: 18px solid currentColor;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 0 0 18px;
+        color: #607989;
+        font-size: 0.74rem;
+        font-weight: 650;
+      }
+
+      @media (max-width: 900px) {
+        .card-wide,
+        .card-short {
+          grid-template-columns: 1fr;
+        }
+
+        .card-wide .video {
+          grid-row: 1;
+        }
+      }
+
+      @media (max-width: 620px) {
+        body {
+          font-size: 15px;
+        }
+
+        .hero {
+          padding: 22px 20px 24px;
+        }
+
+        h1 {
+          font-size: clamp(2.35rem, 12vw, 3.4rem);
+        }
+
+        .hero p:last-child {
+          font-size: 0.98rem;
+        }
+
+        main {
+          width: min(100% - 26px, 1160px);
+          padding: 19px 0 22px;
+        }
+
+        .intro {
+          margin-bottom: 14px;
+        }
+
+        .card,
+        .card-short {
+          gap: 24px;
+          margin-top: 14px;
+          padding: 14px;
+          border-radius: 18px;
+        }
+
+        .landscape {
+          border-radius: 13px;
+        }
+
+        .portrait {
+          width: min(100%, 320px);
+          border-radius: 17px;
+        }
+
+        .play {
+          width: 64px;
+          height: 64px;
+        }
+
+        footer {
+          display: grid;
+          width: min(100% - 34px, 1160px);
+          padding-bottom: 20px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Promotievideo's over de Diabetes Liga</p>
+        <h1>
+          Twee videoformaten.
+          <span>Eén duidelijke boodschap.</span>
+        </h1>
+        <p>
+          Deze twee promotievideo's laten op een warme en toegankelijke manier
+          zien hoe Diabetes Liga helpt met betrouwbare informatie, persoonlijk
+          advies en contact met lotgenoten. Kies de uitgebreide video of bekijk
+          de boodschap als verticale Short.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="keuze">
+        <h2 id="keuze">Welke versie past bij het moment?</h2>
+        <p>
+          Beide promotievideo's maken Diabetes Liga en haar ondersteuning
+          zichtbaar, maar elk formaat heeft zijn eigen sterke punten.
+        </p>
+      </section>
+
+      <article class="card card-wide">
+        <div class="copy">
+          <div class="format-line">
+            <span class="badge">Horizontale videoclip</span>
+            <span class="duration">1:14</span>
+          </div>
+          <h3>Een rustig en volledig overzicht</h3>
+          <p>
+            De horizontale promotievideo brengt de ondersteuning van Diabetes
+            Liga ruim en overzichtelijk in beeld. Dit formaat is ideaal voor
+            een website, een presentatie, een infoscherm of een groter scherm
+            tijdens een bijeenkomst. Het is ook de beste keuze wanneer de
+            kijker rustig het volledige verhaal wil volgen.
+          </p>
+          <ul>
+            <li>Geschikt voor desktop, televisie en projectiescherm</li>
+            <li>Mooi in webpagina's, nieuwsbrieven en presentaties</li>
+            <li>Geeft beeld en tekst de meeste ruimte</li>
+          </ul>
+        </div>
+        <div class="video landscape">
+          <img
+            src="video-horizontaal.png"
+            alt="Thumbnail van de horizontale promotievideo van Diabetes Liga"
+          />
+          <button
+            class="play"
+            type="button"
+            data-video="DrnKN0ALhwg"
+            data-title="Informatie en ondersteuning bij diabetes"
+            aria-label="Speel de horizontale promotievideo af"
+          >
+            <span class="triangle" aria-hidden="true"></span>
+          </button>
+        </div>
+      </article>
+
+      <article class="card card-short">
+        <div class="video portrait">
+          <img
+            src="video-short.png"
+            alt="Thumbnail van de verticale YouTube Short van Diabetes Liga"
+          />
+          <button
+            class="play"
+            type="button"
+            data-video="fw-G8ZBb540"
+            data-title="Hulp bij diabetes: je staat er niet alleen voor"
+            aria-label="Speel de verticale YouTube Short af"
+          >
+            <span class="triangle" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="copy">
+          <div class="format-line">
+            <span class="badge">Verticale YouTube Short</span>
+            <span class="duration">1:15</span>
+          </div>
+          <h3>De kernboodschap voor mobiel gebruik</h3>
+          <p>
+            Een Short is een verticale video die het volledige scherm van een
+            smartphone benut. Op YouTube verschijnt dit formaat in de speciale
+            Shorts-weergave, waar kijkers snel door korte video's kunnen
+            bladeren. Als compacte promotievideo is dit formaat geschikt om
+            Diabetes Liga laagdrempelig en mobiel onder de aandacht te brengen.
+          </p>
+          <ul>
+            <li>Ontworpen voor smartphones en verticaal kijken</li>
+            <li>Geschikt voor YouTube Shorts en sociale media</li>
+            <li>Handig om snel kennis te maken met Diabetes Liga</li>
+          </ul>
+          <p class="note">
+            Via de gekoppelde video op YouTube kan een geïnteresseerde kijker
+            vanuit de Short meteen doorgaan naar de horizontale versie.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <script>
+      document.querySelectorAll(".play").forEach(function (button) {
+        button.addEventListener("click", function () {
+          if (window.location.protocol === "file:") {
+            var youtubeUrl =
+              button.dataset.video === "fw-G8ZBb540"
+                ? "https://youtube.com/shorts/fw-G8ZBb540"
+                : "https://youtu.be/DrnKN0ALhwg";
+            window.open(youtubeUrl, "_blank", "noopener,noreferrer");
+            return;
+          }
+
+          var frame = button.closest(".video");
+          var iframe = document.createElement("iframe");
+          iframe.src =
+            "https://www.youtube-nocookie.com/embed/" +
+            button.dataset.video +
+            "?autoplay=1&rel=0&origin=" +
+            encodeURIComponent(window.location.origin);
+          iframe.title = button.dataset.title;
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+          iframe.allow =
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.allowFullscreen = true;
+          frame.replaceChildren(iframe);
+        });
+      });
+    </script>
+  </body>
+</html>
