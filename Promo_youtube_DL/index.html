@@ -394,7 +394,7 @@
   <body>
     <header class="hero">
       <div class="hero-inner">
-        <p class="eyebrow">Promotievideo's over de Diabetes Liga</p>
+        <p class="eyebrow">Promotievideo's van Diabetes Liga</p>
         <h1>
           Twee videoformaten.
           <span>Eén duidelijke boodschap.</span>
@@ -410,6 +410,7 @@
 
     <main>
       <section class="intro" aria-labelledby="keuze">
+        <p class="eyebrow">Kijk op uw eigen tempo</p>
         <h2 id="keuze">Welke versie past bij het moment?</h2>
         <p>
           Beide promotievideo's maken Diabetes Liga en haar ondersteuning
@@ -445,7 +446,7 @@
           <button
             class="play"
             type="button"
-            data-video="DrnKN0ALhwg"
+            data-video="cn6FR65KZKM"
             data-title="Informatie en ondersteuning bij diabetes"
             aria-label="Speel de horizontale promotievideo af"
           >
@@ -463,7 +464,7 @@
           <button
             class="play"
             type="button"
-            data-video="fw-G8ZBb540"
+            data-video="xWgoCCDI2QU"
             data-title="Hulp bij diabetes: je staat er niet alleen voor"
             aria-label="Speel de verticale YouTube Short af"
           >
@@ -488,19 +489,27 @@
             <li>Geschikt voor YouTube Shorts en sociale media</li>
             <li>Handig om snel kennis te maken met Diabetes Liga</li>
           </ul>
-          
+          <p class="note">
+            Via de gekoppelde video op YouTube kan een geïnteresseerde kijker
+            vanuit de Short meteen doorgaan naar de horizontale versie.
+          </p>
         </div>
       </article>
     </main>
+
+    <footer>
+      <span>Diabetes Liga Midden Limburg</span>
+      <span>Samen krijgen we diabetes onder controle.</span>
+    </footer>
 
     <script>
       document.querySelectorAll(".play").forEach(function (button) {
         button.addEventListener("click", function () {
           if (window.location.protocol === "file:") {
             var youtubeUrl =
-              button.dataset.video === "fw-G8ZBb540"
-                ? "https://youtube.com/shorts/fw-G8ZBb540"
-                : "https://youtu.be/DrnKN0ALhwg";
+              button.dataset.video === "xWgoCCDI2QU"
+                ? "https://youtube.com/shorts/xWgoCCDI2QU"
+                : "https://youtu.be/cn6FR65KZKM";
             window.open(youtubeUrl, "_blank", "noopener,noreferrer");
             return;
           }
