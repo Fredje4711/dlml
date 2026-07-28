@@ -1,4 +1,4 @@
-const CACHE_NAME = "reisnoodhulp-v6";
+const CACHE_NAME = "reisnoodhulp-v7";
 const APP_FILES = [
   "./",
   "./index.html",
