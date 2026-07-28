@@ -1,0 +1,26 @@
+{
+  "name": "Europese reisnoodhulp voor Belgen",
+  "short_name": "Reisnoodhulp",
+  "description": "Snelle hulp bij verlies, diefstal of fraude in België en Europa.",
+  "lang": "nl-BE",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#176b9b",
+  "icons": [
+    {
+      "src": "assets/app-icons/icon-emergency-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app-icons/icon-emergency-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interne simulatiematrix – Reisnoodhulp</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #173042; background: #eef4f7; }
+    * { box-sizing: border-box; }
+    body { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1 { margin-bottom: 4px; }
+    p { line-height: 1.5; }
+    .status { padding: 14px; border-radius: 12px; background: #fff; box-shadow: 0 5px 18px #17304212; }
+    .pass { border-left: 6px solid #198754; }
+    .fail { border-left: 6px solid #c93636; }
+    .running { border-left: 6px solid #176b9b; }
+    progress { width: 100%; height: 18px; margin-top: 12px; }
+    table { width: 100%; margin-top: 18px; border-collapse: collapse; background: #fff; }
+    th, td { padding: 9px 10px; border-bottom: 1px solid #dce6ec; text-align: left; font-size: .9rem; }
+    th { background: #e9f5fb; }
+    iframe { position: fixed; left: -10000px; width: 390px; height: 844px; border: 0; }
+    code { background: #e9f5fb; padding: 2px 5px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Interne simulatiematrix</h1>
+  <p>Dit bestand hoort niet bij de productie-app. Het test automatisch landen, noodnummers, taalkeuze, interne routes en samengestelde noodplannen.</p>
+  <div class="status running" id="status" role="status" aria-live="polite">
+    <strong id="statusTitle">Tests worden voorbereid…</strong>
+    <div id="statusText">De productie-app wordt in een afgeschermd testvenster geladen.</div>
+    <progress id="progress" max="100" value="0"></progress>
+  </div>
+  <table>
+    <thead><tr><th>Testgroep</th><th>Controles</th><th>Resultaat</th></tr></thead>
+    <tbody id="summary"></tbody>
+  </table>
+  <details style="margin-top:18px">
+    <summary><strong>Technische details</strong></summary>
+    <pre id="details"></pre>
+  </details>
+  <iframe id="appFrame" title="Afgeschermde testversie" src="../index.html?qa=1"></iframe>
+
+  <script>
+    const countries = [
+      ["AL","Albanië"],["AD","Andorra"],["AM","Armenië"],["AZ","Azerbeidzjan"],["BE","België"],
+      ["BA","Bosnië en Herzegovina"],["BG","Bulgarije"],["CY","Cyprus"],["DK","Denemarken"],
+      ["DE","Duitsland"],["EE","Estland"],["FI","Finland"],["FR","Frankrijk"],["GE","Georgië"],
+      ["GR","Griekenland"],["HU","Hongarije"],["IE","Ierland"],["IS","IJsland"],["IT","Italië"],
+      ["XK","Kosovo"],["HR","Kroatië"],["LV","Letland"],["LI","Liechtenstein"],["LT","Litouwen"],
+      ["LU","Luxemburg"],["MT","Malta"],["MD","Moldavië"],["MC","Monaco"],["ME","Montenegro"],
+      ["NL","Nederland"],["MK","Noord-Macedonië"],["NO","Noorwegen"],["UA","Oekraïne"],
+      ["AT","Oostenrijk"],["PL","Polen"],["PT","Portugal"],["RO","Roemenië"],["RU","Rusland"],
+      ["SM","San Marino"],["RS","Servië"],["SI","Slovenië"],["SK","Slowakije"],["ES","Spanje"],
+      ["CZ","Tsjechië"],["TR","Turkije"],["VA","Vaticaanstad"],["GB","Verenigd Koninkrijk"],
+      ["BY","Wit-Rusland"],["SE","Zweden"],["CH","Zwitserland"]
+    ];
+    const exceptions = {
+      BE: { police: "101", medical: "112", fire: "112", lang: "nl" },
+      NL: { police: "112", medical: "112", fire: "112", lang: "nl" },
+      AM: { police: "112", medical: "103", fire: "112", lang: "en" },
+      AZ: { police: "102", medical: "103", fire: "112", lang: "en" },
+      MC: { police: "17", medical: "15", fire: "112", lang: "en" },
+      SM: { police: "112", medical: "118", fire: "115", lang: "en" },
+      VA: { police: "113", medical: "118", fire: "115", lang: "en" }
+    };
+    const incidents = ["lost", "theft", "robbery", "fraud", "flight"];
+    const itemNames = ["card", "documents", "phone", "licence", "luggage"];
+    const results = [];
+    let checks = 0;
+    let failures = 0;
+
+    function record(group, ok, message, context = {}) {
+      checks += 1;
+      if (!ok) failures += 1;
+      results.push({ group, ok, message, ...context });
+    }
+
+    function expectedProfile(code) {
+      return exceptions[code] || { police: "112", medical: "112", fire: "112", lang: "en" };
+    }
+
+    function row(group, count, failed) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${group}</td><td>${count}</td><td>${failed ? `${failed} fout(en)` : "Geslaagd"}</td>`;
+      document.getElementById("summary").append(tr);
+    }
+
+    async function run() {
+      const frame = document.getElementById("appFrame");
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error("De app werd niet tijdig geladen.")), 15000);
+        frame.addEventListener("load", () => { clearTimeout(timer); resolve(); }, { once: true });
+      });
+      const doc = frame.contentDocument;
+      const win = frame.contentWindow;
+      const groupStarts = {};
+      const progress = document.getElementById("progress");
+
+      groupStarts.structure = results.length;
+      const ids = [...doc.querySelectorAll("[id]")].map(el => el.id);
+      record("Structuur", ids.length === new Set(ids).size, "Geen dubbele id-attributen");
+      const brokenRoutes = [...doc.querySelectorAll("[data-go]")].filter(el => !doc.getElementById(el.dataset.go));
+      record("Structuur", brokenRoutes.length === 0, "Alle interne routes hebben een bestaand doelscherm", { brokenRoutes: brokenRoutes.map(el => el.dataset.go) });
+      record("Structuur", !doc.body.textContent.includes("Test Frankrijk") && !doc.body.textContent.includes("Test Italië") && !doc.querySelector("[data-sim-country]"), "Geen productie-testknoppen aanwezig");
+      record("Structuur", doc.querySelectorAll(".screen").length >= 19, "Alle hoofd- en vervolgschermen aanwezig");
+      row("Structuur en routes", results.length - groupStarts.structure, results.slice(groupStarts.structure).filter(r => !r.ok).length);
+
+      groupStarts.countries = results.length;
+      const select = doc.getElementById("countrySelect");
+      record("Landen", select.options.length === 50, "Exact 50 landen in de keuzelijst", { found: select.options.length });
+      for (let index = 0; index < countries.length; index += 1) {
+        const [code, name] = countries[index];
+        select.value = code;
+        doc.getElementById("confirmCountry").click();
+        const expected = expectedProfile(code);
+        const actual = {
+          police: doc.getElementById("countryPoliceNumber").textContent.trim(),
+          medical: doc.getElementById("countryMedicalNumber").textContent.trim(),
+          fire: doc.getElementById("countryFireNumber").textContent.trim(),
+          lang: doc.getElementById("operatorPhraseText").lang,
+          name: doc.querySelector("[data-country-name]").textContent.trim(),
+          source: doc.getElementById("countryEmergencySource").href
+        };
+        record("Landen", actual.police === expected.police, `${name}: politienummer`, { code, expected: expected.police, actual: actual.police });
+        record("Landen", actual.medical === expected.medical, `${name}: ambulancenummer`, { code, expected: expected.medical, actual: actual.medical });
+        record("Landen", actual.fire === expected.fire, `${name}: brandweernummer`, { code, expected: expected.fire, actual: actual.fire });
+        record("Landen", actual.lang === expected.lang, `${name}: juiste spreektaal`, { code, expected: expected.lang, actual: actual.lang });
+        record("Landen", actual.name === name, `${name}: landnaam zichtbaar`, { code, actual: actual.name });
+        record("Landen", actual.source.startsWith("https://"), `${name}: officiële bron aanwezig`, { code, actual: actual.source });
+        progress.value = 10 + Math.round(((index + 1) / countries.length) * 20);
+        await new Promise(requestAnimationFrame);
+      }
+      row("50 landenprofielen", results.length - groupStarts.countries, results.slice(groupStarts.countries).filter(r => !r.ok).length);
+
+      groupStarts.plans = results.length;
+      let planCounter = 0;
+      const totalPlans = countries.length * incidents.length * 31 * 2 * 2;
+      for (const [code, name] of countries) {
+        select.value = code;
+        doc.getElementById("confirmCountry").click();
+        for (const incident of incidents) {
+          for (let mask = 1; mask < 32; mask += 1) {
+            for (const urgent of [false, true]) {
+              for (const travel of [false, true]) {
+                doc.getElementById("homeButton").click();
+                doc.getElementById("incidentType").value = incident;
+                const chosen = [];
+                [...doc.querySelectorAll("[data-plan-item]")].forEach((box, itemIndex) => {
+                  box.checked = Boolean(mask & (1 << itemIndex));
+                  if (box.checked) chosen.push(itemNames[itemIndex]);
+                });
+                doc.getElementById("planUrgent").checked = urgent;
+                doc.getElementById("planTravel").checked = travel;
+                doc.getElementById("buildPersonalPlan").click();
+                const actualSteps = doc.querySelectorAll("#personalPlanSteps > li").length;
+                let expectedSteps = chosen.length;
+                if (urgent || incident === "robbery") expectedSteps += 1;
+                if (incident === "theft" || incident === "robbery") expectedSteps += 1;
+                if (travel && chosen.includes("documents") && code !== "BE") expectedSteps += 1;
+                const visible = !doc.getElementById("personal-plan").hidden;
+                const expectedMetaStart = `${chosen.length} betrokken ${chosen.length === 1 ? "onderdeel" : "onderdelen"}`;
+                const actualMeta = doc.getElementById("personalPlanMeta").textContent.trim();
+                const urgentStepExpected = urgent || incident === "robbery";
+                const expectedUrgentNumber = incident === "theft" || incident === "robbery"
+                  ? expectedProfile(code).police
+                  : "112";
+                const firstStepCall = doc.querySelector("#personalPlanSteps > li:first-child a[href^='tel:']");
+                const urgentNumberCorrect = !urgentStepExpected
+                  || firstStepCall?.getAttribute("href") === `tel:${expectedUrgentNumber}`;
+                const ok = visible
+                  && actualSteps === expectedSteps
+                  && actualMeta.startsWith(expectedMetaStart)
+                  && urgentNumberCorrect;
+                record("Noodplannen", ok, `${name}: ${incident}, masker ${mask}, urgent ${urgent}, reizen ${travel}`, {
+                  code, incident, mask, urgent, travel, chosen, expectedSteps, actualSteps, visible,
+                  expectedMetaStart, actualMeta, expectedUrgentNumber, actualUrgentCall: firstStepCall?.getAttribute("href") || null
+                });
+                planCounter += 1;
+                if (planCounter % 250 === 0) {
+                  progress.value = 30 + Math.round((planCounter / totalPlans) * 65);
+                  document.getElementById("statusText").textContent = `${planCounter.toLocaleString("nl-BE")} van ${totalPlans.toLocaleString("nl-BE")} noodplannen gecontroleerd…`;
+                  await new Promise(requestAnimationFrame);
+                }
+              }
+            }
+          }
+        }
+      }
+      row("Volledige combinatiematrix", results.length - groupStarts.plans, results.slice(groupStarts.plans).filter(r => !r.ok).length);
+
+      groupStarts.content = results.length;
+      const sourceHtml = doc.documentElement.innerHTML;
+      record("Inhoud", sourceHtml.includes("binnen 7 dagen") && sourceHtml.includes("binnen 21 dagen"), "Bagagetermijnen 7 en 21 dagen aanwezig");
+      record("Inhoud", sourceHtml.includes("Card Stop kan uw bankapp niet blokkeren"), "Kaart- en bankappblokkering correct onderscheiden");
+      record("Inhoud", sourceHtml.includes("Buiten de EU en geen bereikbare Belgische post"), "EU-consulaire uitzondering correct begrensd");
+      record("Inhoud", sourceHtml.includes("Basisstappen offline"), "Offlineverwachting correct geformuleerd");
+      row("Kritieke inhoud", results.length - groupStarts.content, results.slice(groupStarts.content).filter(r => !r.ok).length);
+
+      progress.value = 100;
+      const status = document.getElementById("status");
+      status.className = `status ${failures ? "fail" : "pass"}`;
+      document.getElementById("statusTitle").textContent = failures
+        ? `Test afgerond met ${failures.toLocaleString("nl-BE")} fout(en)`
+        : "Alle simulaties geslaagd";
+      document.getElementById("statusText").textContent =
+        `${checks.toLocaleString("nl-BE")} controles uitgevoerd, waaronder ${totalPlans.toLocaleString("nl-BE")} samengestelde noodplannen.`;
+      document.getElementById("details").textContent = JSON.stringify({
+        generatedAt: new Date().toISOString(),
+        checks,
+        failures,
+        failedResults: results.filter(result => !result.ok)
+      }, null, 2);
+      window.qaResults = { checks, failures, results };
+      win.scrollTo(0, 0);
+    }
+
+    run().catch(error => {
+      const status = document.getElementById("status");
+      status.className = "status fail";
+      document.getElementById("statusTitle").textContent = "De simulatie kon niet worden uitgevoerd";
+      document.getElementById("statusText").textContent = error.message;
+      document.getElementById("details").textContent = error.stack || String(error);
+    });
+  </script>
+</body>
+</html>

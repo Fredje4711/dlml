@@ -1,0 +1,2086 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#176b9b">
+  <meta name="description" content="Snelle Europese noodhulp voor Belgische reizigers bij diefstal, verlies van documenten, bankkaarten, gsm of bagage.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/app-icons/icon-emergency-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/app-icons/icon-emergency-192.png">
+  <title>Europese reisnoodhulp voor Belgen</title>
+  <style>
+    :root {
+      --blue: #176b9b;
+      --blue-dark: #0e4f77;
+      --blue-soft: #e9f5fb;
+      --navy: #173042;
+      --ink: #173042;
+      --muted: #5f7280;
+      --line: #dce6ec;
+      --paper: #fff;
+      --surface: #f8fafb;
+      --bg: #f3f7f9;
+      --red: #c93636;
+      --red-dark: #a72424;
+      --danger: #a72424;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(23, 48, 66, .09);
+      --shadow-soft: 0 5px 16px rgba(23, 48, 66, .07);
+      --shadow-strong: 0 12px 32px rgba(14, 79, 119, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(115, 193, 224, .22), transparent 28rem),
+        var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid #f1b629;
+      outline-offset: 3px;
+    }
+
+    .app {
+      width: min(100%, 680px);
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 0 40px rgba(23, 48, 66, .08);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+      padding: max(10px, env(safe-area-inset-top)) 16px 10px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      box-shadow: 0 4px 16px rgba(14, 79, 119, .18);
+    }
+
+    .topbar h1 {
+      flex: 1;
+      margin: 0;
+      font-size: 1rem;
+      text-align: center;
+      letter-spacing: .01em;
+    }
+
+    .header-copy {
+      display: grid;
+      flex: 1;
+      min-width: 0;
+      justify-items: center;
+      line-height: 1.15;
+    }
+
+    .country-badge {
+      display: inline-flex;
+      max-width: 24ch;
+      margin-top: 3px;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      color: rgba(255,255,255,.82);
+      background: transparent;
+      font: inherit;
+      font-size: .72rem;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .country-badge img { width: 12px; height: 12px; filter: brightness(0) invert(1); opacity: .82; }
+
+    .back {
+      width: 42px;
+      min-height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 10px;
+      color: #fff;
+      background: rgba(255,255,255,.14);
+      font-size: 1.35rem;
+      cursor: pointer;
+    }
+
+    .back[hidden] { display: block; visibility: hidden; }
+    .home-button {
+      display: grid;
+      width: 42px;
+      min-height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 10px;
+      color: #fff;
+      background: rgba(255,255,255,.14);
+      font-size: 1.18rem;
+      cursor: pointer;
+      place-items: center;
+    }
+
+    .home-button img, .back img {
+      width: 21px;
+      height: 21px;
+      filter: brightness(0) invert(1);
+    }
+
+    .home-button[hidden], .country-badge[hidden] { display: block; visibility: hidden; }
+
+    main { padding: 20px 16px calc(88px + env(safe-area-inset-bottom)); }
+
+    .screen[hidden] { display: none; }
+
+    .intro { margin-bottom: 18px; text-align: center; }
+
+    .intro h2 {
+      margin: 0 0 6px;
+      font-size: clamp(1.55rem, 7vw, 2rem);
+      line-height: 1.15;
+    }
+
+    .intro p { margin: 0; color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choice {
+      display: flex;
+      min-height: 132px;
+      padding: 16px 10px;
+      border: 2px solid #b2d9ea;
+      border-radius: 18px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      background: linear-gradient(145deg, #ffffff 20%, #eaf7fc 100%);
+      box-shadow: var(--shadow);
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .12s ease;
+    }
+
+    .choice:active { transform: scale(.98); }
+    .choice:hover { border-color: #78bddb; box-shadow: var(--shadow-strong); }
+
+    .choice .icon {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      place-items: center;
+      background: #dceff8;
+    }
+
+    .choice .icon img {
+      width: 30px;
+      height: 30px;
+      filter: invert(27%) sepia(50%) saturate(1230%) hue-rotate(160deg);
+    }
+    .choice span:last-child { max-width: 12ch; }
+
+    .choice.all {
+      grid-column: 1 / -1;
+      min-height: 76px;
+      flex-direction: row;
+      color: #fff;
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .choice.all .icon { width: 43px; height: 43px; background: rgba(255,255,255,.16); }
+    .choice.all .icon img { width: 25px; height: 25px; filter: brightness(0) invert(1); }
+
+    .emergency {
+      display: flex;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #fff;
+      background: var(--red);
+      text-decoration: none;
+      font-weight: 750;
+    }
+
+    .emergency small {
+      display: block;
+      font-weight: 500;
+      opacity: .93;
+    }
+
+    .emergency strong { font-size: 1.35rem; }
+    .emergency > img { width: 24px; height: 24px; flex: 0 0 auto; filter: brightness(0) invert(1); }
+    .emergency > span { flex: 1; }
+
+    .page-title {
+      display: flex;
+      margin: 0 0 14px;
+      font-size: 1.6rem;
+      line-height: 1.15;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-title img {
+      width: 34px;
+      height: 34px;
+      padding: 6px;
+      border-radius: 10px;
+      background: var(--blue-soft);
+      filter: invert(27%) sepia(50%) saturate(1230%) hue-rotate(160deg);
+    }
+
+    .now {
+      margin-bottom: 14px;
+      padding: 17px;
+      border: 2px solid #b9dfef;
+      border-radius: 18px;
+      background: var(--blue-soft);
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--blue-dark);
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .now h3 { margin: 0 0 5px; font-size: 1.22rem; }
+    .now p { margin: 0; }
+
+    .phone-block {
+      margin: 14px 0 0;
+      padding-top: 14px;
+      border-top: 1px solid #b9d7e4;
+    }
+
+    .number-label { color: var(--muted); font-size: .9rem; }
+
+    .number {
+      display: block;
+      margin: 2px 0 10px;
+      color: var(--ink);
+      font-size: clamp(1.5rem, 8vw, 2rem);
+      font-weight: 850;
+      letter-spacing: .025em;
+    }
+
+    .call {
+      display: flex;
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 13px;
+      color: #fff;
+      background: var(--blue);
+      text-align: center;
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 800;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .call img { width: 21px; height: 21px; filter: brightness(0) invert(1); }
+
+    .call:active { background: var(--blue-dark); }
+
+    .secondary-number {
+      margin-top: 11px;
+      padding-top: 11px;
+      border-top: 1px dashed #b9d7e4;
+    }
+
+    .secondary-number a {
+      color: var(--blue-dark);
+      font-weight: 800;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .more {
+      width: 100%;
+      margin-top: 5px;
+      padding: 14px 16px;
+      border: 2px solid #70b9d8;
+      border-radius: 13px;
+      color: var(--blue-dark);
+      background: linear-gradient(180deg, #f0faff 0%, #dceff8 100%);
+      box-shadow: 0 4px 12px rgba(23, 107, 155, .12);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .more:active {
+      background: #cfe9f5;
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(23, 107, 155, .12);
+    }
+
+    .note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    .steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 52px;
+      margin-bottom: 10px;
+      padding: 13px 13px 13px 52px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 4px 14px rgba(23,48,66,.05);
+    }
+
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      display: grid;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      place-items: center;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 850;
+    }
+
+    .steps strong { display: block; }
+
+    .inline-route {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 7px 10px;
+      border: 1px solid #70b9d8;
+      border-radius: 9px;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      font: inherit;
+      font-size: .86rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .link-button {
+      display: block;
+      margin-top: 14px;
+      padding: 13px;
+      border-radius: 12px;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      text-align: center;
+      text-decoration: none;
+      font-weight: 750;
+    }
+
+    .footer-note {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: center;
+    }
+
+    .site-footer {
+      padding: 17px 18px calc(76px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: #f8fbfc;
+      font-size: .76rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .site-footer strong { color: var(--ink); }
+
+    .context-emergency {
+      position: fixed;
+      right: max(14px, calc((100vw - 680px) / 2 + 14px));
+      bottom: max(14px, env(safe-area-inset-bottom));
+      z-index: 12;
+      display: flex;
+      min-height: 48px;
+      padding: 9px 14px;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      background: var(--red);
+      box-shadow: 0 7px 20px rgba(113, 16, 16, .28);
+      text-decoration: none;
+      font-weight: 850;
+    }
+
+    .context-emergency[hidden] { display: none; }
+    .context-emergency small { font-size: .72rem; font-weight: 650; opacity: .92; }
+    .context-emergency > img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
+
+    .check-progress {
+      display: flex;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border: 1px solid #cfe3ec;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--blue-soft);
+      color: var(--blue-dark);
+      font-size: .88rem;
+      font-weight: 800;
+    }
+
+    .check-progress button {
+      padding: 5px 8px;
+      border: 1px solid #9bc9dc;
+      border-radius: 8px;
+      color: var(--blue-dark);
+      background: #fff;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .checklist li::before { content: none; }
+
+    .checklist input {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 23px;
+      height: 23px;
+      margin: 0;
+      accent-color: var(--blue);
+    }
+
+    .checklist li:has(input:checked) {
+      border-color: #a8d7c1;
+      background: #f1fbf6;
+    }
+
+    .location-card {
+      padding: 22px 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .location-icon {
+      display: grid;
+      width: 78px;
+      height: 78px;
+      margin: 0 auto;
+      border-radius: 24px;
+      place-items: center;
+      background: linear-gradient(145deg, #eaf7fc, #d5edf7);
+      box-shadow: inset 0 0 0 1px #c2e2ef;
+    }
+
+    .location-icon > img {
+      width: 42px;
+      height: 42px;
+      filter: invert(27%) sepia(50%) saturate(1230%) hue-rotate(160deg);
+    }
+
+    .belgium-map {
+      width: 1.35em;
+      height: 1.35em;
+      flex: 0 0 auto;
+      vertical-align: -.3em;
+      filter: drop-shadow(0 2px 2px rgba(23, 48, 66, .16));
+    }
+
+    .location-icon .belgium-map {
+      width: 42px;
+      height: 42px;
+      vertical-align: 0;
+    }
+
+    .location-card h2 {
+      margin: 12px 0 7px;
+      font-size: 1.55rem;
+      line-height: 1.15;
+    }
+
+    .location-card p { margin: 0 0 18px; color: var(--muted); }
+
+    .primary-action {
+      width: 100%;
+      min-height: 52px;
+      padding: 13px 16px;
+      border: 0;
+      border-radius: 13px;
+      color: #fff;
+      background: var(--blue);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .plain-action {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      padding: 11px 14px;
+      border: 2px solid #70b9d8;
+      border-radius: 13px;
+      color: var(--blue-dark);
+      background: linear-gradient(180deg, #f0faff 0%, #dceff8 100%);
+      box-shadow: 0 4px 12px rgba(23, 107, 155, .12);
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .plain-action:active {
+      background: #cfe9f5;
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(23, 107, 155, .12);
+    }
+
+    .location-status {
+      min-height: 24px;
+      margin: 12px 0 0 !important;
+      color: var(--blue-dark) !important;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .privacy-note { margin-top: 14px !important; font-size: .78rem; }
+
+    .trust-row {
+      display: flex;
+      margin: 18px -18px -22px;
+      padding: 13px 14px;
+      border-top: 1px solid #dcebf2;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      color: var(--muted);
+      background: #f8fbfc;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    .trust-row span { display: inline-flex; align-items: center; gap: 5px; }
+
+    .trust-row img {
+      width: 15px;
+      height: 15px;
+      filter: invert(27%) sepia(50%) saturate(1230%) hue-rotate(160deg);
+    }
+
+    .offline-banner {
+      margin: 0;
+      padding: 10px 16px;
+      border-bottom: 1px solid #e7c967;
+      color: #4b3b05;
+      background: #fff4cf;
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    .offline-banner[hidden] { display: none; }
+
+    .country-emergency-card,
+    .plan-builder,
+    .preparation-card {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .country-emergency-card h3,
+    .plan-builder h3,
+    .preparation-card h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .country-emergency-card p,
+    .plan-builder p,
+    .preparation-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .91rem;
+      line-height: 1.5;
+    }
+
+    .country-emergency-card.warning {
+      border-color: #e7b151;
+      background: #fffaf0;
+    }
+
+    .service-numbers {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .service-numbers a {
+      display: flex;
+      flex-direction: column;
+      min-height: 58px;
+      padding: 8px;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+      background: var(--blue-soft);
+      text-align: center;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .service-numbers a strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 1.08rem;
+    }
+
+    .source-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .source-row a { color: var(--blue-dark); }
+
+    .plan-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .plan-form-grid label,
+    .plan-toggle {
+      display: flex;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      align-items: center;
+      gap: 9px;
+      background: var(--surface);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .plan-form-grid input,
+    .plan-toggle input {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      accent-color: var(--blue);
+    }
+
+    .plan-builder select {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 10px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .plan-options {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .primary-action {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 13px;
+      color: #fff;
+      background: var(--blue);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .form-error {
+      margin-top: 8px !important;
+      color: var(--danger) !important;
+      font-weight: 700;
+    }
+
+    .form-error[hidden] { display: none; }
+
+    .situation-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .situation-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .situation-card strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+    }
+
+    .situation-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .situation-card .inline-route,
+    .situation-card .link-button { margin-top: 9px; }
+
+    .plan-result-meta {
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--navy);
+      background: var(--blue-soft);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .country-bar {
+      display: flex;
+      margin-bottom: 16px;
+      padding: 10px 12px;
+      border: 1px solid #cfe3ec;
+      border-radius: 13px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--blue-soft);
+    }
+
+    .country-bar span { font-weight: 800; }
+
+    .country-bar button {
+      padding: 7px 9px;
+      border: 0;
+      border-radius: 9px;
+      color: var(--blue-dark);
+      background: #fff;
+      font: inherit;
+      font-size: .82rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .country-select {
+      display: block;
+      width: 100%;
+      min-height: 54px;
+      margin: 16px 0;
+      padding: 11px 42px 11px 13px;
+      border: 2px solid #b9d7e4;
+      border-radius: 13px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      font-size: 1.02rem;
+    }
+
+    .context {
+      margin: -4px 0 15px;
+      padding: 9px 11px;
+      border-radius: 11px;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      font-size: .91rem;
+      font-weight: 700;
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .quick-links a {
+      padding: 11px 7px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--blue-dark);
+      background: #fff;
+      text-align: center;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 750;
+    }
+
+    .maps-note {
+      margin: 9px 2px 0 !important;
+      color: var(--muted);
+      font-size: .79rem;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .operator-panel {
+      margin-top: 15px;
+      padding: 15px;
+      border: 1px solid #cfe3ec;
+      border-radius: 16px;
+      background: var(--blue-soft);
+    }
+
+    .operator-panel h3 { margin: 0 0 4px; font-size: 1.08rem; }
+    .operator-panel > p { margin: 0 0 11px; color: var(--muted); font-size: .88rem; }
+
+    .operator-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .operator-list a {
+      display: flex;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid #a9d2e3;
+      border-radius: 11px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--blue-dark);
+      background: #fff;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .operator-list small {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @media (min-width: 560px) {
+      main { padding: 28px 28px 36px; }
+      .grid { gap: 16px; }
+      .choice { min-height: 150px; }
+    }
+
+    @media (max-width: 350px) {
+      main { padding-inline: 11px; }
+      .grid { gap: 9px; }
+      .choice { min-height: 118px; padding-inline: 6px; font-size: .92rem; }
+    }
+
+    @media (max-width: 480px) {
+      .service-numbers { grid-template-columns: 1fr; }
+      .service-numbers a {
+        min-height: 46px;
+        flex-direction: row;
+        gap: 8px;
+      }
+      .service-numbers a strong { margin: 0; }
+      .plan-form-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .screen.active { animation: appear .18s ease-out; }
+      @keyframes appear {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="back" id="backButton" type="button" aria-label="Ga terug" hidden><img src="assets/icons/arrow-left.svg" alt=""></button>
+      <div class="header-copy">
+        <h1 id="headerTitle">Reisnoodhulp voor Belgen</h1>
+        <button class="country-badge" id="countryBadge" type="button" aria-label="Gekozen land wijzigen" hidden>
+          <img src="assets/icons/map-pin.svg" alt="">
+          <span id="countryBadgeText">Land niet gekozen</span>
+        </button>
+      </div>
+      <button class="home-button" id="homeButton" type="button" aria-label="Ga naar het hoofdmenu" title="Hoofdmenu" hidden><img src="assets/icons/house.svg" alt=""></button>
+    </header>
+
+    <main>
+      <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden>
+        <strong>Offline:</strong> de opgeslagen noodstappen en belknoppen blijven werken. Kaarten, landdetectie en externe websites hebben internet nodig.
+      </div>
+      <section class="screen active" id="location" data-title="Reisnoodhulp voor Belgen">
+        <div class="location-card">
+          <div class="location-icon" aria-hidden="true">
+            <svg class="belgium-map" viewBox="0 0 50 48" role="img">
+              <defs>
+                <linearGradient id="belgiumColorsHeader" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#171717"/>
+                  <stop offset="33.33%" stop-color="#171717"/>
+                  <stop offset="33.33%" stop-color="#ffd90c"/>
+                  <stop offset="66.66%" stop-color="#ffd90c"/>
+                  <stop offset="66.66%" stop-color="#e32636"/>
+                  <stop offset="100%" stop-color="#e32636"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#belgiumColorsHeader)" stroke="#ffffff" stroke-width="1" d="M18 3 30 6l5 7 8 2 4 8-6 7-6-1-4 10-8-3-6 7-7-5-6 1-2-10 6-7-2-7 8-3z"/>
+            </svg>
+          </div>
+          <h2>Waar bent u?</h2>
+          <p>Kies uw huidige situatie.</p>
+          <button class="primary-action" id="useBelgium" type="button">
+            <svg class="belgium-map" viewBox="0 0 50 48" aria-hidden="true">
+              <defs>
+                <linearGradient id="belgiumColorsButton" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#171717"/>
+                  <stop offset="33.33%" stop-color="#171717"/>
+                  <stop offset="33.33%" stop-color="#ffd90c"/>
+                  <stop offset="66.66%" stop-color="#ffd90c"/>
+                  <stop offset="66.66%" stop-color="#e32636"/>
+                  <stop offset="100%" stop-color="#e32636"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#belgiumColorsButton)" stroke="#ffffff" stroke-width="1" d="M18 3 30 6l5 7 8 2 4 8-6 7-6-1-4 10-8-3-6 7-7-5-6 1-2-10 6-7-2-7 8-3z"/>
+            </svg>
+            Ik ben in België
+          </button>
+          <button class="plain-action" type="button" data-go="foreign-location">Ik ben in het buitenland</button>
+          <div class="trust-row">
+            <span><img src="assets/icons/shield-check.svg" alt=""> Geen account</span>
+            <span><img src="assets/icons/circle-check-big.svg" alt=""> Basisstappen offline</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="foreign-location" data-title="In het buitenland" hidden>
+        <div class="location-card">
+          <div class="location-icon" aria-hidden="true"><img src="assets/icons/globe-2.svg" alt=""></div>
+          <h2>In welk land bent u?</h2>
+          <p>Laat de app het land bepalen of kies het zelf.</p>
+          <button class="primary-action" id="detectCountry" type="button">Bepaal mijn land</button>
+          <div id="detectedConfirm" hidden>
+            <p class="location-status">Gevonden: <strong id="detectedCountryName"></strong></p>
+            <button class="primary-action" id="acceptDetected" type="button">Ja, gebruik dit land</button>
+          </div>
+          <button class="plain-action" type="button" data-go="country-picker">Kies het land zelf</button>
+          <p class="location-status" id="locationStatus" role="status" aria-live="polite"></p>
+          <p class="privacy-note">Uw locatie wordt alleen gebruikt om het land te bepalen en wordt niet bewaard.</p>
+        </div>
+      </section>
+
+      <section class="screen" id="country-picker" data-title="Kies uw land" hidden>
+        <h2 class="page-title">Kies uw land</h2>
+        <p>Selecteer één van de 50 Europese bestemmingen waarvoor de app noodinformatie bevat.</p>
+        <label for="countrySelect" class="eyebrow">Land</label>
+        <select class="country-select" id="countrySelect"></select>
+        <button class="primary-action" id="confirmCountry" type="button">Gebruik dit land</button>
+      </section>
+
+      <section class="screen" id="home" data-title="Reisnoodhulp voor Belgen" hidden>
+        <div class="country-bar">
+          <span data-country-name>Gekozen land</span>
+          <button type="button" data-go="country-picker">Wijzig land</button>
+        </div>
+        <div class="intro">
+          <h2>Wat is er gebeurd?</h2>
+          <p>Kies de situatie. U ziet eerst alleen wat u nu moet doen.</p>
+        </div>
+
+        <div class="grid">
+          <button class="choice" type="button" data-go="theft">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/siren.svg" alt=""></span>
+            <span>Diefstal of overval</span>
+          </button>
+          <button class="choice" type="button" data-go="bank">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/credit-card.svg" alt=""></span>
+            <span>Kaart of bankfraude</span>
+          </button>
+          <button class="choice" type="button" data-go="identity">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/id-card.svg" alt=""></span>
+            <span>ID of paspoort</span>
+          </button>
+          <button class="choice" type="button" data-go="licence">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/car-front.svg" alt=""></span>
+            <span>Rijbewijs</span>
+          </button>
+          <button class="choice" type="button" data-go="phone">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/smartphone.svg" alt=""></span>
+            <span>Gsm kwijt</span>
+          </button>
+          <button class="choice" type="button" data-go="luggage">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/luggage.svg" alt=""></span>
+            <span>Bagage kwijt</span>
+          </button>
+          <button class="choice all" type="button" data-go="all">
+            <span class="icon" aria-hidden="true"><img src="assets/icons/wallet-cards.svg" alt=""></span>
+            <span>Portefeuille of alles kwijt</span>
+          </button>
+        </div>
+
+        <a class="emergency" id="homeEmergencyLink" href="tel:112">
+          <img src="assets/icons/triangle-alert.svg" alt="">
+          <span>Direct gevaar?<small id="homeEmergencyServices">Politie, brandweer of ambulance</small></span>
+          <strong>Bel <span id="homeEmergencyNumber">112</span></strong>
+        </a>
+
+        <div class="country-emergency-card" id="countryEmergencyCard">
+          <h3>Noodnummers in <span data-country-name>het gekozen land</span></h3>
+          <p id="countryEmergencyNote">112 is het algemene Europese noodnummer.</p>
+          <div class="service-numbers">
+            <a id="countryPoliceLink" href="tel:112">Politie <strong id="countryPoliceNumber">112</strong></a>
+            <a id="countryMedicalLink" href="tel:112">Ambulance <strong id="countryMedicalNumber">112</strong></a>
+            <a id="countryFireLink" href="tel:112">Brandweer <strong id="countryFireNumber">112</strong></a>
+          </div>
+          <div class="source-row">
+            <span>Gecontroleerd op 28/07/2026</span>
+            <a id="countryEmergencySource" href="https://digital-strategy.ec.europa.eu/en/policies/112" target="_blank" rel="noopener">Officiële bron</a>
+          </div>
+          <details style="margin-top:10px">
+            <summary><strong>Wat zeg ik aan de operator?</strong></summary>
+            <p id="operatorPhraseIntro" style="margin-top:8px">De app begeleidt u in het Nederlands. Gebruik in het buitenland zo nodig deze eenvoudige Engelse zin:</p>
+            <p style="margin-top:8px"><strong id="operatorPhraseText" lang="en">“I need the police / an ambulance / the fire brigade. My location is …”</strong></p>
+            <p id="operatorPhraseHelp" style="margin-top:8px">Noem daarna stad, straat, herkenningspunt en uw telefoonnummer. Engels is niet in ieder land gegarandeerd.</p>
+          </details>
+        </div>
+
+        <div class="plan-builder">
+          <h3>Meerdere zaken kwijt?</h3>
+          <p>Vink alles aan wat betrokken is. De app maakt één geordend noodplan zonder dubbele stappen.</p>
+          <label for="incidentType" class="eyebrow">Wat is er gebeurd?</label>
+          <select id="incidentType">
+            <option value="lost">Verloren of achtergelaten</option>
+            <option value="theft">Gestolen</option>
+            <option value="robbery">Overval of dader mogelijk nog in de buurt</option>
+            <option value="fraud">Fraude of onbekende betaling</option>
+            <option value="flight">Bagage niet aangekomen na een vlucht</option>
+          </select>
+          <div class="plan-form-grid" aria-label="Betrokken zaken">
+            <label><input type="checkbox" data-plan-item="card"> Bankkaart of betaalapp</label>
+            <label><input type="checkbox" data-plan-item="documents"> ID of paspoort</label>
+            <label><input type="checkbox" data-plan-item="phone"> Gsm of simkaart</label>
+            <label><input type="checkbox" data-plan-item="licence"> Rijbewijs</label>
+            <label><input type="checkbox" data-plan-item="luggage"> Bagage</label>
+          </div>
+          <div class="plan-options">
+            <label class="plan-toggle"><input type="checkbox" id="planUrgent"> Er is nu onmiddellijk gevaar</label>
+            <label class="plan-toggle"><input type="checkbox" id="planTravel"> Ik moet vandaag of binnenkort nog reizen</label>
+          </div>
+          <button class="primary-action" id="buildPersonalPlan" type="button">Maak mijn noodplan</button>
+          <p class="form-error" id="planError" role="alert" hidden>Kies minstens één betrokken zaak.</p>
+        </div>
+
+        <details class="preparation-card">
+          <summary><strong>Voorbereiden vóór uw reis</strong></summary>
+          <p style="margin-top:10px">Registreer uw reis, bewaar documentnummers apart en noteer het IMEI-nummer van uw gsm. Bewaar geen onbeveiligde kopieën in deze app.</p>
+          <a class="link-button" href="https://diplomatie.belgium.be/nl/travellers-online" target="_blank" rel="noopener">Open Travellers Online</a>
+        </details>
+      </section>
+
+      <section class="screen" id="personal-plan" data-title="Mijn noodplan" hidden>
+        <h2 class="page-title"><img src="assets/icons/shield-check.svg" alt="">Mijn persoonlijk noodplan</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="plan-result-meta" id="personalPlanMeta"></div>
+        <ol class="steps" id="personalPlanSteps"></ol>
+        <button class="more" type="button" data-go="home">Pas mijn keuzes aan →</button>
+      </section>
+
+      <section class="screen" id="theft" data-title="Diefstal of overval" hidden>
+        <h2 class="page-title"><img src="assets/icons/siren.svg" alt="">Diefstal of overval</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="now">
+          <p class="eyebrow">Doe dit onmiddellijk</p>
+          <h3>Ga naar een veilige plaats</h3>
+          <p>Bij gevaar of wanneer de dader nog in de buurt is: bel <span id="theftUrgentText">101</span>.</p>
+          <div class="phone-block">
+            <strong class="number" id="theftUrgentNumber">101</strong>
+            <a class="call" id="theftUrgentLink" href="tel:101"><img src="assets/icons/phone-call.svg" alt=""><span id="theftUrgentLabel">Bel de politie</span></a>
+          </div>
+          <div class="quick-links">
+            <a href="https://www.google.com/maps/search/politiebureau+in+de+buurt" target="_blank" rel="noopener">Politie in de buurt</a>
+            <a id="theftEmbassyLink" href="https://diplomatie.belgium.be/nl/ambassades-en-consulaten" target="_blank" rel="noopener" hidden>Belgische ambassade of consulaat</a>
+          </div>
+          <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+        </div>
+        <button class="more" type="button" data-go="theft-more">Verdere acties →</button>
+      </section>
+
+      <section class="screen" id="theft-more" data-title="Diefstal – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <ol class="steps">
+          <li>
+            <strong>Doe aangifte bij de politie in de buurt</strong>
+            Ga bij voorkeur zo snel mogelijk naar een politiekantoor in de omgeving waar de diefstal plaatsvond. Vraag een kopie van het politieattest.
+            <a class="link-button" href="https://www.google.com/maps/search/politiebureau+in+de+buurt" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+          </li>
+          <li>
+            <strong>Bankkaarten weg?</strong>
+            Laat ze onmiddellijk blokkeren.
+            <button class="inline-route" type="button" data-go="bank">Ga naar Bankkaart →</button>
+          </li>
+          <li>
+            <strong>Belgische documenten weg?</strong>
+            Laat uw ID of paspoort onmiddellijk blokkeren.
+            <button class="inline-route" type="button" data-go="identity">Ga naar ID of paspoort →</button>
+          </li>
+          <li>
+            <strong>Gsm weg?</strong>
+            Laat uw simkaart blokkeren en beveilig uw toestel.
+            <button class="inline-route" type="button" data-go="phone">Ga naar Gsm kwijt →</button>
+          </li>
+          <li><strong>Contacteer uw verzekering indien van toepassing</strong>Bewaar de aangifte, facturen en andere bewijsstukken.</li>
+        </ol>
+      </section>
+
+      <section class="screen" id="bank" data-title="Kaart of bankfraude" hidden>
+        <h2 class="page-title"><img src="assets/icons/credit-card.svg" alt="">Kaart, betaalapp of bankfraude</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="situation-grid">
+          <div class="situation-card">
+            <strong>Kaart verloren, gestolen, ingeslikt of niet ontvangen?</strong>
+            <p>Bel onmiddellijk Card Stop. Dit geldt ook voor elektronische maaltijdchequekaarten.</p>
+          </div>
+          <div class="situation-card">
+            <strong>Bankapp mogelijk misbruikt of gsm met bankapp kwijt?</strong>
+            <p>Contacteer onmiddellijk uw eigen bank om de toegang tot mobiel en online bankieren te blokkeren.</p>
+            <a class="link-button" href="https://safeonweb.be/nl/actueel/online-fraude-neem-contact-op-met-je-bank" target="_blank" rel="noopener">Vind het noodnummer van uw bank</a>
+          </div>
+          <div class="situation-card">
+            <strong>Onbekende betaling, geldopname of overschrijving?</strong>
+            <p>Contacteer eerst uw bank. Bel ook Card Stop wanneer een kaart of betaalapp betrokken is en bewaar alle bewijsstukken.</p>
+          </div>
+        </div>
+        <div class="now">
+          <p class="eyebrow">Doe dit onmiddellijk</p>
+          <h3>Bel Card Stop</h3>
+          <p>Laat betrokken bankkaarten en betaaltoepassingen blokkeren. Card Stop blokkeert geen bankapp: daarvoor belt u uw bank.</p>
+          <div class="phone-block">
+            <span class="number-label" id="bankNumberLabel">Vanuit België</span>
+            <strong class="number" id="bankNumberDisplay">078 170 170</strong>
+            <a class="call" href="tel:+3278170170"><img src="assets/icons/phone-call.svg" alt="">Bel Card Stop nu</a>
+          </div>
+        </div>
+        <button class="more" type="button" data-go="bank-more">Verdere acties →</button>
+        <p class="note">24 uur per dag, 7 dagen per week bereikbaar.</p>
+      </section>
+
+      <section class="screen" id="bank-more" data-title="Bankkaart – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <ol class="steps">
+          <li><strong>Controleer uw rekening</strong>Noteer verrichtingen die u niet herkent.</li>
+          <li><strong>Contacteer uw bank</strong>Doe dit onmiddellijk als u onbekende verrichtingen ziet. Vraag hoe u deze betwist en welke bewijsstukken nodig zijn.</li>
+          <li><strong>Krediet- of prepaidkaart?</strong>Controleer via mijnkaart.be of u een betaling kunt betwisten.</li>
+          <li>
+            <strong>Bankkaart fysiek gestolen?</strong>
+            Doe zo snel mogelijk aangifte bij een politiekantoor in de omgeving waar de diefstal plaatsvond. Vraag een kopie van het politieattest.
+            <a class="link-button" href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+          </li>
+          <li>
+            <strong>Onbekende betalingen of geldafhalingen?</strong>
+            Neem rekeningoverzichten, berichten en andere bewijzen mee en doe aangifte bij een politiebureau in uw buurt. De fraude gebeurde niet noodzakelijk op de plaats waar u zich bevindt.
+            <a class="link-button" href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+          </li>
+          <li><strong>Vraag een nieuwe kaart aan</strong>Regel dit via uw eigen bank.</li>
+        </ol>
+        <a class="link-button" href="https://cardstop.be/nl-be/home" target="_blank" rel="noopener">Officiële informatie Card Stop</a>
+        <a class="link-button" href="https://www.mijnkaart.be/" target="_blank" rel="noopener">Betwist een kaartbetaling via mijnkaart.be</a>
+      </section>
+
+      <section class="screen" id="identity" data-title="ID of paspoort" hidden>
+        <h2 class="page-title"><img src="assets/icons/id-card.svg" alt="">ID of paspoort kwijt</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="situation-grid">
+          <div class="situation-card">
+            <strong>Belgische eID, Kids-ID, paspoort of Belgische verblijfskaart</strong>
+            <p>Gebruik DOC STOP. De operator controleert welk document moet worden geblokkeerd.</p>
+          </div>
+          <div class="situation-card">
+            <strong>Buitenlands identiteitsdocument</strong>
+            <p>DOC STOP kan dit niet blokkeren. Contacteer de uitgevende overheid, uw ambassade of consulaat en bij diefstal de politie.</p>
+          </div>
+          <div class="situation-card">
+            <strong>Alleen uw rijbewijs kwijt?</strong>
+            <p>Daarvoor bestaat geen afzonderlijk blokkeernummer.</p>
+            <button class="inline-route" type="button" data-go="licence">Ga naar Rijbewijs →</button>
+          </div>
+        </div>
+        <div class="now">
+          <p class="eyebrow">Doe dit onmiddellijk</p>
+          <h3>Bel DOC STOP</h3>
+          <p>Laat uw Belgische ID, paspoort of verblijfstitel blokkeren.</p>
+          <div class="phone-block">
+            <span class="number-label" id="docNumberLabel">Vanuit België</span>
+            <strong class="number" id="docNumberDisplay">00 800 2123 2123</strong>
+            <a class="call" id="docCall" href="tel:0080021232123"><img src="assets/icons/phone-call.svg" alt="">Bel DOC STOP nu</a>
+            <div class="secondary-number">
+              Werkt dit nummer niet? <a href="tel:+3224882123">+32 2 488 21 23</a>
+            </div>
+          </div>
+        </div>
+        <button class="more" type="button" data-go="identity-more">Verdere acties →</button>
+        <p class="note">24 uur per dag, 7 dagen per week bereikbaar.</p>
+      </section>
+
+      <section class="screen" id="identity-more" data-title="ID of paspoort – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div data-only="belgium">
+          <ol class="steps">
+            <li>
+              <strong>Meld verlies of diefstal</strong>
+              Ga naar uw eigen gemeente of naar het dichtstbijzijnde politiekantoor. Verliest u uw ID bijvoorbeeld in Gent terwijl u in Hasselt woont, dan mag u dus naar de politie in Gent.
+              <a class="link-button" href="https://www.google.com/maps/search/politiebureau+in+de+buurt" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+              <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+            </li>
+            <li><strong>Vraag een nieuw document aan</strong>Ga daarna persoonlijk naar de gemeente waar u woont. Neem een recente pasfoto en het bewijs van aangifte mee.</li>
+            <li><strong>Tijdelijk bewijs nodig?</strong>Vraag naar een bijlage 12. Dit tijdelijke identiteitsbewijs is alleen geldig in België en is geen reisdocument.</li>
+            <li><strong>Document later teruggevonden?</strong>Gebruik het niet zolang DOC STOP of uw gemeente niet heeft bevestigd wat ermee moet gebeuren. Volg de instructies die u bij de blokkering kreeg.</li>
+          </ol>
+        </div>
+        <div data-only="abroad" hidden>
+          <ol class="steps">
+            <li>
+              <strong>Ga naar de lokale politie</strong>
+              Doe aangifte en vraag een kopie van het politieattest.
+              <a class="link-button" href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+              <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+            </li>
+            <li>
+              <strong>Moet u nog reizen?</strong>
+              Contacteer de Belgische ambassade of het consulaat voor een mogelijk tijdelijk reisdocument.
+              <a class="link-button" href="https://diplomatie.belgium.be/nl/ambassades-en-consulaten" target="_blank" rel="noopener">Belgische ambassade of consulaat</a>
+            </li>
+            <li><strong>Buiten de EU en geen bereikbare Belgische post?</strong>Een ambassade of consulaat van een andere EU-lidstaat kan onder bepaalde voorwaarden consulaire bijstand verlenen.</li>
+            <li><strong>Document later teruggevonden?</strong>Gebruik het niet zolang DOC STOP of de consulaire post niet heeft bevestigd wat ermee moet gebeuren.</li>
+          </ol>
+        </div>
+        <a class="link-button" href="https://www.ibz.rrn.fgov.be/nl/burger/identiteitsdocumenten/doc-stop" target="_blank" rel="noopener">Officiële informatie DOC STOP</a>
+      </section>
+
+      <section class="screen" id="licence" data-title="Rijbewijs" hidden>
+        <h2 class="page-title"><img src="assets/icons/car-front.svg" alt="">Rijbewijs kwijt</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="now">
+          <p class="eyebrow">Eerste actie</p>
+          <div data-only="belgium">
+            <h3>Verloren of gestolen?</h3>
+            <p><strong>Gestolen:</strong> doe eerst aangifte bij een politiekantoor in de omgeving waar de diefstal plaatsvond.</p>
+            <div class="quick-links">
+              <a href="https://www.google.com/maps/search/politiebureau+in+de+buurt" target="_blank" rel="noopener">Politie in de buurt</a>
+            </div>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+            <p style="margin-top:8px"><strong>Verloren:</strong> contacteer uw gemeente. Voor een definitief rijbewijs A of B kan een online aanvraag via BelDrive mogelijk zijn.</p>
+          </div>
+          <div data-only="abroad" hidden>
+            <h3>Ga naar de lokale politie</h3>
+            <p>Doe aangifte van verlies of diefstal en vraag een kopie van het politieattest.</p>
+            <div class="quick-links">
+              <a href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Politie in de buurt</a>
+            </div>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+          </div>
+          <p style="margin-top:10px">Er bestaat geen afzonderlijk blokkeernummer voor een rijbewijs.</p>
+        </div>
+        <button class="more" type="button" data-go="licence-more">Verdere acties →</button>
+      </section>
+
+      <section class="screen" id="phone" data-title="Gsm kwijt" hidden>
+        <h2 class="page-title"><img src="assets/icons/smartphone.svg" alt="">Gsm kwijt</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="now">
+          <p class="eyebrow">Doe dit onmiddellijk</p>
+          <h3>Blokkeer uw simkaart</h3>
+          <p>Gebruik een ander toestel om uw Belgische telecomoperator te contacteren. Vergrendel daarna uw gsm op afstand.</p>
+          <div class="quick-links">
+            <a href="https://www.google.com/android/find/" target="_blank" rel="noopener">Android zoeken</a>
+            <a href="https://www.icloud.com/find" target="_blank" rel="noopener">iPhone zoeken</a>
+          </div>
+        </div>
+        <div class="operator-panel" data-only="belgium">
+          <h3>Belgische gsm-operator</h3>
+          <p>Bel vanaf een ander toestel om uw simkaart te blokkeren.</p>
+          <ul class="operator-list">
+            <li><a href="tel:080022800"><span>Proximus</span><span>0800 22 800</span></a></li>
+            <li><a href="tel:080095955"><span>Orange</span><span>0800 95 95 5</span></a></li>
+            <li><a href="tel:+3215666666"><span>Telenet</span><span>015 66 66 66</span></a></li>
+            <li><a href="tel:080066311"><span>BASE</span><span>0800 66 311</span></a></li>
+            <li><a href="https://mobilevikings.be/nl/my-viking" target="_blank" rel="noopener"><span>Mobile Vikings<small>My Viking → Simkaart</small></span><span>Online</span></a></li>
+          </ul>
+        </div>
+        <div class="operator-panel" data-only="abroad" hidden>
+          <h3>Belgische gsm-operator</h3>
+          <p>Bel vanuit het buitenland vanaf een ander toestel.</p>
+          <ul class="operator-list">
+            <li><a href="tel:+32475156000"><span>Proximus</span><span>+32 475 15 60 00</span></a></li>
+            <li><a href="tel:+3227459500"><span>Orange</span><span>+32 2 745 95 00</span></a></li>
+            <li><a href="tel:+3215666666"><span>Telenet</span><span>+32 15 66 66 66</span></a></li>
+            <li><a href="tel:+32486191999"><span>BASE</span><span>+32 486 19 19 99</span></a></li>
+            <li><a href="https://mobilevikings.be/nl/my-viking" target="_blank" rel="noopener"><span>Mobile Vikings<small>My Viking → Simkaart</small></span><span>Online</span></a></li>
+          </ul>
+        </div>
+        <button class="more" type="button" data-go="phone-more">Verdere acties →</button>
+      </section>
+
+      <section class="screen" id="phone-more" data-title="Gsm – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <ol class="steps">
+          <li>
+            <strong>Gsm gestolen?</strong>
+            Doe aangifte bij een politiekantoor in de omgeving waar de diefstal plaatsvond. Geef indien mogelijk het IMEI-nummer door en vraag een kopie van het politieattest.
+            <a class="link-button" href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+          </li>
+          <li><strong>Was uw gsm niet goed vergrendeld?</strong>Wijzig dan de wachtwoorden van e-mail, itsme en sociale media.</li>
+          <li>
+            <strong>Stonden er betaalapps op?</strong>
+            Bel alleen dan Card Stop op <a href="tel:+3278170170">+32 78 170 170</a>, bijvoorbeeld voor Apple Pay, Google Pay of Bancontact Pay.
+            <button class="inline-route" type="button" data-go="bank">Ga naar kaart of bankfraude →</button>
+          </li>
+          <li>
+            <strong>Kon iemand uw bankapp openen?</strong>
+            Waarschuw alleen dan onmiddellijk uw bank. Card Stop kan uw bankapp niet blokkeren.
+            <button class="inline-route" type="button" data-go="bank">Bekijk bankfraudestappen →</button>
+          </li>
+        </ol>
+      </section>
+
+      <section class="screen" id="luggage" data-title="Bagage kwijt" hidden>
+        <h2 class="page-title"><img src="assets/icons/luggage.svg" alt="">Bagage kwijt</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="now">
+          <p class="eyebrow">Kies de juiste eerste actie</p>
+          <div class="situation-grid">
+            <div class="situation-card">
+              <strong>Niet aangekomen na een vlucht</strong>
+              <p>Ga vóór u de bagagehal verlaat naar de bagageservice en laat een PIR-dossier opmaken.</p>
+            </div>
+            <div class="situation-card">
+              <strong>Bagage beschadigd</strong>
+              <p>Meld de schade onmiddellijk bij de bagageservice, maak foto's en bewaar bagagelabels en instapkaart.</p>
+            </div>
+            <div class="situation-card">
+              <strong>Gestolen</strong>
+              <p>Ga naar een veilige plaats en doe aangifte bij de lokale politie. Vraag een kopie van het politieattest.</p>
+              <button class="inline-route" type="button" data-go="theft">Bekijk diefstalstappen →</button>
+            </div>
+            <div class="situation-card">
+              <strong>Achtergelaten in hotel, trein, taxi of huurauto</strong>
+              <p>Contacteer eerst de vervoerder, accommodatie of verhuurder en daarna hun dienst gevonden voorwerpen.</p>
+            </div>
+          </div>
+          <div class="quick-links">
+            <a href="https://www.google.com/maps/search/baggage+service+near+me" target="_blank" rel="noopener">Bagageservice zoeken</a>
+            <a href="https://www.google.com/maps/search/politiebureau+in+de+buurt" target="_blank" rel="noopener">Politie zoeken</a>
+          </div>
+          <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+        </div>
+        <button class="more" type="button" data-go="luggage-more">Verdere acties →</button>
+      </section>
+
+      <section class="screen" id="luggage-more" data-title="Bagage – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <ol class="steps">
+          <li><strong>Bewaar uw PIR-nummer</strong>Volg daarmee uw bagage bij de luchtvaartmaatschappij.</li>
+          <li><strong>Dien tijdig een schriftelijke klacht in</strong>Bij verlies of beschadiging uiterlijk binnen 7 dagen; bij vertraagde bagage binnen 21 dagen nadat u de bagage hebt ontvangen.</li>
+          <li><strong>Contacteer uw reisverzekering</strong>Vraag vooraf welke aankopen en bewijsstukken worden aanvaard.</li>
+          <li>
+            <strong>Bankkaarten of betaalmiddelen in de bagage?</strong>
+            Blokkeer ze onmiddellijk via Card Stop.
+            <button class="inline-route" type="button" data-go="bank">Ga naar kaart of bankfraude →</button>
+          </li>
+          <li>
+            <strong>Belgische documenten in de bagage?</strong>
+            Blokkeer ze onmiddellijk via DOC STOP.
+            <button class="inline-route" type="button" data-go="identity">Ga naar ID of paspoort →</button>
+          </li>
+        </ol>
+        <a class="link-button" href="https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_nl.htm" target="_blank" rel="noopener">Officiële EU-informatie over bagage</a>
+      </section>
+
+      <section class="screen" id="licence-more" data-title="Rijbewijs – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div data-only="belgium">
+          <ol class="steps">
+            <li><strong>Bij diefstal</strong>Bewaar het politieattest en ga daarna naar de gemeente waar u bent ingeschreven.</li>
+            <li><strong>Bij verlies van een definitief rijbewijs A of B</strong>Vraag het indien mogelijk online opnieuw aan via BelDrive; anders gaat u naar uw gemeente.</li>
+            <li><strong>Voorlopig of ander rijbewijs</strong>Contacteer uw gemeente, want niet elke aanvraag kan via BelDrive.</li>
+          </ol>
+          <a class="link-button" href="https://beldrive.apps.mobilit.fgov.be/" target="_blank" rel="noopener">Open BelDrive</a>
+        </div>
+        <div data-only="abroad" hidden>
+          <ol class="steps">
+            <li><strong>Bewaar het politieattest</strong>U hebt dit nodig voor de verdere afhandeling.</li>
+            <li><strong>U woont nog in België</strong>Vraag na terugkeer een vervangend rijbewijs aan bij de gemeente waar u bent ingeschreven.</li>
+            <li><strong>Belgische ambassade</strong>Een ambassade of consulaat kan geen vervangend Belgisch rijbewijs afleveren.</li>
+          </ol>
+        </div>
+        <a class="link-button" href="https://mobilit.belgium.be/nl/weg/rijden/rijbewijzen" target="_blank" rel="noopener">Informatie FOD Mobiliteit</a>
+      </section>
+
+      <section class="screen" id="all" data-title="Alles kwijt" hidden>
+        <h2 class="page-title"><img src="assets/icons/wallet-cards.svg" alt="">Alles kwijt</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <div class="check-progress">
+          <span id="checkProgress" role="status" aria-live="polite">0 van 6 afgewerkt</span>
+          <button id="resetChecklist" type="button">Wis vinkjes</button>
+        </div>
+        <ol class="steps checklist">
+          <li>
+            <input type="checkbox" data-check="card" aria-label="Card Stop gebeld">
+            <strong>Bel Card Stop</strong><a id="allCardLink" href="tel:+3278170170"><span id="allCardNumber">078 170 170</span></a> — blokkeer uw bankkaarten.
+            <button class="inline-route" type="button" data-go="bank">Volledige bankstappen →</button>
+          </li>
+          <li>
+            <input type="checkbox" data-check="documents" aria-label="DOC STOP gebeld">
+            <strong>Bel DOC STOP</strong><a id="allDocLink" href="tel:0080021232123"><span id="allDocNumber">00 800 2123 2123</span></a> — blokkeer uw Belgische documenten.
+            <button class="inline-route" type="button" data-go="identity">Volledige documentstappen →</button>
+          </li>
+          <li>
+            <input type="checkbox" data-check="urgent" aria-label="Dringende politiehulp beoordeeld">
+            <strong>Dringend politie nodig?</strong>
+            Bel alleen bij onmiddellijk gevaar of wanneer snelle politiehulp nodig is:
+            <a id="policeUrgentLink" href="tel:101"><strong id="policeUrgentNumber">101</strong></a>.
+          </li>
+          <li>
+            <input type="checkbox" data-check="report" aria-label="Politieaangifte geregeld">
+            <strong>Was alles gestolen?</strong>
+            <span id="policeReportText">Doe zo snel mogelijk aangifte bij een politiekantoor in de omgeving waar de diefstal plaatsvond. Vraag een kopie van het politieattest.</span>
+            <a class="link-button" id="policeReportLink" href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Zoek politie in de buurt</a>
+            <p class="maps-note">Zet uw locatie aan en controleer in Google Maps of uw huidige positie correct wordt weergegeven.</p>
+          </li>
+          <li>
+            <input type="checkbox" data-check="lost" aria-label="Vervolgprocedure voor verlies bekeken">
+            <strong>Alleen verloren, niet gestolen?</strong>
+            Bel wel Card Stop en DOC STOP, maar gebruik daarna de afzonderlijke onderdelen voor de juiste vervolgprocedure.
+            <div>
+              <button class="inline-route" type="button" data-go="bank">Bankkaart →</button>
+              <button class="inline-route" type="button" data-go="identity">ID of paspoort →</button>
+              <button class="inline-route" type="button" data-go="phone">Gsm kwijt →</button>
+            </div>
+          </li>
+          <li>
+            <input type="checkbox" data-check="phone" aria-label="Gsm en simkaart beveiligd">
+            <strong>Gsm ook weg?</strong>
+            Blokkeer uw simkaart en beveilig uw toestel.
+            <button class="inline-route" type="button" data-go="phone">Ga naar Gsm kwijt →</button>
+          </li>
+        </ol>
+        <div class="operator-panel" data-only="belgium">
+          <h3>Gsm-operator contacteren</h3>
+          <p>Laat uw simkaart onmiddellijk blokkeren.</p>
+          <ul class="operator-list">
+            <li><a href="tel:080022800"><span>Proximus<small>24/7 bij verloren simkaart</small></span><span>0800 22 800</span></a></li>
+            <li><a href="tel:080095955"><span>Orange<small>Simkaart blokkeren</small></span><span>0800 95 95 5</span></a></li>
+            <li><a href="tel:+3215666666"><span>Telenet<small>Simkaart verloren of gestolen</small></span><span>015 66 66 66</span></a></li>
+            <li><a href="tel:080066311"><span>BASE<small>Vanaf een ander nummer</small></span><span>0800 66 311</span></a></li>
+            <li>
+              <a href="https://mobilevikings.be/nl/my-viking" target="_blank" rel="noopener">
+                <span>Mobile Vikings<small>My Viking → Simkaart</small></span><span>Blokkeer online</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="operator-panel" data-only="abroad" hidden>
+          <h3>Belgische gsm-operator vanuit het buitenland</h3>
+          <p>Laat uw simkaart onmiddellijk blokkeren vanaf een ander toestel.</p>
+          <ul class="operator-list">
+            <li><a href="tel:+32475156000"><span>Proximus</span><span>+32 475 15 60 00</span></a></li>
+            <li><a href="tel:+3227459500"><span>Orange</span><span>+32 2 745 95 00</span></a></li>
+            <li><a href="tel:+3215666666"><span>Telenet</span><span>+32 15 66 66 66</span></a></li>
+            <li><a href="tel:+32486191999"><span>BASE</span><span>+32 486 19 19 99</span></a></li>
+            <li><a href="https://mobilevikings.be/nl/my-viking" target="_blank" rel="noopener"><span>Mobile Vikings<small>My Viking → Simkaart</small></span><span>Online</span></a></li>
+          </ul>
+        </div>
+        <button class="more" type="button" data-go="all-more">Verdere acties →</button>
+      </section>
+
+      <section class="screen" id="all-more" data-title="Alles kwijt – verder" hidden>
+        <h2 class="page-title">Verdere acties</h2>
+        <p class="context">U bent in <span data-country-name>het gekozen land</span>.</p>
+        <ol class="steps">
+          <li><strong>Controleer uw bankrekening</strong>Meld verdachte verrichtingen onmiddellijk aan uw bank.<button class="inline-route" type="button" data-go="bank">Bekijk bankstappen →</button></li>
+          <li><strong>Vraag nieuwe bankkaarten aan</strong>Contacteer uw bank na de blokkering.<button class="inline-route" type="button" data-go="bank">Ga naar kaart of bankfraude →</button></li>
+          <li data-only="belgium"><strong>Vraag nieuwe identiteitsdocumenten aan</strong>Ga naar de gemeente waar u woont. Neem het bewijs van aangifte en een recente pasfoto mee.<button class="inline-route" type="button" data-go="identity">Bekijk documentstappen →</button></li>
+          <li data-only="abroad" hidden><strong>Identiteitsdocumenten weg?</strong>Bewaar het lokale politieattest. Moet u reizen, contacteer dan de Belgische ambassade of het consulaat.<button class="inline-route" type="button" data-go="identity">Bekijk documentstappen →</button></li>
+          <li><strong>Gsm onvoldoende vergrendeld?</strong>Wijzig alleen dan belangrijke wachtwoorden en beveilig uw accounts.<button class="inline-route" type="button" data-go="phone">Bekijk gsm-stappen →</button></li>
+        </ol>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <strong>Auteur: Freddy Sleeuwaert</strong><br>
+      Contacten en telefoonnummers: inhoudsversie 01/08/2026.<br>
+      Contactgegevens en procedures kunnen na 01/08/2026 wijzigen.
+    </footer>
+    <a class="context-emergency" id="contextEmergency" href="tel:101" hidden>
+      <img src="assets/icons/phone-call.svg" alt="">
+      <span><small id="contextEmergencyLabel">Dringende politie</small><br>Bel <strong id="contextEmergencyNumber">101</strong></span>
+    </a>
+  </div>
+
+  <script>
+    (() => {
+      const screens = [...document.querySelectorAll(".screen")];
+      const backButton = document.getElementById("backButton");
+      const headerTitle = document.getElementById("headerTitle");
+      const countrySelect = document.getElementById("countrySelect");
+      const locationStatus = document.getElementById("locationStatus");
+      const detectedConfirm = document.getElementById("detectedConfirm");
+      const detectedCountryName = document.getElementById("detectedCountryName");
+      const countryBadge = document.getElementById("countryBadge");
+      const countryBadgeText = document.getElementById("countryBadgeText");
+      const homeButton = document.getElementById("homeButton");
+      const contextEmergency = document.getElementById("contextEmergency");
+      const offlineBanner = document.getElementById("offlineBanner");
+      const checklist = [...document.querySelectorAll("[data-check]")];
+      const planItems = [...document.querySelectorAll("[data-plan-item]")];
+      let historyStack = ["location"];
+      let detectedCode = "";
+      let selectedCountry = { code: "BE", name: "België" };
+      let countryChosen = false;
+
+      const countries = [
+        ["AL","Albanië"],["AD","Andorra"],["AM","Armenië"],["AZ","Azerbeidzjan"],
+        ["BE","België"],["BA","Bosnië en Herzegovina"],
+        ["BG","Bulgarije"],["CY","Cyprus"],["DK","Denemarken"],["DE","Duitsland"],
+        ["EE","Estland"],["FI","Finland"],["FR","Frankrijk"],["GE","Georgië"],["GR","Griekenland"],
+        ["HU","Hongarije"],["IE","Ierland"],["IS","IJsland"],["IT","Italië"],
+        ["XK","Kosovo"],["HR","Kroatië"],["LV","Letland"],["LI","Liechtenstein"],
+        ["LT","Litouwen"],["LU","Luxemburg"],["MT","Malta"],["MD","Moldavië"],
+        ["MC","Monaco"],["ME","Montenegro"],["NL","Nederland"],["MK","Noord-Macedonië"],
+        ["NO","Noorwegen"],["UA","Oekraïne"],["AT","Oostenrijk"],["PL","Polen"],
+        ["PT","Portugal"],["RO","Roemenië"],["RU","Rusland"],["SM","San Marino"],["RS","Servië"],
+        ["SI","Slovenië"],["SK","Slowakije"],["ES","Spanje"],["CZ","Tsjechië"],
+        ["TR","Turkije"],["VA","Vaticaanstad"],["GB","Verenigd Koninkrijk"],
+        ["BY","Wit-Rusland"],["SE","Zweden"],["CH","Zwitserland"]
+      ];
+
+      const euCountries = new Set([
+        "AT","BE","BG","CY","CZ","DE","DK","EE","ES","FI","FR","GR","HR","HU","IE","IT",
+        "LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK"
+      ]);
+      const additional112Countries = new Set([
+        "AL","BA","IS","XK","LI","MD","ME","MK","NO","RS","CH","TR"
+      ]);
+      const EU_112_SOURCE = "https://digital-strategy.ec.europa.eu/en/policies/112";
+      const EXTRA_112_SOURCE = "https://www.government.nl/faq/emergency-number-112/can-i-also-call-112-from-abroad";
+
+      const specialEmergencyProfiles = {
+        BE: {
+          general: "112", police: "101", medical: "112", fire: "112",
+          services: "Algemene noodhulp; 101 voor dringende politie",
+          note: "Bel 112 voor brandweer of ambulance. Bel 101 wanneer u in België dringende politiehulp nodig hebt.",
+          source: "https://112.be/nl/how-call/hoe-bel-ik-naar-112", limited: false
+        },
+        AD: {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Politie, brandweer en ambulance",
+          note: "112 wordt in Andorra als algemeen noodnummer gebruikt.",
+          source: "https://www.itu.int/net/itu-t/inrdb/e129_important_numbers.aspx", limited: false
+        },
+        AM: {
+          general: "112", police: "112", medical: "103", fire: "112",
+          services: "Politie en reddingsdienst; ambulance heeft een afzonderlijk nummer",
+          note: "Sinds 15 februari 2026 bundelt 112 politie en reddingsdienst. Voor medische spoed toont de app ook 103.",
+          source: "https://mia.gov.am/2026/02/11/112-4/", limited: true
+        },
+        AZ: {
+          general: "112", police: "102", medical: "103", fire: "112",
+          services: "Redding en brandweer; politie en ambulance hebben afzonderlijke nummers",
+          note: "Gebruik in Azerbeidzjan 102 voor politie en 103 voor ambulance. 112 hoort bij de nood- en reddingsdienst.",
+          source: "https://fhn.gov.az/az", limited: true
+        },
+        GE: {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Politie, brandweer en ambulance",
+          note: "112 is in Georgië het gezamenlijke gratis noodnummer voor politie, brandweer en medische hulp.",
+          source: "https://police.ge/en/lepl/lepl112", limited: false
+        },
+        MC: {
+          general: "112", police: "17", medical: "15", fire: "112",
+          services: "112 voor brandweer/redding; afzonderlijke nummers voor politie en ambulance",
+          note: "Monaco gebruikt 17 voor politie, 15 voor medische spoed en 18 of 112 voor brandweer en redding.",
+          source: "https://journaldemonaco.gouv.mc/Journaux/2025/Journal-8756/Arrete-Ministeriel-n-2025-354-du-10-juillet-2025-definissant-un-plan-national-de-numerotation-telephonique",
+          limited: true
+        },
+        RU: {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Politie, brandweer en ambulance",
+          note: "112 is in Rusland het gezamenlijke nummer voor de operationele hulpdiensten.",
+          source: "https://mchs.gov.ru/deyatelnost/bezopasnost-grazhdan/kak-pravilno-vyzvat-skoruyu_5", limited: false
+        },
+        SM: {
+          general: "112", police: "112", medical: "118", fire: "115",
+          services: "112 voor politie/interforce; afzonderlijke nummers voor ambulance en brandweer",
+          note: "San Marino vermeldt 112/113 voor de centrale politie- en interforcedienst, 118 voor ambulance en 115 voor brandweer.",
+          source: "https://www.gov.sm/pub1/GovSM/Amministrazione-Trasparente/Organizzazione-dell-Amministrazione/Forze-dell-ordine/Gendarmeria.html",
+          limited: true
+        },
+        UA: {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Politie, brandweer en ambulance",
+          note: "112 is beschikbaar in Oekraïne, behalve waar de werking door bezetting of netwerkuitval onmogelijk is.",
+          source: "https://mvs.gov.ua/mvs-specprojekti/sluzba-112-usi-ekstreni-sluzbi-za-jedinim-nomerom", limited: true
+        },
+        GB: {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Politie, brandweer en ambulance",
+          note: "112 en 999 werken beide als nationaal noodnummer in het Verenigd Koninkrijk.",
+          source: "https://www.gov.uk/guidance/999-and-112-the-uks-national-emergency-numbers", limited: false
+        },
+        BY: {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Algemene noodhulp",
+          note: "112 wordt door het Belgische reisadvies als algemeen noodnummer voor Wit-Rusland vermeld.",
+          source: "https://diplomatie.belgium.be/nl/landen/belarus/reizen-naar-belarus-reisadvies/algemene-veiligheid-belarus", limited: true
+        },
+        VA: {
+          general: "112", police: "113", medical: "118", fire: "115",
+          services: "112 als eerste noodoproep; Italiaanse alternatieven worden getoond",
+          note: "Voor Vaticaanstad is onvoldoende actuele openbare broninformatie gevonden over één universeel nummer. Probeer 112; de app toont ook de omliggende Italiaanse hulpnummers.",
+          source: "https://www.vaticanstate.va/it/", limited: true
+        }
+      };
+
+      function getEmergencyProfile(code) {
+        if (specialEmergencyProfiles[code]) return specialEmergencyProfiles[code];
+        if (euCountries.has(code)) {
+          return {
+            general: "112", police: "112", medical: "112", fire: "112",
+            services: "Politie, brandweer en ambulance",
+            note: "112 is hier het gratis Europese noodnummer. De beschikbare talen verschillen per land en operator.",
+            source: EU_112_SOURCE, limited: false
+          };
+        }
+        if (additional112Countries.has(code)) {
+          return {
+            general: "112", police: "112", medical: "112", fire: "112",
+            services: "Algemene noodhulp",
+            note: "112 is voor dit land officieel als noodnummer bevestigd. Lokale afzonderlijke nummers kunnen daarnaast blijven bestaan.",
+            source: EXTRA_112_SOURCE, limited: false
+          };
+        }
+        return {
+          general: "112", police: "112", medical: "112", fire: "112",
+          services: "Noodhulp",
+          note: "Probeer 112 en volg lokale aanwijzingen. De landspecifieke werking vereist extra controle.",
+          source: "https://www.itu.int/net/itu-t/inrdb/e129_important_numbers.aspx", limited: true
+        };
+      }
+
+      countries.forEach(([code, name]) => {
+        const option = document.createElement("option");
+        option.value = code;
+        option.textContent = name;
+        countrySelect.append(option);
+      });
+
+      function showScreen(id, addToHistory = true) {
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        screens.forEach(screen => {
+          screen.hidden = screen !== target;
+          screen.classList.toggle("active", screen === target);
+        });
+
+        if (addToHistory && historyStack.at(-1) !== id) historyStack.push(id);
+        headerTitle.textContent = target.dataset.title || "Snelle hulp";
+        backButton.hidden = id === "location";
+        countryBadge.hidden = !countryChosen;
+        homeButton.hidden = !countryChosen;
+        contextEmergency.hidden = !countryChosen;
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      function setCountry(code) {
+        const match = countries.find(country => country[0] === code) || ["", "Onbekend land"];
+        selectedCountry = { code: match[0], name: match[1] };
+        const emergency = getEmergencyProfile(selectedCountry.code);
+        countryChosen = true;
+        countryBadgeText.textContent = selectedCountry.name;
+        document.querySelectorAll("[data-country-name]").forEach(el => {
+          el.textContent = selectedCountry.name;
+        });
+
+        const abroad = selectedCountry.code !== "BE";
+        document.querySelectorAll("[data-only]").forEach(el => {
+          el.hidden = el.dataset.only === "abroad" ? !abroad : abroad;
+        });
+        document.getElementById("bankNumberLabel").textContent = abroad ? "Vanuit het buitenland" : "Vanuit België";
+        document.getElementById("bankNumberDisplay").textContent = abroad ? "+32 78 170 170" : "078 170 170";
+        document.getElementById("docNumberLabel").textContent = abroad ? "Vanuit het buitenland" : "Vanuit België";
+        document.getElementById("docNumberDisplay").textContent = abroad ? "+800 2123 2123" : "00 800 2123 2123";
+        document.getElementById("docCall").href = abroad ? "tel:+80021232123" : "tel:0080021232123";
+        document.getElementById("allCardNumber").textContent = abroad ? "+32 78 170 170" : "078 170 170";
+        document.getElementById("allDocNumber").textContent = abroad ? "+800 2123 2123" : "00 800 2123 2123";
+        document.getElementById("allDocLink").href = abroad ? "tel:+80021232123" : "tel:0080021232123";
+        document.getElementById("policeUrgentNumber").textContent = emergency.police;
+        document.getElementById("policeUrgentLink").href = `tel:${emergency.police}`;
+        document.getElementById("theftUrgentText").textContent = emergency.police;
+        document.getElementById("theftUrgentNumber").textContent = emergency.police;
+        document.getElementById("theftUrgentLink").href = `tel:${emergency.police}`;
+        document.getElementById("theftUrgentLabel").textContent = "Bel de politie";
+        document.getElementById("contextEmergencyNumber").textContent = emergency.police;
+        document.getElementById("contextEmergencyLabel").textContent = "Dringende politie";
+        contextEmergency.href = `tel:${emergency.police}`;
+        document.getElementById("homeEmergencyNumber").textContent = emergency.general;
+        document.getElementById("homeEmergencyServices").textContent = emergency.services;
+        document.getElementById("homeEmergencyLink").href = `tel:${emergency.general}`;
+        document.getElementById("countryEmergencyNote").textContent = emergency.note;
+        document.getElementById("countryEmergencyCard").classList.toggle("warning", emergency.limited);
+        document.getElementById("countryEmergencySource").href = emergency.source;
+        const dutchSpeakingDestination = selectedCountry.code === "BE" || selectedCountry.code === "NL";
+        const operatorPhrase = document.getElementById("operatorPhraseText");
+        document.getElementById("operatorPhraseIntro").textContent = dutchSpeakingDestination
+          ? `U bent in ${selectedCountry.name}. Spreek de operator eerst in het Nederlands aan:`
+          : "De app begeleidt u in het Nederlands. Gebruik in het buitenland zo nodig deze eenvoudige Engelse zin:";
+        operatorPhrase.textContent = dutchSpeakingDestination
+          ? "“Ik heb de politie / een ambulance / de brandweer nodig. Mijn locatie is …”"
+          : "“I need the police / an ambulance / the fire brigade. My location is …”";
+        operatorPhrase.lang = dutchSpeakingDestination ? "nl" : "en";
+        document.getElementById("operatorPhraseHelp").textContent = dutchSpeakingDestination
+          ? "Noem daarna de gemeente, straat, een herkenningspunt en uw telefoonnummer."
+          : "Noem daarna stad, straat, herkenningspunt en uw telefoonnummer. Engels is niet in ieder land gegarandeerd.";
+        [["Police","police"],["Medical","medical"],["Fire","fire"]].forEach(([id, key]) => {
+          document.getElementById(`country${id}Number`).textContent = emergency[key];
+          document.getElementById(`country${id}Link`).href = `tel:${emergency[key]}`;
+        });
+        document.getElementById("theftEmbassyLink").hidden = !abroad;
+        document.getElementById("policeReportText").textContent = abroad
+          ? "Doe zo snel mogelijk aangifte bij een plaatselijk politiekantoor in de omgeving waar de diefstal plaatsvond. Vraag een kopie van het politieattest."
+          : "Doe zo snel mogelijk aangifte bij een politiekantoor in de omgeving waar de diefstal plaatsvond. Vraag een kopie van het politieattest.";
+        try { localStorage.setItem("noodhulp-country", selectedCountry.code); } catch {}
+
+        historyStack = ["location", "home"];
+        showScreen("home", false);
+      }
+
+      function updateChecklist() {
+        const checked = checklist.filter(item => item.checked).length;
+        document.getElementById("checkProgress").textContent = `${checked} van ${checklist.length} afgewerkt`;
+        try {
+          localStorage.setItem("noodhulp-checklist", JSON.stringify(
+            Object.fromEntries(checklist.map(item => [item.dataset.check, item.checked]))
+          ));
+        } catch {}
+      }
+
+      function restoreChecklist() {
+        try {
+          const saved = JSON.parse(localStorage.getItem("noodhulp-checklist") || "{}");
+          checklist.forEach(item => { item.checked = Boolean(saved[item.dataset.check]); });
+        } catch {}
+        updateChecklist();
+      }
+
+      function addPlanStep(title, text, options = {}) {
+        const item = document.createElement("li");
+        const heading = document.createElement("strong");
+        heading.textContent = title;
+        item.append(heading, document.createTextNode(text));
+
+        if (options.call) {
+          const call = document.createElement("a");
+          call.className = "link-button";
+          call.href = `tel:${options.call}`;
+          call.textContent = `Bel ${options.call}`;
+          item.append(call);
+        }
+        if (options.route) {
+          const route = document.createElement("button");
+          route.className = "inline-route";
+          route.type = "button";
+          route.dataset.go = options.route;
+          route.textContent = `${options.routeLabel || "Bekijk alle stappen"} →`;
+          item.append(route);
+        }
+        if (options.url) {
+          const link = document.createElement("a");
+          link.className = "link-button";
+          link.href = options.url;
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = options.urlLabel || "Open officiële website";
+          item.append(link);
+        }
+        document.getElementById("personalPlanSteps").append(item);
+      }
+
+      function buildPersonalPlan() {
+        const selectedItems = new Set(planItems.filter(item => item.checked).map(item => item.dataset.planItem));
+        const error = document.getElementById("planError");
+        if (!selectedItems.size) {
+          error.hidden = false;
+          return;
+        }
+        error.hidden = true;
+
+        const incident = document.getElementById("incidentType").value;
+        const urgent = document.getElementById("planUrgent").checked || incident === "robbery";
+        const mustTravel = document.getElementById("planTravel").checked;
+        const emergency = getEmergencyProfile(selectedCountry.code);
+        const steps = document.getElementById("personalPlanSteps");
+        steps.replaceChildren();
+
+        const incidentLabels = {
+          lost: "verloren of achtergelaten",
+          theft: "gestolen",
+          robbery: "overval of acuut diefstalgevaar",
+          fraud: "fraude of onbekende betaling",
+          flight: "bagageprobleem na een vlucht"
+        };
+        document.getElementById("personalPlanMeta").textContent =
+          `${selectedItems.size} betrokken ${selectedItems.size === 1 ? "onderdeel" : "onderdelen"} · ${incidentLabels[incident]} · ${selectedCountry.name}`;
+
+        if (urgent) {
+          const urgentNumber = incident === "theft" || incident === "robbery"
+            ? emergency.police
+            : emergency.general;
+          addPlanStep(
+            "Ga eerst naar een veilige plaats",
+            incident === "theft" || incident === "robbery"
+              ? ` Bel bij onmiddellijk gevaar of wanneer de dader nog in de buurt is de politie op ${urgentNumber}.`
+              : ` Bel bij onmiddellijk gevaar de passende hulpdienst op ${urgentNumber}.`,
+            { call: urgentNumber }
+          );
+        }
+
+        if (selectedItems.has("card")) {
+          if (incident === "fraud") {
+            addPlanStep(
+              "Contacteer onmiddellijk uw bank",
+              " Vraag de verdachte transactie en de toegang tot uw bankapp te blokkeren. Bel Card Stop wanneer een kaart of betaalapp betrokken is.",
+              { route: "bank", routeLabel: "Kaart- en bankfraudestappen" }
+            );
+          } else {
+            addPlanStep(
+              "Blokkeer kaarten en betaalapps",
+              ` Bel Card Stop op ${selectedCountry.code === "BE" ? "078 170 170" : "+32 78 170 170"}.`,
+              { call: "+3278170170", route: "bank", routeLabel: "Volledige bankstappen" }
+            );
+          }
+        }
+
+        if (selectedItems.has("documents")) {
+          addPlanStep(
+            "Blokkeer Belgische documenten",
+            ` Bel DOC STOP. Werkt het internationale gratis nummer niet, gebruik dan +32 2 488 21 23.`,
+            {
+              call: selectedCountry.code === "BE" ? "0080021232123" : "+80021232123",
+              route: "identity",
+              routeLabel: "Volledige documentstappen"
+            }
+          );
+        }
+
+        if (selectedItems.has("phone")) {
+          addPlanStep(
+            "Blokkeer uw simkaart en vergrendel uw gsm",
+            " Gebruik een ander toestel om uw Belgische operator te contacteren en beveilig daarna het toestel op afstand.",
+            { route: "phone", routeLabel: "Operator en gsm-stappen" }
+          );
+        }
+
+        if (selectedItems.has("licence")) {
+          addPlanStep(
+            "Regel uw verloren of gestolen rijbewijs",
+            incident === "theft" || incident === "robbery"
+              ? " Vermeld het rijbewijs in de politieaangifte. Een gestolen rijbewijs kan niet via BelDrive worden vervangen."
+              : " Bewaar bewijs van verlies en volg de procedure die bij uw verblijfplaats past.",
+            { route: "licence", routeLabel: "Rijbewijsstappen" }
+          );
+        }
+
+        if (selectedItems.has("luggage")) {
+          addPlanStep(
+            incident === "flight" ? "Laat vóór vertrek uit de bagagehal een PIR opmaken" : "Meld de vermiste of gestolen bagage",
+            incident === "flight"
+              ? " Bewaar PIR-nummer, bagagelabels en instapkaart. Dien daarna tijdig een schriftelijke klacht in."
+              : " Contacteer de vervoerder of accommodatie; doe bij diefstal ook aangifte bij de lokale politie.",
+            { route: "luggage", routeLabel: "Volledige bagagestappen" }
+          );
+        }
+
+        if (incident === "theft" || incident === "robbery") {
+          addPlanStep(
+            "Doe aangifte bij de lokale politie",
+            " Vraag een kopie van het politieattest en vermeld alle gestolen zaken. Bij acuut gevaar gebruikt u het politienummer hierboven.",
+            {
+              url: "https://www.google.com/maps/search/police+station+near+me",
+              urlLabel: "Zoek politie in de buurt"
+            }
+          );
+        }
+
+        if (mustTravel && selectedItems.has("documents") && selectedCountry.code !== "BE") {
+          addPlanStep(
+            "Contacteer vóór uw volgende verplaatsing de Belgische post",
+            " Vraag of u een voorlopig reisdocument nodig hebt. Een politieattest wordt niet door elke vervoerder als reisdocument aanvaard.",
+            {
+              url: "https://diplomatie.belgium.be/nl/ambassades-en-consulaten",
+              urlLabel: "Zoek ambassade of consulaat"
+            }
+          );
+        }
+
+        showScreen("personal-plan");
+      }
+
+      function updateConnectivity() {
+        offlineBanner.hidden = navigator.onLine;
+      }
+
+      function detectCountry() {
+        detectedConfirm.hidden = true;
+        locationStatus.textContent = "Uw locatie wordt bepaald…";
+        if (!navigator.geolocation) {
+          locationStatus.textContent = "Locatiebepaling wordt niet ondersteund. Kies het land zelf.";
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async position => {
+          try {
+            locationStatus.textContent = "Land wordt opgezocht…";
+            const { latitude, longitude } = position.coords;
+            const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}&localityLanguage=nl`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("lookup failed");
+            const data = await response.json();
+            const code = String(data.countryCode || "").toUpperCase();
+            const match = countries.find(country => country[0] === code);
+            if (!match) throw new Error("outside list");
+            detectedCode = code;
+            detectedCountryName.textContent = match[1];
+            detectedConfirm.hidden = false;
+            locationStatus.textContent = "";
+          } catch {
+            locationStatus.textContent = "Het land kon niet automatisch worden gevonden. Kies het land zelf.";
+          }
+        }, error => {
+          const denied = error.code === error.PERMISSION_DENIED;
+          locationStatus.textContent = denied
+            ? "Geen locatietoegang. Kies het land zelf."
+            : "Uw locatie kon niet worden bepaald. Kies het land zelf.";
+        }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
+      }
+
+      document.addEventListener("click", event => {
+        const externalLink = event.target.closest('a[target="_blank"]');
+        if (externalLink && !navigator.onLine) {
+          event.preventDefault();
+          offlineBanner.hidden = false;
+          offlineBanner.innerHTML = "<strong>Geen internet:</strong> deze website of kaart kan nu niet worden geopend. De stappen en belknoppen in de app blijven beschikbaar.";
+          return;
+        }
+
+        const trigger = event.target.closest("[data-go]");
+        if (trigger) showScreen(trigger.dataset.go);
+      });
+
+      backButton.addEventListener("click", () => {
+        historyStack.pop();
+        showScreen(historyStack.at(-1) || "location", false);
+      });
+
+      homeButton.addEventListener("click", () => {
+        historyStack = ["location", "home"];
+        showScreen("home", false);
+      });
+      countryBadge.addEventListener("click", () => showScreen("country-picker"));
+      checklist.forEach(item => item.addEventListener("change", updateChecklist));
+      document.getElementById("resetChecklist").addEventListener("click", () => {
+        checklist.forEach(item => { item.checked = false; });
+        updateChecklist();
+      });
+      document.getElementById("detectCountry").addEventListener("click", detectCountry);
+      document.getElementById("acceptDetected").addEventListener("click", () => setCountry(detectedCode));
+      document.getElementById("confirmCountry").addEventListener("click", () => setCountry(countrySelect.value));
+      document.getElementById("useBelgium").addEventListener("click", () => setCountry("BE"));
+      document.getElementById("buildPersonalPlan").addEventListener("click", buildPersonalPlan);
+      planItems.forEach(item => item.addEventListener("change", () => {
+        if (planItems.some(planItem => planItem.checked)) document.getElementById("planError").hidden = true;
+      }));
+      window.addEventListener("online", updateConnectivity);
+      window.addEventListener("offline", updateConnectivity);
+      updateConnectivity();
+      restoreChecklist();
+
+      if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+        window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js"));
+      }
+    })();
+  </script>
+</body>
+</html>
