@@ -523,7 +523,7 @@
           const description = reference || "Voor het posten van uitgaande brieven";
           const origin = activeOrigin ? `${activeOrigin.lat},${activeOrigin.lon}` : "";
           const destination = `${item.lat},${item.lon}`;
-          const routeUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving&dir_action=navigate`;
+          const routeUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
 
           return `
             <article class="result-card">
@@ -534,7 +534,7 @@
                 <p class="meta">${escapeHtml(description)}</p>
               </div>
               <div class="result-actions">
-                <a class="route-button" href="${routeUrl}" target="_blank" rel="noopener" aria-label="Autoroute naar brievenbus op ${formatDistance(item.distance)}">Route met de auto</a>
+                <a class="route-button" href="${routeUrl}" target="_blank" rel="noopener" aria-label="Bekijk de autoroute naar de brievenbus op ${formatDistance(item.distance)}">Bekijk autoroute</a>
               </div>
             </article>`;
         }).join("");

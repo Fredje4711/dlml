@@ -6,7 +6,7 @@ Een zelfstandige, mobielgerichte webpagina waarmee openbare brievenbussen in Eur
 
 - Kies **Gebruik mijn huidige locatie** en sta locatiegebruik toe.
 - De resultaten staan van dichtbij naar verder weg.
-- **Route met de auto** opent Google Maps met het gebruikte zoekpunt als vertrek en de brievenbus als bestemming.
+- **Bekijk autoroute** opent in Google Maps eerst het routeoverzicht, met het gebruikte zoekpunt als vertrek en de brievenbus als bestemming. De gebruiker kiest daarna zelf wanneer de navigatie wordt gestart.
 - Geeft de kaart geen bruikbaar resultaat, probeer dan later opnieuw of controleer de officiële website of app van de plaatselijke postdienst.
 
 De toepassing toont alleen openbare postbussen voor uitgaande brieven. Organisatie- of klantenbrievenbussen, zoals die van een ziekenfonds, worden uit de resultaten gefilterd. Lichtingstijden worden niet getoond omdat deze kaartinformatie niet overal actueel of volledig is. Een algemene Google Maps-zoekopdracht wordt niet als alternatief aangeboden, omdat Google Maps openbare brievenbussen kan vermengen met postkantoren, pakjespunten en pakjesautomaten. Google Maps wordt alleen gebruikt om de route naar een reeds gevonden brievenbus te openen.
