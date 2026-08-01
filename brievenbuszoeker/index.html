@@ -361,8 +361,9 @@
       const moreButton = document.getElementById("more-button");
 
       const overpassServers = [
+        "https://overpass-api.de/api/interpreter",
         "https://overpass.private.coffee/api/interpreter",
-        "https://overpass-api.de/api/interpreter"
+        "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
       ];
 
       let matches = [];
@@ -438,24 +439,28 @@
       }
 
       async function fetchPostBoxes(lat, lon, radius) {
-        const query = `[out:json][timeout:20];nwr["amenity"="post_box"](around:${radius},${lat},${lon});out center tags;`;
+        const query = `[out:json][timeout:15];nwr["amenity"="post_box"](around:${radius},${lat},${lon});out center tags;`;
         let lastError;
 
         for (const server of overpassServers) {
+          let timer;
           try {
             const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), 18000);
-            const response = await fetch(`${server}?data=${encodeURIComponent(query)}`, {
-              headers: { "Accept": "application/json" },
+            timer = setTimeout(() => controller.abort(), 18000);
+            const response = await fetch(server, {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+              body: `data=${encodeURIComponent(query)}`,
               cache: "no-store",
               signal: controller.signal
             });
-            clearTimeout(timer);
             if (!response.ok) throw new Error(`Kaartdienst gaf status ${response.status}`);
             const data = await response.json();
             return Array.isArray(data.elements) ? data.elements : [];
           } catch (error) {
             lastError = error;
+          } finally {
+            clearTimeout(timer);
           }
         }
         throw lastError || new Error("De kaartdienst is tijdelijk niet bereikbaar.");
