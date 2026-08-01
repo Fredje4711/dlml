@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "brievenbuszoeker-v8";
+const CACHE_NAME = "brievenbuszoeker-v9";
 const APP_SHELL = [
   "./",
   "./index.html",

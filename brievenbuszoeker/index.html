@@ -56,7 +56,7 @@
       margin-inline: auto;
     }
 
-    main { padding: 24px 16px 44px; }
+    main { padding: 24px 16px 18px; }
 
     .hero {
       padding: 26px 20px 22px;
@@ -181,7 +181,6 @@
     }
 
     .results h2 { margin: 0; color: var(--navy); font-size: 1.35rem; }
-    .results-count { color: var(--muted); font-size: .9rem; }
 
     .result-list { display: grid; gap: 12px; }
 
@@ -334,7 +333,6 @@
     <section class="results" id="results" aria-labelledby="results-title">
       <div class="results-heading">
         <h2 id="results-title">Dichtstbijzijnde brievenbussen</h2>
-        <span class="results-count" id="results-count"></span>
       </div>
       <div class="result-list" id="result-list"></div>
     </section>
@@ -354,7 +352,6 @@
       const locationButton = document.getElementById("location-button");
       const statusBox = document.getElementById("status");
       const resultsSection = document.getElementById("results");
-      const resultsCount = document.getElementById("results-count");
       const resultList = document.getElementById("result-list");
 
       const overpassServers = [
@@ -539,12 +536,10 @@
       }
 
       function renderResults() {
-        resultsCount.textContent = matches.length === 1 ? "1 gevonden" : "2 gevonden";
         resultList.innerHTML = matches.map((item, index) => {
           const tags = item.tags;
           const operator = tags.operator || tags.brand || tags.network || "Openbare brievenbus";
           const reference = tags.ref ? `Nummer: ${tags.ref}` : "";
-          const description = reference || "Voor het posten van uitgaande brieven";
           const origin = activeOrigin ? `${activeOrigin.lat},${activeOrigin.lon}` : "";
           const destination = `${item.lat},${item.lon}`;
           const routeUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
@@ -555,7 +550,7 @@
               <div class="result-main">
                 <h3 class="result-title">${escapeHtml(operator)}</h3>
                 <div class="distance">${escapeHtml(formatDistance(item.distance))} van u</div>
-                <p class="meta">${escapeHtml(description)}</p>
+                ${reference ? `<p class="meta">${escapeHtml(reference)}</p>` : ""}
               </div>
               <div class="result-actions">
                 <a class="route-button" href="${routeUrl}" target="_blank" rel="noopener" aria-label="Bekijk de autoroute naar de brievenbus op ${formatDistance(item.distance)}">Bekijk autoroute</a>
