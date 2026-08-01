@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#075985">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Brievenbus">
+  <meta name="description" content="Vind eenvoudig een openbare brievenbus in uw buurt, overal in Europa.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <title>Brievenbus in de buurt</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #083344;
+      --blue: #0369a1;
+      --blue-dark: #075985;
+      --sky: #e0f2fe;
+      --cream: #fffdf7;
+      --amber: #f59e0b;
+      --amber-dark: #b45309;
+      --text: #17313b;
+      --muted: #5b6f78;
+      --line: #d7e2e7;
+      --white: #fff;
+      --danger: #b42318;
+      --shadow: 0 18px 50px rgba(8, 51, 68, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: #edf6f9; }
+
+    body {
+      margin: 0;
+      min-width: 280px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 90% 0%, rgba(245, 158, 11, .14), transparent 26rem),
+        linear-gradient(180deg, #eef9fd 0, #fffdf7 28rem, #fff 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, a { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    main, footer {
+      width: min(100%, 700px);
+      margin-inline: auto;
+    }
+
+    main { padding: 24px 16px 44px; }
+
+    .hero {
+      padding: 26px 20px 22px;
+      border: 1px solid rgba(3, 105, 161, .15);
+      border-radius: 24px;
+      background: rgba(255,255,255,.94);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .hero-icon {
+      display: block;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 15px;
+      border: 1px solid rgba(180, 83, 9, .16);
+      border-radius: 25px;
+      box-shadow: 0 8px 18px rgba(8, 51, 68, .09);
+      object-fit: cover;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.8rem, 8vw, 2.65rem);
+      line-height: 1.06;
+      letter-spacing: -.035em;
+    }
+
+    .lead {
+      max-width: 30rem;
+      margin: 13px auto 21px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .primary, .secondary, .route-button, .text-button {
+      display: inline-flex;
+      min-height: 54px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 15px;
+      font-weight: 780;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .primary {
+      width: 100%;
+      border: 0;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      box-shadow: 0 10px 22px rgba(3, 105, 161, .22);
+    }
+
+    .primary:hover { filter: brightness(.96); }
+    .primary:disabled { cursor: wait; opacity: .7; }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 17px;
+      margin-top: 17px;
+      color: var(--muted);
+      font-size: .87rem;
+    }
+
+    .trust-row span::before {
+      content: "✓";
+      margin-right: 6px;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    :focus-visible {
+      outline: 3px solid #fbbf24;
+      outline-offset: 3px;
+    }
+
+    .status {
+      display: none;
+      margin: 18px 0 0;
+      padding: 16px;
+      border: 1px solid #b9dce9;
+      border-radius: 16px;
+      color: var(--navy);
+      background: #eefaff;
+      line-height: 1.45;
+      text-align: left;
+    }
+
+    .status.visible { display: block; }
+    .status.error { border-color: #f3c6c2; color: var(--danger); background: #fff4f2; }
+    .status .text-button { width: 100%; margin-top: 13px; color: var(--white); background: var(--blue-dark); }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin-right: 9px;
+      border: 3px solid #a8d7ea;
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      vertical-align: -3px;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .results { display: none; margin-top: 27px; }
+    .results.visible { display: block; }
+
+    .results-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .results h2 { margin: 0; color: var(--navy); font-size: 1.35rem; }
+    .results-count { color: var(--muted); font-size: .9rem; }
+
+    .result-list { display: grid; gap: 12px; }
+
+    .result-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(8, 51, 68, .07);
+    }
+
+    .rank {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border-radius: 15px;
+      color: var(--amber-dark);
+      background: #fff5cc;
+      font-size: 1.35rem;
+    }
+
+    .result-main { min-width: 0; }
+    .result-title { margin: 1px 0 3px; color: var(--navy); font-size: 1.06rem; }
+    .distance { color: var(--blue-dark); font-weight: 800; }
+    .meta { margin: 7px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.4; overflow-wrap: anywhere; }
+
+    .result-actions {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .route-button, .text-button {
+      min-height: 49px;
+      border: 1px solid var(--blue);
+      color: var(--blue-dark);
+      background: var(--sky);
+      text-align: center;
+    }
+
+    .route-button:first-child { border-color: var(--blue-dark); color: var(--white); background: var(--blue-dark); }
+
+    .more-button { margin-top: 14px; }
+
+    .fallback {
+      margin-top: 24px;
+      padding: 21px;
+      border: 1px solid #7dd3fc;
+      border-left: 6px solid var(--amber);
+      border-radius: 20px;
+      color: var(--text);
+      background: linear-gradient(135deg, #f0faff, var(--white));
+      box-shadow: 0 10px 28px rgba(8, 51, 68, .09);
+    }
+
+    .fallback-heading {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 10px;
+    }
+
+    .fallback-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 14px;
+      background: #fff2bd;
+      font-size: 1.35rem;
+    }
+
+    .fallback h2 { margin: 0; color: var(--navy); font-size: 1.3rem; }
+    .fallback p { margin: 0; color: var(--muted); line-height: 1.5; }
+
+    .fallback-button {
+      display: inline-flex;
+      width: 100%;
+      min-height: 54px;
+      margin-top: 16px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 15px;
+      color: var(--white);
+      background: var(--blue-dark);
+      box-shadow: 0 8px 18px rgba(7, 89, 133, .18);
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .fallback-note { margin-top: 12px !important; font-size: .9rem; }
+
+    footer {
+      padding: 0 18px max(28px, env(safe-area-inset-bottom));
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    footer a { color: var(--blue-dark); }
+
+    @media (max-width: 430px) {
+      .hero { padding-inline: 16px; }
+    }
+
+    @media (max-width: 340px) {
+      .result-actions { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <img class="hero-icon" src="./icons/icon-192.png" alt="">
+      <h1 id="page-title">Brievenbus in de buurt</h1>
+      <p class="lead">Vind openbare brievenbussen rond uw huidige locatie, ook wanneer u in een ander Europees land bent.</p>
+
+      <button class="primary" id="location-button" type="button">
+        <span aria-hidden="true">⌖</span> Gebruik mijn huidige locatie
+      </button>
+
+      <div class="trust-row" aria-label="Privacy en werking">
+        <span>Geen account nodig</span>
+        <span>Locatie wordt niet bewaard</span>
+      </div>
+
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <aside class="fallback" aria-labelledby="fallback-title">
+      <div class="fallback-heading">
+        <span class="fallback-icon" aria-hidden="true">🗺️</span>
+        <h2 id="fallback-title">Geen resultaat?</h2>
+      </div>
+      <p>Kaartgegevens kunnen onvolledig zijn. Zoek daarom ook rechtstreeks naar brievenbussen in Google Maps.</p>
+      <a class="fallback-button" href="https://www.google.com/maps/search/?api=1&amp;query=post%20box" target="_blank" rel="noopener">
+        <span aria-hidden="true">⌖</span> Zoek in Google Maps
+      </a>
+      <p class="fallback-note">U kunt daarnaast de website van de plaatselijke postdienst controleren.</p>
+    </aside>
+
+    <section class="results" id="results" aria-labelledby="results-title">
+      <div class="results-heading">
+        <h2 id="results-title">Dichtstbijzijnde brievenbussen</h2>
+        <span class="results-count" id="results-count"></span>
+      </div>
+      <div class="result-list" id="result-list"></div>
+      <button class="primary more-button" id="more-button" type="button" hidden>Toon meer resultaten</button>
+    </section>
+
+  </main>
+
+  <footer>
+    Kaartgegevens © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-bijdragers</a> en kunnen gewijzigd of onvolledig zijn. Controleer ter plaatse of de brievenbus nog in gebruik is.
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const locationButton = document.getElementById("location-button");
+      const statusBox = document.getElementById("status");
+      const resultsSection = document.getElementById("results");
+      const resultsCount = document.getElementById("results-count");
+      const resultList = document.getElementById("result-list");
+      const moreButton = document.getElementById("more-button");
+
+      const overpassServers = [
+        "https://overpass.private.coffee/api/interpreter",
+        "https://overpass-api.de/api/interpreter"
+      ];
+
+      let matches = [];
+      let visibleCount = 5;
+      let activeOrigin = null;
+
+      function setStatus(message, type = "info", loading = false) {
+        statusBox.className = `status visible${type === "error" ? " error" : ""}`;
+        statusBox.innerHTML = `${loading ? '<span class="spinner" aria-hidden="true"></span>' : ""}${escapeHtml(message)}`;
+      }
+
+      function clearStatus() {
+        statusBox.className = "status";
+        statusBox.textContent = "";
+      }
+
+      function setMapFallbackStatus(message) {
+        const mapsUrl = "https://www.google.com/maps/search/?api=1&query=post%20box";
+        statusBox.className = "status visible error";
+        statusBox.innerHTML = `${escapeHtml(message)}<a class="text-button" href="${mapsUrl}" target="_blank" rel="noopener">Zoek nu in Google Maps</a>`;
+      }
+
+      function setBusy(busy) {
+        locationButton.disabled = busy;
+        locationButton.innerHTML = busy
+          ? '<span class="spinner" aria-hidden="true"></span> Even zoeken…'
+          : '<span aria-hidden="true">⌖</span> Gebruik mijn huidige locatie';
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>'"]/g, character => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+        })[character]);
+      }
+
+      function distanceKm(lat1, lon1, lat2, lon2) {
+        const toRadians = degrees => degrees * Math.PI / 180;
+        const earthRadius = 6371;
+        const dLat = toRadians(lat2 - lat1);
+        const dLon = toRadians(lon2 - lon1);
+        const a = Math.sin(dLat / 2) ** 2
+          + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) ** 2;
+        return earthRadius * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      }
+
+      function formatDistance(kilometres) {
+        if (kilometres < 1) return `${Math.max(10, Math.round(kilometres * 1000 / 10) * 10)} m`;
+        return `${kilometres.toLocaleString("nl-BE", { maximumFractionDigits: kilometres < 10 ? 1 : 0 })} km`;
+      }
+
+      function coordinatesOf(element) {
+        const lat = element.lat ?? element.center?.lat;
+        const lon = element.lon ?? element.center?.lon;
+        return Number.isFinite(lat) && Number.isFinite(lon) ? { lat, lon } : null;
+      }
+
+      function isPublicPostalBox(tags) {
+        const organisation = [tags.operator, tags.brand, tags.network, tags.name]
+          .filter(Boolean)
+          .join(" ")
+          .trim();
+        const normalised = organisation.toLocaleLowerCase("nl-BE");
+
+        if (["private", "no", "customers"].includes(String(tags.access || "").toLowerCase())) return false;
+
+        const nonPostalOrganisation = /christelijke mutualiteit|mutualit[eé]|ziekenfonds|solidaris|partenamut|mutualia|helan|liberale mutualiteit|neutraal ziekenfonds|\bcm\b/i;
+        if (nonPostalOrganisation.test(normalised)) return false;
+
+        if (!organisation) return true;
+        if (tags.ref || tags.collection_times || tags["post_box:type"] || tags["operator:wikidata"]) return true;
+
+        const postalOperator = /\bpost\b|bpost|postnl|postal|poste|posta|pošta|poczta|correos|royal mail|deutsche post|la poste|postnord|an post|omniva|itella|elta|ελτα|ctt|p&t/i;
+        return postalOperator.test(normalised);
+      }
+
+      async function fetchPostBoxes(lat, lon, radius) {
+        const query = `[out:json][timeout:20];nwr["amenity"="post_box"](around:${radius},${lat},${lon});out center tags;`;
+        let lastError;
+
+        for (const server of overpassServers) {
+          try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 18000);
+            const response = await fetch(`${server}?data=${encodeURIComponent(query)}`, {
+              headers: { "Accept": "application/json" },
+              cache: "no-store",
+              signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!response.ok) throw new Error(`Kaartdienst gaf status ${response.status}`);
+            const data = await response.json();
+            return Array.isArray(data.elements) ? data.elements : [];
+          } catch (error) {
+            lastError = error;
+          }
+        }
+        throw lastError || new Error("De kaartdienst is tijdelijk niet bereikbaar.");
+      }
+
+      async function searchNearby(lat, lon, placeLabel = "uw locatie") {
+        setBusy(true);
+        activeOrigin = { lat, lon };
+        resultsSection.classList.remove("visible");
+        setStatus(`We zoeken openbare brievenbussen rond ${placeLabel}.`, "info", true);
+
+        try {
+          let elements = await fetchPostBoxes(lat, lon, 5000);
+          if (!elements.length) {
+            setStatus("Nog geen brievenbus gevonden. We vergroten het zoekgebied.", "info", true);
+            elements = await fetchPostBoxes(lat, lon, 15000);
+          }
+          if (!elements.length) {
+            elements = await fetchPostBoxes(lat, lon, 30000);
+          }
+
+          const unique = new Map();
+          for (const element of elements) {
+            const coordinates = coordinatesOf(element);
+            if (!coordinates || !isPublicPostalBox(element.tags || {})) continue;
+            const key = `${coordinates.lat.toFixed(6)},${coordinates.lon.toFixed(6)}`;
+            if (!unique.has(key)) {
+              unique.set(key, {
+                ...coordinates,
+                tags: element.tags || {},
+                distance: distanceKm(lat, lon, coordinates.lat, coordinates.lon)
+              });
+            }
+          }
+
+          matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 25);
+          visibleCount = 5;
+
+          if (!matches.length) {
+            setMapFallbackStatus("Binnen 30 kilometer vonden we geen geregistreerde openbare brievenbus.");
+            return;
+          }
+
+          clearStatus();
+          renderResults();
+          resultsSection.classList.add("visible");
+          resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        } catch (error) {
+          const localHint = location.protocol === "file:"
+            ? "U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. Sommige browsers blokkeren dan externe kaartaanvragen. Gebruik voorlopig Google Maps of open de pagina later via een https-adres."
+            : "De openbare brievenbusdienst antwoordt momenteel niet. Uw internetverbinding kan ondertussen wel gewoon werken.";
+          setMapFallbackStatus(localHint);
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      function renderResults() {
+        const visible = matches.slice(0, visibleCount);
+        resultsCount.textContent = `${matches.length} gevonden`;
+        resultList.innerHTML = visible.map((item, index) => {
+          const tags = item.tags;
+          const operator = tags.operator || tags.brand || tags.network || "Openbare brievenbus";
+          const reference = tags.ref ? `Nummer: ${tags.ref}` : "";
+          const description = reference || "Voor het posten van uitgaande brieven";
+          const origin = activeOrigin ? `${activeOrigin.lat},${activeOrigin.lon}` : "";
+          const destination = `${item.lat},${item.lon}`;
+          const routeUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving&dir_action=navigate`;
+
+          return `
+            <article class="result-card">
+              <div class="rank" aria-hidden="true">${index === 0 ? "📮" : index + 1}</div>
+              <div class="result-main">
+                <h3 class="result-title">${escapeHtml(operator)}</h3>
+                <div class="distance">${escapeHtml(formatDistance(item.distance))} van u</div>
+                <p class="meta">${escapeHtml(description)}</p>
+              </div>
+              <div class="result-actions">
+                <a class="route-button" href="${routeUrl}" target="_blank" rel="noopener" aria-label="Autoroute naar brievenbus op ${formatDistance(item.distance)}">Route met de auto</a>
+              </div>
+            </article>`;
+        }).join("");
+
+        moreButton.hidden = visibleCount >= matches.length;
+      }
+
+      function geolocationErrorMessage(error) {
+        if (error.code === 1) return "Locatietoegang werd niet toegestaan. Geef toestemming in uw browser of gebruik Google Maps.";
+        if (error.code === 2) return "Uw locatie kon niet worden bepaald. Controleer of locatievoorzieningen op uw toestel zijn ingeschakeld.";
+        if (error.code === 3) return "Het bepalen van uw locatie duurde te lang. Probeer opnieuw of gebruik Google Maps.";
+        return "Uw locatie kon niet worden bepaald. Gebruik eventueel Google Maps.";
+      }
+
+      locationButton.addEventListener("click", () => {
+        if (location.protocol === "file:") {
+          setMapFallbackStatus("U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. De openbare kaartserver aanvaardt zulke lokale aanvragen niet betrouwbaar. Open de pagina via een https-adres; voor deze lokale test kunt u Google Maps gebruiken.");
+          return;
+        }
+
+        if (!navigator.geolocation) {
+          setMapFallbackStatus("Deze browser ondersteunt geen locatiebepaling.");
+          return;
+        }
+
+        setBusy(true);
+        setStatus("Uw locatie wordt bepaald. Sta locatiegebruik toe wanneer uw browser dit vraagt.", "info", true);
+        navigator.geolocation.getCurrentPosition(
+          position => searchNearby(position.coords.latitude, position.coords.longitude),
+          error => {
+            setBusy(false);
+            setMapFallbackStatus(geolocationErrorMessage(error));
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+        );
+      });
+
+      moreButton.addEventListener("click", () => {
+        visibleCount += 5;
+        renderResults();
+      });
+    })();
+
+    if ("serviceWorker" in navigator && window.isSecureContext) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
