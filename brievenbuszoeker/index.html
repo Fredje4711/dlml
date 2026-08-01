@@ -230,6 +230,8 @@
 
     .route-button:first-child { border-color: var(--blue-dark); color: var(--white); background: var(--blue-dark); }
 
+    .more-button { margin-top: 14px; }
+
     .fallback {
       margin-top: 24px;
       padding: 21px;
@@ -328,7 +330,7 @@
         <span class="fallback-icon" aria-hidden="true">🗺️</span>
         <h2 id="fallback-title">Geen brievenbus gevonden?</h2>
       </div>
-      <p>Kaartgegevens kunnen onvolledig zijn. Probeer de zoekopdracht later opnieuw of controleer de officiële website of app van de plaatselijke postdienst.</p>
+      <p>Soms zijn brievenbussen niet meer aanwezig. De kaartgegevens voor brievenbussen worden soms wat later bijgewerkt.</p>
     </aside>
 
     <section class="results" id="results" aria-labelledby="results-title">
@@ -337,6 +339,7 @@
         <span class="results-count" id="results-count"></span>
       </div>
       <div class="result-list" id="result-list"></div>
+      <button class="primary more-button" id="more-button" type="button" hidden>Toon meer resultaten</button>
     </section>
 
   </main>
@@ -354,6 +357,7 @@
       const resultsSection = document.getElementById("results");
       const resultsCount = document.getElementById("results-count");
       const resultList = document.getElementById("result-list");
+      const moreButton = document.getElementById("more-button");
 
       const overpassServers = [
         "https://overpass-api.de/api/interpreter",
@@ -362,6 +366,7 @@
       ];
 
       let matches = [];
+      let visibleCount = 5;
       let activeOrigin = null;
 
       function setStatus(message, type = "info", loading = false) {
@@ -376,7 +381,7 @@
 
       function setFallbackStatus(message) {
         statusBox.className = "status visible error";
-        statusBox.innerHTML = `${escapeHtml(message)}<span class="text-button" role="note">Probeer hierboven opnieuw of controleer de officiële website of app van de plaatselijke postdienst.</span>`;
+        statusBox.innerHTML = `${escapeHtml(message)}<span class="text-button" role="note">Probeer hierboven opnieuw, soms kunnen kaartgegevens vertraging hebben (time-out).</span>`;
       }
 
       function setBusy(busy) {
@@ -432,17 +437,15 @@
         return postalOperator.test(normalised);
       }
 
-      async function fetchPostBoxes(lat, lon, radius, deadline) {
-        const query = `[out:json][timeout:12];node["amenity"="post_box"](around:${radius},${lat},${lon});out body;`;
+      async function fetchPostBoxes(lat, lon, radius) {
+        const query = `[out:json][timeout:15];nwr["amenity"="post_box"](around:${radius},${lat},${lon});out center tags;`;
         let lastError;
 
         for (const server of overpassServers) {
-          const remainingTime = deadline - Date.now();
-          if (remainingTime <= 0) throw lastError || new Error("De maximale zoektijd is bereikt.");
           let timer;
           try {
             const controller = new AbortController();
-            timer = setTimeout(() => controller.abort(), Math.min(14000, remainingTime));
+            timer = setTimeout(() => controller.abort(), 18000);
             const response = await fetch(server, {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
@@ -467,18 +470,15 @@
         activeOrigin = { lat, lon };
         resultsSection.classList.remove("visible");
         setStatus(`We zoeken openbare brievenbussen rond ${placeLabel}.`, "info", true);
-        const searchDeadline = Date.now() + 32000;
 
         try {
-          let elements = await fetchPostBoxes(lat, lon, 7500, searchDeadline);
-          if (elements.length < 2 && Date.now() < searchDeadline) {
-            setStatus("We zoeken nog een tweede mogelijkheid in een ruimer gebied.", "info", true);
-            try {
-              const expandedElements = await fetchPostBoxes(lat, lon, 30000, searchDeadline);
-              if (expandedElements.length) elements = expandedElements;
-            } catch (error) {
-              if (!elements.length) throw error;
-            }
+          let elements = await fetchPostBoxes(lat, lon, 5000);
+          if (!elements.length) {
+            setStatus("Nog geen brievenbus gevonden. We vergroten het zoekgebied.", "info", true);
+            elements = await fetchPostBoxes(lat, lon, 15000);
+          }
+          if (!elements.length) {
+            elements = await fetchPostBoxes(lat, lon, 30000);
           }
 
           const unique = new Map();
@@ -495,7 +495,8 @@
             }
           }
 
-          matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 2);
+          matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 25);
+          visibleCount = 5;
 
           if (!matches.length) {
             setFallbackStatus("Binnen 30 kilometer vonden we geen geregistreerde openbare brievenbus.");
@@ -508,7 +509,7 @@
           resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
         } catch (error) {
           const localHint = location.protocol === "file:"
-            ? "U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. Sommige browsers blokkeren dan externe kaartaanvragen. Open de pagina via een lokale webserver of een https-adres."
+            ? "U hebt de toepassing rechtstreeks vanaf uw computer geopend. Sommige browsers blokkeren dan externe kaartaanvragen. Open de pagina via een lokale webserver of een https-adres."
             : "De openbare brievenbusdienst antwoordt momenteel niet. Uw internetverbinding kan ondertussen wel gewoon werken.";
           setFallbackStatus(localHint);
         } finally {
@@ -517,8 +518,9 @@
       }
 
       function renderResults() {
-        resultsCount.textContent = matches.length === 1 ? "1 gevonden" : "2 dichtstbijzijnde";
-        resultList.innerHTML = matches.map((item, index) => {
+        const visible = matches.slice(0, visibleCount);
+        resultsCount.textContent = `${matches.length} gevonden`;
+        resultList.innerHTML = visible.map((item, index) => {
           const tags = item.tags;
           const operator = tags.operator || tags.brand || tags.network || "Openbare brievenbus";
           const reference = tags.ref ? `Nummer: ${tags.ref}` : "";
@@ -541,6 +543,7 @@
             </article>`;
         }).join("");
 
+        moreButton.hidden = visibleCount >= matches.length;
       }
 
       function geolocationErrorMessage(error) {
@@ -573,6 +576,10 @@
         );
       });
 
+      moreButton.addEventListener("click", () => {
+        visibleCount += 5;
+        renderResults();
+      });
     })();
 
     if ("serviceWorker" in navigator && window.isSecureContext) {
