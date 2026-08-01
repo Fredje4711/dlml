@@ -328,13 +328,10 @@
     <aside class="fallback" aria-labelledby="fallback-title">
       <div class="fallback-heading">
         <span class="fallback-icon" aria-hidden="true">🗺️</span>
-        <h2 id="fallback-title">Geen resultaat?</h2>
+        <h2 id="fallback-title">Geen brievenbus gevonden?</h2>
       </div>
-      <p>Kaartgegevens kunnen onvolledig zijn. Zoek daarom ook rechtstreeks naar brievenbussen in Google Maps.</p>
-      <a class="fallback-button" href="https://www.google.com/maps/search/?api=1&amp;query=post%20box" target="_blank" rel="noopener">
-        <span aria-hidden="true">⌖</span> Zoek in Google Maps
-      </a>
-      <p class="fallback-note">U kunt daarnaast de website van de plaatselijke postdienst controleren.</p>
+      <p>Kaartgegevens kunnen onvolledig zijn. Probeer de zoekopdracht later opnieuw of controleer de officiële website of app van de plaatselijke postdienst.</p>
+      <p class="fallback-note"><strong>Waarom geen algemene Google Maps-zoekknop?</strong> Google Maps maakt niet altijd een duidelijk onderscheid tussen openbare brievenbussen, postkantoren, pakjespunten en pakjesautomaten. Google Maps wordt hier daarom alleen gebruikt voor de route naar een brievenbus die deze toepassing al heeft gevonden.</p>
     </aside>
 
     <section class="results" id="results" aria-labelledby="results-title">
@@ -382,10 +379,9 @@
         statusBox.textContent = "";
       }
 
-      function setMapFallbackStatus(message) {
-        const mapsUrl = "https://www.google.com/maps/search/?api=1&query=post%20box";
+      function setFallbackStatus(message) {
         statusBox.className = "status visible error";
-        statusBox.innerHTML = `${escapeHtml(message)}<a class="text-button" href="${mapsUrl}" target="_blank" rel="noopener">Zoek nu in Google Maps</a>`;
+        statusBox.innerHTML = `${escapeHtml(message)}<span class="text-button" role="note">Probeer hierboven opnieuw of controleer de officiële website of app van de plaatselijke postdienst.</span>`;
       }
 
       function setBusy(busy) {
@@ -499,7 +495,7 @@
           visibleCount = 5;
 
           if (!matches.length) {
-            setMapFallbackStatus("Binnen 30 kilometer vonden we geen geregistreerde openbare brievenbus.");
+            setFallbackStatus("Binnen 30 kilometer vonden we geen geregistreerde openbare brievenbus.");
             return;
           }
 
@@ -509,9 +505,9 @@
           resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
         } catch (error) {
           const localHint = location.protocol === "file:"
-            ? "U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. Sommige browsers blokkeren dan externe kaartaanvragen. Gebruik voorlopig Google Maps of open de pagina later via een https-adres."
+            ? "U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. Sommige browsers blokkeren dan externe kaartaanvragen. Open de pagina via een lokale webserver of een https-adres."
             : "De openbare brievenbusdienst antwoordt momenteel niet. Uw internetverbinding kan ondertussen wel gewoon werken.";
-          setMapFallbackStatus(localHint);
+          setFallbackStatus(localHint);
         } finally {
           setBusy(false);
         }
@@ -547,20 +543,20 @@
       }
 
       function geolocationErrorMessage(error) {
-        if (error.code === 1) return "Locatietoegang werd niet toegestaan. Geef toestemming in uw browser of gebruik Google Maps.";
+        if (error.code === 1) return "Locatietoegang werd niet toegestaan. Geef toestemming in uw browser en probeer opnieuw.";
         if (error.code === 2) return "Uw locatie kon niet worden bepaald. Controleer of locatievoorzieningen op uw toestel zijn ingeschakeld.";
-        if (error.code === 3) return "Het bepalen van uw locatie duurde te lang. Probeer opnieuw of gebruik Google Maps.";
-        return "Uw locatie kon niet worden bepaald. Gebruik eventueel Google Maps.";
+        if (error.code === 3) return "Het bepalen van uw locatie duurde te lang. Probeer opnieuw.";
+        return "Uw locatie kon niet worden bepaald. Probeer opnieuw.";
       }
 
       locationButton.addEventListener("click", () => {
         if (location.protocol === "file:") {
-          setMapFallbackStatus("U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. De openbare kaartserver aanvaardt zulke lokale aanvragen niet betrouwbaar. Open de pagina via een https-adres; voor deze lokale test kunt u Google Maps gebruiken.");
+          setFallbackStatus("U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. De openbare kaartserver aanvaardt zulke lokale aanvragen niet betrouwbaar. Open de pagina via een lokale webserver of een https-adres.");
           return;
         }
 
         if (!navigator.geolocation) {
-          setMapFallbackStatus("Deze browser ondersteunt geen locatiebepaling.");
+          setFallbackStatus("Deze browser ondersteunt geen locatiebepaling.");
           return;
         }
 
@@ -570,7 +566,7 @@
           position => searchNearby(position.coords.latitude, position.coords.longitude),
           error => {
             setBusy(false);
-            setMapFallbackStatus(geolocationErrorMessage(error));
+            setFallbackStatus(geolocationErrorMessage(error));
           },
           { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
         );
