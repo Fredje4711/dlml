@@ -230,8 +230,6 @@
 
     .route-button:first-child { border-color: var(--blue-dark); color: var(--white); background: var(--blue-dark); }
 
-    .more-button { margin-top: 14px; }
-
     .fallback {
       margin-top: 24px;
       padding: 21px;
@@ -339,7 +337,6 @@
         <span class="results-count" id="results-count"></span>
       </div>
       <div class="result-list" id="result-list"></div>
-      <button class="primary more-button" id="more-button" type="button" hidden>Toon meer resultaten</button>
     </section>
 
   </main>
@@ -357,7 +354,6 @@
       const resultsSection = document.getElementById("results");
       const resultsCount = document.getElementById("results-count");
       const resultList = document.getElementById("result-list");
-      const moreButton = document.getElementById("more-button");
 
       const overpassServers = [
         "https://overpass-api.de/api/interpreter",
@@ -366,7 +362,6 @@
       ];
 
       let matches = [];
-      let visibleCount = 5;
       let activeOrigin = null;
 
       function setStatus(message, type = "info", loading = false) {
@@ -437,15 +432,24 @@
         return postalOperator.test(normalised);
       }
 
-      async function fetchPostBoxes(lat, lon, radius) {
-        const query = `[out:json][timeout:15];nwr["amenity"="post_box"](around:${radius},${lat},${lon});out center tags;`;
+      async function fetchPostBoxes(lat, lon, radius, limit, excludedIds, deadline) {
+        const safeLimit = Math.max(1, Math.min(2, Number(limit) || 1));
+        const safeExcludedIds = excludedIds
+          .map(Number)
+          .filter(Number.isSafeInteger);
+        const selector = `node["amenity"="post_box"](around:${radius},${lat},${lon})`;
+        const query = safeExcludedIds.length
+          ? `[out:json][timeout:8];${selector}->.candidates;node(id:${safeExcludedIds.join(",")})->.excluded;(.candidates; - .excluded;);out body ${safeLimit};`
+          : `[out:json][timeout:8];${selector};out body ${safeLimit};`;
         let lastError;
 
         for (const server of overpassServers) {
+          const remainingTime = deadline - Date.now();
+          if (remainingTime <= 0) throw lastError || new Error("De maximale zoektijd is bereikt.");
           let timer;
           try {
             const controller = new AbortController();
-            timer = setTimeout(() => controller.abort(), 18000);
+            timer = setTimeout(() => controller.abort(), Math.min(8000, remainingTime));
             const response = await fetch(server, {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
@@ -470,15 +474,31 @@
         activeOrigin = { lat, lon };
         resultsSection.classList.remove("visible");
         setStatus(`We zoeken openbare brievenbussen rond ${placeLabel}.`, "info", true);
+        const searchDeadline = Date.now() + 24000;
 
         try {
-          let elements = await fetchPostBoxes(lat, lon, 5000);
-          if (!elements.length) {
-            setStatus("Nog geen brievenbus gevonden. We vergroten het zoekgebied.", "info", true);
-            elements = await fetchPostBoxes(lat, lon, 15000);
-          }
-          if (!elements.length) {
-            elements = await fetchPostBoxes(lat, lon, 30000);
+          const elements = [];
+          const searchRadii = [1000, 3000, 10000, 30000];
+
+          for (const radius of searchRadii) {
+            if (elements.length >= 2 || Date.now() >= searchDeadline) break;
+            const needed = 2 - elements.length;
+            const excludedIds = elements.map(element => element.id);
+
+            try {
+              const found = await fetchPostBoxes(lat, lon, radius, needed, excludedIds, searchDeadline);
+              for (const element of found) {
+                if (!elements.some(existing => existing.id === element.id)) elements.push(element);
+                if (elements.length >= 2) break;
+              }
+            } catch (error) {
+              if (!elements.length) throw error;
+              break;
+            }
+
+            if (elements.length < 2 && radius < searchRadii[searchRadii.length - 1]) {
+              setStatus("Nog geen twee brievenbussen gevonden. We vergroten het zoekgebied.", "info", true);
+            }
           }
 
           const unique = new Map();
@@ -495,8 +515,7 @@
             }
           }
 
-          matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 25);
-          visibleCount = 5;
+          matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 2);
 
           if (!matches.length) {
             setFallbackStatus("Binnen 30 kilometer vonden we geen geregistreerde openbare brievenbus.");
@@ -518,9 +537,8 @@
       }
 
       function renderResults() {
-        const visible = matches.slice(0, visibleCount);
-        resultsCount.textContent = `${matches.length} gevonden`;
-        resultList.innerHTML = visible.map((item, index) => {
+        resultsCount.textContent = matches.length === 1 ? "1 gevonden" : "2 gevonden";
+        resultList.innerHTML = matches.map((item, index) => {
           const tags = item.tags;
           const operator = tags.operator || tags.brand || tags.network || "Openbare brievenbus";
           const reference = tags.ref ? `Nummer: ${tags.ref}` : "";
@@ -543,7 +561,6 @@
             </article>`;
         }).join("");
 
-        moreButton.hidden = visibleCount >= matches.length;
       }
 
       function geolocationErrorMessage(error) {
@@ -576,10 +593,6 @@
         );
       });
 
-      moreButton.addEventListener("click", () => {
-        visibleCount += 5;
-        renderResults();
-      });
     })();
 
     if ("serviceWorker" in navigator && window.isSecureContext) {

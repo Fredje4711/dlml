@@ -5,7 +5,7 @@ Een zelfstandige, mobielgerichte webpagina waarmee openbare brievenbussen in Eur
 ## Gebruik
 
 - Kies **Gebruik mijn huidige locatie** en sta locatiegebruik toe.
-- De toepassing toont maximaal de twee dichtstbijzijnde resultaten. Zo blijft de keuze overzichtelijk en is er een praktisch alternatief wanneer de eerste brievenbus niet meer aanwezig of bereikbaar blijkt.
+- De toepassing vraagt en toont maximaal twee brievenbusrecords. Ze begint binnen 1 kilometer en vergroot het zoekgebied alleen zolang er nog geen twee unieke resultaten zijn. Reeds gevonden records worden bij een vervolgzoektocht uitgesloten, zodat over de volledige zoekactie samen nooit meer dan twee records worden opgehaald.
 - **Bekijk autoroute** opent in Google Maps eerst het routeoverzicht, met het gebruikte zoekpunt als vertrek en de brievenbus als bestemming. De gebruiker kiest daarna zelf wanneer de navigatie wordt gestart.
 - Geeft de kaart geen bruikbaar resultaat, probeer dan later opnieuw of controleer de officiële website of app van de plaatselijke postdienst.
 
