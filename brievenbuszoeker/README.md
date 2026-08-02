@@ -2,7 +2,7 @@
 
 Een zelfstandige, mobielgerichte webpagina waarmee openbare brievenbussen in Europa kunnen worden gezocht.
 
-Ontwikkeld door Freddy Sleeuwaert — versie 1.1.
+Ontwikkeld door Freddy Sleeuwaert — versie 1.2.
 
 ## Gebruik
 

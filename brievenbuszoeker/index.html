@@ -94,7 +94,7 @@
       line-height: 1.5;
     }
 
-    .primary, .secondary, .route-button, .text-button {
+    .primary, .secondary, .route-button {
       display: inline-flex;
       min-height: 54px;
       align-items: center;
@@ -153,7 +153,14 @@
 
     .status.visible { display: block; }
     .status.error { border-color: #f3c6c2; color: var(--danger); background: #fff4f2; }
-    .status .text-button { width: 100%; margin-top: 13px; color: var(--white); background: var(--blue-dark); }
+
+    .status-hint {
+      display: block;
+      margin-top: 10px;
+      color: #6e3d37;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
 
     .spinner {
       display: inline-block;
@@ -237,7 +244,7 @@
       margin-top: 2px;
     }
 
-    .route-button, .text-button {
+    .route-button {
       min-height: 49px;
       border: 1px solid var(--blue);
       color: var(--blue-dark);
@@ -361,7 +368,7 @@
 
   <footer>
     <strong>Ontwikkeld door Freddy Sleeuwaert</strong>
-    <span aria-hidden="true"> · </span>Versie 1.1
+    <span aria-hidden="true"> · </span>Versie 1.2
     <span aria-hidden="true"> · </span>Kaartgegevens © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-bijdragers</a>
   </footer>
 
@@ -393,9 +400,9 @@
         statusBox.textContent = "";
       }
 
-      function setFallbackStatus(message) {
+      function setFallbackStatus(message, hint = "Probeer opnieuw. Soms kunnen kaartgegevens tijdelijk vertraging hebben.") {
         statusBox.className = "status visible error";
-        statusBox.innerHTML = `${escapeHtml(message)}<span class="text-button" role="note">Probeer hierboven opnieuw, soms kunnen kaartgegevens vertraging hebben (time-out).</span>`;
+        statusBox.innerHTML = `${escapeHtml(message)}<span class="status-hint" role="note">${escapeHtml(hint)}</span>`;
       }
 
       function setBusy(busy) {
@@ -662,14 +669,20 @@
 
           if (accuracy > 250) {
             setBusy(false);
-            setFallbackStatus(`Uw locatie werd slechts tot op ongeveer ${formatAccuracy(accuracy)} nauwkeurig bepaald. Schakel nauwkeurige of precieze locatie in voor uw browser en probeer opnieuw.`);
+            setFallbackStatus(
+              `Uw locatie werd slechts tot op ongeveer ${formatAccuracy(accuracy)} nauwkeurig bepaald. Daarom zoeken we nog geen brievenbussen.`,
+              "Open Instellingen › Apps › deze web-app of uw browser › Machtigingen › Locatie. Kies Toestaan tijdens gebruik en zet Precieze locatie aan. Tik daarna opnieuw op de blauwe knop."
+            );
             return;
           }
 
           await searchNearby(latitude, longitude, "uw locatie", accuracy);
         } catch (error) {
           setBusy(false);
-          setFallbackStatus(geolocationErrorMessage(error));
+          const hint = error.code === 1
+            ? "Open de locatiemachtiging van deze web-app of browser, kies Toestaan tijdens gebruik en probeer opnieuw."
+            : "Controleer of Locatie op uw toestel aanstaat. Ga indien mogelijk bij een raam of naar buiten en probeer opnieuw.";
+          setFallbackStatus(geolocationErrorMessage(error), hint);
         }
       });
 
