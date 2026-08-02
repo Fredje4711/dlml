@@ -368,7 +368,7 @@
 
   <footer>
     <strong>Ontwikkeld door Freddy Sleeuwaert</strong>
-    <span aria-hidden="true"> · </span>Versie 1.2
+    <span aria-hidden="true"> · </span>Versie 1.3
     <span aria-hidden="true"> · </span>Kaartgegevens © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-bijdragers</a>
   </footer>
 
@@ -671,7 +671,7 @@
             setBusy(false);
             setFallbackStatus(
               `Uw locatie werd slechts tot op ongeveer ${formatAccuracy(accuracy)} nauwkeurig bepaald. Daarom zoeken we nog geen brievenbussen.`,
-              "Open Instellingen › Apps › deze web-app of uw browser › Machtigingen › Locatie. Kies Toestaan tijdens gebruik en zet Precieze locatie aan. Tik daarna opnieuw op de blauwe knop."
+              "Open Instellingen › Apps › Chrome of deze web-app › Machtigingen › Locatie. Kies Toestaan bij gebruik van app en zet Exacte locatie gebruiken aan. Tik daarna opnieuw op de blauwe knop."
             );
             return;
           }
@@ -680,7 +680,7 @@
         } catch (error) {
           setBusy(false);
           const hint = error.code === 1
-            ? "Open de locatiemachtiging van deze web-app of browser, kies Toestaan tijdens gebruik en probeer opnieuw."
+            ? "Open de locatiemachtiging van Chrome of deze web-app, kies Toestaan bij gebruik van app en zet Exacte locatie gebruiken aan. Probeer daarna opnieuw."
             : "Controleer of Locatie op uw toestel aanstaat. Ga indien mogelijk bij een raam of naar buiten en probeer opnieuw.";
           setFallbackStatus(geolocationErrorMessage(error), hint);
         }
