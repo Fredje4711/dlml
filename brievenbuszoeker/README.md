@@ -2,12 +2,12 @@
 
 Een zelfstandige, mobielgerichte webpagina waarmee openbare brievenbussen in Europa kunnen worden gezocht.
 
-Ontwikkeld door Freddy Sleeuwaert — versie 1.0.
+Ontwikkeld door Freddy Sleeuwaert — versie 1.1.
 
 ## Gebruik
 
-- Kies **Gebruik mijn huidige locatie** en sta locatiegebruik toe.
-- De toepassing vraagt en toont maximaal twee brievenbusrecords. Ze begint binnen 1 kilometer en vergroot het zoekgebied alleen zolang er nog geen twee unieke resultaten zijn. Reeds gevonden records worden bij een vervolgzoektocht uitgesloten, zodat over de volledige zoekactie samen nooit meer dan twee records worden opgehaald.
+- Kies **Gebruik mijn huidige locatie** en sta nauwkeurige of precieze locatie toe. De toepassing vraagt een verse gps-positie op en weigert te zoeken wanneer de gemelde nauwkeurigheid slechter is dan 250 meter.
+- De toepassing haalt eerst alle geregistreerde kandidaten binnen 1 kilometer op, verwijdert ongeldige of niet-openbare brievenbussen, sorteert de geldige resultaten op werkelijke afstand en toont maximaal de twee dichtstbijzijnde. Het zoekgebied wordt alleen vergroot wanneer er nog geen twee geldige resultaten zijn.
 - **Bekijk autoroute** opent in Google Maps eerst het routeoverzicht, met het gebruikte zoekpunt als vertrek en de brievenbus als bestemming. De gebruiker kiest daarna zelf wanneer de navigatie wordt gestart.
 - Geeft de kaart geen bruikbaar resultaat, probeer dan later opnieuw of controleer de officiële website of app van de plaatselijke postdienst.
 

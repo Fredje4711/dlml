@@ -183,11 +183,22 @@
     .results h2 { margin: 0; color: var(--navy); font-size: 1.35rem; }
 
     .results-explanation {
-      margin: -2px 0 12px;
+      margin: -2px 0 6px;
       color: var(--muted);
       font-size: .92rem;
       line-height: 1.45;
     }
+
+    .location-quality {
+      display: none;
+      margin: 0 0 12px;
+      color: var(--blue-dark);
+      font-size: .88rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .location-quality.visible { display: block; }
 
     .result-list { display: grid; gap: 12px; }
 
@@ -342,6 +353,7 @@
         <h2 id="results-title">Dichtstbijzijnde brievenbussen</h2>
       </div>
       <p class="results-explanation">U ziet bewust maximaal twee resultaten: eerst de dichtstbijzijnde brievenbus en daarna een tweede mogelijkheid, voor het geval de eerste niet meer aanwezig is.</p>
+      <p class="location-quality" id="location-quality" role="status"></p>
       <div class="result-list" id="result-list"></div>
     </section>
 
@@ -349,7 +361,7 @@
 
   <footer>
     <strong>Ontwikkeld door Freddy Sleeuwaert</strong>
-    <span aria-hidden="true"> · </span>Versie 1.0
+    <span aria-hidden="true"> · </span>Versie 1.1
     <span aria-hidden="true"> · </span>Kaartgegevens © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-bijdragers</a>
   </footer>
 
@@ -360,12 +372,12 @@
       const locationButton = document.getElementById("location-button");
       const statusBox = document.getElementById("status");
       const resultsSection = document.getElementById("results");
+      const locationQuality = document.getElementById("location-quality");
       const resultList = document.getElementById("result-list");
 
       const overpassServers = [
         "https://overpass-api.de/api/interpreter",
-        "https://overpass.private.coffee/api/interpreter",
-        "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
+        "https://overpass.private.coffee/api/interpreter"
       ];
 
       let matches = [];
@@ -414,6 +426,14 @@
         return `${kilometres.toLocaleString("nl-BE", { maximumFractionDigits: kilometres < 10 ? 1 : 0 })} km`;
       }
 
+      function formatAccuracy(metres) {
+        const rounded = metres < 100
+          ? Math.max(5, Math.round(metres / 5) * 5)
+          : Math.max(100, Math.round(metres / 50) * 50);
+        if (rounded < 1000) return `${rounded} m`;
+        return `${(rounded / 1000).toLocaleString("nl-BE", { maximumFractionDigits: 1 })} km`;
+      }
+
       function coordinatesOf(element) {
         const lat = element.lat ?? element.center?.lat;
         const lon = element.lon ?? element.center?.lon;
@@ -439,15 +459,9 @@
         return postalOperator.test(normalised);
       }
 
-      async function fetchPostBoxes(lat, lon, radius, limit, excludedIds, deadline) {
-        const safeLimit = Math.max(1, Math.min(2, Number(limit) || 1));
-        const safeExcludedIds = excludedIds
-          .map(Number)
-          .filter(Number.isSafeInteger);
+      async function fetchPostBoxes(lat, lon, radius, deadline) {
         const selector = `node["amenity"="post_box"](around:${radius},${lat},${lon})`;
-        const query = safeExcludedIds.length
-          ? `[out:json][timeout:8];${selector}->.candidates;node(id:${safeExcludedIds.join(",")})->.excluded;(.candidates; - .excluded;);out body ${safeLimit};`
-          : `[out:json][timeout:8];${selector};out body ${safeLimit};`;
+        const query = `[out:json][timeout:10];${selector};out body;`;
         let lastError;
 
         for (const server of overpassServers) {
@@ -476,53 +490,49 @@
         throw lastError || new Error("De kaartdienst is tijdelijk niet bereikbaar.");
       }
 
-      async function searchNearby(lat, lon, placeLabel = "uw locatie") {
+      async function searchNearby(lat, lon, placeLabel = "uw locatie", accuracy = null) {
         setBusy(true);
-        activeOrigin = { lat, lon };
+        activeOrigin = { lat, lon, accuracy };
+        matches = [];
         resultsSection.classList.remove("visible");
         setStatus(`We zoeken openbare brievenbussen rond ${placeLabel}.`, "info", true);
-        const searchDeadline = Date.now() + 24000;
+        const searchDeadline = Date.now() + 30000;
 
         try {
-          const elements = [];
           const searchRadii = [1000, 3000, 10000, 30000];
 
           for (const radius of searchRadii) {
-            if (elements.length >= 2 || Date.now() >= searchDeadline) break;
-            const needed = 2 - elements.length;
-            const excludedIds = elements.map(element => element.id);
+            if (Date.now() >= searchDeadline) break;
+            let elements;
 
             try {
-              const found = await fetchPostBoxes(lat, lon, radius, needed, excludedIds, searchDeadline);
-              for (const element of found) {
-                if (!elements.some(existing => existing.id === element.id)) elements.push(element);
-                if (elements.length >= 2) break;
-              }
+              elements = await fetchPostBoxes(lat, lon, radius, searchDeadline);
             } catch (error) {
-              if (!elements.length) throw error;
+              if (!matches.length) throw error;
               break;
             }
 
-            if (elements.length < 2 && radius < searchRadii[searchRadii.length - 1]) {
-              setStatus("Nog geen twee brievenbussen gevonden. We vergroten het zoekgebied.", "info", true);
+            const unique = new Map();
+            for (const element of elements) {
+              const coordinates = coordinatesOf(element);
+              if (!coordinates || !isPublicPostalBox(element.tags || {})) continue;
+              const key = `${coordinates.lat.toFixed(6)},${coordinates.lon.toFixed(6)}`;
+              if (!unique.has(key)) {
+                unique.set(key, {
+                  ...coordinates,
+                  tags: element.tags || {},
+                  distance: distanceKm(lat, lon, coordinates.lat, coordinates.lon)
+                });
+              }
+            }
+
+            matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 2);
+            if (matches.length >= 2) break;
+
+            if (radius < searchRadii[searchRadii.length - 1]) {
+              setStatus("Nog geen twee geldige brievenbussen gevonden. We vergroten het zoekgebied.", "info", true);
             }
           }
-
-          const unique = new Map();
-          for (const element of elements) {
-            const coordinates = coordinatesOf(element);
-            if (!coordinates || !isPublicPostalBox(element.tags || {})) continue;
-            const key = `${coordinates.lat.toFixed(6)},${coordinates.lon.toFixed(6)}`;
-            if (!unique.has(key)) {
-              unique.set(key, {
-                ...coordinates,
-                tags: element.tags || {},
-                distance: distanceKm(lat, lon, coordinates.lat, coordinates.lon)
-              });
-            }
-          }
-
-          matches = [...unique.values()].sort((a, b) => a.distance - b.distance).slice(0, 2);
 
           if (!matches.length) {
             setFallbackStatus("Binnen 30 kilometer vonden we geen geregistreerde openbare brievenbus.");
@@ -544,6 +554,14 @@
       }
 
       function renderResults() {
+        if (Number.isFinite(activeOrigin?.accuracy)) {
+          locationQuality.textContent = `Gebruikte gps-locatie: nauwkeurig tot ongeveer ${formatAccuracy(activeOrigin.accuracy)}.`;
+          locationQuality.classList.add("visible");
+        } else {
+          locationQuality.textContent = "";
+          locationQuality.classList.remove("visible");
+        }
+
         resultList.innerHTML = matches.map((item, index) => {
           const tags = item.tags;
           const operator = tags.operator || tags.brand || tags.network || "Openbare brievenbus";
@@ -568,6 +586,52 @@
 
       }
 
+      function requestAccuratePosition() {
+        return new Promise((resolve, reject) => {
+          let bestPosition = null;
+          let lastError = { code: 3 };
+          let watchId = null;
+          let timer = null;
+          let finished = false;
+
+          const finish = (position, error) => {
+            if (finished) return;
+            finished = true;
+            if (timer !== null) clearTimeout(timer);
+            if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+            if (position) resolve(position);
+            else reject(error || lastError);
+          };
+
+          const handlePosition = position => {
+            const { latitude, longitude, accuracy } = position.coords;
+            const age = Date.now() - position.timestamp;
+            if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
+            if (!Number.isFinite(accuracy) || accuracy < 0 || age > 30000) return;
+
+            if (!bestPosition || accuracy < bestPosition.coords.accuracy) bestPosition = position;
+            if (accuracy <= 50) finish(bestPosition);
+          };
+
+          const handleError = error => {
+            lastError = error;
+            if (error.code === 1) finish(null, error);
+          };
+
+          timer = setTimeout(() => finish(bestPosition, lastError), 15000);
+
+          try {
+            watchId = navigator.geolocation.watchPosition(
+              handlePosition,
+              handleError,
+              { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+            );
+          } catch (error) {
+            finish(null, error);
+          }
+        });
+      }
+
       function geolocationErrorMessage(error) {
         if (error.code === 1) return "Locatietoegang werd niet toegestaan. Geef toestemming in uw browser en probeer opnieuw.";
         if (error.code === 2) return "Uw locatie kon niet worden bepaald. Controleer of locatievoorzieningen op uw toestel zijn ingeschakeld.";
@@ -575,7 +639,7 @@
         return "Uw locatie kon niet worden bepaald. Probeer opnieuw.";
       }
 
-      locationButton.addEventListener("click", () => {
+      locationButton.addEventListener("click", async () => {
         if (location.protocol === "file:") {
           setFallbackStatus("U hebt het HTML-bestand rechtstreeks vanaf uw computer geopend. De openbare kaartserver aanvaardt zulke lokale aanvragen niet betrouwbaar. Open de pagina via een lokale webserver of een https-adres.");
           return;
@@ -587,15 +651,26 @@
         }
 
         setBusy(true);
+        resultsSection.classList.remove("visible");
+        locationQuality.textContent = "";
+        locationQuality.classList.remove("visible");
         setStatus("Uw locatie wordt bepaald. Sta locatiegebruik toe wanneer uw browser dit vraagt.", "info", true);
-        navigator.geolocation.getCurrentPosition(
-          position => searchNearby(position.coords.latitude, position.coords.longitude),
-          error => {
+
+        try {
+          const position = await requestAccuratePosition();
+          const { latitude, longitude, accuracy } = position.coords;
+
+          if (accuracy > 250) {
             setBusy(false);
-            setFallbackStatus(geolocationErrorMessage(error));
-          },
-          { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
-        );
+            setFallbackStatus(`Uw locatie werd slechts tot op ongeveer ${formatAccuracy(accuracy)} nauwkeurig bepaald. Schakel nauwkeurige of precieze locatie in voor uw browser en probeer opnieuw.`);
+            return;
+          }
+
+          await searchNearby(latitude, longitude, "uw locatie", accuracy);
+        } catch (error) {
+          setBusy(false);
+          setFallbackStatus(geolocationErrorMessage(error));
+        }
       });
 
     })();
