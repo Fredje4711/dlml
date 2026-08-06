@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Praktisch overzicht voor bestuursleden over samenwerking rond diabetesinformatie en preventie in Hasselt en Midden-Limburg.">
+  <title>Verkenning diabetespreventie Hasselt en Midden-Limburg</title>
+  <style>
+    :root {
+      --blue: #087da9;
+      --blue-dark: #07516d;
+      --blue-light: #eaf7fc;
+      --green: #147656;
+      --green-light: #eaf7f1;
+      --orange: #9a5a00;
+      --orange-light: #fff5df;
+      --red: #9b3838;
+      --red-light: #fff0ef;
+      --text: #17212b;
+      --muted: #53616d;
+      --line: #d5e1e7;
+      --page: #f3f7f9;
+      --white: #fff;
+      --radius: 16px;
+      --shadow: 0 10px 26px rgba(16, 65, 87, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--page);
+      font-family: Aptos, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.58;
+    }
+    a { color: #056b98; text-underline-offset: 3px; }
+    a:hover, a:focus { color: #033f5b; }
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 4px solid rgba(35, 169, 228, .30);
+      outline-offset: 3px;
+    }
+
+    .hero {
+      padding:5px 20px 5px;
+      color: white;
+      background:
+        radial-gradient(circle at 88% 20%, rgba(255,255,255,.18), transparent 24rem),
+        linear-gradient(135deg, #07516d 0%, #087da9 58%, #23a9e4 100%);
+    }
+    .hero-inner, .page, .toolbar-inner { max-width: 1080px; margin: 0 auto; }
+	.hero-inner {
+  text-align: center;
+}
+
+.hero-inner h1,
+.hero-inner .hero-text {
+  margin-left: auto;
+  margin-right: auto;
+}
+    .eyebrow {
+      margin: 0 0 7px;
+      font-size: .84rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.15rem);
+      line-height: 1.08;
+      letter-spacing: -.035em;
+    }
+    .hero-text { max-width: 840px; margin: 15px 0 0; font-size: 1.08rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .pill {
+      padding: 6px 11px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-size: .86rem;
+      font-weight: 750;
+    }
+
+    .toolbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(9px);
+    }
+    .toolbar-inner {
+      padding: 9px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .toolbar strong { color: var(--blue-dark); font-size: .91rem; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 7px; }
+    button {
+      border: 1px solid #b8ccd6;
+      border-radius: 9px;
+      padding: 7px 11px;
+      color: var(--blue-dark);
+      background: white;
+      font: inherit;
+      font-size: .83rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    button:hover { background: var(--blue-light); }
+
+    .page { padding: 10px 20px 65px; }
+    .intro {
+      margin-bottom: 28px;
+      padding: 21px 23px;
+      border-left: 6px solid #23a9e4;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .intro p { margin: 0; }
+    .intro p + p { margin-top: 11px; }
+    .intro strong { color: var(--blue-dark); }
+
+    section { margin-top: 30px; scroll-margin-top: 76px; }
+	#hasselt {
+  margin-top: 0;
+}
+    h2 {
+      margin: 0 0 8px;
+      color: var(--blue-dark);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    h3 { margin: 0 0 7px; color: var(--blue-dark); line-height: 1.25; }
+    p { margin: 7px 0 12px; }
+    ul, ol { margin: 8px 0 13px; padding-left: 1.35em; }
+    li + li { margin-top: 5px; }
+    .section-intro { max-width: 900px; margin: 0 0 16px; color: var(--muted); }
+    .small { color: var(--muted); font-size: .86rem; }
+
+    .card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .grid { display: grid; gap: 14px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-label {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    address { font-style: normal; }
+    address a { overflow-wrap: anywhere; }
+
+    .start-card {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 14px;
+      border: 2px solid #86cfe8;
+      background: linear-gradient(180deg, #fff, var(--blue-light));
+    }
+    .start-icon, .step-number {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: white;
+      background: var(--blue);
+      font-weight: 850;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: white;
+      overflow: clip;
+    }
+    details + details { margin-top: 9px; }
+    summary {
+      padding: 14px 17px;
+      cursor: pointer;
+      color: var(--blue-dark);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: #f6fbfd;
+    }
+    .details-body { padding: 14px 18px 17px; }
+    .answer {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--green-light);
+      color: #104e3b;
+    }
+    .question {
+      margin: 12px 0 0;
+      padding: 12px 14px;
+      border-left: 4px solid #23a9e4;
+      border-radius: 0 10px 10px 0;
+      background: var(--blue-light);
+    }
+    .warning {
+      margin: 15px 0;
+      padding: 14px 16px;
+      border-left: 5px solid #e09a25;
+      border-radius: 0 12px 12px 0;
+      background: var(--orange-light);
+    }
+    .warning.red { border-color: var(--red); background: var(--red-light); }
+    .source {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed #b8cbd4;
+      color: #46545f;
+      font-size: .84rem;
+    }
+    .source strong { color: var(--blue-dark); }
+
+    .table-wrap {
+      margin: 10px 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    table { width: 100%; border-collapse: collapse; background: white; font-size: .88rem; }
+    th, td {
+      padding: 10px 11px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+    th { color: var(--blue-dark); background: #edf7fb; }
+    tr:last-child td { border-bottom: 0; }
+    .money { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+    .partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+    .partner {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-top: 5px solid #23a9e4;
+      border-radius: 13px;
+      background: white;
+    }
+    .partner h3 { margin-bottom: 6px; }
+    .partner p:last-child { margin-bottom: 0; }
+
+    .steps { display: grid; gap: 13px; }
+    .step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .step p:last-child { margin-bottom: 0; }
+    .do-this {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      color: #10513d;
+      background: var(--green-light);
+      font-weight: 750;
+    }
+
+    .questions {
+      margin: 0;
+      padding-left: 1.5em;
+    }
+    .questions li { padding: 7px 5px; }
+    .questions li + li { border-top: 1px solid #e5ecef; }
+
+    .source-list { display: grid; gap: 10px; }
+    .source-item {
+      padding: 14px 16px;
+      border-left: 4px solid #a4c5d3;
+      border-radius: 0 11px 11px 0;
+      background: white;
+    }
+    .source-item strong { display: block; color: var(--blue-dark); }
+    .source-item a { overflow-wrap: anywhere; }
+
+    .pdf-link {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 12px;
+      border: 1px solid #86cfe8;
+      border-radius: 9px;
+      background: var(--blue-light);
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .pdf-link:hover, .pdf-link:focus { background: #d7f0fa; }
+    footer {
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .83rem;
+    }
+
+    @media (max-width: 760px) {
+      body { font-size: 17px; }
+      .grid-2, .partners { grid-template-columns: 1fr; }
+      .toolbar strong { display: none; }
+      .toolbar-inner { justify-content: center; }
+    }
+    @media (max-width: 520px) {
+      .hero { padding: 5px 15px 5px; }
+      .page { padding-inline: 13px; }
+      .intro, .card { padding: 17px; }
+      .step { grid-template-columns: 42px 1fr; padding: 16px; }
+      .step-number { width: 38px; height: 38px; }
+      button { padding: 7px 9px; font-size: .78rem; }
+    }
+    @media print {
+      @page { size: A4; margin: 14mm; }
+      body { color: black; background: white; font-size: 10.5pt; }
+      .hero { padding: 18px 0; color: black; background: none; border-bottom: 3px solid var(--blue); }
+      .hero-inner, .page { max-width: none; }
+      .pill { color: black; border-color: #777; background: white; }
+      .toolbar { display: none; }
+      .page { padding: 14px 0 0; }
+      .card, .step, .partner, details { box-shadow: none; break-inside: avoid; }
+      details > .details-body { display: block !important; }
+      summary { list-style: none; }
+      a { color: black; text-decoration: none; }
+      a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Samenwerking rond diabetespreventie in Hasselt en Midden-Limburg</h1>
+      <p class="hero-text">Wat staat er in de plannen van Stad Hasselt, welke organisaties zijn belangrijk en welke contacten zijn er?</p>
+      
+    </div>
+  </header>
+
+  <main class="page">
+    
+    <section id="hasselt">
+      <h2>1. Wat is er bij Stad Hasselt interessant voor ons?</h2>
+      <p class="section-intro">Hieronder staat alleen wat voor onze plannen bruikbaar kan zijn. Klik een onderwerp open voor de uitleg en de juiste vindplaats in de meegestuurde pdf-bestanden.</p>
+
+      <div class="card start-card">
+        <div class="start-icon">1</div>
+        <div>
+          <h3>Start bij de Dienst Gezondheid</h3>
+          <p>Dit is het logische eerste aanspreekpunt binnen Stad Hasselt. Vraag welke lopende of geplande gezondheidsinitiatieven ruimte bieden voor een ervaren vrijwilligersorganisatie.</p>
+          <address>
+            <strong>Dienst Gezondheid - Stad Hasselt</strong><br>
+            Limburgplein 1, 3500 Hasselt<br>
+            <a href="tel:+3211239436">011 23 94 36</a> ·
+            <a href="mailto:gezondheid@hasselt.be">gezondheid@hasselt.be</a><br>
+            <a href="https://www.hasselt.be/nl/dienst-gezondheid">Officiële contactpagina</a>
+          </address>
+        </div>
+      </div>
+
+      <details>
+        <summary>De stad wil initiatieven voor de gezondheid van inwoners nemen en ondersteunen</summary>
+        <div class="details-body">
+          <p><strong>Wat staat er?</strong> Hasselt wil initiatieven nemen en ondersteunen voor de lichamelijke, mentale en sociale gezondheid van alle inwoners.</p>
+          <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Onze informatie over diabetes, preventieactiviteiten, infosessies en wandelingen passen inhoudelijk binnen deze doelstelling. Het plan zegt nog niet aan welke concrete initiatieven de stad denkt.</div>
+          <div class="question"><strong>Te vragen:</strong> welke concrete gezondheidsinitiatieven bestaan al, welke worden nog voorbereid en waar kunnen onze vrijwilligers meehelpen?</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 174
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Hasselt wil verder samenwerken met partners via Hasselt Zorgstad</summary>
+        <div class="details-body">
+          <p><strong>Wat staat er?</strong> De stad wil Hasselt Zorgstad samen met partners verder uitbouwen. De website van Hasselt Zorgstad vermeldt dat organisaties zich als partner kunnen registreren.</p>
+          <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Dit kan een manier zijn om niet alleen een losse activiteit te organiseren, maar deel te worden van een netwerk rond gezondheid en zorg.</div>
+          <div class="question"><strong>Te vragen:</strong> wie coördineert Hasselt Zorgstad vandaag, wordt de partnerregistratie actief opgevolgd en kunnen wij nu aansluiten terwijl onze zelfstandige werking wordt voorbereid?</div>
+          <p><a href="https://www.hasseltzorgstad.be/registratie-organisatie">Registratiepagina voor organisaties</a></p>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 173
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>De stad wil inwoners gemakkelijker naar medische zorg en hulp leiden</summary>
+        <div class="details-body">
+          <p><strong>Wat staat er?</strong> Hasselt wil binnen een sterk netwerk zorgen dat inwoners vlot toegang houden tot medische zorg en hulpverlening.</p>
+          <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Wij kunnen inwoners informeren en de weg wijzen. Huisartsen, diabeteseducatoren, diëtisten en andere zorgverleners nemen de medische beoordeling en begeleiding op.</div>
+          <div class="question"><strong>Te vragen:</strong> kan onze werking worden opgenomen in een lokale lijst of netwerk waar organisaties naar elkaar doorverwijzen?</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 173
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>De stad wil vrijwilligers en vrijwilligersorganisaties ondersteunen</summary>
+        <div class="details-body">
+          <p><strong>Wat staat er?</strong> Hasselt wil vrijwilligers en organisaties samenbrengen en organisaties helpen bij hun vrijwilligerswerking.</p>
+          <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Mogelijke hulp bij het vinden, vormen en verzekeren van vrijwilligers en bij contacten met andere verenigingen.</div>
+          <div class="question"><strong>Te vragen:</strong> welke praktische ondersteuning bestaat er en wie is hiervoor het juiste aanspreekpunt?</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 139<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 172
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Wijken en ontmoetingscentra kunnen helpen om inwoners te bereiken</summary>
+        <div class="details-body">
+          <p><strong>Wat staat er?</strong> De stad werkt met wijkmanagers en buurtwerkers. Ontmoetingscentra worden omschreven als belangrijke plaatsen in wijken en deelgemeenten. Verenigingen worden betrokken bij inspraak.</p>
+          <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Infosessies, korte infomomenten en wandelgroepen kunnen dichter bij de inwoners plaatsvinden, ook buiten het stadscentrum en het ziekenhuis.</div>
+          <div class="question"><strong>Te vragen:</strong> met welke wijkmanager, buurtwerker of ontmoetingscentra kunnen we een eerste kleine activiteit bespreken?</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina's 138 en 139<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina's 137 en 171-172
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Ook seniorenbeleid, bewegen en toegankelijke informatie bieden kansen</summary>
+        <div class="details-body">
+          <ul>
+            <li><strong>Senioren:</strong> de stad wil senioren actief houden en activiteiten laagdrempelig tot bij hen brengen.</li>
+            <li><strong>Bewegen:</strong> Hasselt wil toegankelijk sporten en zachte groepssporten ondersteunen.</li>
+            <li><strong>Informatie:</strong> de stad wil digitale dienstverlening aanbieden zonder mensen uit te sluiten die liever persoonlijk of op papier geholpen worden.</li>
+          </ul>
+          <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Wandelingen en eenvoudige informatie over diabetes kunnen via seniorenwerkingen, lokale dienstencentra en ontmoetingscentra worden aangeboden. Digitale informatie moet worden aangevuld met papieren uitleg en persoonlijk contact.</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            Senioren: <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 136<br>
+            Bewegen: <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 156; <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 192<br>
+            Toegankelijke informatie: <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 185; <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 224
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section id="geld">
+      <h2>2. Wat zeggen de bedragen in de plannen?</h2>
+      <p class="section-intro">De bedragen tonen waar de stad geld voor voorziet. Ze zeggen niet hoeveel geld naar één bepaald project of één vereniging gaat. Voor ons is vooral belangrijk dat we aan de stad vragen welke activiteiten erachter zitten en of we daaraan kunnen meewerken.</p>
+
+      <details>
+        <summary>Geld voor lichamelijke, mentale en sociale gezondheid</summary>
+        <div class="details-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Plan</th><th class="money">Bedrag per jaar</th><th class="money">Totaal over 6 jaar</th></tr></thead>
+              <tbody>
+                <tr><td>Oorspronkelijk plan</td><td class="money">€197.340</td><td class="money">€1.184.040</td></tr>
+                <tr><td>Aangepast plan</td><td class="money">€212.369</td><td class="money">€1.274.214</td></tr>
+                <tr><td><strong>Verhoging</strong></td><td class="money"><strong>€15.029 per jaar</strong></td><td class="money"><strong>€90.174</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="answer"><strong>Concreet voor ons:</strong> de stad heeft dit brede gezondheidsbudget verhoogd. De pdf zegt niet welke concrete initiatieven met de verhoging worden betaald.</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 174
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Apart overzicht: gezondheidspromotie en ziektepreventie</summary>
+        <div class="details-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Jaar</th><th class="money">Oorspronkelijk</th><th class="money">Aangepast</th></tr></thead>
+              <tbody>
+                <tr><td>2026</td><td class="money">€197.610</td><td class="money">€150.075</td></tr>
+                <tr><td>2027</td><td class="money">€202.610</td><td class="money">€180.110</td></tr>
+                <tr><td>2028</td><td class="money">€202.610</td><td class="money">€180.110</td></tr>
+                <tr><td>2029</td><td class="money">€190.610</td><td class="money">€168.110</td></tr>
+                <tr><td>2030</td><td class="money">€190.610</td><td class="money">€168.110</td></tr>
+                <tr><td>2031</td><td class="money">€190.610</td><td class="money">€160.610</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>In dit aparte financiële overzicht zijn de bedragen lager geworden. Tegelijk is het brede bedrag voor lichamelijke, mentale en sociale gezondheid juist verhoogd.</p>
+          <div class="answer"><strong>Concreet voor ons:</strong> de twee overzichten delen het geld op een andere manier in. Uit de pdf's kunnen we niet afleiden welke concrete projecten zijn verhoogd, verlaagd of verplaatst.</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 241<br>
+            <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 291
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Andere bedragen die voor onze gesprekken nuttig zijn</summary>
+        <div class="details-body">
+          <ul>
+            <li><strong>Vrijwilligerswerking:</strong> van €193.262 in 2026 tot €202.146 in 2031. Dit gaat over de volledige vrijwilligerswerking van de stad, niet alleen over gezondheidsverenigingen.</li>
+            <li><strong>Hasselt Zorgstad:</strong> jaarlijkse uitgaven van €12.700 in 2026 tot €13.150 in 2031. Dit is een kleine aparte post die toont dat Hasselt Zorgstad in het plan blijft staan.</li>
+            <li><strong>Ontmoetingscentra:</strong> naast de gewone jaarlijkse werking zijn vooral in 2027 en 2028 grote investeringen voorzien: €3.040.000 en €2.149.332.</li>
+            <li><strong>Toegankelijk sporten en bewegen:</strong> van €379.358 in 2026 tot €416.560 in 2031 voor de volledige stadswerking binnen dit onderdeel.</li>
+          </ul>
+          <div class="answer"><strong>Concreet voor ons:</strong> deze bedragen zijn geen geld dat voor ons klaarstaat. Ze tonen wel dat vrijwilligers, ontmoetingscentra, Hasselt Zorgstad en toegankelijk bewegen echte onderdelen van het stadsplan zijn. Dat geeft ons meerdere mogelijkheden om samenwerking te bespreken.</div>
+          <p class="source"><strong>Waar terug te vinden?</strong><br>
+            Vrijwilligers en ontmoetingscentra: <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 172<br>
+            Hasselt Zorgstad: <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 173<br>
+            Sport en bewegen: <em>Bundel_AMJP1_2026-2031.pdf</em> - pdf-pagina 192
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section id="partners">
+      <h2>3. Wie kan ons verder helpen?</h2>
+      <p class="section-intro">Stad Hasselt is de plaatselijke ingang. De volgende organisaties zijn nodig om te weten wat er in de regio al bestaat en waar onze vrijwilligers werkelijk iets kunnen toevoegen.</p>
+      <div class="partners">
+        <article class="partner">
+          <h3>Eerstelijnszone Herkenrode</h3>
+          <p>Brengt in Alken, Diepenbeek, Hasselt, Herk-de-Stad en Zonhoven onder meer lokale besturen, huisartsen, apothekers, diëtisten, welzijnsorganisaties, patiënten en vrijwilligers samen.</p>
+          <p><strong>Waarom belangrijk?</strong> Hier kunnen we vragen om mee te werken aan diabetespreventie, duidelijke informatie en goede doorverwijzing naar zorgverleners.</p>
+          <p><a href="https://www.eerstelijnszone.be/over-elz-herkenrode-0">Bekijk de werking van ELZ Herkenrode</a></p>
+        </article>
+        <article class="partner">
+          <h3>Gezondheidsmakers Limburg</h3>
+          <p>Helpt lokale besturen en organisaties met betrouwbare methodes, materialen, vorming en contacten rond preventieve gezondheid.</p>
+          <p><strong>Waarom belangrijk?</strong> Zij kunnen zeggen welke preventieprojecten al lopen en wie ze in onze regio uitvoert.</p>
+          <p><a href="https://gezondheidsmakers.be/contact">Bekijk de contactpagina</a></p>
+        </article>
+        <article class="partner">
+          <h3>Tongeren-Borgloon</h3>
+          <p>Het lokale bestuur en Eerstelijnszone Zuid-Oost Limburg voeren in 2026 HALT2Diabetes uit, met begeleiding via huisarts en diabeteseducator.</p>
+          <p><strong>Waarom belangrijk?</strong> Dit is een concreet voorbeeld binnen ons ruime werkingsgebied. We kunnen vragen hoe de samenwerking praktisch verloopt en waar vrijwilligers nuttig zijn.</p>
+          <p><a href="https://www.tongeren-borgloon.be/halt2diabetes">Bekijk het project in Tongeren-Borgloon</a></p>
+        </article>
+        <article class="partner">
+          <h3>Bewegen Op Verwijzing</h3>
+          <p>Een professionele coach helpt mensen met een persoonlijk beweegplan.</p>
+          <p><strong>Waarom belangrijk?</strong> Onze wandel- en beweegactiviteiten kunnen mogelijk dienen als een plaatselijk aanbod waar mensen na de begeleiding aan kunnen deelnemen.</p>
+          <p><a href="https://www.gezondleven.be/projecten/bewegen-op-verwijzing">Bekijk Bewegen Op Verwijzing</a></p>
+        </article>
+      </div>
+      <div class="warning red"><strong>Belangrijk over HALT2Diabetes:</strong> dit programma en de bijbehorende materialen zijn ontwikkeld door Diabetes Liga. We kunnen er tot eind 2027 mogelijk aan meewerken en ervan leren. Na onze afscheiding mogen we de naam en materialen niet automatisch blijven gebruiken. Daarvoor zijn duidelijke schriftelijke afspraken nodig. <a href="https://preventiemethodieken.be/halt2diabetes">Officiële informatie over de methodiek</a>.</div>
+    </section>
+
+    <section id="stappen">
+      <h2>4. Wat doen we eerst? Vijf stappen</h2>
+      <p class="section-intro">Deze gesprekken dienen om te luisteren en informatie te verzamelen. We hoeven nog geen volledig project of subsidieaanvraag mee te nemen.</p>
+      <div class="steps">
+        <article class="step">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Eerstelijnszone Herkenrode contacteren</h3>
+            <p>Vraag hoe onze vrijwilligers kunnen aansluiten bij diabetespreventie, duidelijke gezondheidsinformatie en doorverwijzing. Vraag ook wat de regionale plannen rond HALT2Diabetes zijn.</p>
+            <div class="do-this">Eerste concrete actie: vraag een gesprek met Inez Beys.</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Dienst Gezondheid van Stad Hasselt spreken</h3>
+            <p>Vraag welke bestaande of geplande gezondheidsinitiatieven bij onze werking passen en wie Hasselt Zorgstad momenteel coördineert.</p>
+            <div class="do-this">Benadruk dat we eerst willen meewerken en nog niet komen voor financiële steun.</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Gezondheidsmakers Limburg raadplegen</h3>
+            <p>Vraag welke projecten, materialen en preventiewerkers actief zijn in Hasselt en Midden-Limburg en waar vrijwilligers nog ontbreken.</p>
+            <div class="do-this">Vraag naar de medewerker die Hasselt en onze regio opvolgt.</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Leren van Tongeren-Borgloon</h3>
+            <p>Vraag hoe het plaatselijke HALT2Diabetes-traject wordt georganiseerd en welke rol een vrijwilligersgroep daar kan opnemen.</p>
+            <div class="do-this">Gebruik dit gesprek om te leren; beloof nog geen samenwerking na 2027.</div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-number">5</div>
+          <div>
+            <h3>De informatie samenleggen</h3>
+            <p>Bekijk na de afzonderlijke gesprekken welke behoefte telkens terugkomt. Stel daarna één gezamenlijk overleg voor met Stad Hasselt, ELZ Herkenrode en Gezondheidsmakers.</p>
+            <div class="do-this">Gewenst resultaat: één duidelijke taak voor onze vrijwilligers en één kleine activiteit om de samenwerking te testen.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacten">
+      <h2>5. Contactgegevens</h2>
+      <div class="grid grid-2">
+        <article class="card">
+          <p class="contact-label">Stad Hasselt</p>
+          <h3>Dienst Gezondheid</h3>
+          <address>
+            Limburgplein 1, 3500 Hasselt<br>
+            <a href="tel:+3211239436">011 23 94 36</a><br>
+            <a href="mailto:gezondheid@hasselt.be">gezondheid@hasselt.be</a><br>
+            <a href="https://www.hasselt.be/nl/dienst-gezondheid">Officiële contactpagina</a>
+          </address>
+        </article>
+        <article class="card">
+          <p class="contact-label">Eerstelijnszone Herkenrode</p>
+          <h3>Inez Beys</h3>
+          <address>
+            Senior stafmedewerker<br>
+            <a href="tel:+32490578772">0490 57 87 72</a><br>
+            <a href="mailto:inez.beys@elzherkenrode.be">inez.beys@elzherkenrode.be</a><br>
+            Algemeen: <a href="mailto:info@elzherkenrode.be">info@elzherkenrode.be</a>
+          </address>
+        </article>
+        <article class="card">
+          <p class="contact-label">Preventie</p>
+          <h3>Gezondheidsmakers Limburg</h3>
+          <address>
+            Universiteitslaan 3, 3500 Hasselt<br>
+            <a href="tel:+3236051582">03 605 15 82</a><br>
+            <a href="mailto:info@gezondheidsmakers.be">info@gezondheidsmakers.be</a><br>
+            <a href="https://gezondheidsmakers.be/contact">Contactpagina</a>
+          </address>
+        </article>
+        <article class="card">
+          <p class="contact-label">Voorbeeld Tongeren-Borgloon</p>
+          <h3>Nele Froidmont</h3>
+          <address>
+            Diabeteseducator<br>
+            <a href="tel:+32474998658">0474 99 86 58</a><br>
+            <a href="mailto:info@dietistenele.be">info@dietistenele.be</a><br>
+            Stad: <a href="mailto:info@tongerenborgloon.be">info@tongerenborgloon.be</a>
+          </address>
+        </article>
+      </div>
+    </section>
+
+    <section id="vragen">
+      <h2>6. Tien vragen om mee te nemen</h2>
+      <div class="card">
+        <ol class="questions">
+          <li>Welke initiatieven rond gezonde leefstijl en diabetespreventie lopen al of worden voorbereid?</li>
+          <li>Waar ziet u een nuttige taak voor onze ervaren vrijwilligers?</li>
+          <li>Welke inwoners of doelgroepen worden vandaag onvoldoende bereikt?</li>
+          <li>Wie volgt binnen Stad Hasselt de gezondheidsinitiatieven en Hasselt Zorgstad op?</li>
+          <li>Kunnen wij deelnemen aan een werkgroep, overleg of netwerk?</li>
+          <li>Hoe werken Stad Hasselt, de eerstelijnszone en Gezondheidsmakers momenteel samen?</li>
+          <li>Kunnen onze wandelingen aansluiten bij Bewegen Op Verwijzing of een plaatselijke lijst met activiteiten?</li>
+          <li>Kunnen we samenwerken met wijkmanagers, ontmoetingscentra of lokale dienstencentra?</li>
+          <li>Welke afspraken zijn nodig om inwoners correct naar professionele zorg door te verwijzen?</li>
+          <li>Welke kleine eerste activiteit zou volgens u werkelijk nuttig zijn?</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="bronnen">
+      <h2>7. Pdf-bestanden en internetbronnen</h2>
+      <p class="section-intro">De twee officiële besluiten kunnen rechtstreeks via de website van Stad Hasselt worden geopend. De volledige aangepaste bundel wordt samen met dit HTML-bestand meegestuurd. Bij iedere verwijzing staat de volledige bestandsnaam en het paginanummer dat de pdf-lezer toont.</p>
+      <div class="source-list">
+        <div class="source-item">
+          <strong>meerjarenplan 2026_2031 Hasselt_16122025.pdf</strong>
+          Het oorspronkelijke volledige meerjarenplan, goedgekeurd op 16 december 2025. Relevante pdf-pagina's in dit overzicht: 138-140, 156, 185 en 241.<br>
+          <a href="https://www.hasselt.be/sites/hasselt/files/2025-12/260_mjp_stad.pdf">Bekijk het officiële bestand op hasselt.be</a>
+        </div>
+        <div class="source-item">
+          <strong>aanpassing meerjarenplan 2026_2031 Hasselt_23062026.pdf</strong>
+          Het gemeenteraadsbesluit van 23 juni 2026. Pdf-pagina 1 vermeldt de goedkeuring; pdf-pagina 2 stelt de aanpassing vast en verwijst naar de volledige bundel.<br>
+          <a href="https://www.hasselt.be/sites/hasselt/files/2026-06/121_amjp_stad.pdf">Bekijk het officiële besluit op hasselt.be</a>
+        </div>
+        <div class="source-item">
+          <strong>Bundel_AMJP1_2026-2031.pdf</strong>
+          De volledige aangepaste bundel van 292 pdf-pagina's. Relevante pdf-pagina's in dit overzicht: 136-137, 171-174, 192, 224 en 291.<br>
+          <a class="pdf-link" href="Bundel_AMJP1_2026-2031.pdf" target="_blank">Open de meegestuurde volledige aangepaste bundel</a>
+        </div>
+        <div class="source-item">
+          <strong>Algemene pagina van Stad Hasselt</strong>
+          <a href="https://www.hasselt.be/nl/bestuursakkoord-en-meerjarenplan">Bestuursakkoord en meerjarenplan</a>
+        </div>
+        <div class="source-item">
+          <strong>Andere officiële informatie</strong>
+          <a href="https://www.eerstelijnszone.be/over-elz-herkenrode-0">Eerstelijnszone Herkenrode</a> ·
+          <a href="https://gezondheidsmakers.be/">Gezondheidsmakers</a> ·
+          <a href="https://www.departementzorg.be/nl/lokaal-preventiebeleid">Lokaal preventiebeleid</a> ·
+          <a href="https://www.gezondleven.be/projecten/bewegen-op-verwijzing">Bewegen Op Verwijzing</a> ·
+          <a href="https://preventiemethodieken.be/halt2diabetes">HALT2Diabetes</a>
+        </div>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <script>
+    var printState = [];
+    function toggleAll(open) {
+      document.querySelectorAll('details').forEach(function (item) {
+        item.open = open;
+      });
+    }
+    window.addEventListener('beforeprint', function () {
+      printState = Array.from(document.querySelectorAll('details')).map(function (item) { return item.open; });
+      toggleAll(true);
+    });
+    window.addEventListener('afterprint', function () {
+      document.querySelectorAll('details').forEach(function (item, index) {
+        item.open = Boolean(printState[index]);
+      });
+    });
+  </script>
+</body>
+</html>
