@@ -235,6 +235,13 @@
     }
     .source strong { color: var(--blue-dark); }
 
+    .source a[href^="#bron-"] {
+      font-weight: 700;
+    }
+    .source-item[id^="bron-"] {
+      scroll-margin-top: 76px;
+    }
+
     .table-wrap {
       margin: 10px 0;
       overflow-x: auto;
@@ -312,7 +319,7 @@
       text-decoration: none;
     }
     .pdf-link:hover, .pdf-link:focus { background: #d7f0fa; }
-    footer {
+footer {
       margin-top: 32px;
       padding-top: 18px;
       border-top: 1px solid var(--line);
@@ -348,6 +355,53 @@
       a { color: black; text-decoration: none; }
       a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
     }
+  
+    /* Zwevende terugknop */
+    .floating-back {
+      position: fixed !important;
+      right: 18px !important;
+      bottom: 18px !important;
+      z-index: 99999 !important;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      padding: 11px 17px;
+      border: 0;
+      border-radius: 999px;
+      color: #ffffff !important;
+      background: #087da9 !important;
+      box-shadow: 0 6px 20px rgba(0,0,0,.28);
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 800;
+      cursor: pointer;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .floating-back:hover,
+    .floating-back:focus {
+      background: #07516d !important;
+      color: #ffffff !important;
+    }
+
+    @media (max-width: 520px) {
+      .floating-back {
+        right: 12px !important;
+        bottom: 12px !important;
+        min-width: 94px;
+        padding: 10px 14px;
+        font-size: .82rem;
+      }
+    }
+
+    @media print {
+      .floating-back {
+        display: none !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -387,8 +441,8 @@
           <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Onze informatie over diabetes, preventieactiviteiten, infosessies en wandelingen passen inhoudelijk binnen deze doelstelling. Het plan zegt nog niet aan welke concrete initiatieven de stad denkt.</div>
           <div class="question"><strong>Te vragen:</strong> welke concrete gezondheidsinitiatieven bestaan al, welke worden nog voorbereid en waar kunnen onze vrijwilligers meehelpen?</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 174
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 140<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 174
           </p>
         </div>
       </details>
@@ -401,8 +455,8 @@
           <div class="question"><strong>Te vragen:</strong> wie coördineert Hasselt Zorgstad vandaag, wordt de partnerregistratie actief opgevolgd en kunnen wij nu aansluiten terwijl onze zelfstandige werking wordt voorbereid?</div>
           <p><a href="https://www.hasseltzorgstad.be/registratie-organisatie">Registratiepagina voor organisaties</a></p>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 173
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 140<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 173
           </p>
         </div>
       </details>
@@ -414,8 +468,8 @@
           <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Wij kunnen inwoners informeren en de weg wijzen. Huisartsen, diabeteseducatoren, diëtisten en andere zorgverleners nemen de medische beoordeling en begeleiding op.</div>
           <div class="question"><strong>Te vragen:</strong> kan onze werking worden opgenomen in een lokale lijst of netwerk waar organisaties naar elkaar doorverwijzen?</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 173
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 140<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 173
           </p>
         </div>
       </details>
@@ -427,8 +481,8 @@
           <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Mogelijke hulp bij het vinden, vormen en verzekeren van vrijwilligers en bij contacten met andere verenigingen.</div>
           <div class="question"><strong>Te vragen:</strong> welke praktische ondersteuning bestaat er en wie is hiervoor het juiste aanspreekpunt?</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 139<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 172
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 139<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 172
           </p>
         </div>
       </details>
@@ -440,8 +494,8 @@
           <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Infosessies, korte infomomenten en wandelgroepen kunnen dichter bij de inwoners plaatsvinden, ook buiten het stadscentrum en het ziekenhuis.</div>
           <div class="question"><strong>Te vragen:</strong> met welke wijkmanager, buurtwerker of ontmoetingscentra kunnen we een eerste kleine activiteit bespreken?</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina's 138 en 139<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina's 137 en 171-172
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina's 138 en 139<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina's 137 en 171-172
           </p>
         </div>
       </details>
@@ -456,9 +510,9 @@
           </ul>
           <div class="answer"><strong>Wat kan dit voor ons betekenen?</strong> Wandelingen en eenvoudige informatie over diabetes kunnen via seniorenwerkingen, lokale dienstencentra en ontmoetingscentra worden aangeboden. Digitale informatie moet worden aangevuld met papieren uitleg en persoonlijk contact.</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            Senioren: <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 136<br>
-            Bewegen: <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 156; <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 192<br>
-            Toegankelijke informatie: <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 185; <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 224
+            Senioren: <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 136<br>
+            Bewegen: <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 156; <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 192<br>
+            Toegankelijke informatie: <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 185; <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 224
           </p>
         </div>
       </details>
@@ -483,8 +537,8 @@
           </div>
           <div class="answer"><strong>Concreet voor ons:</strong> de stad heeft dit brede gezondheidsbudget verhoogd. De pdf zegt niet welke concrete initiatieven met de verhoging worden betaald.</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 140<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 174
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 140<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 174
           </p>
         </div>
       </details>
@@ -508,8 +562,8 @@
           <p>In dit aparte financiële overzicht zijn de bedragen lager geworden. Tegelijk is het brede bedrag voor lichamelijke, mentale en sociale gezondheid juist verhoogd.</p>
           <div class="answer"><strong>Concreet voor ons:</strong> de twee overzichten delen het geld op een andere manier in. Uit de pdf's kunnen we niet afleiden welke concrete projecten zijn verhoogd, verlaagd of verplaatst.</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            <em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em> - pdf-pagina 241<br>
-            <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 291
+            <a href="#bron-meerjarenplan" title="Ga naar bron 7: oorspronkelijk meerjarenplan"><em>meerjarenplan 2026_2031 Hasselt_16122025.pdf</em></a> - pdf-pagina 241<br>
+            <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 291
           </p>
         </div>
       </details>
@@ -525,9 +579,9 @@
           </ul>
           <div class="answer"><strong>Concreet voor ons:</strong> deze bedragen zijn geen geld dat voor ons klaarstaat. Ze tonen wel dat vrijwilligers, ontmoetingscentra, Hasselt Zorgstad en toegankelijk bewegen echte onderdelen van het stadsplan zijn. Dat geeft ons meerdere mogelijkheden om samenwerking te bespreken.</div>
           <p class="source"><strong>Waar terug te vinden?</strong><br>
-            Vrijwilligers en ontmoetingscentra: <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 172<br>
-            Hasselt Zorgstad: <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 173<br>
-            Sport en bewegen: <a href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener"><em>Bundel_AMJP1_2026-2031.pdf</em></a> - pdf-pagina 192
+            Vrijwilligers en ontmoetingscentra: <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 172<br>
+            Hasselt Zorgstad: <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 173<br>
+            Sport en bewegen: <a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><a href="#bron-aangepaste-bundel" title="Ga naar bron 7: volledige aangepaste bundel"><em>Bundel_AMJP1_2026-2031.pdf</em></a></a> - pdf-pagina 192
           </p>
         </div>
       </details>
@@ -678,19 +732,19 @@
 
     <section id="bronnen">
       <h2>7. Pdf-bestanden en internetbronnen</h2>
-      <p class="section-intro">Alle drie de pdf-bestanden kunnen rechtstreeks vanuit deze pagina worden geopend. De volledige aangepaste bundel staat in dezelfde GitHub-map als dit HTML-bestand. Bij iedere verwijzing staat de volledige bestandsnaam en het paginanummer dat de pdf-lezer toont.</p>
+      <p class="section-intro">Bij elke vermelding “Waar terug te vinden?” kunt u op de bestandsnaam klikken. U springt dan naar de juiste bron hieronder. Van hieruit kunt u het betreffende pdf-bestand openen. Bij iedere verwijzing staat ook het paginanummer dat de pdf-lezer toont.</p>
       <div class="source-list">
-        <div class="source-item">
+        <div class="source-item" id="bron-meerjarenplan">
           <strong>meerjarenplan 2026_2031 Hasselt_16122025.pdf</strong>
           Het oorspronkelijke volledige meerjarenplan, goedgekeurd op 16 december 2025. Relevante pdf-pagina's in dit overzicht: 138-140, 156, 185 en 241.<br>
           <a href="https://www.hasselt.be/sites/hasselt/files/2025-12/260_mjp_stad.pdf">Bekijk het officiële bestand op hasselt.be</a>
         </div>
-        <div class="source-item">
+        <div class="source-item" id="bron-besluit-aanpassing">
           <strong>aanpassing meerjarenplan 2026_2031 Hasselt_23062026.pdf</strong>
           Het gemeenteraadsbesluit van 23 juni 2026. Pdf-pagina 1 vermeldt de goedkeuring; pdf-pagina 2 stelt de aanpassing vast en verwijst naar de volledige bundel.<br>
           <a href="https://www.hasselt.be/sites/hasselt/files/2026-06/121_amjp_stad.pdf">Bekijk het officiële besluit op hasselt.be</a>
         </div>
-        <div class="source-item">
+        <div class="source-item" id="bron-aangepaste-bundel">
           <strong>Bundel_AMJP1_2026-2031.pdf</strong>
           De volledige aangepaste bundel van 292 pdf-pagina's. Relevante pdf-pagina's in dit overzicht: 136-137, 171-174, 192, 224 en 291.<br>
           <a class="pdf-link" href="Bundel_AMJP1_2026-2031.pdf" target="_blank" rel="noopener">Open de volledige aangepaste bundel</a>
@@ -706,12 +760,9 @@
           <a href="https://www.departementzorg.be/nl/lokaal-preventiebeleid">Lokaal preventiebeleid</a> ·
           <a href="https://www.gezondleven.be/projecten/bewegen-op-verwijzing">Bewegen Op Verwijzing</a> ·
           <a href="https://preventiemethodieken.be/halt2diabetes">HALT2Diabetes</a>
-        </div>
-      </div>
+        </div>      </div>
     </section>
-
-    
-  </main>
+</main>
 
   <script>
     var printState = [];
@@ -730,5 +781,14 @@
       });
     });
   </script>
+
+  <button
+    class="floating-back"
+    type="button"
+    onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+    aria-label="Ga terug naar boven">
+    ↑ Naar boven
+  </button>
+
 </body>
 </html>
