@@ -1,245 +1,1126 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn Broodbak Assistent</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f6f0;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #8B5A2B;
-            margin-bottom: 25px;
-        }
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 40px;
-            position: sticky;
-            top: 0;
-            background-color: #f9f6f0;
-            padding: 10px 0;
-            z-index: 100;
-        }
-        @media(min-width: 600px) {
-            .button-group {
-                flex-direction: row;
-            }
-        }
-        .nav-btn {
-            display: block;
-            flex: 1;
-            padding: 15px;
-            font-size: 15px;
-            font-weight: bold;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            background-color: #8B5A2B;
-            color: #fff;
-            box-sizing: border-box;
-        }
-        .nav-btn:hover {
-            background-color: #CD853F;
-        }
-        .recipe-section {
-            border-top: 3px solid #8B5A2B;
-            padding-top: 20px;
-            margin-bottom: 60px;
-            scroll-margin-top: 80px;
-        }
-        h2 {
-            color: #8B5A2B;
-            border-bottom: 1px solid #D2B48C;
-            padding-bottom: 5px;
-            margin-top: 0;
-        }
-        h3 {
-            color: #CD853F;
-            margin-top: 20px;
-        }
-        ul, ol {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 12px;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #8B5A2B;
-        }
-        .tip-box {
-            background-color: #f4ece1;
-            border-left: 4px solid #CD853F;
-            padding: 12px;
-            margin-top: 6px;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mijn Ambachtelijk Broodbakboek</title>
+<style>
+    :root{
+        --brown:#8B5A2B;
+        --brown-dark:#6f441f;
+        --brown-light:#CD853F;
+        --cream:#f9f6f0;
+        --paper:#fffdf9;
+        --line:#dfc9ad;
+        --soft:#f4ece1;
+        --green:#55704f;
+        --red:#a9483c;
+        --ink:#2f2b27;
+        --muted:#6f675f;
+        --nav-h:86px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:auto}
+    body{
+        margin:0;
+        background:var(--cream);
+        color:var(--ink);
+        font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+        line-height:1.65;
+        font-size:18px;
+    }
+
+    .top-nav{
+        position:fixed;
+        inset:0 0 auto 0;
+        z-index:999;
+        background:rgba(249,246,240,.98);
+        border-bottom:1px solid #d9c7af;
+        box-shadow:0 3px 14px rgba(78,53,29,.10);
+        padding:10px 12px;
+    }
+
+    .tabs{
+        max-width:1180px;
+        margin:0 auto;
+        display:grid;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+        gap:8px;
+    }
+
+    .tab{
+        min-height:64px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        padding:8px 10px;
+        border-radius:10px;
+        background:var(--brown);
+        color:#fff;
+        text-decoration:none;
+        font-weight:800;
+        font-size:15px;
+        line-height:1.2;
+        border:2px solid var(--brown);
+    }
+    .tab:focus,.tab:hover{
+        background:var(--brown-dark);
+        border-color:var(--brown-dark);
+        outline:none;
+    }
+
+    .wrap{
+        width:min(1120px,calc(100% - 28px));
+        margin:0 auto;
+        padding-top:118px;
+        padding-bottom:60px;
+    }
+
+    header.hero{
+        background:linear-gradient(135deg,#fffdf9,#f1e6d8);
+        border:1px solid var(--line);
+        border-radius:18px;
+        box-shadow:0 8px 24px rgba(79,55,32,.08);
+        padding:32px 28px;
+        margin-bottom:28px;
+        text-align:center;
+    }
+
+    .eyebrow{
+        color:var(--brown-light);
+        font-size:14px;
+        letter-spacing:.12em;
+        text-transform:uppercase;
+        font-weight:900;
+        margin-bottom:6px;
+    }
+
+    h1{
+        color:var(--brown);
+        font-family:Georgia,"Times New Roman",serif;
+        font-size:clamp(34px,5vw,52px);
+        line-height:1.08;
+        margin:0 0 12px;
+    }
+
+    .hero p{
+        max-width:800px;
+        margin:0 auto;
+        color:var(--muted);
+        font-size:18px;
+    }
+
+    .page{
+        scroll-margin-top:112px;
+        background:var(--paper);
+        border:1px solid var(--line);
+        border-radius:18px;
+        box-shadow:0 8px 24px rgba(79,55,32,.08);
+        padding:30px;
+        margin:0 0 34px;
+    }
+
+    .page-number{
+        display:inline-block;
+        background:var(--brown);
+        color:#fff;
+        padding:6px 11px;
+        border-radius:999px;
+        font-weight:900;
+        font-size:14px;
+        margin-bottom:10px;
+    }
+
+    h2{
+        color:var(--brown);
+        font-family:Georgia,"Times New Roman",serif;
+        font-size:clamp(29px,4vw,40px);
+        line-height:1.15;
+        margin:0 0 8px;
+    }
+
+    .subtitle{
+        color:var(--muted);
+        margin:0 0 24px;
+        font-size:17px;
+    }
+
+    h3{
+        color:var(--brown-dark);
+        font-size:23px;
+        line-height:1.25;
+        margin:30px 0 12px;
+        padding-bottom:6px;
+        border-bottom:2px solid #eadcc9;
+    }
+
+    h4{
+        color:var(--brown);
+        font-size:19px;
+        margin:24px 0 8px;
+    }
+
+    .ingredients,
+    .material{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
+        list-style:none;
+        padding:0;
+        margin:12px 0 0;
+    }
+
+    .ingredients li,
+    .material li{
+        background:var(--soft);
+        border:1px solid #e7d6c2;
+        border-radius:10px;
+        padding:12px 14px;
+        margin:0;
+    }
+
+    .amount{
+        color:var(--brown);
+        font-weight:900;
+    }
+
+    .timeline{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+        margin:14px 0 8px;
+    }
+
+    .pill{
+        background:#efe3d3;
+        color:var(--brown-dark);
+        border:1px solid #ddc6a9;
+        border-radius:999px;
+        padding:6px 11px;
+        font-size:14px;
+        font-weight:800;
+    }
+
+    ol.steps{
+        list-style:none;
+        counter-reset:step;
+        padding:0;
+        margin:14px 0 0;
+    }
+
+    ol.steps > li{
+        counter-increment:step;
+        position:relative;
+        margin:0 0 14px;
+        padding:16px 16px 16px 62px;
+        background:#fff;
+        border:1px solid #e5d5c1;
+        border-radius:12px;
+    }
+
+    ol.steps > li::before{
+        content:counter(step);
+        position:absolute;
+        left:14px;
+        top:14px;
+        width:34px;
+        height:34px;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:var(--brown);
+        color:#fff;
+        font-weight:900;
+    }
+
+    .step-title{
+        display:block;
+        color:var(--brown-dark);
+        font-weight:900;
+        margin-bottom:4px;
+    }
+
+    .tip,.why,.warning,.success{
+        border-radius:12px;
+        padding:14px 16px;
+        margin:12px 0;
+    }
+
+    .tip{
+        background:#f5eee5;
+        border-left:5px solid var(--brown-light);
+    }
+
+    .why{
+        background:#f0f3ec;
+        border-left:5px solid var(--green);
+    }
+
+    .warning{
+        background:#fff0ed;
+        border-left:5px solid var(--red);
+    }
+
+    .success{
+        background:#edf5eb;
+        border-left:5px solid var(--green);
+    }
+
+    .box-title{
+        font-weight:900;
+        display:block;
+        margin-bottom:3px;
+    }
+
+    .bake-card{
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:10px;
+        margin:14px 0 18px;
+    }
+
+    .bake-card > div{
+        border:1px solid #e1cfb8;
+        border-radius:12px;
+        background:#faf5ed;
+        padding:13px;
+        text-align:center;
+    }
+
+    .bake-card strong{
+        display:block;
+        color:var(--brown);
+        font-size:20px;
+    }
+
+    .day{
+        border:1px solid #e5d5c1;
+        border-radius:13px;
+        margin:12px 0;
+        overflow:hidden;
+    }
+
+    .day-head{
+        background:#efe3d3;
+        padding:11px 14px;
+        font-weight:900;
+        color:var(--brown-dark);
+    }
+
+    .day-body{
+        padding:14px 16px;
+    }
+
+    .compact-list{
+        margin:8px 0 0;
+        padding-left:23px;
+    }
+
+    .compact-list li{margin-bottom:7px}
+
+    .danger-title{
+        color:var(--red);
+        font-weight:900;
+        font-size:24px;
+        margin:0 0 8px;
+    }
+
+    .footer-note{
+        text-align:center;
+        color:var(--muted);
+        font-size:14px;
+        padding:8px 0 18px;
+    }
+
+    .backtop{
+        display:inline-block;
+        margin-top:8px;
+        color:var(--brown);
+        font-weight:800;
+        text-decoration:none;
+    }
+
+    @media(max-width:760px){
+        :root{--nav-h:118px}
+        body{font-size:17px}
+        .top-nav{padding:8px}
+        .tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+        .tab{min-height:52px;font-size:13px;padding:6px}
+        .wrap{width:min(100% - 18px,1120px);padding-top:135px}
+        .page{padding:22px 17px}
+        header.hero{padding:25px 18px}
+        .ingredients,.material{grid-template-columns:1fr}
+        .bake-card{grid-template-columns:1fr}
+        ol.steps > li{padding-left:57px}
+        .page{scroll-margin-top:130px}
+    }
+
+    @media print{
+        .top-nav{display:none}
+        .wrap{padding-top:0}
+        .page{box-shadow:none;break-inside:avoid}
+        body{background:#fff;font-size:12pt}
+    }
+</style>
 </head>
-<body>
 
-<div class="container">
-    <h1>Mijn Broodbak Assistent</h1>
+<body id="top">
+
+<nav class="top-nav" aria-label="Kookboekpagina's">
+    <div class="tabs">
+        <a class="tab" href="#pagina1">1. Zuurdesembrood<br>Dunne korst</a>
+        <a class="tab" href="#pagina2">2. Zuurdesem<br>7 dagen</a>
+        <a class="tab" href="#pagina3">3. Gistbrood &amp;<br>Pistolets</a>
+        <a class="tab" href="#pagina4">4. Fluweelzachte<br>Vanillecake</a>
+    </div>
+</nav>
+
+<main class="wrap">
     
-    <!-- De Drie Snelkoppelingen -->
-    <div class="button-group">
-        <a href="#gistbrood" class="nav-btn">1. Gistbrood (Recept)</a>
-        <a href="#zuurdesem-kweken" class="nav-btn">2. Zuurdesem Kweken (7 Dagen)</a>
-        <a href="#zuurdesembrood-bakken" class="nav-btn">3. Zuurdesembrood Bakken</a>
-    </div>
+    <!-- PAGINA 1 -->
+    <section id="pagina1" class="page">
+        <span class="page-number">PAGINA 1</span>
+        <h2>Zuurdesembrood met dunne, krokante korst</h2>
+        <p class="subtitle">Manitoba · geen gist · geen Criscito · voorbereiding vrijdagavond · bakken zondagochtend</p>
 
-    <!-- SECTIE 1: GISTBROOD -->
-    <div id="gistbrood" class="recipe-section">
-        <h2>1. Gistbrood (Start Vrijdag, Bak Zaterdag)</h2>
-        
+        <div class="timeline">
+            <span class="pill">Vrijdagavond: starter wekken</span>
+            <span class="pill">Zaterdag: deeg + bulk + vormen</span>
+            <span class="pill">Nacht: cold proof</span>
+            <span class="pill">Zondag: bakken</span>
+        </div>
+
         <h3>Ingrediënten</h3>
-        <ul>
-            <li><span class="highlight">475g</span> Manitoba-bloem</li>
-            <li><span class="highlight">25g</span> Caputo Criscito (Moedergist smaakmaker)</li>
-            <li><span class="highlight">360g</span> Lauw water</li>
-            <li><span class="highlight">10g</span> Zout</li>
-            <li><span class="highlight">3g</span> Dr. Oetker droge gist (ca. een halve theelepel)</li>
-            <li>*Rijstmeel &amp; Bakpapier voor het vormen en bakken</li>
+        <ul class="ingredients">
+            <li><span class="amount">150 g</span> actieve zuurdesemstarter uit de Maison Home pot van 500 ml</li>
+            <li><span class="amount">425 g</span> Manitoba-bloem</li>
+            <li><span class="amount">285 g</span> lauw water</li>
+            <li><span class="amount">10 g</span> zout</li>
+            <li><strong>Rijstmeel</strong> voor siliconen mat en Bondoo-rijsmandje</li>
+            <li><strong>Bakpapier</strong> voor het veilig overbrengen naar de hete LUCAVITA®</li>
         </ul>
 
-        <h3>Vrijdagmiddag / Avond: Het Deeg Maken</h3>
-        <ol>
-            <li><strong>Mengen:</strong> Weeg de 475g Manitoba-bloem en 25g Caputo Criscito samen af in een grote kom en roer ze droog door elkaar. Voeg daarna het lauw water, zout en de droge gist toe. Meng tot al het meel nat is.</li>
-            <li><strong>Autolyse:</strong> Dek de kom af. Laat <span class="highlight">30 minuten</span> rusten op het aanrecht.</li>
-            <li><strong>Vouwen (Sessie 1):</strong> Maak uw hand nat. Pak de zijkant van het deeg, trek omhoog und vouw naar het midden. Doe dit voor alle 4 de zijden. Dek af en wacht 30 minuten.</li>
-            <li><strong>Vouwen (Sessie 2):</strong> Herhaal de 4 vouwen. Dek af en wacht 30 minuten.</li>
-            <li><strong>Vouwen (Sessie 3):</strong> Herhaal de 4 vouwen voor de laatste keer. Dek af.</li>
-            <li><strong>Eerste rijs:</strong> Laat de kom <span class="highlight">1,5 tot 2 uur</span> op het aanrecht staan tot het deeg zichtbaar groter is en luchtbelletjes toont.</li>
-            <li><strong>Vormen:</strong> Bestuif de siliconen mat en de doek in het ronde Bondoo-rijsmandje royaal met <span class="highlight">rijstmeel</span> via de zeef. Stort het deeg op de mat, vouw het als een boek, rol het strak op en bol het rond op met de RVS-deegsteker.</li>
-            <li><strong>Koelkast in:</strong> Leg de deegbol met de gladde kant onderop (naad boven) in het rijsmandje. Dek af en zet de <span class="highlight">hele nacht in de koelkast</span>.</li>
+        <div class="warning">
+            <span class="box-title">Niet gebruiken in dit recept</span>
+            Geen bakkersgist en geen Caputo Criscito. De actieve starter zorgt hier volledig voor de fermentatie.
+        </div>
+
+        <h3>Vrijdagavond — starter wekken</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Maison Home pot uit de koelkast halen</span>
+                Haal de pot met uw bewaarde starter uit de koelkast.
+            </li>
+            <li>
+                <span class="step-title">Starter voeden</span>
+                Voeg rechtstreeks in de Maison Home pot <strong>60 g Manitoba-bloem</strong> en <strong>60 g lauw water</strong> toe. Roer grondig tot er geen droge bloem meer zichtbaar is.
+            </li>
+            <li>
+                <span class="step-title">Een nacht activeren</span>
+                Leg of draai het deksel slechts <strong>losjes</strong> op de pot zodat opgebouwde gassen kunnen ontsnappen. Laat de pot de hele nacht op het aanrecht staan, uit direct zonlicht.
+            </li>
         </ol>
 
-        <h3>Zaterdagochtend: Bakken</h3>
-        <ol>
-            <li><strong>Voorverwarmen:</strong> Zet de LUCAVITA® broodpan (bodem + koepel) in de heteluchtoven. Verwarm voor op <span class="highlight">220°C</span> voor minimaal <span class="highlight">45 minuten</span>.</li>
-            <li><strong>Kiepen &amp; Insnijden:</strong> Leg een vel bakpapier op het koude rijsmandje uit de koelkast. Kiep het mandje omgekeerd om. Snijd de bovenkant van het deeg 1 cm diep in met het bakkersmesje (lame).</li>
-            <li><strong>In de pan:</strong> Haal de hete bodemplaat uit de oven. Til het deeg via de punten van het bakpapier op en zet het in het midden. Plaats de hete koepel eroverheen.</li>
-            <li><strong>Bakken MET deksel (220°C):</strong> Bak <span class="highlight">20 minuten</span> met de koepel erop in de oven op 220°C hetelucht.</li>
-            <li><strong>Bakpapier &amp; Koepel weg:</strong> Haal na 20 minuten de koepel van de pan. Til het brood heel even kort op aan het bakpapier en <strong>trek het bakpapier eronderuit</strong>. Leg het brood kaal terug op de hete bodemplaat.</li>
-            <li><strong>Bakken ZONDER deksel (200°C):</strong> Zet de oven direct terug naar <span class="highlight">200°C hetelucht</span>. Bak het brood zo nog <span class="highlight">20 minuten</span> los op de plaat tot de korst flinterdun, goudbruin en knapperig is.</li>
-            <li><strong>Afkoelen:</strong> Laat het brood minimaal <span class="highlight">1 uur</span> afkoelen op een rooster voor het aansnijden.</li>
+        <h3>Zaterdagochtend — deeg maken</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">150 g actieve starter afwegen</span>
+                De starter hoort zichtbaar actief te zijn: luchtig, bruisend en duidelijk in volume toegenomen. Weeg <strong>150 g</strong> af in een grote mengkom.
+            </li>
+            <li>
+                <span class="step-title">Bloem en water toevoegen</span>
+                Voeg <strong>425 g Manitoba-bloem</strong> en <strong>285 g lauw water</strong> toe. Meng met de hand of komschraper tot alle bloem nat is. Het deeg hoeft nu nog niet glad te zijn.
+            </li>
+            <li>
+                <span class="step-title">Autolyse — één keer, 30 minuten</span>
+                Dek de kom af en laat het deeg <strong>30 minuten</strong> ongestoord rusten. Voeg tijdens deze rust nog geen zout toe.
+                <div class="why">
+                    <span class="box-title">Waarom deze rust?</span>
+                    Het meel krijgt tijd om het water op te nemen. Daardoor wordt het deeg soepeler en kan de glutenstructuur zich gemakkelijker ontwikkelen.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">10 g zout toevoegen</span>
+                Strooi het zout over het deeg. Maak uw hand nat. Knijp, vouw en kneed het zout grondig door het deeg tot het gelijkmatig verdeeld is en het deeg opnieuw samenhangend en gladder wordt.
+            </li>
         </ol>
-    </div>
 
-    <!-- SECTIE 2: ZUURDESEM KWEKEN -->
-    <div id="zuurdesem-kweken" class="recipe-section">
-        <h2>2. Zuurdesem Kweken (7 Dagen op het Aanrecht)</h2>
-        <p><em>Gebruik de <strong>rechter Kefirko-pot (348ml) met de doorzichtige glazen/plastic schijf</strong> bovenop. Dit laat gassen perfect ontsnappen! <strong>Let op: Gebruik hier GEEN Criscito!</strong></em></p>
-        
-        <ol>
-            <li><strong>Vrijdag 14 aug (Dag 1):</strong> Weeg exact <span class="highlight">25g Manitoba-meel</span> + <span class="highlight">25g lauw water</span> af in de Kefirko-pot. Roer tot een glad papje. Leg de doorzichtige schijf erop. Laat 24 uur staan.</li>
-            <li><strong>Zaterdag 15 aug (Dag 2):</strong> Roer door. Schep er deeg uit tot er exact <span class="highlight">25g papje</span> overblijft in de pot (rest weggooien). Voeg <span class="highlight">25g meel</span> + <span class="highlight">25g lauw water</span> toe. Roer door. Schijf erop. 24 uur wachten.</li>
-            <li><strong>Zondag 16 aug (Dag 3):</strong> Herhaal stap van Dag 2 (leegscheppen tot 25g, voeden met 25g meel + 25g water). 24 uur wachten.</li>
-            <li><strong>Maandag 17 aug (Dag 4):</strong> Herhaal stap van Dag 2 (leegscheppen tot 25g, voeden met 25g meel + 25g water). 24 uur wachten.</li>
-            <li><strong>Dinsdag 18 aug (Dag 5):</strong> Herhaal stap van Dag 2. Let op eventuele kleine luchtbelletjes. 24 uur wachten.</li>
-            <li><strong>Woensdag 19 aug (Dag 6):</strong> Herhaal stap van Dag 2. 24 uur wachten.</li>
-            <li><strong>Donderdag 20 aug (Dag 7 - VERHUIZEN!):</strong> Voed 's middags nog één keer volgens de stap van Dag 2. Zodra het papje 's avonds flink bruist, giet u de actieve starter volledig over in uw schone <strong>Maison Home pot (500 ml)</strong>. Draai het koperen deksel handvast dicht en zet de pot direct in de koelkast.</li>
+        <h3>Vouwen — 3 sessies</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Sessie 1 — vier vouwen</span>
+                Maak uw hand nat. Pak één zijde van het deeg onderaan vast, rek voorzichtig omhoog en vouw naar het midden. Draai de kom een kwartslag. Herhaal dit tot u alle <strong>vier zijden</strong> hebt gevouwen. Dek af en laat <strong>30 minuten</strong> rusten.
+            </li>
+            <li>
+                <span class="step-title">Sessie 2 — vier vouwen</span>
+                Maak uw hand opnieuw nat en voer opnieuw vier stretch-and-fold-vouwen uit. Dek af en laat opnieuw <strong>30 minuten</strong> rusten.
+            </li>
+            <li>
+                <span class="step-title">Sessie 3 — vier vouwen</span>
+                Herhaal voor de derde en laatste keer vier vouwen. Dek de kom daarna af.
+            </li>
         </ol>
-    </div>
-    <!-- SECTIE 3: ZUURDESEMBROOD BAKKEN -->
-    <div id="zuurdesembrood-bakken" class="recipe-section">
-        <h2>3. Zuurdesembrood Bakken (Volledig Stappenplan)</h2>
-        
-        <h3>Ingrediënten</h3>
-        <ul>
-            <li><span class="highlight">150g</span> Actieve zuurdesemstarter (<strong>Uit uw Maison Home pot van 500 ml</strong>)</li>
-            <li><span class="highlight">425g</span> Manitoba-bloem</li>
-            <li><span class="highlight">285g</span> Lauw water</li>
-            <li><span class="highlight">10g</span> Zout</li>
-            <li>*GEEN bakkersgist uit een zakje of Criscito nodig!</li>
+
+        <h3>Eerste rijs — bulk fermentatie</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">3 tot 5 uur ongestoord laten rijzen</span>
+                Laat de kom op het aanrecht staan bij ongeveer <strong>22°C</strong>. Reken op ongeveer <strong>3 tot 5 uur</strong>, maar kijk vooral naar het deeg en niet alleen naar de klok.
+            </li>
+            <li>
+                <span class="step-title">Stop wanneer het deeg ongeveer 50% groter is</span>
+                Het deeg is klaar voor het vormen wanneer het volume ongeveer met de helft is toegenomen, het duidelijk luchtiger oogt en er luchtbelletjes zichtbaar zijn langs of onder het oppervlak.
+            </li>
+        </ol>
+
+        <h3>Vormen en in het Bondoo-mandje</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Mat en mandje voorbereiden</span>
+                Bestrooi de siliconen mat en het Bondoo-rijsmandje via de zeef met een dunne maar volledige laag <strong>rijstmeel</strong>.
+            </li>
+            <li>
+                <span class="step-title">Deeg als een boek vouwen</span>
+                Stort het deeg voorzichtig op de mat. Vouw de linkerzijde naar het midden en vervolgens de rechterzijde daaroverheen.
+            </li>
+            <li>
+                <span class="step-title">Strak oprollen</span>
+                Rol het deeg vervolgens van boven naar beneden stevig maar zonder de lucht er volledig uit te drukken.
+            </li>
+            <li>
+                <span class="step-title">Opbollen en spanning maken</span>
+                Gebruik de rvs-deegsteker om de deegbol met korte trekkende en draaiende bewegingen naar u toe te trekken. Zo ontstaat spanning op de buitenkant.
+            </li>
+            <li>
+                <span class="step-title">In het rijsmandje leggen</span>
+                Leg het deeg met de <strong>gladde kant onderop</strong> in het mandje. De naad ligt dus bovenaan en is zichtbaar.
+            </li>
+        </ol>
+
+        <h3>Cold proof — hele nacht in de koelkast</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Mandje tegen uitdrogen beschermen</span>
+                Schuif het volledige rijsmandje in een grote, schone plastic zak. Sluit de zak voldoende zodat het deeg niet uitdroogt.
+            </li>
+            <li>
+                <span class="step-title">Koelkast</span>
+                Zet het mandje de hele nacht in de koelkast. Haal het pas uit de koelkast wanneer de oven en LUCAVITA® volledig zijn voorverwarmd.
+            </li>
+        </ol>
+
+        <h3>Restant starter bewaren — 0 g verspilling</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Restje in de Maison Home pot voeden</span>
+                Voeg aan het kleine restje starter in de pot ongeveer <strong>1 theelepel Manitoba-bloem</strong> en <strong>1 theelepel water</strong> toe.
+            </li>
+            <li>
+                <span class="step-title">Roeren en terug koelen</span>
+                Roer kort, draai het deksel handvast dicht en zet de pot direct terug in de koelkast als vaste thuisbasis voor de volgende bakbeurt.
+            </li>
+        </ol>
+
+        <h3>Zondagochtend — bakken voor een dunne krokante korst</h3>
+
+        <div class="bake-card">
+            <div><strong>220°C</strong>45 min voorverwarmen</div>
+            <div><strong>20 min</strong>met koepel</div>
+            <div><strong>180°C</strong>25–30 min droog afbakken</div>
+        </div>
+
+        <ol class="steps">
+            <li>
+                <span class="step-title">LUCAVITA® 45 minuten voorverwarmen</span>
+                Zet zowel de gietijzeren bodem als de koepel in de heteluchtoven. Verwarm <strong>45 minuten voor op 220°C hetelucht</strong>.
+            </li>
+            <li>
+                <span class="step-title">Deeg koud uit de koelkast kiepen</span>
+                Leg bakpapier op het rijsmandje en draai het mandje in één rustige beweging om. De gladde zijde van het deeg ligt nu bovenaan.
+            </li>
+            <li>
+                <span class="step-title">Ongeveer 1 cm diep insnijden</span>
+                Maak met de lame één snelle, beheerste snede van ongeveer <strong>1 cm diep</strong>.
+            </li>
+            <li>
+                <span class="step-title">Deeg in de hete pan plaatsen</span>
+                Gebruik stevige ovenwanten. Til het deeg aan het bakpapier op en plaats het op de hete gietijzeren bodem. Zet onmiddellijk de hete koepel erop.
+            </li>
+            <li>
+                <span class="step-title">20 minuten op 220°C met koepel</span>
+                Bak <strong>20 minuten op 220°C hetelucht</strong>. De koepel houdt het vocht van het deeg rond het brood vast. Hierdoor blijft het oppervlak in de beginfase soepel en kan het brood goed uitzetten.
+            </li>
+            <li>
+                <span class="step-title">Koepel én bakpapier verwijderen</span>
+                Haal na 20 minuten de koepel voorzichtig weg. Let op ontsnappende hete stoom. Trek daarna het bakpapier volledig onder het brood vandaan en leg het brood kaal op het gietijzer.
+            </li>
+            <li>
+                <span class="step-title">Direct terug naar 180°C</span>
+                Verlaag de oven onmiddellijk naar <strong>180°C hetelucht</strong>.
+                <div class="why">
+                    <span class="box-title">Doel van deze lagere eindtemperatuur</span>
+                    De vochtige beginfase is voorbij. Nu moet de korst uitdrogen en krokant worden zonder onnodig donker, dik of hard te bakken.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">Nog 25 tot 30 minuten kaal afbakken</span>
+                Bak het brood zonder koepel en zonder bakpapier nog <strong>25 tot 30 minuten</strong>. De exacte tijd hangt af van uw oven en de gewenste goudbruine kleur.
+            </li>
+            <li>
+                <span class="step-title">Extra krokant: 5 minuten nadrogen</span>
+                Als de kleur goed is, zet de oven uit en zet de ovendeur ongeveer <strong>5 cm op een kier</strong>. Laat het brood nog ongeveer <strong>5 minuten</strong> in de droge oven staan.
+                <div class="tip">
+                    <span class="box-title">Dit is optioneel maar nuttig</span>
+                    Het laat resterende vocht ontsnappen en helpt de dunne korst langer bros te blijven.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">1 tot 2 uur afkoelen</span>
+                Zet het brood op een rooster en laat het <strong>minimaal 1 uur, liever 1½ tot 2 uur</strong> afkoelen voordat u het aansnijdt.
+            </li>
+        </ol>
+
+        <a class="backtop" href="#top">↑ Terug naar boven</a>
+    </section>
+
+    <!-- PAGINA 2 -->
+    <section id="pagina2" class="page">
+        <span class="page-number">PAGINA 2</span>
+        <h2>Zuurdesem kweken — 7 dagen</h2>
+        <p class="subtitle">Start vrijdag 14 augustus 2026 · Kefirko-pot 348 ml · daarna verhuizen naar Maison Home 500 ml</p>
+
+        <h3>Materiaal</h3>
+        <ul class="material">
+            <li><strong>Rechter Kefirko-pot</strong> van 348 ml</li>
+            <li><strong>Doorzichtige schijf</strong> losjes bovenop als bescherming en ontluchting</li>
+            <li><strong>Digitale weegschaal</strong> die per gram weegt</li>
+            <li><strong>Lepel</strong> om te roeren en starter uit te scheppen</li>
+            <li><strong>Manitoba-bloem</strong></li>
+            <li><strong>Lauw water</strong></li>
         </ul>
 
-        <h3>Vrijdagavond: De starter wekken</h3>
-        <ol>
-            <li><strong>Starter activeren:</strong> Haal uw slapende Maison Home pot (500 ml) uit de koelkast. Voeg <span class="highlight">60g meel</span> + <span class="highlight">60g water</span> rechtstreeks toe in deze pot. Roer goed door. Draai het koperen deksel er <strong>heel losjes</strong> op en laat de hele nacht op het aanrecht staan om te activeren.</li>
+        <div class="warning">
+            <span class="box-title">Belangrijk</span>
+            Gebruik bij het opstarten van deze zuurdesemstarter <strong>geen Caputo Criscito</strong>.
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 1 — vrijdag 14 augustus 2026</div>
+            <div class="day-body">
+                <ol class="steps">
+                    <li><span class="step-title">25 g bloem afwegen</span>Doe <strong>25 g Manitoba-bloem</strong> in de schone Kefirko-pot.</li>
+                    <li><span class="step-title">25 g water toevoegen</span>Voeg <strong>25 g lauw water</strong> toe.</li>
+                    <li><span class="step-title">Tot een papje roeren</span>Roer goed tot alle bloem nat is en u een gelijkmatig papje hebt.</li>
+                    <li><span class="step-title">Schijf erop</span>Leg de doorzichtige schijf losjes bovenop. De pot moet gas kunnen lossen en tegelijk tegen fruitvliegjes beschermd zijn.</li>
+                    <li><span class="step-title">24 uur wachten</span>Laat de pot op het aanrecht staan, uit direct zonlicht.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 2 — zaterdag 15 augustus 2026</div>
+            <div class="day-body">
+                <ol class="steps">
+                    <li><span class="step-title">Eerst doorroeren</span>Roer de volledige inhoud van de pot goed door.</li>
+                    <li><span class="step-title">Terugbrengen tot exact 25 g</span>Zet de pot op de weegschaal en schep starter uit de pot tot er exact <strong>25 g papje</strong> overblijft. Het uitgeschepte deel mag weg.</li>
+                    <li><span class="step-title">Voeden</span>Voeg <strong>25 g Manitoba-bloem + 25 g lauw water</strong> toe.</li>
+                    <li><span class="step-title">Roeren en afsluiten</span>Roer tot een homogeen papje en leg de doorzichtige schijf terug losjes op de pot.</li>
+                    <li><span class="step-title">24 uur wachten</span>Laat opnieuw op het aanrecht staan.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 3 — zondag 16 augustus 2026</div>
+            <div class="day-body">
+                <p>Herhaal 's middags exact dezelfde cyclus:</p>
+                <ul class="compact-list">
+                    <li>doorroeren;</li>
+                    <li>leegscheppen tot exact <strong>25 g</strong> overblijft;</li>
+                    <li><strong>25 g Manitoba + 25 g lauw water</strong> toevoegen;</li>
+                    <li>goed roeren;</li>
+                    <li>schijf erop;</li>
+                    <li>24 uur wachten.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 4 — maandag 17 augustus 2026</div>
+            <div class="day-body">
+                <p>Herhaal 's middags opnieuw exact dezelfde cyclus: <strong>25 g behouden + 25 g bloem + 25 g water</strong>. Roer goed, schijf erop en 24 uur laten staan.</p>
+            </div>
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 5 — dinsdag 18 augustus 2026</div>
+            <div class="day-body">
+                <p>Herhaal dezelfde voeding. U kunt nu steeds meer kleine luchtbelletjes, een frissere zure geur en tijdelijke volumetoename beginnen zien. Blijf gewoon hetzelfde schema volgen.</p>
+            </div>
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 6 — woensdag 19 augustus 2026</div>
+            <div class="day-body">
+                <p>Herhaal opnieuw: doorroeren, terugbrengen tot <strong>25 g</strong>, voeden met <strong>25 g bloem + 25 g water</strong>, schijf erop en nog 24 uur op het aanrecht.</p>
+            </div>
+        </div>
+
+        <div class="day">
+            <div class="day-head">Dag 7 — donderdag 20 augustus 2026 · verhuizen</div>
+            <div class="day-body">
+                <ol class="steps">
+                    <li><span class="step-title">'s Middags terugbrengen tot 25 g</span>Roer door en schep leeg tot exact <strong>25 g starter</strong> overblijft.</li>
+                    <li><span class="step-title">Laatste voeding</span>Voeg <strong>25 g Manitoba-bloem + 25 g lauw water</strong> toe en roer goed.</li>
+                    <li><span class="step-title">Actief laten worden</span>Laat op het aanrecht staan en kijk in de loop van de namiddag en avond naar de activiteit.</li>
+                    <li><span class="step-title">Wachten op sterke activiteit</span>Wanneer de starter duidelijk hard bruist, luchtig is en ongeveer verdubbeld is, is hij klaar om te verhuizen.</li>
+                    <li><span class="step-title">Naar de Maison Home pot van 500 ml</span>Giet de volledige actieve starter over in de schone Maison Home pot.</li>
+                    <li><span class="step-title">Koelkast als vaste thuisbasis</span>Draai het deksel handvast dicht en zet de pot direct in de koelkast.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="success">
+            <span class="box-title">Vanaf nu</span>
+            De Maison Home pot van 500 ml is de vaste bewaarpot. Voor een zuurdesembrood wekt u de starter de avond vóór het deeg maken opnieuw volgens pagina 1.
+        </div>
+
+        <a class="backtop" href="#top">↑ Terug naar boven</a>
+    </section>
+
+    <!-- PAGINA 3 -->
+    <section id="pagina3" class="page">
+        <span class="page-number">PAGINA 3</span>
+        <h2>Gistbrood &amp; krokante gistbroodjes met Franse T65</h2>
+        <p class="subtitle">Licht brood · fijne krokante korst · Criscito als smaakmaker · droge gist voor de rijskracht</p>
+
+        <div class="why">
+            <span class="box-title">Waarom T65?</span>
+            Franse T65-bloem is bedoeld voor brood en geeft, afhankelijk van het merk en eiwitgehalte, doorgaans een minder krachtige glutenstructuur dan uw sterke Manitoba. In combinatie met een mager deeg en een goede stoomfase is dit zeer geschikt voor een luchtig Frans brood met een dunne, krokante korst.
+        </div>
+
+        <h3>Ingrediënten voor één groot gistbrood</h3>
+        <ul class="ingredients">
+            <li><span class="amount">475 g</span> Franse T65-bloem</li>
+            <li><span class="amount">25 g</span> Caputo Criscito als smaakmaker</li>
+            <li><span class="amount">360 g</span> lauw water</li>
+            <li><span class="amount">10 g</span> zout</li>
+            <li><span class="amount">3 g</span> Dr. Oetker droge gist</li>
+            <li><strong>Rijstmeel + bakpapier</strong> voor vormen en bakken</li>
+        </ul>
+
+        <div class="tip">
+            <span class="box-title">Criscito in dit recept</span>
+            De Criscito dient hier voor extra aroma en karakter. De <strong>3 g droge gist</strong> zorgt voor de betrouwbare rijskracht.
+        </div>
+
+        <h3>Deeg maken — volledig stappenplan</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Droge ingrediënten voorbereiden</span>
+                Weeg <strong>475 g T65-bloem</strong> en <strong>25 g Caputo Criscito</strong> af in een grote kom en meng beide droog door elkaar.
+            </li>
+            <li>
+                <span class="step-title">Water en gist toevoegen</span>
+                Voeg <strong>360 g lauw water</strong> en <strong>3 g droge gist</strong> toe. Meng tot alle bloem nat is en er geen droge plekken meer zichtbaar zijn.
+            </li>
+            <li>
+                <span class="step-title">Autolyse/rust — 30 minuten</span>
+                Dek de kom af en laat het deeg <strong>30 minuten</strong> rusten. Voeg het zout nog niet toe.
+            </li>
+            <li>
+                <span class="step-title">10 g zout toevoegen</span>
+                Strooi het zout over het deeg. Maak uw hand nat en knijp en vouw het zout door het deeg tot het volledig verdeeld is.
+            </li>
+            <li>
+                <span class="step-title">Vouwsessie 1</span>
+                Maak uw hand nat en voer vier stretch-and-fold-vouwen uit: één aan elke zijde. Dek af en laat <strong>30 minuten</strong> rusten.
+            </li>
+            <li>
+                <span class="step-title">Vouwsessie 2</span>
+                Herhaal vier vouwen. Dek af en wacht opnieuw <strong>30 minuten</strong>.
+            </li>
+            <li>
+                <span class="step-title">Vouwsessie 3</span>
+                Voer nog eenmaal vier vouwen uit en dek de kom af.
+            </li>
+            <li>
+                <span class="step-title">Eerste rijs — ongeveer 1½ tot 2 uur</span>
+                Laat het deeg op het aanrecht rijzen tot het zichtbaar luchtiger en groter is. Bij gist gaat dit veel sneller dan bij zuurdesem. Gebruik <strong>1½ tot 2 uur</strong> als richttijd.
+            </li>
+            <li>
+                <span class="step-title">Vormen</span>
+                Bestuif de mat en het Bondoo-mandje licht met rijstmeel. Stort het deeg voorzichtig uit, vouw het als een boek, rol het strak op en bol het met de rvs-deegsteker op zodat er oppervlaktespanning ontstaat.
+            </li>
+            <li>
+                <span class="step-title">In het mandje</span>
+                Leg het deeg met de <strong>gladde kant onderop</strong> en de naad bovenaan in het Bondoo-mandje.
+            </li>
+            <li>
+                <span class="step-title">Een nacht koud rijzen</span>
+                Schuif het mandje in een grote plastic zak tegen uitdrogen en zet het de hele nacht in de koelkast.
+            </li>
         </ol>
 
-        <h3>Zaterdag: Het deeg maken en rijzen</h3>
-        <ol>
+        <h3>Groot gistbrood bakken — dunne, brosse korst</h3>
+        <div class="bake-card">
+            <div><strong>220°C</strong>45 min voorverwarmen</div>
+            <div><strong>20 min</strong>met koepel</div>
+            <div><strong>185–190°C</strong>± 25 min droog</div>
+        </div>
+
+        <ol class="steps">
             <li>
-                <strong>Mengen:</strong> De starter bruist nu tot vlak onder de rand van de Maison Home pot. Weeg exact <span class="highlight">150g starter</span> af uit de pot en meng dit in een grote kom met de 425g Manitoba-bloem en 285g lauw water tot al het meel nat is.
+                <span class="step-title">45 minuten voorverwarmen</span>
+                Verwarm de LUCAVITA® bodem en koepel samen <strong>45 minuten op 220°C hetelucht</strong>.
             </li>
             <li>
-                <strong>Autolyse (1 keer):</strong> Laat de kom <span class="highlight">30 minuten</span> afgedekt op het aanrecht staan. 
-                <div class="tip-box"><strong>Bakkersuitleg:</strong> Tijdens deze rustfase neemt het meel het vocht volledig op en start de opbouw van het glutennetwerk automatisch. Voeg hier nog GEEN zout toe.</div>
+                <span class="step-title">Koud deeg kiepen en insnijden</span>
+                Haal het mandje pas nu uit de koelkast. Kiep het deeg op bakpapier en snijd de bovenzijde ongeveer <strong>1 cm diep</strong> in.
             </li>
             <li>
-                <strong>Zout toevoegen:</strong> Strooi de 10g zout gelijkmatig over het deeg. Maak uw hand nat en knijp/kneed het zout grondig door het deeg heen tot het zout volledig is opgelost en de deegbal weer homogeen en glad aanvoelt.
+                <span class="step-title">20 minuten met koepel op 220°C</span>
+                Plaats het deeg op de hete bodem, zet de koepel erop en bak <strong>20 minuten</strong>. De opgesloten stoom ondersteunt de ovensprong en helpt de korst dun te houden.
             </li>
             <li>
-                <strong>Vouwen (Sessie 1):</strong> Maak uw hand nat met koud water. Pak de zijkant van het deeg onderop vast, trek het deeg voorzichtig omhoog zonder het te scheuren, en vouw het over zichzelf heen naar het midden. Draai de kom een kwartslag en herhaal dit. Doe dit voor alle 4 de zijden van het deeg. Dek de kom af en laat <span class="highlight">30 minuten</span> rusten op het aanrecht.
+                <span class="step-title">Koepel en bakpapier verwijderen</span>
+                Verwijder na 20 minuten voorzichtig de koepel. Trek daarna het bakpapier volledig onder het brood vandaan.
             </li>
             <li>
-                <strong>Vouwen (Sessie 2):</strong> Maak uw hand opnieuw nat. Herhaal de 4 vouwen (omhoog trekken en naar het midden vouwen) aan alle vier de zijden op exact dezelfde wijze. Dit versterkt het deeg. Dek de kom af en wacht weer <span class="highlight">30 minuten</span>.
+                <span class="step-title">Oven naar 185–190°C</span>
+                Verlaag onmiddellijk naar <strong>185 tot 190°C hetelucht</strong>.
             </li>
             <li>
-                <strong>Vouwen (Sessie 3):</strong> Herhaal de 4 vouwen voor de allerlaatste keer om de maximale deegspanning op te bouwen. Dek de kom hierna weer goed af.
+                <span class="step-title">Ongeveer 25 minuten droog afbakken</span>
+                Bak het brood kaal op het gietijzer tot de korst goudbruin en droog is. Reken op ongeveer <strong>25 minuten</strong>, maar kijk naar de kleur.
             </li>
             <li>
-                <strong>Eerste rijs (Bulk fermentation):</strong> Laat het deeg nu <span class="highlight">3 tot 5 uur</span> volledig ongestoord op het aanrecht staan op kamertemperatuur. Wacht tot het volume met ongeveer de helft (50%) is toegenomen en het deeg zacht en luchtig aanvoelt.
-                <div class="tip-box"><strong>Let op:</strong> Zuurdesem rijst veel trager dan gist uit een zakje. Kijk puur naar het deeg: er moeten lichte luchtbellen onder het oppervlak te zien zijn.</div>
+                <span class="step-title">5 minuten nadrogen</span>
+                Zet de oven uit en laat het brood nog <strong>5 minuten</strong> staan met de ovendeur een paar centimeter open.
             </li>
             <li>
-                <strong>Vormen:</strong> Bestuif de Zylaro siliconen mat en de binnenkant van het Bondoo-rijsmandje (met of zonder doek) royaal met het rijstmeel via uw zeef. Stort het deeg voorzichtig op de mat. Vouw de linkerkant naar het midden en vouw de rechterkant daar overheen (als een boek). Rol het deeg vervolgens van boven naar beneden strak op. Bol het mooi rond op door de bol met de rvs-deegsteker met een draaiende beweging over de mat te trekken om spanning op de buitenkant te brengen.
-            </li>
-            <li>
-                <strong>Koelkast in (Cold proofing):</strong> Pak de deegbol voorzichtig op en leg hem met de <strong>gladde kant onderop</strong> (de naad/sluiting kijkt u dus aan) in het bepoederde rijsmandje. Dek het mandje luchtdicht af door het in een grote, schone plastic zak te schuiven tegen het uitdrogen. Zet het mandje de <span class="highlight">hele nacht in de koelkast</span>.
-            </li>
-            <li>
-                <strong>Het restant bewaren:</strong> Het kleine restje starter dat achterblijft onderin uw Maison Home pot geeft u één klein theelepeltje meel en water. Roer om, draai het koperen deksel handvast dicht en zet de pot <span class="highlight">direct terug in de koelkast</span> voor volgende week. Zo heeft u 0 gram verspilling.
+                <span class="step-title">Volledig afkoelen</span>
+                Leg het brood op een rooster en laat het minstens <strong>1 uur</strong> afkoelen.
             </li>
         </ol>
 
-        <h3>Zondagochtend: Het bakken</h3>
-        <ol>
+        <h3>Krokante gistbroodjes / pistolets — los op metalen bakplaat</h3>
+
+        <div class="warning">
+            <span class="box-title">Geen siliconen vorm voor deze krokante broodjes</span>
+            Voor dit doel gebruikt u liever een metalen bakplaat. Metaal geeft directere bodemwarmte en laat de broodjes rondom droger afbakken. Siliconen bakvormen zijn handig voor andere toepassingen, maar niet mijn eerste keuze wanneer een droge, krokante pistoletkorst het hoofddoel is.
+        </div>
+
+        <h4>Deeg voorbereiden</h4>
+        <ol class="steps">
             <li>
-                <strong>Voorverwarmen:</strong> Zet de LUCAVITA® broodpan (zowel de bodemplaat als de grote dekselkoepel) in de heteluchtoven. Verwarm de oven en de pan voor op <span class="highlight">220°C</span> voor minimaal <span class="highlight">45 minuten</span> zodat het gietijzer door en door loeiheet is.
+                <span class="step-title">Gebruik hetzelfde T65-deeg</span>
+                Maak het deeg met dezelfde ingrediënten en volg dezelfde meng-, rust-, zout-, vouw- en eerste-rijsstappen hierboven.
             </li>
             <li>
-                <strong>Kiepen &amp; Insnijden:</strong> Haal het koude rijsmandje pas uit de koelkast als de oven klaar is. Leg een vel bakpapier over het mandje heen en kiep het mandje in één rustige beweging omgekeerd om. Het deeg ligt nu op het papier (de gladde kant boven). Snijd de bovenkant van het deeg direct 1 cm diep in met het vlijmscherpe bakkersmesje (lame) in een snelle, vloeiende beweging.
+                <span class="step-title">Na de eerste rijs verdelen</span>
+                Stort het deeg op de werkmat en verdeel het met de deegsteker in gelijke porties.
             </li>
             <li>
-                <strong>In de pan:</strong> Trek uw stevige ovenwanten aan. Haal de hete bodemplaat uit de oven (laat de koepel nog in de oven staan). Pak de vier punten van het bakpapier vast, til het deeg op en zet het exact in het midden van de hete plaat neer. Haal de hete dekselkoepel uit de oven en plaats deze over het deeg op de bodemplaat.
+                <span class="step-title">Pistolets opbollen</span>
+                Bol iedere portie voorzichtig op en creëer spanning aan het oppervlak zonder alle lucht eruit te drukken.
             </li>
             <li>
-                <strong>Bakken MET deksel (220°C):</strong> Schuif de pan in de oven und bak exact <span class="highlight">20 minuten</span> op 220°C hetelucht. De gevangen stoom zorgt nu voor de maximale ovensprong in de hoogte.
+                <span class="step-title">Op bakpapier leggen</span>
+                Leg de bolletjes met voldoende tussenruimte op bakpapier op een <strong>metalen bakplaat</strong>.
             </li>
             <li>
-                <strong>Bakpapier &amp; Koepel weg:</strong> Haal na 20 minuten de koepel voorzichtig van de pan (pas op voor ontsnappende stoom). Til het brood heel even kort op aan de punten van het bakpapier en <strong>trek het bakpapier volledig eronderuit</strong>. Leg het brood kaal terug op de hete gietijzeren bodemplaat.
-                <div class="tip-box"><strong>Geheim voor een flinterdunne korst:</strong> Door het bakpapier nu weg te halen, schroeit het gietijzer de korst direct krokant dicht zonder dat de korst taai of te dik wordt.</div>
-            </li>
-            <li>
-                <strong>Bakken ZONDER deksel (200°C):</strong> Zet de oven direct terug naar <span class="highlight">200°C hetelucht</span>. Bak het brood zo zonder deksel nog exact <span class="highlight">20 minuten</span> los op de plaat tot de korst prachtig diep goudbruin, flinterdun en knapperig is. (Klop op de onderkant: het moet hol klinken).
-            </li>
-            <li>
-                <strong>Afkoelen:</strong> Haal het brood uit de oven en laat het minimaal <span class="highlight">1 tot 2 uur volledig afkoelen</span> op een rooster. Snijd het brood absoluut niet warm aan, anders ontsnapt de binnenstoom en wordt de binnenkant plakkerig.
+                <span class="step-title">Naar wens insnijden</span>
+                Snijd vlak vóór het bakken ieder broodje met een snelle snede in.
             </li>
         </ol>
-    </div>
-</div>
+
+        <h4>Handmatige stoomstoot</h4>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Oven op 220°C voorverwarmen</span>
+                Verwarm de heteluchtoven voor op <strong>220°C</strong>.
+            </li>
+            <li>
+                <span class="step-title">Leeg metalen bakje mee voorverwarmen</span>
+                Zet tijdens het voorverwarmen een stevig, leeg <strong>metalen</strong> cakeblik of een kleine metalen braadslede onder in de oven.
+            </li>
+            <li>
+                <span class="step-title">Water vooraf koken</span>
+                Breng ongeveer <strong>100 tot 120 ml water</strong> aan de kook.
+            </li>
+            <li>
+                <span class="step-title">Broodjes in de oven</span>
+                Schuif de metalen bakplaat met de pistolets in de voorverwarmde oven.
+            </li>
+            <li>
+                <span class="step-title">Direct kokend water in het hete metalen bakje</span>
+                Draag stevige ovenwanten en giet voorzichtig het kokende water in het hete metalen bakje. Sluit de ovendeur onmiddellijk.
+                <div class="warning">
+                    <span class="box-title">Pas op voor stoombrandwonden</span>
+                    Houd gezicht en handen uit de opstijgende stoom. Gebruik hiervoor geen glazen of keramieken schaal.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">Eerste 10 minuten op 220°C</span>
+                Bak de broodjes <strong>10 minuten op 220°C</strong>. De stoom houdt het oppervlak tijdelijk soepel zodat de broodjes maximaal kunnen uitzetten.
+            </li>
+            <li>
+                <span class="step-title">Stoombron verwijderen</span>
+                Open na 10 minuten voorzichtig de oven en verwijder het metalen waterbakje. Sluit de deur opnieuw.
+            </li>
+            <li>
+                <span class="step-title">Verlagen naar 190°C</span>
+                Verlaag naar <strong>190°C hetelucht</strong>.
+            </li>
+            <li>
+                <span class="step-title">Nog ongeveer 8 tot 12 minuten bakken</span>
+                Bak door tot de pistolets mooi goudbruin en droog-krokant zijn. Kleinere broodjes zijn sneller klaar dan grotere.
+            </li>
+            <li>
+                <span class="step-title">3 tot 5 minuten nadrogen</span>
+                Zet de oven uit, zet de deur op een kier en laat de broodjes nog <strong>3 tot 5 minuten</strong> uitdrogen.
+            </li>
+            <li>
+                <span class="step-title">Op rooster afkoelen</span>
+                Leg de broodjes onmiddellijk op een rooster zodat ook de onderkant krokant blijft.
+            </li>
+        </ol>
+
+        <div class="why">
+            <span class="box-title">De logica achter de dunne krokante korst</span>
+            Eerst vocht en stoom voor ovensprong en een dunne soepele buitenlaag; daarna de stoom weg en verder bakken in een droge oven. Die combinatie is belangrijker dan alleen een zeer hoge eindtemperatuur.
+        </div>
+
+        <a class="backtop" href="#top">↑ Terug naar boven</a>
+    </section>
+
+    <!-- PAGINA 4 -->
+    <section id="pagina4" class="page">
+        <span class="page-number">PAGINA 4</span>
+        <h2>Fluweelzachte vanillecake</h2>
+        <p class="subtitle">Rechthoekige cakevorm · zachte fijne kruim · duidelijke vanillesmaak · zelfrijzende bloem is hier wél perfect</p>
+
+        <div class="why">
+            <span class="box-title">Het doel</span>
+            Deze cake moet niet droog of zwaar worden. We streven naar een <strong>zachte, fijne en bijna fluweelachtige kruim</strong>, met een volle vanillesmaak. Daarom kloppen we boter en fijne suiker eerst goed luchtig, voegen we de eieren geleidelijk toe en mengen we de bloem op het einde slechts kort.
+        </div>
+
+        <h3>Voor welke bakvorm?</h3>
+        <div class="tip">
+            <span class="box-title">Rechthoekige cakevorm</span>
+            Dit recept is afgestemd op een gebruikelijke rechthoekige cake- of broodvorm van ongeveer <strong>900–950 g</strong>, bijvoorbeeld circa <strong>19 × 9 cm aan de bodem</strong> of ongeveer <strong>23 × 13 cm bovenaan</strong>. Is uw vorm kleiner, vul hem dan nooit tot de rand: houd ongeveer <strong>2/3 tot maximaal 3/4 vol</strong>. Eventueel overgebleven beslag kunt u in één of twee kleine cakevormpjes of muffinvormpjes bakken.
+        </div>
+
+        <h3>Ingrediënten</h3>
+        <ul class="ingredients">
+            <li><span class="amount">200 g</span> zachte ongezouten roomboter, op kamertemperatuur</li>
+            <li><span class="amount">164 g</span> fijne kristalsuiker</li>
+            <li><span class="amount">2 zakjes (2 × 8 g)</span> goede vanillesuiker, bij voorkeur Bourbon vanillesuiker</li>
+            <li><span class="amount">3</span> grote eieren, op kamertemperatuur</li>
+            <li><span class="amount">200 g</span> zelfrijzende tarwebloem</li>
+            <li><span class="amount">20 g</span> maïzena</li>
+            <li><span class="amount">100 g</span> volle Griekse yoghurt of volle natuuryoghurt</li>
+            <li><span class="amount">40 ml</span> volle melk, op kamertemperatuur</li>
+            
+            <li><span class="amount">1 snuf</span> fijn zout</li>
+            <li><strong>Een beetje boter</strong> voor het invetten van de vorm</li>
+            <li><strong>Bakpapier</strong> om de cake gemakkelijk uit de vorm te tillen</li>
+        </ul>
+
+        <div class="tip">
+            <span class="box-title">Waarom 164 g gewone suiker + 16 g vanillesuiker?</span>
+            Twee zakjes vanillesuiker van 8 g leveren samen <strong>16 g suiker</strong>. Daarom gebruiken we nog slechts
+            <strong>164 g fijne kristalsuiker</strong>. Samen blijft de totale hoeveelheid suiker exact <strong>180 g</strong>,
+            zodat de zoetheid en de structuur van het oorspronkelijke cakerecept behouden blijven.
+        </div>
+
+        <div class="success">
+            <span class="box-title">Hier mag zelfrijzende bloem juist wél</span>
+            Bij deze cake gebruiken we bewust <strong>zelfrijzende bloem</strong>. In tegenstelling tot lang gerezen brood wordt cake na het mengen vrij snel gebakken. Het aanwezige rijsmiddel kan daardoor precies doen waarvoor het bedoeld is.
+        </div>
+
+        <h3>Voorbereiding — vóór u begint te mengen</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Boter, eieren, yoghurt en melk op temperatuur brengen</span>
+                Haal boter, eieren, yoghurt en melk tijdig uit de koelkast. Ze mengen het mooist wanneer ze ongeveer op <strong>kamertemperatuur</strong> zijn. De boter moet zacht zijn, maar niet gesmolten of vettig.
+            </li>
+            <li>
+                <span class="step-title">Oven voorverwarmen</span>
+                Verwarm de heteluchtoven voor op <strong>160°C</strong>. Gebruik het middelste ovenniveau.
+            </li>
+            <li>
+                <span class="step-title">Bakvorm voorbereiden</span>
+                Vet de binnenkant van uw rechthoekige bakvorm dun in met boter. Leg vervolgens een lange strook bakpapier over de bodem en twee lange zijden, zodat u na het bakken twee uitstekende “handvatten” hebt waarmee u de cake gemakkelijk kunt optillen.
+            </li>
+            <li>
+                <span class="step-title">Droge ingrediënten mengen</span>
+                Doe <strong>200 g zelfrijzende bloem</strong>, <strong>20 g maïzena</strong> en een <strong>snuf zout</strong> in een aparte kom. Roer ze goed door elkaar en zet de kom opzij.
+                <div class="why">
+                    <span class="box-title">Waarom maïzena?</span>
+                    Een kleine hoeveelheid maïzena verlaagt de effectieve hoeveelheid gluten in het bloemmengsel. Dat helpt om de kruim fijner en zachter te houden.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">Yoghurt en melk mengen</span>
+                Roer in een kommetje <strong>100 g yoghurt</strong> en <strong>40 ml melk</strong> glad. Zet apart.
+            </li>
+        </ol>
+
+        <h3>Het beslag maken — rustig en in deze volgorde</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Boter eerst kort romig kloppen</span>
+                Doe de <strong>200 g zachte boter</strong> in een ruime mengkom. Klop met een elektrische handmixer ongeveer <strong>30 seconden</strong> op middelhoge snelheid tot de boter egaal en romig is.
+            </li>
+            <li>
+                <span class="step-title">Gewone suiker en vanillesuiker toevoegen en 4 tot 5 minuten luchtig kloppen</span>
+                Voeg de <strong>164 g fijne kristalsuiker</strong> en <strong>2 zakjes vanillesuiker van 8 g</strong> geleidelijk toe. Samen is dit opnieuw exact <strong>180 g suiker</strong>. Klop daarna ongeveer <strong>4 tot 5 minuten</strong> verder tot het mengsel duidelijk bleker, luchtiger en romiger is.
+                <div class="tip">
+                    <span class="box-title">Dit is een belangrijke stap</span>
+                    Schraap halverwege met een spatel langs de bodem en zijkanten van de kom. Goed luchtig geklopte boter en suiker vormen de basis van de fijne cakekruim.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">Eerste ei toevoegen</span>
+                Voeg <strong>1 ei</strong> toe en klop op middelhoge snelheid tot het volledig is opgenomen.
+            </li>
+            <li>
+                <span class="step-title">Tweede ei toevoegen</span>
+                Voeg het tweede ei toe en klop opnieuw tot het mengsel weer egaal is.
+            </li>
+            <li>
+                <span class="step-title">Derde ei toevoegen</span>
+                Voeg het derde ei toe en klop opnieuw goed door. Schraap daarna bodem en zijkanten van de kom schoon.
+                <div class="tip">
+                    <span class="box-title">Lijkt het mengsel licht geschift?</span>
+                    Dat is geen ramp. Voeg dan één eetlepel van het klaarstaande bloemmengsel toe en klop slechts kort tot het beslag weer beter samenkomt.
+                </div>
+            </li>
+            <li>
+                <span class="step-title">Eerste deel bloem toevoegen</span>
+                Zet de mixer op de <strong>laagste snelheid</strong>. Voeg ongeveer <strong>1/3 van het bloemmengsel</strong> toe en meng slechts kort, tot u bijna geen droge bloem meer ziet.
+            </li>
+            <li>
+                <span class="step-title">Helft van yoghurtmengsel toevoegen</span>
+                Voeg ongeveer de helft van het yoghurt-melkmengsel toe en meng kort op lage snelheid.
+            </li>
+            <li>
+                <span class="step-title">Tweede deel bloem toevoegen</span>
+                Voeg opnieuw ongeveer <strong>1/3 van het bloemmengsel</strong> toe. Meng opnieuw heel kort.
+            </li>
+            <li>
+                <span class="step-title">Rest yoghurt-melkmengsel toevoegen</span>
+                Voeg de rest van het yoghurt-melkmengsel toe en meng kort.
+            </li>
+            <li>
+                <span class="step-title">Laatste bloem toevoegen</span>
+                Voeg de rest van de bloem toe. Mix op lage snelheid alleen totdat de laatste zichtbare bloem bijna verdwenen is.
+            </li>
+            <li>
+                <span class="step-title">Met spatel afwerken — niet meer lang mixen</span>
+                Stop de mixer. Schraap de bodem en zijkanten van de kom en vouw het beslag met een spatel nog enkele keren rustig om tot het volledig egaal is.
+                <div class="warning">
+                    <span class="box-title">Niet overmixen</span>
+                    Zodra de bloem is toegevoegd, is lang of hard mixen ongewenst. Dat kan extra gluten ontwikkelen en de cake steviger en minder fluweelzacht maken.
+                </div>
+            </li>
+        </ol>
+
+        <h3>Vorm vullen</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">Beslag in de vorm scheppen</span>
+                Schep het beslag in de voorbereide rechthoekige vorm.
+            </li>
+            <li>
+                <span class="step-title">Bovenkant gladstrijken</span>
+                Strijk het oppervlak voorzichtig glad met een spatel. Duw het beslag ook goed in de hoeken.
+            </li>
+            <li>
+                <span class="step-title">Vorm één keer zacht neerzetten</span>
+                Zet de vorm één keer voorzichtig op het werkblad om een eventuele zeer grote luchtbel te laten ontsnappen. Niet herhaaldelijk hard tikken: we willen de ingeklopte lucht behouden.
+            </li>
+        </ol>
+
+        <h3>Bakken</h3>
+
+        <div class="bake-card">
+            <div><strong>160°C</strong>hetelucht</div>
+            <div><strong>50–60 min</strong>richttijd</div>
+            <div><strong>10 min</strong>in vorm afkoelen</div>
+        </div>
+
+        <ol class="steps">
+            <li>
+                <span class="step-title">Op het middelste rooster zetten</span>
+                Plaats de cakevorm in het midden van de voorverwarmde oven.
+            </li>
+            <li>
+                <span class="step-title">Eerste 45 minuten de oven dicht laten</span>
+                Open de ovendeur tijdens de eerste <strong>45 minuten</strong> niet. Een vroege sterke temperatuurdaling kan de cake doen inzakken.
+            </li>
+            <li>
+                <span class="step-title">Vanaf 50 minuten controleren</span>
+                Controleer de cake vanaf ongeveer <strong>50 minuten</strong>. Steek een houten prikker in het dikste deel in het midden.
+            </li>
+            <li>
+                <span class="step-title">Wanneer is hij klaar?</span>
+                De cake is klaar wanneer de bovenkant goudgeel is, licht terugveert wanneer u hem voorzichtig indrukt en de prikker <strong>droog of met slechts enkele zachte kruimeltjes</strong> terugkomt. Er mag geen nat beslag aan zitten.
+            </li>
+            <li>
+                <span class="step-title">Zo nodig telkens 5 minuten langer</span>
+                Zit er nog nat beslag aan de prikker, bak dan nog <strong>5 minuten</strong> en controleer opnieuw. De totale baktijd ligt bij een gebruikelijke cakevorm meestal rond <strong>50 tot 60 minuten</strong>.
+                <div class="warning">
+                    <span class="box-title">Niet onnodig lang bakken</span>
+                    Te lang bakken is één van de eenvoudigste manieren om een zachte vanillecake droog te maken. Stop zodra het midden gaar is.
+                </div>
+            </li>
+        </ol>
+
+        <h3>Afkoelen — belangrijk voor een zachte cake</h3>
+        <ol class="steps">
+            <li>
+                <span class="step-title">10 minuten in de vorm laten staan</span>
+                Haal de vorm uit de oven en zet hem op een rooster. Laat de cake ongeveer <strong>10 minuten</strong> in de vorm rusten.
+            </li>
+            <li>
+                <span class="step-title">Cake uit de vorm tillen</span>
+                Gebruik de uitstekende randen van het bakpapier om de cake voorzichtig uit de vorm te tillen.
+            </li>
+            <li>
+                <span class="step-title">Bakpapier losmaken</span>
+                Trek het papier voorzichtig van de zijkanten weg en laat de cake op het rooster verder afkoelen.
+            </li>
+            <li>
+                <span class="step-title">Volledig laten afkoelen vóór aansnijden</span>
+                Wacht tot de cake volledig is afgekoeld. Dan is de structuur gestabiliseerd en krijgt u mooie, zachte plakken in plaats van een kruimelige warme snede.
+            </li>
+        </ol>
+
+        <h3>Voor een extra zachte cake de volgende dag</h3>
+        <div class="success">
+            <span class="box-title">Bewaren</span>
+            Zodra de cake <strong>volledig koud</strong> is, bewaart u hem goed afgesloten in een taartdoos of wikkelt u hem in vershoudfolie. Laat hem niet onbedekt op het aanrecht staan. Een goed afgesloten vanillecake is de volgende dag vaak zelfs nog zachter en gelijkmatiger van kruim.
+        </div>
+
+        <div class="tip">
+            <span class="box-title">De vijf regels voor een fluweelzachte vanillecake</span>
+            1. Gebruik zachte boter en ingrediënten op kamertemperatuur.<br>
+            2. Klop boter en suiker echt 4–5 minuten luchtig.<br>
+            3. Voeg de eieren één voor één toe.<br>
+            4. Meng na toevoeging van de bloem zo kort mogelijk.<br>
+            5. Bak niet langer dan nodig en bewaar de volledig afgekoelde cake goed afgesloten.
+        </div>
+
+        <a class="backtop" href="#top">↑ Terug naar boven</a>
+    </section>
+
+    </main>
 
 </body>
 </html>
